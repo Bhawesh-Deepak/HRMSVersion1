@@ -1,134 +1,689 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
-
 }
 @using System.Globalization;
+<div class="content-wrapper" style="min-height: 870px;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            <strong>Welcome</strong> to Square Beats: Rohit Kumar
+            <a href="#" class="lead btn btn-primary"><em class="fa fa-plus"></em>Generate Lead</a>
+        </h1>
+        <ol class="breadcrumb">
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <!-- Your Page Content Here -->
+        <div>
+            <div>
+                <style>
+                    .popupBG .topBox .sliderrbox .owl-carousel .owl-item .item .circle img {
+                        width: 105px !important;
+                        height: 105px !important;
+                        border-radius: 50% !important;
+                    }
 
-<script src="https://www.gstatic.com/charts/loader.js"></script>
+                    .popupBG .close em {
+                        z-index: 999;
+                    }
+                </style>
+                <style>
+                    .flexBox {
+                        display: flex;
+                    }
 
-<div class="row">
-    <div class="row">
-        <div class="col-md-12">
-            <div id="divModuleDetails">
+                    .homePage {
+                        width: 100%;
+                        margin-right: 15px;
+                    }
 
+                        .homePage:last-child {
+                            margin: 0px;
+                        }
+                </style>
+                <div>
+                    <style>
+                        /*.incentiveProject{height: 243px;
+                        width: 100%;
+                        display: block;
+                        overflow: hidden;
+                        overflow-y: auto;}*/
+                        .table-fixed {
+                            height: 292.71px;
+                            width: 100%;
+                            overflow-y: auto;
+                        }
+
+                        .trendingTab {
+                            display: block
+                        }
+
+                            .trendingTab ul {
+                                padding: 0;
+                                margin: 0;
+                                display: block;
+                                overflow: hidden;
+                                overflow-x: auto;
+                                text-align: left;
+                                white-space: nowrap;
+                                border-bottom: 1px solid #ddd
+                            }
+
+                                .trendingTab ul li {
+                                    padding: 0 8px;
+                                    display: inline-block;
+                                    white-space: nowrap;
+                                    border-bottom: #fff solid 2px;
+                                    line-height: 30px;
+                                    transition: .3s;
+                                    cursor: pointer
+                                }
+
+                                    .trendingTab ul li.active {
+                                        background: #f7f7f7;
+                                        border-bottom: 2px solid #0078BF;
+                                        transition: .3s;
+                                        border-radius: 5px 5px 0 0;
+                                        cursor: default
+                                    }
+
+                        .trendingTabBody {
+                            padding-top: 5px;
+                            display: block
+                        }
+
+                            .trendingTabBody .box {
+                                border-radius: 5px;
+                                border: 1px solid #d2d6de;
+                                box-shadow: none;
+                                margin: 5px 0 0;
+                                overflow: hidden
+                            }
+
+                                .trendingTabBody .box .heading {
+                                    padding: 3px 10px;
+                                    background: #f7f7f7;
+                                    position: relative
+                                }
+
+                                    .trendingTabBody .box .heading em {
+                                        width: 15px;
+                                        height: 15px;
+                                        float: right;
+                                        position: relative;
+                                        right: -3px;
+                                        top: 2px;
+                                        z-index: 1;
+                                        cursor: pointer
+                                    }
+
+                                        .trendingTabBody .box .heading em:after {
+                                            content: '';
+                                            position: absolute;
+                                            top: 6px;
+                                            right: 0;
+                                            width: 15px;
+                                            height: 2px;
+                                            background: #ccc
+                                        }
+
+                                        .trendingTabBody .box .heading em:before {
+                                            content: '';
+                                            position: absolute;
+                                            top: 6px;
+                                            right: 0;
+                                            width: 15px;
+                                            height: 2px;
+                                            background: #ccc;
+                                            transform: rotate(90deg);
+                                            transition: .3s
+                                        }
+
+                                .trendingTabBody .box .dataBody {
+                                    display: none
+                                }
+
+                                .trendingTabBody .box.active .heading em:before {
+                                    transform: rotate(180deg);
+                                    transition: .3s
+                                }
+
+                                .trendingTabBody .box.active .dataBody {
+                                    display: block
+                                }
+
+                        .trendingNav {
+                            display: block;
+                            position: relative;
+                            overflow: hidden;
+                            background: #fff;
+                            text-align: center
+                        }
+
+                            .trendingNav h3 {
+                                padding: 0 15px;
+                                margin: 0;
+                                font-size: 14px;
+                                font-weight: 700;
+                                display: block;
+                                width: 600px;
+                                background: #000;
+                                color: #fff;
+                                line-height: 40px
+                            }
+
+                            .trendingNav ul {
+                                padding: 0;
+                                margin: 0;
+                                display: block
+                            }
+
+                                .trendingNav ul li {
+                                    display: block;
+                                    border-top: 1px solid #e5e5e5;
+                                    transition: .3s
+                                }
+
+                                    .trendingNav ul li a {
+                                        padding: 0 10px;
+                                        font-size: 13px;
+                                        color: #333;
+                                        display: block;
+                                        transition: .3s;
+                                        line-height: 25px
+                                    }
+
+                                        .trendingNav ul li a em {
+                                            margin-right: 5px;
+                                            font-size: 18px;
+                                            position: relative;
+                                            top: 3px
+                                        }
+
+                                    .trendingNav ul li.active, .trendingNav ul li:hover {
+                                        background: #009e73;
+                                        transition: .3s
+                                    }
+
+                                        .trendingNav ul li.active a, .trendingNav ul li:hover a {
+                                            color: #fff;
+                                            transition: .3s
+                                        }
+                    </style>
+                    <div class="row">
+                        <script>
+                            $('#exampledatatable').dataTable({
+                                "iDisplayLength": 5,
+                                "bDestroy": true,
+                                "scrollX": true,
+                                "aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+                            });
+                        </script>
+                        <div class="col-md-6">
+                            <div class="row" style="margin-top:0;">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="box box-danger">
+                                        <div class="box-header with-border">
+                                            <div class="box-title">
+                                                Employee Exit&nbsp;
+                                                <small>(640)</small>
+                                            </div>
+                                        </div>
+                                        <div class="box-body">
+                                            <div class="table-responsive">
+                                                <div>
+                                                    <div id="cp_MainContent_widgetExitEmployee_grdExitEmployees_wrapper" class="dataTables_wrapper" role="grid">
+                                                        <div id="cp_MainContent_widgetExitEmployee_grdExitEmployees_length" class="dataTables_length">
+                                                            <label>
+                                                                Show
+                                                                <select size="1" name="cp_MainContent_widgetExitEmployee_grdExitEmployees_length" aria-controls="cp_MainContent_widgetExitEmployee_grdExitEmployees">
+                                                                    <option value="5" selected="selected">5</option>
+                                                                    <option value="10">10</option>
+                                                                    <option value="25">25</option>
+                                                                    <option value="50">50</option>
+                                                                    <option value="-1">All</option>
+                                                                </select>
+                                                                entries
+                                                            </label>
+                                                        </div>
+                                                        <div class="dataTables_filter" id="cp_MainContent_widgetExitEmployee_grdExitEmployees_filter"><label>Search: <input type="text" aria-controls="cp_MainContent_widgetExitEmployee_grdExitEmployees"></label></div>
+                                                        <table class="table table-condensed table-striped table-hover table-bordered table-body-nowrap table-head-nowrap dataTable" cellspacing="0" rules="all" border="1" id="exampledatatable" style="border-collapse:collapse;" aria-describedby="cp_MainContent_widgetExitEmployee_grdExitEmployees_info">
+                                                            <thead>
+                                                                <tr class="th-danger" role="row">
+                                                                    <th scope="col" class="sorting_asc" role="columnheader" tabindex="0" aria-controls="cp_MainContent_widgetExitEmployee_grdExitEmployees" rowspan="1" colspan="1" aria-sort="ascending" aria-label="&amp;nbsp;: activate to sort column descending" style="width: 23px;">&nbsp;</th>
+                                                                    <th scope="col" class="sorting" role="columnheader" tabindex="0" aria-controls="cp_MainContent_widgetExitEmployee_grdExitEmployees" rowspan="1" colspan="1" aria-label="#: activate to sort column ascending" style="width: 22px;">#</th>
+                                                                    <th scope="col" class="sorting" role="columnheader" tabindex="0" aria-controls="cp_MainContent_widgetExitEmployee_grdExitEmployees" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending" style="width: 202px;">Name</th>
+                                                                    <th scope="col" class="sorting" role="columnheader" tabindex="0" aria-controls="cp_MainContent_widgetExitEmployee_grdExitEmployees" rowspan="1" colspan="1" aria-label="P&amp;amp;L Head: activate to sort column ascending" style="width: 150px;">P&amp;L Head</th>
+                                                                    <th scope="col" class="sorting" role="columnheader" tabindex="0" aria-controls="cp_MainContent_widgetExitEmployee_grdExitEmployees" rowspan="1" colspan="1" aria-label="LWD: activate to sort column ascending" style="width: 66px;">LWD</th>
+                                                                    <th scope="col" class="sorting" role="columnheader" tabindex="0" aria-controls="cp_MainContent_widgetExitEmployee_grdExitEmployees" rowspan="1" colspan="1" aria-label="&amp;nbsp;: activate to sort column ascending" style="width: 21px;">&nbsp;</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody role="alert" aria-live="polite" aria-relevant="all">
+                                                                <tr class="odd">
+                                                                    <td align="center" style="width:20px;" class="  sorting_1">
+                                                                        <input type="hidden" name="ctl00$cp_MainContent$widgetExitEmployee$grdExitEmployees$ctl02$hfEmployeeId" id="cp_MainContent_widgetExitEmployee_grdExitEmployees_hfEmployeeId_0" value="56123">
+                                                                        <a onclick="return confirm('Retain the employee?');" id="cp_MainContent_widgetExitEmployee_grdExitEmployees_lbtRetain_0" title="Retain" class="btn btn-primary btn-xs" href="javascript:__doPostBack('ctl00$cp_MainContent$widgetExitEmployee$grdExitEmployees$ctl02$lbtRetain','')">
+                                                                            <span class="glyphicon glyphicon-log-in"></span>
+                                                                        </a>
+                                                                    </td>
+                                                                    <td align="center" style="width:20px;" class=" ">
+                                                                        1.
+                                                                    </td>
+                                                                    <td class=" "><a href="HR/Profile.aspx?id=56123" target="_blank">Nirbhay Anand</a></td>
+                                                                    <td class=" ">Sopan Gupta</td>
+                                                                    <td class="align-center ">09 Dec 2021</td>
+                                                                    <td align="center" style="width:20px;" class=" ">
+                                                                        <a id="cp_MainContent_widgetExitEmployee_grdExitEmployees_img_exit_0" title="Exit" class="btn btn-xs btn-danger" href="HR/employeeexit.aspx?id=56123" target="_blank"><i class="fa fa-ban"></i></a>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="even">
+                                                                    <td align="center" style="width:20px;" class="  sorting_1">
+                                                                        <input type="hidden" name="ctl00$cp_MainContent$widgetExitEmployee$grdExitEmployees$ctl03$hfEmployeeId" id="cp_MainContent_widgetExitEmployee_grdExitEmployees_hfEmployeeId_1" value="68395">
+                                                                        <a onclick="return confirm('Retain the employee?');" id="cp_MainContent_widgetExitEmployee_grdExitEmployees_lbtRetain_1" title="Retain" class="btn btn-primary btn-xs" href="javascript:__doPostBack('ctl00$cp_MainContent$widgetExitEmployee$grdExitEmployees$ctl03$lbtRetain','')">
+                                                                            <span class="glyphicon glyphicon-log-in"></span>
+                                                                        </a>
+                                                                    </td>
+                                                                    <td align="center" style="width:20px;" class=" ">
+                                                                        2.
+                                                                    </td>
+                                                                    <td class=" "><a href="HR/Profile.aspx?id=68395" target="_blank">Kruthik Devaiah K K</a></td>
+                                                                    <td class=" ">Sopan Gupta</td>
+                                                                    <td class="align-center ">09 Dec 2021</td>
+                                                                    <td align="center" style="width:20px;" class=" ">
+                                                                        <a id="cp_MainContent_widgetExitEmployee_grdExitEmployees_img_exit_1" title="Exit" class="btn btn-xs btn-danger" href="HR/employeeexit.aspx?id=68395" target="_blank"><i class="fa fa-ban"></i></a>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="odd">
+                                                                    <td align="center" style="width:20px;" class="  sorting_1">
+                                                                        <input type="hidden" name="ctl00$cp_MainContent$widgetExitEmployee$grdExitEmployees$ctl04$hfEmployeeId" id="cp_MainContent_widgetExitEmployee_grdExitEmployees_hfEmployeeId_2" value="61545">
+                                                                        <a onclick="return confirm('Retain the employee?');" id="cp_MainContent_widgetExitEmployee_grdExitEmployees_lbtRetain_2" title="Retain" class="btn btn-primary btn-xs" href="javascript:__doPostBack('ctl00$cp_MainContent$widgetExitEmployee$grdExitEmployees$ctl04$lbtRetain','')">
+                                                                            <span class="glyphicon glyphicon-log-in"></span>
+                                                                        </a>
+                                                                    </td>
+                                                                    <td align="center" style="width:20px;" class=" ">
+                                                                        3.
+                                                                    </td>
+                                                                    <td class=" "><a href="HR/Profile.aspx?id=61545" target="_blank">Ajaz T K</a></td>
+                                                                    <td class=" ">Sopan Gupta</td>
+                                                                    <td class="align-center ">09 Dec 2021</td>
+                                                                    <td align="center" style="width:20px;" class=" ">
+                                                                        <a id="cp_MainContent_widgetExitEmployee_grdExitEmployees_img_exit_2" title="Exit" class="btn btn-xs btn-danger" href="HR/employeeexit.aspx?id=61545" target="_blank"><i class="fa fa-ban"></i></a>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="even">
+                                                                    <td align="center" style="width:20px;" class="  sorting_1">
+                                                                        <input type="hidden" name="ctl00$cp_MainContent$widgetExitEmployee$grdExitEmployees$ctl05$hfEmployeeId" id="cp_MainContent_widgetExitEmployee_grdExitEmployees_hfEmployeeId_3" value="69565">
+                                                                        <a onclick="return confirm('Retain the employee?');" id="cp_MainContent_widgetExitEmployee_grdExitEmployees_lbtRetain_3" title="Retain" class="btn btn-primary btn-xs" href="javascript:__doPostBack('ctl00$cp_MainContent$widgetExitEmployee$grdExitEmployees$ctl05$lbtRetain','')">
+                                                                            <span class="glyphicon glyphicon-log-in"></span>
+                                                                        </a>
+                                                                    </td>
+                                                                    <td align="center" style="width:20px;" class=" ">
+                                                                        4.
+                                                                    </td>
+                                                                    <td class=" "><a href="HR/Profile.aspx?id=69565" target="_blank">Shamma Taj</a></td>
+                                                                    <td class=" ">Sopan Gupta</td>
+                                                                    <td class="align-center ">09 Dec 2021</td>
+                                                                    <td align="center" style="width:20px;" class=" ">
+                                                                        <a id="cp_MainContent_widgetExitEmployee_grdExitEmployees_img_exit_3" title="Exit" class="btn btn-xs btn-danger" href="HR/employeeexit.aspx?id=69565" target="_blank"><i class="fa fa-ban"></i></a>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="odd">
+                                                                    <td align="center" style="width:20px;" class="  sorting_1">
+                                                                        <input type="hidden" name="ctl00$cp_MainContent$widgetExitEmployee$grdExitEmployees$ctl06$hfEmployeeId" id="cp_MainContent_widgetExitEmployee_grdExitEmployees_hfEmployeeId_4" value="67732">
+                                                                        <a onclick="return confirm('Retain the employee?');" id="cp_MainContent_widgetExitEmployee_grdExitEmployees_lbtRetain_4" title="Retain" class="btn btn-primary btn-xs" href="javascript:__doPostBack('ctl00$cp_MainContent$widgetExitEmployee$grdExitEmployees$ctl06$lbtRetain','')">
+                                                                            <span class="glyphicon glyphicon-log-in"></span>
+                                                                        </a>
+                                                                    </td>
+                                                                    <td align="center" style="width:20px;" class=" ">
+                                                                        5.
+                                                                    </td>
+                                                                    <td class=" "><a href="HR/Profile.aspx?id=67732" target="_blank">Anshuman Saikia</a></td>
+                                                                    <td class=" ">Suhas Dattatraya Paithankar</td>
+                                                                    <td class="align-center ">09 Dec 2021</td>
+                                                                    <td align="center" style="width:20px;" class=" ">
+                                                                        <a id="cp_MainContent_widgetExitEmployee_grdExitEmployees_img_exit_4" title="Exit" class="btn btn-xs btn-danger" href="HR/employeeexit.aspx?id=67732" target="_blank"><i class="fa fa-ban"></i></a>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <div class="dataTables_info" id="cp_MainContent_widgetExitEmployee_grdExitEmployees_info">Showing 1 to 5 of 640 entries</div>
+                                                        <div class="dataTables_paginate paging_two_button" id="cp_MainContent_widgetExitEmployee_grdExitEmployees_paginate"><a class="paginate_disabled_previous" tabindex="0" role="button" id="cp_MainContent_widgetExitEmployee_grdExitEmployees_previous" aria-controls="cp_MainContent_widgetExitEmployee_grdExitEmployees">Previous</a><a class="paginate_enabled_next" tabindex="0" role="button" id="cp_MainContent_widgetExitEmployee_grdExitEmployees_next" aria-controls="cp_MainContent_widgetExitEmployee_grdExitEmployees">Next</a></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="box box-primary">
+                                <div class="box-header">
+                                    <div class="box-title">Pending TCF Collection</div>
+                                </div>
+                                <div class="box-body">
+                                    <div class="table-responsive">
+                                        <div>
+                                            <table class="table table-condensed table-striped table-hover table-bordered table-body-nowrap table-head-nowrap" cellspacing="0" rules="all" border="1" id="cp_MainContent_VerifyCollectionTDS_grdPendingColl" style="border-collapse:collapse;">
+                                                <tbody>
+                                                    <tr class="th-primary">
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">Collection From</th>
+                                                        <th scope="col">Total</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="align-center" style="width:20px;">
+                                                            1.
+                                                        </td>
+                                                        <td>APEX REALTY VENTURES LLP</td>
+                                                        <td class="align-left"><a href="Sales/Invoice/VerifyChequeStatus.aspx?toorgid=6541" target="_blank">2</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="align-center" style="width:20px;">
+                                                            2.
+                                                        </td>
+                                                        <td>BRAMARAMBA MALLIKARJUNA REALTERS</td>
+                                                        <td class="align-left"><a href="Sales/Invoice/VerifyChequeStatus.aspx?toorgid=7407" target="_blank">1</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="align-center" style="width:20px;">
+                                                            3.
+                                                        </td>
+                                                        <td>Deyaar Development PJSC.</td>
+                                                        <td class="align-left"><a href="Sales/Invoice/VerifyChequeStatus.aspx?toorgid=2947" target="_blank">1</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="align-center" style="width:20px;">
+                                                            4.
+                                                        </td>
+                                                        <td>GREENERY ROCK LLP</td>
+                                                        <td class="align-left"><a href="Sales/Invoice/VerifyChequeStatus.aspx?toorgid=7363" target="_blank">1</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="align-center" style="width:20px;">
+                                                            5.
+                                                        </td>
+                                                        <td>KEYSTONE INFRASTRUCTURE PRIVATE LIMITED</td>
+                                                        <td class="align-left"><a href="Sales/Invoice/VerifyChequeStatus.aspx?toorgid=4917" target="_blank">1</a></td>
+                                                    </tr>
+                                                    <tr class="grid-pager">
+                                                        <td colspan="3">
+                                                            <table>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td><span>1</span></td>
+                                                                        <td><a href="javascript:__doPostBack('ctl00$cp_MainContent$VerifyCollectionTDS$grdPendingColl','Page$2')">2</a></td>
+                                                                        <td><a href="javascript:__doPostBack('ctl00$cp_MainContent$VerifyCollectionTDS$grdPendingColl','Page$3')">3</a></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 table-responsive">
+                            <div class="box box-primary">
+                                <div class="box-header">
+                                    <div class="box-title">Pending TCF TDS</div>
+                                </div>
+                                <div class="box-body">
+                                    <div class="table-responsive">
+                                        <div>
+                                            <table class="table table-condensed table-striped table-hover table-bordered table-body-nowrap table-head-nowrap" cellspacing="0" rules="all" border="1" id="cp_MainContent_VerifyCollectionTDS_grdPendingTDS" style="border-collapse:collapse;">
+                                                <tbody>
+                                                    <tr class="th-primary">
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">Collection From</th>
+                                                        <th scope="col">Type</th>
+                                                        <th scope="col">Total</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="align-center" style="width:20px;">
+                                                            1.
+                                                        </td>
+                                                        <td>	Majestique Heights </td>
+                                                        <td>Invoice</td>
+                                                        <td class="align-left"><a href="Sales/Invoice/TDSVerify.aspx?toorgid=7139&amp;type=ITV" target="_blank">1</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="align-center" style="width:20px;">
+                                                            2.
+                                                        </td>
+                                                        <td>A K Enterprisers</td>
+                                                        <td>Invoice</td>
+                                                        <td class="align-left"><a href="Sales/Invoice/TDSVerify.aspx?toorgid=6237&amp;type=ITV" target="_blank">1</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="align-center" style="width:20px;">
+                                                            3.
+                                                        </td>
+                                                        <td>A L SOFTWEB PRIVATE LIMITED</td>
+                                                        <td>Invoice</td>
+                                                        <td class="align-left"><a href="Sales/Invoice/TDSVerify.aspx?toorgid=7355&amp;type=ITV" target="_blank">8</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="align-center" style="width:20px;">
+                                                            4.
+                                                        </td>
+                                                        <td>A Plus Design House LLP</td>
+                                                        <td>Invoice</td>
+                                                        <td class="align-left"><a href="Sales/Invoice/TDSVerify.aspx?toorgid=6019&amp;type=ITV" target="_blank">4</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="align-center" style="width:20px;">
+                                                            5.
+                                                        </td>
+                                                        <td>Aadhar</td>
+                                                        <td>Invoice</td>
+                                                        <td class="align-left"><a href="Sales/Invoice/TDSVerify.aspx?toorgid=263&amp;type=ITV" target="_blank">5</a></td>
+                                                    </tr>
+                                                    <tr class="grid-pager">
+                                                        <td colspan="4">
+                                                            <table>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td><span>1</span></td>
+                                                                        <td><a href="javascript:__doPostBack('ctl00$cp_MainContent$VerifyCollectionTDS$grdPendingTDS','Page$2')">2</a></td>
+                                                                        <td><a href="javascript:__doPostBack('ctl00$cp_MainContent$VerifyCollectionTDS$grdPendingTDS','Page$3')">3</a></td>
+                                                                        <td><a href="javascript:__doPostBack('ctl00$cp_MainContent$VerifyCollectionTDS$grdPendingTDS','Page$4')">4</a></td>
+                                                                        <td><a href="javascript:__doPostBack('ctl00$cp_MainContent$VerifyCollectionTDS$grdPendingTDS','Page$5')">5</a></td>
+                                                                        <td><a href="javascript:__doPostBack('ctl00$cp_MainContent$VerifyCollectionTDS$grdPendingTDS','Page$6')">...</a></td>
+                                                                        <td><a href="javascript:__doPostBack('ctl00$cp_MainContent$VerifyCollectionTDS$grdPendingTDS','Page$Last')">Last</a></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="box box-primary">
+                                <div class="box-header">
+                                    <div class="box-title">Pending MCF Collection</div>
+                                </div>
+                                <div class="box-body">
+                                    <div class="table-responsive">
+                                        <div>
+                                            <table class="table table-condensed table-striped table-hover table-bordered table-body-nowrap table-head-nowrap" cellspacing="0" rules="all" border="1" id="cp_MainContent_VerifyCollectionTDS_gvPendingMCFColl" style="border-collapse:collapse;">
+                                                <tbody>
+                                                    <tr class="th-primary">
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">Bank</th>
+                                                        <th scope="col">Loan Party</th>
+                                                        <th scope="col">Type Of Loan</th>
+                                                        <th scope="col">Total</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="align-center" style="width:20px;">
+                                                            1.
+                                                        </td>
+                                                        <td>Axis Finance</td>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                        <td class="align-left"><a href="Sales/MCFInvoice/VerifyChequeStatus.aspx?lbankId=394&amp;lpartyId=-1&amp;ltypeid=-1" target="_blank">2</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="align-center" style="width:20px;">
+                                                            2.
+                                                        </td>
+                                                        <td>Bajaj Housing Finance Limited</td>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                        <td class="align-left"><a href="Sales/MCFInvoice/VerifyChequeStatus.aspx?lbankId=371&amp;lpartyId=-1&amp;ltypeid=-1" target="_blank">1</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="align-center" style="width:20px;">
+                                                            3.
+                                                        </td>
+                                                        <td>Charge To Customer</td>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                        <td class="align-left"><a href="Sales/MCFInvoice/VerifyChequeStatus.aspx?lbankId=83&amp;lpartyId=-1&amp;ltypeid=-1" target="_blank">1</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="align-center" style="width:20px;">
+                                                            4.
+                                                        </td>
+                                                        <td>HDFC BANK</td>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                        <td class="align-left"><a href="Sales/MCFInvoice/VerifyChequeStatus.aspx?lbankId=3&amp;lpartyId=-1&amp;ltypeid=-1" target="_blank">1</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="align-center" style="width:20px;">
+                                                            5.
+                                                        </td>
+                                                        <td>HDFC LTD</td>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                        <td class="align-left"><a href="Sales/MCFInvoice/VerifyChequeStatus.aspx?lbankId=22&amp;lpartyId=-1&amp;ltypeid=-1" target="_blank">1</a></td>
+                                                    </tr>
+                                                    <tr class="grid-pager">
+                                                        <td colspan="5">
+                                                            <table>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td><span>1</span></td>
+                                                                        <td><a href="javascript:__doPostBack('ctl00$cp_MainContent$VerifyCollectionTDS$gvPendingMCFColl','Page$2')">2</a></td>
+                                                                        <td><a href="javascript:__doPostBack('ctl00$cp_MainContent$VerifyCollectionTDS$gvPendingMCFColl','Page$3')">3</a></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 table-responsive">
+                            <div class="box box-primary">
+                                <div class="box-header">
+                                    <div class="box-title">Pending MCF TDS</div>
+                                </div>
+                                <div class="box-body">
+                                    <div class="table-responsive">
+                                        <div>
+                                            <table class="table table-condensed table-striped table-hover table-bordered table-body-nowrap table-head-nowrap" cellspacing="0" rules="all" border="1" id="cp_MainContent_VerifyCollectionTDS_gvPendingMCFTDS" style="border-collapse:collapse;">
+                                                <tbody>
+                                                    <tr class="th-primary">
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">Bank</th>
+                                                        <th scope="col">Loan Party</th>
+                                                        <th scope="col">Type</th>
+                                                        <th scope="col">Total</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="align-center" style="width:20px;">
+                                                            1.
+                                                        </td>
+                                                        <td>&nbsp;</td>
+                                                        <td>Andromeda</td>
+                                                        <td>Invoice</td>
+                                                        <td class="align-left"><a href="Sales/MCFInvoice/VerifyTDS.aspx?lbankId=-1&amp;lpartyId=1&amp;type=ITV" target="_blank">102</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="align-center" style="width:20px;">
+                                                            2.
+                                                        </td>
+                                                        <td>&nbsp;</td>
+                                                        <td>ASHE MARCOM PRIVATE LIMITED</td>
+                                                        <td>Invoice</td>
+                                                        <td class="align-left"><a href="Sales/MCFInvoice/VerifyTDS.aspx?lbankId=-1&amp;lpartyId=34&amp;type=ITV" target="_blank">1</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="align-center" style="width:20px;">
+                                                            3.
+                                                        </td>
+                                                        <td>&nbsp;</td>
+                                                        <td>Bhavya Associates </td>
+                                                        <td>Invoice</td>
+                                                        <td class="align-left"><a href="Sales/MCFInvoice/VerifyTDS.aspx?lbankId=-1&amp;lpartyId=10&amp;type=ITV" target="_blank">1</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="align-center" style="width:20px;">
+                                                            4.
+                                                        </td>
+                                                        <td>&nbsp;</td>
+                                                        <td>Comfort marketing </td>
+                                                        <td>Invoice</td>
+                                                        <td class="align-left"><a href="Sales/MCFInvoice/VerifyTDS.aspx?lbankId=-1&amp;lpartyId=4&amp;type=ITV" target="_blank">10</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="align-center" style="width:20px;">
+                                                            5.
+                                                        </td>
+                                                        <td>&nbsp;</td>
+                                                        <td>Delphi</td>
+                                                        <td>Invoice</td>
+                                                        <td class="align-left"><a href="Sales/MCFInvoice/VerifyTDS.aspx?lbankId=-1&amp;lpartyId=3&amp;type=ITV" target="_blank">1</a></td>
+                                                    </tr>
+                                                    <tr class="grid-pager">
+                                                        <td colspan="5">
+                                                            <table>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td><span>1</span></td>
+                                                                        <td><a href="javascript:__doPostBack('ctl00$cp_MainContent$VerifyCollectionTDS$gvPendingMCFTDS','Page$2')">2</a></td>
+                                                                        <td><a href="javascript:__doPostBack('ctl00$cp_MainContent$VerifyCollectionTDS$gvPendingMCFTDS','Page$3')">3</a></td>
+                                                                        <td><a href="javascript:__doPostBack('ctl00$cp_MainContent$VerifyCollectionTDS$gvPendingMCFTDS','Page$4')">4</a></td>
+                                                                        <td><a href="javascript:__doPostBack('ctl00$cp_MainContent$VerifyCollectionTDS$gvPendingMCFTDS','Page$5')">5</a></td>
+                                                                        <td><a href="javascript:__doPostBack('ctl00$cp_MainContent$VerifyCollectionTDS$gvPendingMCFTDS','Page$6')">...</a></td>
+                                                                        <td><a href="javascript:__doPostBack('ctl00$cp_MainContent$VerifyCollectionTDS$gvPendingMCFTDS','Page$Last')">Last</a></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </div>
-        <div class="col-md-12">
-
-            <div class="col-md-6">
-
-                <div class="box box-info">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Fee Report</h3>
-
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                                <i class="fa fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                        </div>
-                    </div>
-                    <div class="box-body">
-                    </div>
-
-                </div>
-
-
-            </div>
-
-            <div class="col-md-6">
-
-                <div class="box box-info">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Class Wise Strength</h3>
-
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                                <i class="fa fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                        </div>
-                    </div>
-                    <div class="box-body">
-                    </div>
-
-                </div>
-
-
-            </div>
-            <div class="col-md-6">
-                <div class="box box-info">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Today Strength </h3>
-
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                                <i class="fa fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                        </div>
-                    </div>
-                    <div class="box-body">
-                    </div>
-
-                </div>
-
-            </div>
-            <div class="col-md-6">
-                <div class="box box-info">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Student Strength Month Wise</h3>
-
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                                <i class="fa fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                        </div>
-                    </div>
-                    <div class="box-body">
-                        <div class="col-md-12">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-control-label">Year</label>
-                                    <select class="form-control" id="ddlYear">
-                                        <option value="0">Select</option>
-                                        <option value="2020">2020</option>
-                                        <option value="2021">2021</option>
-                                        <option value="2022">2022</option>
-                                    </select>
-                                </div>
-
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-control-label">Month</label>
-                                    <select class="form-control" id="ddlMonth" onchange="GetStudentDetailsMonthWise()">
-                                        <option>Select</option>
-                                       
-
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-control-label">Day</label>
-                                    <select class="form-control" id="ddlDay">
-                                        <option>Select</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-    </div>
+    </section>
+    <!-- /.content -->
 </div>
-
-<script>
-
-</script>
