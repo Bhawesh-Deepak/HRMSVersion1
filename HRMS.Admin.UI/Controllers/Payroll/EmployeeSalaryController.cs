@@ -1,10 +1,14 @@
-﻿using HRMS.Core.Entities.Payroll;
+﻿using HRMS.Admin.UI.Helpers;
+using HRMS.Core.Entities.Payroll;
+using HRMS.Core.Entities.UserManagement;
 using HRMS.Core.Helpers.CommonHelper;
 using HRMS.Core.Helpers.ExcelHelper;
 using HRMS.Core.ReqRespVm.RequestVm;
 using HRMS.Services.Repository.GenericRepository;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace HRMS.Admin.UI.Controllers.Payroll
@@ -13,12 +17,13 @@ namespace HRMS.Admin.UI.Controllers.Payroll
     {
         private readonly IGenericRepository<EmployeeDetail, int> _IEmployeeDetailRepository;
         private readonly IGenericRepository<EmployeeSalaryDetail, int> _IEmployeeSalaryDetailRepository;
-
+        private readonly IGenericRepository<AuthenticateUser, int> _IAuthenticateRepository;
         public EmployeeSalaryController(IGenericRepository<EmployeeDetail, int> employeeDetailRepo,
-            IGenericRepository<EmployeeSalaryDetail, int> employeeSalaryDetailRepo)
+            IGenericRepository<EmployeeSalaryDetail, int> employeeSalaryDetailRepo, IGenericRepository<AuthenticateUser, int> authRepository)
         {
             _IEmployeeDetailRepository = employeeDetailRepo;
             _IEmployeeSalaryDetailRepository = employeeSalaryDetailRepo;
+            _IAuthenticateRepository = authRepository;
         }
         public IActionResult Index()
         {
@@ -36,14 +41,41 @@ namespace HRMS.Admin.UI.Controllers.Payroll
 
                 var employeeSalaryReponse = await _IEmployeeSalaryDetailRepository.CreateEntities(response.EmployeeSalaryDetails.ToArray());
 
+                await CreateUserCredential();
+
                 return Json("Employee Basic information and Salary Detail Uploaded successfully !!!");
             }
             catch (Exception ex)
             {
-                Serilog.Log.Information(ex.InnerException.ToString(),ex);
+                Serilog.Log.Information(ex.InnerException.ToString(), ex);
                 return Json("Unable to upload the Excel File, Something wents wrong please contact admin !");
             }
+        }
 
+        public  async Task<IActionResult> CreateUserCredential()
+        {
+            var responseData = await _IEmployeeDetailRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+            var models = new List<AuthenticateUser>();
+            responseData.Entities.ToList().ForEach(data =>
+            {
+                var model = new AuthenticateUser()
+                {
+                    EmployeeId = data.Id,
+                    DisplayUserName = data.EmployeeName,
+                    IsDeleted = false,
+                    IsActive = true,
+                    IsLocked = false,
+                    IsPasswordExpired = false,
+                    CreatedBy = 1,
+                    CreatedDate = DateTime.Now,
+                    UserName=data.EmpCode,
+                    Password = PasswordEncryptor.Instance.Encrypt("123@qwe", "HRMSPAYROLLPASSWORDKEY")
+                };
+                models.Add(model);
+            });
+
+            var response = await _IAuthenticateRepository.CreateEntities(models.ToArray());
+            return Json(response.Message);
         }
     }
 }

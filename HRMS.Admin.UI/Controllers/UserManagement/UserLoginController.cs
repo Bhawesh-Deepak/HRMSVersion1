@@ -29,10 +29,10 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
             return View();
         }
 
-        //public async Task<IActionResult> CreateLogin(AuthenticateUser model)
+        //public async task<iactionresult> createlogin(authenticateuser model)
         //{
-        //    if(model.Id)
-        //    var response = await _IAuthenticateRepository.CreateEntity(model);
+        //    if (model.id)
+        //        var response = await _iauthenticaterepository.createentity(model);
         //}
 
         private async Task PopulateViewBag()
