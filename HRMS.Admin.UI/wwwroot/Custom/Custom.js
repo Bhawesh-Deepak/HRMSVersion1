@@ -63,7 +63,7 @@ function UpdateCustomRecord(id, updateUrl,textData) {
     $("#divModalPop").addClass("loading");
     $.get(updateUrl, { id: id }, function (response) {
         $("#divHRMSCreate").html(response);
-        $("#divModalPop").modal('show');
+        $("#divModalPop").show();
     }).done(function () {
         $("#divModalPop").removeClass("loading");
     });
@@ -83,7 +83,7 @@ function NewCustomRecord(url, textData) {
     $("#divModalPop").addClass("loading");
     $.get(url, function (response) {
         $("#divHRMSCreate").html(response);
-        $("#divModalPop").modal('show');
+        $("#divModalPop").show();
     }).done(function () {
         $("#divModalPop").removeClass("loading");
     });
@@ -104,7 +104,9 @@ function CustomFormSubmitComplete() {
     $("#modalContent").removeClass('loading');
    
 }
-
+function HidePopUp() {
+    $("#divModalPop").hide();
+}
 function GetInfo() {
     alert("Information")
 }
