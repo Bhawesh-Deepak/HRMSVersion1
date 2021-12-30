@@ -1,0 +1,175 @@
+@font-face {
+    font-family: 'icomoon';
+    src:    url('../fonts/icomoon.eot?h9ll0g');
+    src:    url('../fonts/icomoon.eot?h9ll0g#iefix') format('embedded-opentype'),
+        url('../fonts/icomoon.ttf?h9ll0g') format('truetype'),
+        url('../fonts/icomoon.woff?h9ll0g') format('woff'),
+        url('../fonts/icomoon.svg?h9ll0g#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-commision:before {
+  content: "\e930";
+}
+
+.icon-download:before {
+  content: "\e92f";
+}
+
+.icon-account-no:before {
+  content: "\e900";
+}
+.icon-address:before {
+  content: "\e901";
+}
+.icon-address-new:before {
+  content: "\e902";
+}
+.icon-agent:before {
+  content: "\e903";
+}
+.icon-attachment:before {
+  content: "\e904";
+}
+.icon-bank:before {
+  content: "\e905";
+}
+.icon-bank-currency:before {
+  content: "\e906";
+}
+.icon-business:before {
+  content: "\e907";
+}
+.icon-calendar:before {
+  content: "\e908";
+}
+.icon-check:before {
+  content: "\e909";
+}
+.icon-cheque:before {
+  content: "\e90a";
+}
+.icon-cheque-status:before {
+  content: "\e90b";
+}
+.icon-city:before {
+  content: "\e90c";
+}
+.icon-company--name:before {
+  content: "\e90d";
+}
+.icon-designation:before {
+  content: "\e90e";
+}
+.icon-dob:before {
+  content: "\e90f";
+}
+.icon-edit:before {
+  content: "\e910";
+}
+.icon-email:before {
+  content: "\e911";
+}
+.icon-exclusive-deal:before {
+  content: "\e912";
+}
+.icon-existing-EMI:before {
+  content: "\e913";
+}
+.icon-facebook:before {
+  content: "\e914";
+}
+.icon-info:before {
+  content: "\e915";
+}
+.icon-linkedin:before {
+  content: "\e916";
+}
+.icon-logout:before {
+  content: "\e917";
+}
+.icon-mobile:before {
+  content: "\e918";
+}
+.icon-my-cradit-notes:before {
+  content: "\e919";
+}
+.icon-my-document:before {
+  content: "\e91a";
+}
+.icon-my-investment:before {
+  content: "\e91b";
+}
+.icon-my-loans:before {
+  content: "\e91c";
+}
+.icon-my-profile:before {
+  content: "\e91d";
+}
+.icon-my-properties:before {
+  content: "\e91e";
+}
+.icon-my-references:before {
+  content: "\e91f";
+}
+.icon-name:before {
+  content: "\e920";
+}
+.icon-notification:before {
+  content: "\e921";
+}
+.icon-occupation:before {
+  content: "\e922";
+}
+.icon-other-rental-income:before {
+  content: "\e923";
+}
+.icon-pan-no:before {
+  content: "\e924";
+}
+.icon-pdf:before {
+  content: "\e925";
+}
+.icon-refer-code:before {
+  content: "\e926";
+}
+.icon-remark:before {
+  content: "\e927";
+}
+.icon-rm:before {
+  content: "\e928";
+}
+.icon-service-request:before {
+  content: "\e929";
+}
+.icon-swift-code:before {
+  content: "\e92a";
+}
+.icon-upload:before {
+  content: "\e92b";
+}
+.icon-upload-new:before {
+  content: "\e92c";
+}
+.icon-visiting-card:before {
+  content: "\e92d";
+}
+.icon-wallet:before {
+  content: "\e92e";
+}

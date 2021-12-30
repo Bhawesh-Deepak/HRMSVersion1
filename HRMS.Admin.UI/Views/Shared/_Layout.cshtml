@@ -5,153 +5,847 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>KLBS HRMS</title>
-    <!-- Tell the browser to be responsive to screen width -->
+    <title>KudoTech HRMS</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
-    
-
-    <link href="~/bootstrap/bootstrap.min.css" rel="stylesheet" />
-    <!-- Font Awesome -->
-    <link href="~/FontAwesome/font-awesome.min.css" rel="stylesheet" />
-    <!-- Ionicons -->
-    <link href="~/Iconic/ionicons.min.css" rel="stylesheet" />
-    @*<link rel="icon" href="@HttpContextAccessor.HttpContext.Session.GetString("InstituteLogo")" type="image/gif">*@
-    <!-- Theme style -->
-
-    <link href="~/bootstrap/AdminLTE.min.css" rel="stylesheet" />
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-    <link href="~/bootstrap/skin-blue.min.css" rel="stylesheet" />
-    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/jquery-ajax-unobtrusive@3.2.6/dist/jquery.unobtrusive-ajax.min.js"
-            integrity="sha256-PAC000yuHt78nszJ2RO0OiDMu/uLzPLRlYTk8J3AO10="
-            crossorigin="anonymous"></script>
-    <link href="~/AlertifyJs/build/css/themes/bootstrap.css" rel="stylesheet" />
-    <link href="~/bootstrap/loader.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="~/resources/dist/img/favicon.png" type="image/x-icon" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
+    <link href="~/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/resources/dist/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/resources/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/resources/dist/css/skins/skin-blue.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/resources/plugins/toastr/toastr.min.css" rel="stylesheet" />
+    <link href="~/resources/dist/css/custom.css?v=1.3" rel="stylesheet" type="text/css" />
+    <link href="~/resources/dist/css/selector.css?v=1" rel="stylesheet" />
+    <link href="~/resources/dist/css/loader.css" rel="stylesheet" type="text/css" />
+    <script src="~/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="~/resources/dist/js/jquery.dataTables.js" type="text/javascript"></script>
+    <script src="~/resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="~/resources/dist/js/app.min.js" type="text/javascript"></script>
+    <link href="~/resources/dist/css/rnr.css?v=1.2" rel="stylesheet" type="text/css" />
+    <link rel="shortcut icon" href="~/resources/dist/img/favicon.ico" type="image/x-icon" />
+    <link href="~/resources/dist/font-awesome/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/resources/dist/css/build.css" rel="stylesheet" type="text/css" />
+    <link href="~/resources/dist/css/custom-fonts.css" rel="stylesheet" type="text/css" />
+    <link href="~/resources/dist/css/owl.carousel.css" rel="stylesheet" type="text/css" />
+    <link href="~/resources/dist/css/owl.theme.css" rel="stylesheet" type="text/css" />
     <script src="~/Custom/Custom.js"></script>
 
-
-    <link href="~/bootstrap/CustomModal.css" rel="stylesheet" />
-    <link href="~/AlertifyJs/build/css/alertify.css" rel="stylesheet" />
-    <script src="~/AlertifyJs/build/alertify.js"></script>
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <link href="~/Iconic/ionicons.min.css" rel="stylesheet" />
-
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-    @*<script src="~/bootstrap/Select2.js"></script>*@
-    <link href="~/select2/dist/css/select2.css" rel="stylesheet" />
-
-
-
     <style>
-        .loading {
-            position: relative;
+        .ui-widget-content {
+            z-index: 9999999 !important;
         }
 
-            .loading:before {
-                content: "";
-                display: block;
-                position: absolute;
-                z-index: 9;
-                top: 0;
-                left: 0;
+        #myModalProgressContainer {
+            display: none;
+        }
+
+        .sub-links > li > a {
+            color: #777 !important;
+        }
+
+        .etrainerbuttonClass {
+            padding: 5px 5px;
+            text-decoration: none;
+            border: solid 1px black;
+        }
+
+        .logo, .logo-lg, .logo-mini {
+            background-color: #3a3a3a;
+        }
+
+        .logo {
+            padding: 0 !important;
+        }
+
+        .logo-lg {
+            padding: 0 !important;
+        }
+
+            .logo-lg img {
+                width: 220px;
+            }
+    </style>
+    <link href="~/resources/plugins/jQueryUI/jquery-ui.min.css" rel="stylesheet" />
+    <script src="~/resources/plugins/jQueryUI/jquery-ui.min.js"></script>
+    <script src="~/resources/plugins/toastr/toastr.min.js"></script>
+    <script src="~/resources/dist/js/jquery.MultiFile.js"></script>
+    <script src="~/resources/dist/js/custom.js?v=3"></script>
+
+    <link href="~/resources/dist/css/rnr.css?v=1.2" rel="stylesheet" />
+    <link href="~/resources/dist/css/iconmoon.css" rel="stylesheet" />
+    <link href="~/resources/dist/css/index.css?v=1.2" rel="stylesheet" />
+    <script src="~/resources/dist/js/owl.carousel.min.js"></script>
+    <script src="~/resources/dist/js/pie-chart.js"></script>
+    <style>
+        .custom-links {
+            overflow: hidden;
+            border-radius: 3px;
+            background-color: rgb(0, 178, 121);
+            border-bottom: 4px solid #008057;
+            width: 100%;
+            height: 54px;
+            text-align: center;
+        }
+
+            .custom-links > .heading {
+                margin-top: 4px;
+                font-size: 16px;
+                font-weight: bold;
+                color: #fff;
+            }
+
+                .custom-links > .heading span {
+                    position: absolute;
+                    top: -10px;
+                    right: 4px;
+                }
+
+            .custom-links > .sub-heading {
+                font-size: 14px;
+                color: #fff;
+                margin-top: -5px;
+            }
+
+            .custom-links.red {
+                background-color: #C9302C;
+                border-bottom: 4px solid #D02A25;
+            }
+
+            .custom-links > .heading-solo {
+                margin-top: 4px;
+                font-size: 14px;
+                color: #fff;
+            }
+
+                .custom-links > .heading-solo span {
+                    position: absolute;
+                    top: -10px;
+                    right: -5px;
+                }
+
+        .overlay-hover {
+            position: absolute;
+            top: 2%;
+            left: 35%;
+            opacity: 0.5;
+        }
+
+        .custom-links > .heading-solo:hover .overlay-hover {
+            opacity: 0.2;
+        }
+
+        .videoBox {
+            display: block;
+            width: 350px;
+            height: 220px;
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            z-index: 9999;
+            transition: .5s;
+        }
+
+            .videoBox.hide {
+                right: -700px;
+                transition: .5s;
+            }
+
+            .videoBox iframe {
                 width: 100%;
-                height: 100%;
-                background: rgba(255, 2555, 255,0.6) url(../images/loading.gif) no-repeat center 35vh;
-                background-size: 85px;
+                height: 100%
+            }
+
+            .videoBox .closeBtn {
+                padding: 5px;
+                width: 35px;
+                height: 35px;
+                background: #dd4b39;
+                color: #f4f4f4;
+                border-radius: 50px;
+                position: absolute;
+                top: -20px;
+                left: -20px;
+                text-align: center;
+                font-size: 17px;
+                display: block;
+                cursor: pointer
             }
     </style>
 
+    <style>
+        .popupBG .topBox .sliderrbox .owl-carousel .owl-item .item .circle img {
+            width: 105px !important;
+            height: 105px !important;
+            border-radius: 50% !important;
+        }
+
+        .popupBG .close em {
+            z-index: 999;
+        }
+    </style>
+    <style>
+        .flexBox {
+            display: flex;
+        }
+
+        .homePage {
+            width: 100%;
+            margin-right: 15px;
+        }
+
+            .homePage:last-child {
+                margin: 0px;
+            }
+    </style>
+
+    <style>
+
+        .table-fixed {
+            height: 292.71px;
+            width: 100%;
+            overflow-y: auto;
+        }
+
+        .trendingTab {
+            display: block
+        }
+
+            .trendingTab ul {
+                padding: 0;
+                margin: 0;
+                display: block;
+                overflow: hidden;
+                overflow-x: auto;
+                text-align: left;
+                white-space: nowrap;
+                border-bottom: 1px solid #ddd
+            }
+
+                .trendingTab ul li {
+                    padding: 0 8px;
+                    display: inline-block;
+                    white-space: nowrap;
+                    border-bottom: #fff solid 2px;
+                    line-height: 30px;
+                    transition: .3s;
+                    cursor: pointer
+                }
+
+                    .trendingTab ul li.active {
+                        background: #f7f7f7;
+                        border-bottom: 2px solid #0078BF;
+                        transition: .3s;
+                        border-radius: 5px 5px 0 0;
+                        cursor: default
+                    }
+
+        .trendingTabBody {
+            padding-top: 5px;
+            display: block
+        }
+
+            .trendingTabBody .box {
+                border-radius: 5px;
+                border: 1px solid #d2d6de;
+                box-shadow: none;
+                margin: 5px 0 0;
+                overflow: hidden
+            }
+
+                .trendingTabBody .box .heading {
+                    padding: 3px 10px;
+                    background: #f7f7f7;
+                    position: relative
+                }
+
+                    .trendingTabBody .box .heading em {
+                        width: 15px;
+                        height: 15px;
+                        float: right;
+                        position: relative;
+                        right: -3px;
+                        top: 2px;
+                        z-index: 1;
+                        cursor: pointer
+                    }
+
+                        .trendingTabBody .box .heading em:after {
+                            content: '';
+                            position: absolute;
+                            top: 6px;
+                            right: 0;
+                            width: 15px;
+                            height: 2px;
+                            background: #ccc
+                        }
+
+                        .trendingTabBody .box .heading em:before {
+                            content: '';
+                            position: absolute;
+                            top: 6px;
+                            right: 0;
+                            width: 15px;
+                            height: 2px;
+                            background: #ccc;
+                            transform: rotate(90deg);
+                            transition: .3s
+                        }
+
+                .trendingTabBody .box .dataBody {
+                    display: none
+                }
+
+                .trendingTabBody .box.active .heading em:before {
+                    transform: rotate(180deg);
+                    transition: .3s
+                }
+
+                .trendingTabBody .box.active .dataBody {
+                    display: block
+                }
+
+        .trendingNav {
+            display: block;
+            position: relative;
+            overflow: hidden;
+            background: #fff;
+            text-align: center
+        }
+
+            .trendingNav h3 {
+                padding: 0 15px;
+                margin: 0;
+                font-size: 14px;
+                font-weight: 700;
+                display: block;
+                width: 600px;
+                background: #000;
+                color: #fff;
+                line-height: 40px
+            }
+
+            .trendingNav ul {
+                padding: 0;
+                margin: 0;
+                display: block
+            }
+
+                .trendingNav ul li {
+                    display: block;
+                    border-top: 1px solid #e5e5e5;
+                    transition: .3s
+                }
+
+                    .trendingNav ul li a {
+                        padding: 0 10px;
+                        font-size: 13px;
+                        color: #333;
+                        display: block;
+                        transition: .3s;
+                        line-height: 25px
+                    }
+
+                        .trendingNav ul li a em {
+                            margin-right: 5px;
+                            font-size: 18px;
+                            position: relative;
+                            top: 3px
+                        }
+
+                    .trendingNav ul li.active, .trendingNav ul li:hover {
+                        background: #009e73;
+                        transition: .3s
+                    }
+
+                        .trendingNav ul li.active a, .trendingNav ul li:hover a {
+                            color: #fff;
+                            transition: .3s
+                        }
+    </style>
+    <link href="~/resources/plugins/owlcarousel/assets/owl.carousel.css" rel="stylesheet" />
+    <script src="~/resources/plugins/owlcarousel/owl.carousel.js"></script>
 
 </head>
 
-<body class="hold-transition skin-blue sidebar-mini sidebar-collapse" id="divSerpBody">
+<body class="skin-blue sidebar-mini" style="">
+    <style type="text/css">
+            .col-xs-15,
+            .col-sm-15,
+            .col-md-15,
+            .col-lg-15 {
+                position: relative;
+                min-height: 1px;
+                padding-right: 10px;
+                padding-left: 10px;
+            }
+
+            .col-xs-15 {
+                width: 20%;
+                float: left;
+            }
+
+            @@media (min-width: 768px) {
+                .col-sm-15 {
+                    width: 20%;
+                    float: left;
+                }
+            }
+
+            @@media (min-width: 992px) {
+                .col-md-15 {
+                    width: 20%;
+                    float: left;
+                }
+            }
+
+            @@media (min-width: 1024px) {
+                .col-md-15 {
+                    width: 20%;
+                    float: left;
+                }
+            }
+
+            @@media (min-width: 1200px) {
+                .col-lg-15 {
+                    width: 20%;
+                    float: left;
+                }
+            }
+
+
+            #incentive {
+                width: 0;
+                height: 0;
+                overflow: hidden;
+                display: none;
+            }
+
+                #incentive.active {
+                    width: 100%;
+                    height: 100%;
+                    z-index: 10000;
+                    position: fixed;
+                    overflow: auto;
+                    display: block;
+                    top: 0;
+                    left: 0;
+                    padding: 2%;
+                    background-color: rgba(0, 0, 0, 0.7);
+                }
+
+                #incentive .bg .close {
+                    opacity: 1;
+                }
+
+                    #incentive .bg .close em {
+                        text-align: center;
+                        border-radius: 20%;
+                        background-color: #C9302C;
+                        padding: 10px 13px;
+                        margin: 15px 15px;
+                        color: #fff;
+                        font-size: 20px;
+                        position: fixed;
+                        top: -10px;
+                        right: -5px;
+                        z-index: 1000000;
+                    }
+
+                #incentive .bg {
+                    background-color: #79adff;
+                    /*background-color: #fff;*/
+                }
+
+                #incentive .topheadinc {
+                    background-color: #1b2b3a;
+                }
+
+                #incentive .center {
+                    text-align: center;
+                }
+
+            .topheadinc {
+                position: relative;
+            }
+
+                .topheadinc img {
+                    position: absolute;
+                    left: 15px;
+                    top: 5px;
+                    width: 125px;
+                }
+
+                .topheadinc h2 {
+                    line-height: 40px;
+                    font-size: 20px;
+                }
+
+            #incentive .topheadincipm {
+                background-color: #1b2b3a;
+            }
+
+            .topheadincipm {
+                position: relative;
+            }
+
+                .topheadincipm img {
+                    position: absolute;
+                    left: 15px;
+                    top: 5px;
+                    width: 125px;
+                }
+
+                .topheadincipm h2 {
+                    line-height: 35px;
+                    font-size: 15px;
+                }
+
+            #incentive .table tbody tr th {
+                text-align: center;
+                background: #eee;
+                font-size: 12px;
+            }
+
+            #incentive .table tbody tr td {
+                background: #fff;
+                text-align: center;
+                font-size: 15px;
+            }
+
+            #incentive .center img {
+                display: inline-block;
+            }
+
+            #incentive .list {
+                font-family: arial;
+                font-size: 12px;
+            }
+
+                #incentive .list li {
+                    margin: 0 0 7px 15px;
+                    color: #fff;
+                    padding: 0;
+                }
+
+                #incentive .list ul {
+                    margin: 0;
+                    padding: 0;
+                }
+
+            /*#incentive .table td {
+            border: 2px solid #ffffff;
+        }*/
+
+            #incentive .table th,
+            #incentive .table td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+
+            /*#incentive .table th {
+                font-size: 10px;
+            }*/
+
+            #incentive .table {
+                font-size: 11px;
+                font-family: 'Oswald', sans-serif;
+            }
+
+            @@media only screen and (max-width:1024px) {
+                #incentive .table td {
+                    padding: 2px !important;
+                }
+
+                #incentive .table th,
+                #incentive .table td {
+                    border: 1px solid black;
+                    border-collapse: collapse;
+                }
+
+                #incentive .table td {
+                    padding: 2px !important;
+                    font-size: 12px;
+                }
+
+                #incentive .table th {
+                    font-size: 18px;
+                }
+            }
+
+            @@media only screen and (max-width:990px) {
+                #incentive .table td {
+                    padding: 12px !important;
+                }
+
+                #incentive .table th,
+                #incentive .table td {
+                    border: 1px solid black;
+                    border-collapse: collapse;
+                }
+            }
+
+            @@media only screen and (max-width: 768px) {
+
+                #incentive .table td {
+                    padding: 2px !important;
+                    font-size: 10px;
+                }
+
+                #incentive .table th {
+                    font-size: 12px;
+                }
+
+                #incentive .table th,
+                #incentive .table td {
+                    border: 1px solid black;
+                    border-collapse: collapse;
+                }
+            }
+
+            @@media only screen and (max-width:640px) {
+
+                #incentive .table td {
+                    padding: 2px !important;
+                    font-size: 12px;
+                }
+
+                #incentive .table th {
+                    font-size: 14px;
+                }
+
+                #incentive .table th,
+                #incentive .table td {
+                    border: 1px solid black;
+                    border-collapse: collapse;
+                }
+            }
+
+            #incentive .table > tbody > tr > th {
+                border: 1px solid #ccc;
+            }
+    </style>
+
     <div class="wrapper">
-        <!-- Main Header -->
+
         <header class="main-header">
             <!-- Logo -->
-            <a asp-action="Index" asp-controller="Home" class="logo">
-                <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"><b>H</b>RMS</span>
+            <a href="http://beats.squareyards.com/Dashboard.aspx" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels
+            <span class="logo-mini" style="color: #3C8DBC; font-size: 30px;"><i class="fa fa-heartbeat"></i></span> -->
+                <span class="logo-mini">
+                    <img src="~/resources/dist/img/beats-logo-small.png">
+                </span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg">HRMS</span>
+                <span class="logo-lg">
+                    <img src="~/resources/dist/img/beats-logo-white.png">
+                </span>
             </a>
-
             <!-- Header Navbar -->
             <nav class="navbar navbar-static-top" role="navigation">
                 <!-- Sidebar toggle button-->
-                <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                     <span class="sr-only">Toggle navigation</span>
                 </a>
                 <!-- Navbar Right Menu -->
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
-                        <!-- Messages: style can be found in dropdown.less-->
-                        <li class="dropdown messages-menu">
-                            <!-- Menu toggle button -->
-                            <a onclick="AdvanceSearch()" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-search"></i>
+                        <li class="dropdown">
+                            <a href="#" class="quicklinks dropdown-toggle" data-toggle="dropdown">
+                                <span class="margin-r-5">More Apps</span>
+                                <i class="fa fa-caret-down"></i>
                             </a>
-                        </li>
-                        <!-- /.messages-menu -->
-                        <!-- Notifications Menu -->
-                        <li class="dropdown notifications-menu">
-                            <!-- Menu toggle button -->
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-bell-o"></i>
-                                <span class="label label-warning">10</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="header">You have 10 notifications</li>
-                                <li>
-                                    <!-- Inner Menu: contains the notifications -->
-                                    <ul class="menu">
-                                        <li>
-                                            <!-- start notification -->
-                                            <a href="#">
-                                                <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                                            </a>
+                            <ul class="dropdown-menu sub-links">
+                                <li class="visible-sm visible-xs" style="">
+                                    <a href="http://beats.squareyards.com/HR/Profile.aspx?id=881" target="_self">My Profile</a>
+                                </li>
+                                <li class="visible-sm visible-xs" style="">
+                                    <a href="http://beats.squareyards.com/HR/MyTeam.aspx" target="_self">My Team</a>
+                                </li>
+                                <li class="visible-sm visible-xs" style="">
+                                    <a href="https://hr.squareyards.com" target="_blank">Square HR</a>
+                                </li>
+                                <li style="">
+                                    <a href="http://squarekudotechhr.com" target="_blank">India Payroll</a>
+                                </li>
+                                <li class="dropdown visible-sm visible-xs" style="">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <span class="margin-r-5">Incentive Slabs</span>
+                                        <i class="fa fa-caret-down"></i>
+                                    </a>
+                                    <ul class="dropdown-menu sub-links" style="padding-left: 20px; display: block !important;">
+                                        <li class="visible-sm visible-xs" style="">
+                                            <a class="lnkIncentiveSlabs" href="javascript:">Capital</a>
                                         </li>
-                                        <!-- end notification -->
+                                        <li class="visible-sm visible-xs" style="">
+                                            <a class="lnkIncentiveSlabsPrimary" href="javascript:">NRI/CRM/Aus/Canada</a>
+                                        </li>
+                                        <li class="visible-sm visible-xs" style="">
+                                            <a class="lnkIncentiveSlabsPrimaryIPM" href="javascript:">Primary India/IPM Asia</a>
+                                        </li>
+                                        <li class="visible-sm visible-xs" style="">
+                                            <a class="lnkIncentiveSlabsCapitalAus" href="javascript:">Australia Capital</a>
+                                        </li>
+                                        <li class="hidden-sm hidden-xs" style="">
+                                            <a class="quicklinks lnkIncentiveSlabs" href="javascript:">Capital</a>
+                                        </li>
+                                        <li class="hidden-sm hidden-xs" style="">
+                                            <a class="quicklinks lnkIncentiveSlabsPrimary" href="javascript:">Primary/IPM/CRM</a>
+                                        </li>
+
+                                        <li class="hidden-sm hidden-xs" style="">
+                                            <a class="quicklinks lnkIncentiveSlabsCapitalAus" href="javascript:">Australia Capital</a>
+                                        </li>
                                     </ul>
                                 </li>
-                                <li class="footer"><a href="#">View all</a></li>
+                                <li class="dropdown visible-sm visible-xs" style="">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <span class="margin-r-5">Training</span>
+                                        <i class="fa fa-caret-down"></i>
+                                    </a>
+                                    <ul class="dropdown-menu sub-links" style="padding-left: 20px; display: block !important;">
+                                        <li class="visible-sm visible-xs" style="">
+                                            <a onclick="window.document.forms[0].target='_blank';" class="quicklinks" href="javascript:__doPostBack('ctl00$ctl23','')">eLuminate</a>
+                                        </li>
+                                        <li class="visible-sm visible-xs" style="">
+                                            <a class="quicklinks" href="https://beats.squareyards.com/Etrainer/EtrainerDashboardEmployee.aspx" target="_blank">Employee Dashboard</a>
+                                        </li>
+                                        <li class="visible-sm visible-xs" style="">
+                                            <a class="quicklinks" href="https://beats.squareyards.com/Etrainer/EtrainerDashboardCourse.aspx" target="_blank">Course Dashboard</a>
+                                        </li>
+                                        <li class="visible-sm visible-xs" style="">
+                                            <a class="quicklinks" href="https://beats.squareyards.com/Training/trainingdetail.aspx" target="_blank">Training Calendar</a>
+                                        </li>
+                                        <li class="visible-sm visible-xs" style="">
+                                            <a class="quicklinks" href="https://beats.squareyards.com/Training/TrainingMaster.aspx" target="_blank">Schedule Training</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <a href="http://www.squareyards.com/blog/" target="_blank">Blog</a>
+                                </li>
+
                             </ul>
                         </li>
-                        <!-- Tasks Menu -->
-                        <!-- User Account Menu -->
+                        <li class="dropdown">
+                            <a href="#" class="quicklinks dropdown-toggle" data-toggle="dropdown">
+                                <span class="margin-r-5">3D Links</span>
+                                <i class="fa fa-caret-down"></i>
+                            </a>
+                            <ul class="dropdown-menu sub-links">
+                                <li><a href="https://propvr.tech/embed.html?cid=thh5occDlfdddSabsJiWRRkI2vE2&amp;proid=smartworld61" target="_blank">Smart World Orchard</a></li>
+                                <li><a href="https://propvr.tech/embedv1.html?cid=thh5occDlfdddSabsJiWRRkI2vE2&amp;proid=Alphathum" target="_blank">Alphathum</a></li>
+                                <li><a href="https://propvr.tech/embed3d.html?cid=iRdFhLmW08hOntxWqG2jI5PMSPH2&amp;proid=RustomjeeSeasons" target="_blank">Rustomjee Seasons</a></li>
+                                <li><a href="https://propvr.tech/embedv1.html?cid=thh5occDlfdddSabsJiWRRkI2vE2&amp;proid=shriram" target="_blank">Shriram Codename Yuva</a></li>
+                                <li><a href="https://propvr.tech/embedv1.html?cid=iRdFhLmW08hOntxWqG2jI5PMSPH2&amp;proid=kohinoor" target="_blank">Kohinoor Sportsville</a></li>
+                                <li><a href="https://propvr.tech/embedv1.html?cid=thh5occDlfdddSabsJiWRRkI2vE2&amp;proid=Kolte%20Patil" target="_blank">Kolte Patil Life Republic Universe</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown hidden-sm hidden-xs" style="">
+                            <a href="#" class="quicklinks dropdown-toggle" data-toggle="dropdown">
+                                <span class="margin-r-5">Download Beats App</span>
+                                <i class="fa fa-caret-down"></i>
+                            </a>
+                            <ul class="dropdown-menu sub-links">
+
+                                <li>
+                                    <a href="https://play.google.com/store/apps/details?id=yrd.sq.com.sqybeats" target="_blank">Android (2.9.6) </a>
+                                </li>
+
+                                <li>
+                                    <a href="https://testflight.apple.com/join/eXdj3WYO" target="_blank">IOS (3.4.2(56)) </a>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li class="dropdown hidden-sm hidden-xs" style="">
+                            <a href="#" class="quicklinks dropdown-toggle" data-toggle="dropdown">
+                                <span class="margin-r-5">Incentive Slabs</span>
+                                <i class="fa fa-caret-down"></i>
+                            </a>
+                            <ul class="dropdown-menu sub-links">
+                                <li class="visible-sm visible-xs" style="">
+                                    <a class="lnkIncentiveSlabs" href="javascript:">Capital</a>
+                                </li>
+                                <li class="visible-sm visible-xs" style="">
+                                    <a class="lnkIncentiveSlabsPrimary" href="javascript:">NRI/CRM/Aus/Canada</a>
+                                </li>
+                                <li class="visible-sm visible-xs" style="">
+                                    <a class="lnkIncentiveSlabsPrimaryIPM" href="javascript:">Primary India/IPM Asia</a>
+                                </li>
+                                <li class="visible-sm visible-xs" style="">
+                                    <a class="lnkIncentiveSlabsCapitalAus" href="javascript:">Australia Capital</a>
+                                </li>
+                                <li class="hidden-sm hidden-xs" style="">
+                                    <a class="quicklinks lnkIncentiveSlabs" href="javascript:">Capital</a>
+                                </li>
+                                <li class="hidden-sm hidden-xs" style="">
+                                    <a class="quicklinks lnkIncentiveSlabsPrimary" href="javascript:">Primary/IPM/CRM</a>
+                                </li>
+
+                                <li class="hidden-sm hidden-xs" style="">
+                                    <a class="quicklinks lnkIncentiveSlabsCapitalAus" href="javascript:">Australia Capital</a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+
+                        <li class="hidden-sm hidden-xs" style="">
+                            <a href="http://hr.squareyards.com" target="_blank" class="quicklinks">Square HR</a>
+                        </li>
+                        <li class="dropdown hidden-sm hidden-xs" style="">
+                            <a href="#" class="quicklinks dropdown-toggle" data-toggle="dropdown">
+                                <span class="margin-r-5">Training</span>
+                                <i class="fa fa-caret-down"></i>
+                            </a>
+                            <ul class="dropdown-menu sub-links">
+                                <li>
+                                    <a onclick="window.document.forms[0].target='_blank';" id="btnLinkClickEtrainer" class="quicklinks" href="javascript:__doPostBack('ctl00$btnLinkClickEtrainer','')">eLuminate</a>
+                                </li>
+                                <li>
+                                    <a class="quicklinks" href="https://beats.squareyards.com/Etrainer/EtrainerDashboardEmployee.aspx" target="_blank">Employee Dashboard</a>
+                                </li>
+                                <li>
+                                    <a class="quicklinks" href="https://beats.squareyards.com/Etrainer/EtrainerDashboardCourse.aspx" target="_blank">Course Dashboard</a>
+                                </li>
+                                <li>
+                                    <a class="quicklinks" href="https://beats.squareyards.com/Training/trainingdetail.aspx" target="_blank">Training Calendar</a>
+                                </li>
+                                <li>
+                                    <a class="quicklinks" href="https://beats.squareyards.com/Training/TrainingMaster.aspx" target="_blank">Schedule Training</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="hidden-sm hidden-xs" style="">
+                            <a href="http://beats.squareyards.com/HR/Profile.aspx?id=881" class="quicklinks" target="_self">My Profile </a>
+                        </li>
+                        <li class="hidden-sm hidden-xs" style="">
+                            <a href="http://beats.squareyards.com/HR/MyTeam.aspx" class="quicklinks" target="_self">My Team </a>
+                        </li>
                         <li class="dropdown user user-menu">
-                            <!-- Menu Toggle Button -->
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <!-- The user image in the navbar-->
-                                @*@if (string.IsNullOrEmpty(studentDetail.ImagePath))
-                                    {
-                                        <img src="~/Images/UserLogo.jpg" style="width:25px;height:25px" class="img-circle" alt="User Image">
-                                    }
-                                    else
-                                    {
-                                        <img src="@studentDetail.ImagePath" style="width:25px;height:25px" class="img-circle" alt="User Image">
-                                    }*@
-                                <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                                @*<span class="hidden-xs">@HttpContextAccessor.HttpContext.Session.GetString("userName")</span>*@
+                                <img src="https://s3-ap-southeast-1.amazonaws.com/sqy/employee/profile_pic/emp.png" onerror="this.src='https://s3-ap-southeast-1.amazonaws.com/sqy/employee/profile_pic/emp.png'" class="user-image" alt="User Image">
+                                <span class="hidden-xs margin-r-5">Rohit Kumar</span>
+                                <i class="fa fa-caret-down"></i>
                             </a>
                             <ul class="dropdown-menu">
-                                <!-- The user image in the menu -->
                                 <li class="user-header">
-                                    <img src="~/Images/UserLogo.jpg" class="img-circle" alt="User Image">
+                                    <img src="https://s3-ap-southeast-1.amazonaws.com/sqy/employee/profile_pic/emp.png" onerror="this.src='https://s3-ap-southeast-1.amazonaws.com/sqy/employee/profile_pic/emp.png'" width="160" height="160" class="img-circle" alt="User Image">
+                                    <p>
+                                        Rohit Kumar
+                                        <small>Wednesday, December 29, 2021</small>
+                                    </p>
                                 </li>
-                                <!-- Menu Footer-->
                                 <li class="user-footer">
-                                    <div class="pull-left">
-                                        <a href="#" class="btn btn-primary btn-flat">Profile</a>
+                                    <div class="pull-left" style="">
+                                        <a href="http://beats.squareyards.com/HR/Profile.aspx?id=881" class="btn bg-black btn-flat">My Profile</a>
+
                                     </div>
                                     <div class="pull-right">
-                                        <a asp-action="Login" asp-controller="Authenticate" class="btn btn-danger btn-flat">Sign out</a>
+                                        <a href="http://beats.squareyards.com/logout.aspx" class="btn bg-red btn-flat">Sign out</a>
                                     </div>
                                 </li>
                             </ul>
@@ -159,10 +853,31 @@
                     </ul>
                 </div>
             </nav>
+
+
+
+            <script>
+
+                $('.floatTag').click(function () {
+                    $('.outerPanelDetails').toggleClass('active');
+                });
+
+                $('.liPseudoUser').click(function () {
+                    var id = $(this).data('id');
+                    var name = $(this).data('name');
+                    var accessKey = $(this).data('accesskey');
+                    if (id != '' && name != '') {
+                        var cookieValue = '';
+                        cookieValue = accessKey;         //id + '|' + name;
+                        var expires = "expires=1/3/2022 8:47:59 AM";
+                        var domainName = "domain=squareyards.com";
+                        document.cookie = "pseudoUser=" + cookieValue + ";" + expires + ";" + domainName + ";path =/";
+                        window.location.reload();
+                    }
+                });
+
+            </script>
         </header>
-        <!-- Left side column. contains the logo and sidebar -->
-        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
-        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
 
         <aside class="main-sidebar">
 
@@ -170,141 +885,44 @@
             <section class="sidebar">
 
                 <!-- Sidebar user panel (optional) -->
-                <div class="user-panel">
-                    <div class="pull-left image">
-                        @*@if (string.IsNullOrEmpty(studentDetail.ImagePath))
-                            {
-                                <img src="~/Images/UserLogo.jpg" class="img-circle" alt="User Image">
-                            }
-                            else
-                            {
-                                <img src="@studentDetail.ImagePath" class="img-circle" alt="User Image">
-                            }*@
-                    </div>
-                    <div class="pull-left info">
-                        <p>@*@HttpContextAccessor.HttpContext.Session.GetString("userName")*@</p>
-                        <!-- Status -->
-                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                <!-- search form -->
+                <div class="sidebar-form" style="">
+                    <div class="input-group">
+                        <input type="text" id="txtSearchEmp" class="form-control ui-autocomplete-input" autocomplete="off" placeholder="Search ...">
+                        <span class="input-group-btn">
+                            <a data-toggle="modal" data-target="#popEmpDetails" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></a>
+                        </span>
                     </div>
                 </div>
-
-
-                <!-- search form (Optional) -->
-
-                <div class="input-group">
-                    <input type="search" name="q" id="txtMenu" class="form-control" placeholder="Search...">
-                    <span class="input-group-btn">
-                        <button type="button" name="search" id="search-btn" class="btn btn-flat">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </span>
-                </div>
-
-
-                <ul class="sidebar-menu menuList" data-widget="tree">
-                    <li class="treeview">
-                        <a href="#">
-                            <i></i> <span>Master</span>
-                        </a>
-                        <ul class="treeview-menu" id="ulMenu">
-                            <li class="active">
-                                <a class="" asp-action="Index" asp-controller="Department">Utilities</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+                <!-- /.search form -->
+                <!-- Sidebar Menu -->
+                <div id="sideMenuContainer"><ul class="sidebar-menu"><li><a href="https://beats.squareyards.com/Dashboard.aspx"><i class="fa fa-home"></i> <span>Home</span></a></li><li class="treeview"><a href="/"><i class="fa fa-file-text-o"></i> <span>Square Capital</span><i class="fa fa-angle-left pull-right"></i></a><ul class="treeview-menu"><li><a href="https://capital-admin.squareyards.com/partner/hlq/list"><i class="fa fa-line-chart"></i> <span>Partner Loan Questionnaire</span></a></li></ul></li><li><a href="https://beats.squareyards.com/booking/reservebookinglist.aspx"><i class="fa fa-line-chart"></i> <span>My Reservations</span></a></li><li class="treeview"><a href="/"><i class="fa fa-indent"></i> <span>Helpdesk</span><i class="fa fa-angle-left pull-right"></i></a><ul class="treeview-menu"><li><a href="/"><i class="fa fa-address-card-o"></i> <span>Visiting Card</span><i class="fa fa-angle-left pull-right"></i></a><ul class="treeview-menu"><li><a href="https://beats.squareyards.com/Helpdesk/VisitingCard/RequestVisitingCard.aspx"><i class="fa fa-indent"></i> <span>Request Visiting Card</span></a></li><li><a href="https://beats.squareyards.com/Helpdesk/VisitingCard/TeamRequest.aspx"><i class="fa fa-indent"></i> <span>Team Request</span></a></li></ul></li><li><a href="/"><i class="fa fa-indent"></i> <span>ID Card</span><i class="fa fa-angle-left pull-right"></i></a><ul class="treeview-menu"><li><a href="https://beats.squareyards.com/HelpDesk/IdCard/RequestIdCard.aspx"><i class="fa fa-indent"></i> <span>Request ID Card</span></a></li><li><a href="https://beats.squareyards.com/HelpDesk/IdCard/TeamRequestIdCard.aspx"><i class="fa fa-indent"></i> <span>Team Request</span></a></li></ul></li><li><a href="https://beats.squareyards.com/HelpDesk/CabRequest/CabRequest.aspx"><i class="fa fa-indent"></i> <span>Cab Request</span></a></li></ul></li><li class="treeview"><a href="/"><i class="fa fa-indent"></i> <span>Account</span><i class="fa fa-angle-left pull-right"></i></a><ul class="treeview-menu"><li><a href="https://beats.squareyards.com/Sales/DebitNote/DebitNoteVendorPayment.aspx"><i class="fa fa-indent"></i> <span>Debit Note Vendor Payment</span></a></li></ul></li><li class="treeview"><a href="/"><i class="fa fa-indent"></i> <span>Asset</span><i class="fa fa-angle-left pull-right"></i></a><ul class="treeview-menu"><li><a href="https://beats.squareyards.com/Asset/EmployeeAssetList.aspx"><i class="fa fa-indent"></i> <span>Asset Count</span></a></li></ul></li><li class="treeview"><a href="/"><i class="fa fa-line-chart"></i> <span>Sales</span><i class="fa fa-angle-left pull-right"></i></a><ul class="treeview-menu"><li><a href="https://beats.squareyards.com/Sales/TCF.aspx"><i class="fa fa-indent"></i> <span>Add TCF</span></a></li><li><a href="https://beats.squareyards.com/Sales/MCF/MCF.aspx"><i class="fa fa-indent"></i> <span>Add MCF</span></a></li><li><a href="https://beats.squareyards.com/Sales/ICF/ICF.aspx"><i class="fa fa-indent"></i> <span>Add ICF</span></a></li><li><a href="https://beats.squareyards.com/CRM/MyLeads.aspx"><i class="fa fa-indent"></i> <span>My Leads</span></a></li><li><a href="https://beats.squareyards.com/CRM/ReturnedLeads.aspx"><i class="fa fa-outdent"></i> <span>Returned Leads</span></a></li><li><a href="https://beats.squareyards.com/Reports/DASHBOARD/AzuroListingDashboard.aspx"><i class="fa fa-indent"></i> <span>Listing Dashboard</span></a></li><li><a href="https://beats.squareyards.com/CRM/MyResponse.aspx"><i class="fa fa-indent"></i> <span>My RSVP/Responses</span></a></li><li><a href="https://beatsreports.squareyards.com/Reports/DASHBOARD/CallingInsights.aspx"><i class="fa fa-indent"></i> <span>Calling Insights</span></a></li><li><a href="https://beatsreports.squareyards.com/CRM/MyTeamInteractionNew.aspx"><i class="fa fa-calendar"></i> <span>My Team Interaction</span></a></li><li><a href="https://beatsreports.squareyards.com/CRM/ColdCallingv2.aspx"><i class="fa fa-phone"></i> <span>Calling Dashboard</span></a></li><li><a href="https://beats.squareyards.com/CRM/GeoTracker.aspx"><i class="fa fa-indent"></i> <span>Geo Tracker</span></a></li><li><a href="https://beats.squareyards.com/sales/MyBooking.aspx"><i class="fa fa-indent"></i> <span>My Bookings(Focus Projects)</span></a></li><li><a href="https://beats.squareyards.com/sales/mcf/tcfloandetails.aspx"><i class="fa fa-indent"></i> <span>TCF Mortgage Status</span></a></li><li><a href="https://beats.squareyards.com/Reports/EventBookings.aspx"><i class="fa fa-indent"></i> <span>Event Bookings</span></a></li><li><a href="https://beats.squareyards.com/Sales/DigitalLoanApplication.aspx"><i class="fa fa-indent"></i> <span>Digital Loan Application</span></a></li><li><a href="https://beats.squareyards.com/CRM/HotProspectLeads.aspx"><i class="fa fa-indent"></i> <span>Hot Prospect Leads</span></a></li><li><a href="https://beatsreports.squareyards.com/CRM/SiteVisitDashboard.aspx"><i class="fa fa-indent"></i> <span>Site Visit Dashboard</span></a></li><li><a href="https://beatsreports.squareyards.com/CRM/ActualSiteVisitDashboard.aspx"><i class="fa fa-indent"></i> <span>Site Visit Location Map</span></a></li><li><a href="https://beats.squareyards.com/Sales/DebitNote/TCFDebitNoteExpenses.aspx"><i class="fa fa-indent"></i> <span>Debit Note Expenses</span></a></li><li><a href="https://beats.squareyards.com/CRM/CPMeetingDashboard.aspx"><i class="fa fa-indent"></i> <span>CP Meeting Board Map</span></a></li></ul></li><li class="treeview"><a href="/"><i class="fa fa-universal-access"></i> <span>HR</span><i class="fa fa-angle-left pull-right"></i></a><ul class="treeview-menu"><li><a href="https://beats.squareyards.com/Policies/HR"><i class="fa fa-file-text-o"></i> <span>HR Policies</span></a></li><li><a href="https://beats.squareyards.com/HR/MyTeam.aspx"><i class="fa fa-indent"></i> <span>My Team</span></a></li><li><a href="https://beats.squareyards.com/HR/EmployeeMovementRequisitionProfile.aspx"><i class="fa fa-exchange"></i> <span>Movement Requisition</span></a></li><li><a href="https://beats.squareyards.com/HR/EmployeeExitRequisitionProfile.aspx"><i class="fa fa-sign-out"></i> <span>Exit Requisition</span></a></li><li><a href="/"><i class="fa fa-indent"></i> <span>Engagement</span><i class="fa fa-angle-left pull-right"></i></a><ul class="treeview-menu"><li><a href="https://beats.squareyards.com/HR/AddAnnounce.aspx"><i class="fa fa-commenting"></i> <span>Announcements</span></a></li><li><a href="https://beats.squareyards.com/HR/HrMails.aspx"><i class="fa fa-indent"></i> <span>Emailers</span></a></li><li><a href="https://beats.squareyards.com/HR/SalaryGenerate.aspx"><i class="fa fa-indent"></i> <span>Generate HR Letters</span></a></li></ul></li><li><a href="/"><i class="fa fa-user-secret"></i> <span>HR Admin</span><i class="fa fa-angle-left pull-right"></i></a><ul class="treeview-menu"><li><a href="https://beats.squareyards.com/HR/EmployeeLocation.aspx"><i class="fa fa-map"></i> <span>Office Location</span></a></li><li><a href="https://beats.squareyards.com/admin/Designation.aspx"><i class="fa fa-indent"></i> <span>Designation</span></a></li></ul></li><li><a href="/"><i class="fa fa-indent"></i> <span>Recruitment</span><i class="fa fa-angle-left pull-right"></i></a><ul class="treeview-menu"><li><a href="https://beats.squareyards.com/HR/CandidateOfferList.aspx"><i class="fa fa-indent"></i> <span>Candidate Offer List</span></a></li><li><a href="https://beats.squareyards.com/hr/CandidateOfferLocation.aspx"><i class="fa fa-indent"></i> <span>Offer  Location Wise</span></a></li></ul></li><li><a href="/"><i class="fa fa-indent"></i> <span>Employee Creation</span><i class="fa fa-angle-left pull-right"></i></a><ul class="treeview-menu"><li><a href="https://beats.squareyards.com/HR/EmployeeProfile.aspx"><i class="fa fa-indent"></i> <span>Add New Employee</span></a></li><li><a href="https://beats.squareyards.com/HR/employeelist.aspx"><i class="fa fa-indent"></i> <span>List Of Employees</span></a></li><li><a href="https://beats.squareyards.com/HR/EmployeeUpload.aspx"><i class="fa fa-upload"></i> <span>Upload Employee</span></a></li><li><a href="https://beats.squareyards.com/HR/ConfirmationDue.aspx"><i class="fa fa-indent"></i> <span>Confirmation Due</span></a></li><li><a href="https://beats.squareyards.com/HR/Magic.aspx"><i class="fa fa-magic"></i> <span>Change Band</span></a></li><li><a href="https://beats.squareyards.com/HR/EmployeeUanEsicUpload.aspx"><i class="fa fa-upload"></i> <span>Upload UAN/ESIC</span></a></li><li><a href="https://beats.squareyards.com/HR/employeelist_bulkExport.aspx"><i class="fa fa-indent"></i> <span>EMP Master Bulk</span></a></li></ul></li><li><a href="/"><i class="fa fa-indent"></i> <span>Payroll</span><i class="fa fa-angle-left pull-right"></i></a><ul class="treeview-menu"><li><a href="https://beats.squareyards.com/Reports/FnfEmployees.aspx"><i class="fa fa-indent"></i> <span>Full &amp; Final</span></a></li><li><a href="https://beats.squareyards.com/HR/FnFUpload.aspx"><i class="fa fa-indent"></i> <span>F&amp;F Upload</span></a></li><li><a href="https://beats.squareyards.com/Reports/DASHBOARD/EmployeeDeduction.aspx"><i class="fa fa-indent"></i> <span>My Deductions Details</span></a></li><li><a href="https://beats.squareyards.com/HR/EmployeeRecoveryDeduction.aspx"><i class="fa fa-indent"></i> <span>List Of Deduction</span></a></li></ul></li><li><a href="https://beats.squareyards.com/HR/AgentToEmployeeCreation.aspx"><i class="fa fa-indent"></i> <span>Agent To Employee Create</span></a></li><li><a href="https://beats.squareyards.com/HR/EmployeeAccountVerification.aspx"><i class="fa fa-university"></i> <span>Verify Accounts</span></a></li></ul></li><li class="treeview"><a href="/"><i class="fa fa-money"></i> <span>Convertible Notes</span><i class="fa fa-angle-left pull-right"></i></a><ul class="treeview-menu"><li><a href="https://beats.squareyards.com/Investment/InvestmentReport.aspx"><i class="fa fa-dashboard"></i> <span>Convertible Dashboard</span></a></li><li><a href="https://beats.squareyards.com/Investment/ConvertToEquity.aspx"><i class="fa fa-indent"></i> <span>Convert To Equity Calculator</span></a></li><li><a href="https://beats.squareyards.com/Investment/ViewNotes.aspx"><i class="fa fa-list"></i> <span>View Blockings</span></a></li><li><a href="https://beats.squareyards.com/Investment/ApplicationDetail.aspx"><i class="fa fa-list"></i> <span>Application Forms</span></a></li><li><a href="https://beats.squareyards.com/Investment/TrackApplication.aspx"><i class="fa fa-indent"></i> <span>Application Tracker</span></a></li><li><a href="https://beats.squareyards.com/Investment/DownloadPaymentAdvice.aspx"><i class="fa fa-indent"></i> <span>Payment Advice</span></a></li><li><a href="https://beats.squareyards.com/Investment/UploadPaymentAdvice.aspx"><i class="fa fa-indent"></i> <span>Extended Payout</span></a></li><li><a href="https://beats.squareyards.com/Investment/RMDashboard.aspx"><i class="fa fa-indent"></i> <span>RM Dashboard</span></a></li><li><a href="https://beats.squareyards.com/Investment/RolloverRequest.aspx"><i class="fa fa-indent"></i> <span>Rollover Request</span></a></li><li><a href="https://beats.squareyards.com/Investment/ExecuteRollovers.aspx"><i class="fa fa-indent"></i> <span>Combined Rollover</span></a></li><li><a href="https://beats.squareyards.com/Investment/EquitiesList.aspx"><i class="fa fa-indent"></i> <span>Equity List</span></a></li></ul></li><li class="treeview"><a href="/"><i class="fa fa-file-text-o"></i> <span>Reports</span><i class="fa fa-angle-left pull-right"></i></a><ul class="treeview-menu"><li><a href="https://beats.squareyards.com/Reports/DASHBOARD/CustomReport.aspx"><i class="fa fa-microchip"></i> <span>My Reports</span></a></li><li><a href="/"><i class="fa fa-dashboard"></i> <span>Dashboards</span><i class="fa fa-angle-left pull-right"></i></a><ul class="treeview-menu"><li><a href="https://beats.squareyards.com/Reports/DASHBOARD/ViewTcfPDC.aspx"><i class="fa fa-indent"></i> <span>PDC Doccument</span></a></li><li><a href="https://beatsreports.squareyards.com/Reports/SalesDashboardAdvanced.aspx"><i class="fa fa-dashboard"></i> <span>Sales Dashboard</span></a></li><li><a href="https://beatsreports.squareyards.com/Reports/dashboard/SalesDashboardLead.aspx"><i class="fa fa-indent"></i> <span>Leads Dashboard</span></a></li><li><a href="https://beatsreports.squareyards.com/Reports/dashboard/Headsdashboard.aspx"><i class="fa fa-dashboard"></i> <span>Heads Dashboard</span></a></li><li><a href="https://beatsreports.squareyards.com/Reports/OnlineBookingDashboard.aspx"><i class="fa fa-dashboard"></i> <span>Focus Projects Dashboard</span></a></li><li><a href="https://beatsreports.squareyards.com/Reports/DASHBOARD/TCF_TATDashboard.aspx"><i class="fa fa-dashboard"></i> <span>TCF TAT Dashboard</span></a></li><li><a href="https://beats.squareyards.com/Reports/FunnelDashboard.aspx"><i class="fa fa-indent"></i> <span>Lead Funnel</span></a></li><li><a href="https://beats.squareyards.com/Reports/DASHBOARD/NCDashboard.aspx"><i class="fa fa-indent"></i> <span>NC Dashboard</span></a></li><li><a href="https://beatsreports.squareyards.com/Reports/MCFInvoice/BillingCollectionDashboard.aspx"><i class="fa fa-indent"></i> <span>MCF Billing Collection</span></a></li></ul></li><li><a href="https://beats.squareyards.com/core/PnlCostSheet/Index"><i class="fa fa-indent"></i> <span>P&amp;L Report</span></a></li><li><a href="https://beatsreports.squareyards.com/Reports/PerformanceBasedTarget.aspx"><i class="fa fa-indent"></i> <span>Performance Based Target</span></a></li><li><a href="https://beatsreports.squareyards.com/Reports/DASHBOARD/MortgageReportCard.aspx"><i class="fa fa-indent"></i> <span>Mortgage Report Card</span></a></li><li><a href="/"><i class="fa fa-indent"></i> <span>TCF Reports</span><i class="fa fa-angle-left pull-right"></i></a><ul class="treeview-menu"><li><a href="https://beatsreports.squareyards.com/Reports/TCF/rptTCF.aspx"><i class="fa fa-list"></i> <span>TCF List</span></a></li><li><a href="https://beatsreports.squareyards.com/Reports/TCF/rptTCFList.aspx"><i class="fa fa-file-text-o"></i> <span>TCF MIS</span></a></li><li><a href="https://beatsreports.squareyards.com/Reports/invoice/rptInvoice.aspx"><i class="fa fa-indent"></i> <span>Invoice List</span></a></li><li><a href="https://beatsreports.squareyards.com/Reports/invoice/rptCollection.aspx"><i class="fa fa-indent"></i> <span>Collection List</span></a></li><li><a href="https://beatsreports.squareyards.com/Reports/invoice/TCFInvoiceCollection.aspx"><i class="fa fa-indent"></i> <span>TCF Invoice Detail</span></a></li><li><a href="https://beatsreports.squareyards.com/Reports/invoice/TCFAllInvoiceCollection.aspx"><i class="fa fa-indent"></i> <span>TCF Wise Invoice Collection</span></a></li><li><a href="https://beatsreports.squareyards.com/Reports/invoice/InvoiceTrack.aspx"><i class="fa fa-indent"></i> <span>Invoice Track</span></a></li><li><a href="https://beatsreports.squareyards.com/Reports/invoice/TDSDetail.aspx"><i class="fa fa-indent"></i> <span>TDS List</span></a></li><li><a href="https://beatsreports.squareyards.com/Reports/invoice/CollectionTrack.aspx"><i class="fa fa-indent"></i> <span>Collection Track</span></a></li><li><a href="https://beats.squareyards.com/Reports/TCF/TCFPendingPayments.aspx"><i class="fa fa-indent"></i> <span>TCF Pending Payments</span></a></li></ul></li><li><a href="/"><i class="fa fa-indent"></i> <span>MCF Reports</span><i class="fa fa-angle-left pull-right"></i></a><ul class="treeview-menu"><li><a href="https://beatsreports.squareyards.com/Reports/MCF/rptMCF.aspx"><i class="fa fa-list"></i> <span>MCF List</span></a></li><li><a href="https://beatsreports.squareyards.com/Reports/MCF/rptMCFList.aspx"><i class="fa fa-file-text-o"></i> <span>MCF MIS</span></a></li><li><a href="https://beatsreports.squareyards.com/Reports/MCFInvoice/InvoiceList.aspx"><i class="fa fa-indent"></i> <span>Invoice List</span></a></li><li><a href="https://beatsreports.squareyards.com/Reports/MCFInvoice/CollectionList.aspx"><i class="fa fa-indent"></i> <span>Collection List</span></a></li><li><a href="https://beatsreports.squareyards.com/Reports/MCFInvoice/InvoiceTrack.aspx"><i class="fa fa-indent"></i> <span>Invoice Track</span></a></li><li><a href="https://beatsreports.squareyards.com/Reports/MCFInvoice/BilledDashboardDetail.aspx"><i class="fa fa-indent"></i> <span>Billed Dashboard Detail</span></a></li><li><a href="https://beatsreports.squareyards.com/Reports/MCFInvoice/CollectionTrack.aspx"><i class="fa fa-indent"></i> <span>Collection Track</span></a></li><li><a href="https://beatsreports.squareyards.com/Reports/MCFInvoice/MCFListWithInvoiceCollection.aspx"><i class="fa fa-indent"></i> <span>Invoice Export</span></a></li></ul></li><li><a href="/"><i class="fa fa-indent"></i> <span>ICF Reports</span><i class="fa fa-angle-left pull-right"></i></a><ul class="treeview-menu"><li><a href="https://beatsreports.squareyards.com/Reports/ICF/rptICF.aspx"><i class="fa fa-indent"></i> <span>ICF List</span></a></li><li><a href="https://beatsreports.squareyards.com/Reports/ICF/rptICFList.aspx"><i class="fa fa-indent"></i> <span>ICF MIS</span></a></li><li><a href="https://beatsreports.squareyards.com/InvoiceList/ICF"><i class="fa fa-indent"></i> <span>Invoice List</span></a></li><li><a href="https://beatsreports.squareyards.com/CollectionList/ICF"><i class="fa fa-indent"></i> <span>Collection List</span></a></li><li><a href="https://beatsreports.squareyards.com/InvoiceTrack/ICF"><i class="fa fa-indent"></i> <span>Invoice Track</span></a></li><li><a href="https://beatsreports.squareyards.com/CollectionTrack/ICF"><i class="fa fa-indent"></i> <span>Collection Track</span></a></li></ul></li><li><a href="https://beatsreports.squareyards.com/reports/dashboard/MyPerformace.aspx"><i class="fa fa-indent"></i> <span>My Performance</span></a></li><li><a href="https://beats.squareyards.com/Reports/RSVPDashboard.aspx"><i class="fa fa-dashboard"></i> <span>RSVP Dashboard</span></a></li><li><a href="https://beats.squareyards.com/Operation/POActivityDetailsReport.aspx"><i class="fa fa-indent"></i> <span>PO Activity Detail Report</span></a></li><li><a href="/"><i class="fa fa-indent"></i> <span>Incentives</span><i class="fa fa-angle-left pull-right"></i></a><ul class="treeview-menu"><li><a href="https://beats.squareyards.com/Reports/MyESOP.aspx"><i class="fa fa-user-secret"></i> <span>My ESOPs</span></a></li><li><a href="https://beats.squareyards.com/Reports/TeamESOP.aspx"><i class="fa fa-user-secret"></i> <span>Team ESOPs</span></a></li><li><a href="https://beats.squareyards.com/incentive/TeamIncentive.aspx"><i class="fa fa-indent"></i> <span>Team Incentive</span></a></li><li><a href="https://beatsreports.squareyards.com/Reports/IncentivePayoutDetails.aspx"><i class="fa fa-indent"></i> <span>My Incentive</span></a></li><li><a href="https://beatsreports.squareyards.com/incentive/IncentiveDisbursement.aspx"><i class="fa fa-indent"></i> <span>Incentive Disbursement</span></a></li></ul></li><li><a href="https://beats.squareyards.com/Reports/TCF/ProjectList.aspx"><i class="fa fa-outdent"></i> <span>Whitelisted Project List</span></a></li><li><a href="https://beats.squareyards.com/Reports/DASHBOARD/SalesPerformance.aspx"><i class="fa fa-line-chart"></i> <span>Performance (1M - 3M - 6M)</span></a></li><li><a href="https://beats.squareyards.com/Reports/Dashboard/PIPList.aspx"><i class="fa fa-outdent"></i> <span>PIP List</span></a></li><li><a href="https://beats.squareyards.com/Reports/TCF/PendencyTCFAssignment.aspx"><i class="fa fa-indent"></i> <span>Pendency TCF Assignement</span></a></li><li><a href="https://beats.squareyards.com/Reports/TCF/CancelledTCF.aspx"><i class="fa fa-indent"></i> <span>Cancelled TCF List</span></a></li><li><a href="https://beats.squareyards.com/Sales/ManagePendencyExtensions.aspx"><i class="fa fa-indent"></i> <span>Pendency Extensions</span></a></li><li><a href="https://beats.squareyards.com/Reports/ResaleRentalReports.aspx"><i class="fa fa-indent"></i> <span>Resale &amp; Rental</span></a></li><li><a href="https://beatsreports.squareyards.com/Sales/PnlBookingReport.aspx"><i class="fa fa-indent"></i> <span>P&amp;L Booking Report</span></a></li><li><a href="/"><i class="fa fa-indent"></i> <span>Secondary Report</span><i class="fa fa-angle-left pull-right"></i></a><ul class="treeview-menu"><li><a href="https://beatsreports.squareyards.com/SQYConnect/FOSSecondaryReport.aspx"><i class="fa fa-indent"></i> <span>Fos Secondary Report</span></a></li><li><a href="https://beatsreports.squareyards.com/SQYConnect/SecondaryFosPointTable.aspx"><i class="fa fa-indent"></i> <span>Secondary Point Table</span></a></li><li><a href="https://beatsreports.squareyards.com/SQYConnect/DCMDemand.aspx"><i class="fa fa-indent"></i> <span>DCM Demand</span></a></li></ul></li></ul></li><li class="treeview"><a href="/"><i class="fa fa-indent"></i> <span>PMS</span><i class="fa fa-angle-left pull-right"></i></a><ul class="treeview-menu"><li><a href="https://beats.squareyards.com/PMS/ServiceInterest.aspx"><i class="fa fa-indent"></i> <span>Service Interest</span></a></li><li><a href="https://beats.squareyards.com/PMS/ServiceInterestList.aspx"><i class="fa fa-indent"></i> <span>Service Interest List</span></a></li></ul></li><li class="treeview"><a href="/"><i class="fa fa-indent"></i> <span>Interior</span><i class="fa fa-angle-left pull-right"></i></a><ul class="treeview-menu"><li><a href="https://beats.squareyards.com/interior/listserviceinterest.aspx"><i class="fa fa-indent"></i> <span>Lead List</span></a></li><li><a href="https://beats.squareyards.com/interior/paymentapproval.aspx"><i class="fa fa-indent"></i> <span>Payment Approval</span></a></li></ul></li><li class="treeview"><a href="/"><i class="fa fa-cogs"></i> <span>Operations</span><i class="fa fa-angle-left pull-right"></i></a><ul class="treeview-menu"><li><a href="https://beats.squareyards.com/Operation/PRList.aspx"><i class="fa fa-indent"></i> <span>PR List</span></a></li><li><a href="/"><i class="fa fa-indent"></i> <span>TCF Invoice Collection</span><i class="fa fa-angle-left pull-right"></i></a><ul class="treeview-menu"><li><a href="https://beats.squareyards.com/Sales/Invoice/CancelCollection.aspx"><i class="fa fa-indent"></i> <span>Cancel/ Edit Collection</span></a></li><li><a href="https://beats.squareyards.com/Sales/Invoice/VerifyChequeStatus.aspx"><i class="fa fa-indent"></i> <span>Verify Collection</span></a></li><li><a href="https://beats.squareyards.com/Sales/Invoice/TDSVerify.aspx"><i class="fa fa-indent"></i> <span>Verify TDS</span></a></li></ul></li><li><a href="https://beats.squareyards.com/Operation/POList.aspx"><i class="fa fa-indent"></i> <span>PO List</span></a></li><li><a href="/"><i class="fa fa-indent"></i> <span>MCF Invoice Collection</span><i class="fa fa-angle-left pull-right"></i></a><ul class="treeview-menu"><li><a href="https://beats.squareyards.com/Sales/MCFInvoice/CancelCollection.aspx"><i class="fa fa-indent"></i> <span>Cancel/ Edit Collection</span></a></li><li><a href="https://beats.squareyards.com/Sales/MCFInvoice/VerifyChequeStatus.aspx"><i class="fa fa-indent"></i> <span>Verify Collection</span></a></li><li><a href="https://beats.squareyards.com/Sales/MCFInvoice/VerifyTDS.aspx"><i class="fa fa-indent"></i> <span>Verify TDS</span></a></li></ul></li><li><a href="/"><i class="fa fa-indent"></i> <span>TCFDN Invoice Collection</span><i class="fa fa-angle-left pull-right"></i></a><ul class="treeview-menu"><li><a href="https://beats.squareyards.com/DNVerifyCheque/TCFDN"><i class="fa fa-indent"></i> <span>Verify Cheque</span></a></li></ul></li><li><a href="https://beats.squareyards.com/Operation/Admin/VendorMaster.aspx"><i class="fa fa-indent"></i> <span>Vendors</span></a></li><li><a href="/"><i class="fa fa-indent"></i> <span>ICF Invoice Collection</span><i class="fa fa-angle-left pull-right"></i></a><ul class="treeview-menu"><li><a href="https://beats.squareyards.com/CancelCollection/ICF"><i class="fa fa-indent"></i> <span>Cancel/ Edit Collection</span></a></li><li><a href="https://beats.squareyards.com/VerifyCollection/ICF"><i class="fa fa-indent"></i> <span>Verify Collection</span></a></li><li><a href="https://beats.squareyards.com/VerifyTDS/ICF"><i class="fa fa-indent"></i> <span>Verify TDS</span></a></li></ul></li><li><a href="https://beats.squareyards.com/Operation/POInvoiceDetails.aspx"><i class="fa fa-indent"></i> <span>PO Invoice</span></a></li><li><a href="https://beats.squareyards.com/Operation/PorecadminReport.aspx"><i class="fa fa-indent"></i> <span>Admin Receiving Tracker</span></a></li><li><a href="https://beats.squareyards.com/Operation/PoPayment.aspx"><i class="fa fa-indent"></i> <span>PO Payment</span></a></li><li><a href="https://beats.squareyards.com/Operation/POItemTrackerReport.aspx"><i class="fa fa-indent"></i> <span>Item Tracker Report</span></a></li><li><a href="https://beats.squareyards.com/Operation/POReceivedReport.aspx"><i class="fa fa-indent"></i> <span>Received Report</span></a></li><li><a href="https://beats.squareyards.com/Operation/VendorTaxReport.aspx"><i class="fa fa-indent"></i> <span>Vendor Tax Report</span></a></li><li><a href="https://beats.squareyards.com/Operation/POSummaryReport.aspx"><i class="fa fa-indent"></i> <span>PO Summary Report</span></a></li><li><a href="https://beats.squareyards.com/Operation/PODetailReport.aspx"><i class="fa fa-indent"></i> <span>PO Detail Report</span></a></li><li><a href="https://beats.squareyards.com/Operation/PoUsageAndVerification.aspx"><i class="fa fa-indent"></i> <span>PO Usage And Verification</span></a></li><li><a href="https://beats.squareyards.com/Operation/POActivitySummaryReport.aspx"><i class="fa fa-indent"></i> <span>PO Activity Summary Report</span></a></li><li><a href="https://beats.squareyards.com/Operation/POMrktCoordinatorReport.aspx"><i class="fa fa-indent"></i> <span>PO Coordinator Activity Report</span></a></li><li><a href="https://beats.squareyards.com/Operation/POMrktCoordVendorReport.aspx"><i class="fa fa-indent"></i> <span>PO Coordinator Vendor Report</span></a></li><li><a href="https://beats.squareyards.com/incentive/IncentiveLedger.aspx"><i class="fa fa-indent"></i> <span>Incentive Ledger</span></a></li></ul></li><li class="treeview"><a href="/"><i class="fa fa-plane"></i> <span>Travel</span><i class="fa fa-angle-left pull-right"></i></a><ul class="treeview-menu"><li><a href="https://beats.squareyards.com/Travel/TRList.aspx"><i class="fa fa-indent"></i> <span>Travel List</span></a></li></ul></li><li class="treeview"><a href="/"><i class="fa fa-external-link"></i> <span>Marketing</span><i class="fa fa-angle-left pull-right"></i></a><ul class="treeview-menu"><li><a href="https://beats.squareyards.com/Sales/ProjectShare.aspx"><i class="fa fa-indent"></i> <span>Custom Links</span></a></li></ul></li><li class="treeview"><a href="/"><i class="fa fa-thumbs-up"></i> <span>Approvals</span><i class="fa fa-angle-left pull-right"></i></a><ul class="treeview-menu"><li><a href="https://beats.squareyards.com/Sales/ApproveTCF.aspx"><i class="fa fa-indent"></i> <span>TCF Approvals</span></a></li><li><a href="https://beats.squareyards.com/Sales/MCF/ApproveMCF.aspx"><i class="fa fa-indent"></i> <span>Approve MCF</span></a></li></ul></li><li class="treeview"><a href="/"><i class="fa fa-sitemap"></i> <span>Channel Sales</span><i class="fa fa-angle-left pull-right"></i></a><ul class="treeview-menu"><li><a href="https://beats.squareyards.com/SQYConnect/Booking.aspx"><i class="fa fa-indent"></i> <span>Channel Partner Bookings</span></a></li><li><a href="https://beats.squareyards.com/CRM/MyCPLeads.aspx"><i class="fa fa-indent"></i> <span>My CP Leads</span></a></li><li><a href="https://beats.squareyards.com/SQYConnect/ChannelPartner.aspx"><i class="fa fa-indent"></i> <span>Manage Channel Partner</span></a></li><li><a href="https://beats.squareyards.com/SQYConnect/opsdeepdive.aspx"><i class="fa fa-outdent"></i> <span>Channel Partner Docs</span></a></li><li><a href="https://beats.squareyards.com/SQYConnect/CPPayments.aspx"><i class="fa fa-indent"></i> <span>CP Payment</span></a></li><li><a href="https://beatsreports.squareyards.com/SQYConnect/UserDetail.aspx"><i class="fa fa-indent"></i> <span>User Detail</span></a></li><li><a href="https://beats.squareyards.com/SQYConnect/PaymentUpload.aspx"><i class="fa fa-indent"></i> <span>CP Payment Upload</span></a></li><li><a href="https://beatsreports.squareyards.com/SQYConnect/LeaderDashboard.aspx"><i class="fa fa-indent"></i> <span>CP Leader Board</span></a></li><li><a href="https://beats.squareyards.com/SQYConnect/PaymentVerify.aspx"><i class="fa fa-indent"></i> <span>CP Payment Verify</span></a></li><li><a href="https://beatsreports.squareyards.com/SQYConnect/CPBookingDetail.aspx"><i class="fa fa-indent"></i> <span>CP Booking Detail</span></a></li><li><a href="https://beatsreports.squareyards.com/SQYConnect/CPPaymentReport.aspx"><i class="fa fa-indent"></i> <span>CP Paid Commission Detail</span></a></li></ul></li><li class="treeview"><a href="/"><i class="fa fa-wrench"></i> <span>Tools</span><i class="fa fa-angle-left pull-right"></i></a><ul class="treeview-menu"><li><a href="https://beats.squareyards.com/Booking/GenerateVisitingCard.aspx"><i class="fa fa-indent"></i> <span>Canada Visiting Card</span></a></li><li><a href="https://beats.squareyards.com/Tools/MortgagePriceCalculator.aspx"><i class="fa fa-indent"></i> <span>Property Calculator</span></a></li><li><a href="https://beats.squareyards.com/Sales/OfflineBookings.aspx"><i class="fa fa-indent"></i> <span>Create Offline Bookings</span></a></li><li><a href="https://beats.squareyards.com/Booking/GeneratePaymentList.aspx"><i class="fa fa-indent"></i> <span>Generate  Payment List</span></a></li><li><a href="https://beats.squareyards.com/Listing/ListingOfflineBookings.aspx"><i class="fa fa-indent"></i> <span>Azuro Listings Token</span></a></li></ul></li><li class="treeview"><a href="/"><i class="fa fa-group"></i> <span>LMS</span><i class="fa fa-angle-left pull-right"></i></a><ul class="treeview-menu"><li><a href="https://beatsreports.squareyards.com/CRM/LeadCount.aspx"><i class="fa fa-bar-chart"></i> <span>Lead Count</span></a></li></ul></li><li><a href="https://beats.squareyards.com/changePassword.aspx"><i class="fa fa-key"></i> <span>Change Password</span></a></li></ul></div>
             </section>
-
+            <!-- /.sidebar -->
         </aside>
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
 
-            <section class="content container-fluid">
 
-                <div id="divSERP">
-                    @RenderBody()
-                </div>
-                @await Html.PartialAsync("~/Views/Shared/_CommomModalPopUpPartial.cshtml")
-            </section>
-        </div>
+
+
+        @RenderBody()
+        @await Html.PartialAsync("~/Views/Shared/_CommomModalPopUpPartial.cshtml")
 
         <footer class="main-footer">
-            <div class="pull-right hidden-xs">
-                KLBS Payroll System
-            </div>
-            <strong>Copyright &copy; @DateTime.Now.Year <a href="#">KLBS HRMS</a>.</strong> All rights reserved.
+
+            <strong>Copyright © @DateTime.Now.Year <a target="_blank" href="http://kudotech.in/">Kudo Tech </a>.</strong> All rights reserved.
         </footer>
-
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Create the tabs -->
-            <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-                <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-                <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-            </ul>
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <!-- Home tab content -->
-                <div class="tab-pane active" id="control-sidebar-home-tab">
-                    <h3 class="control-sidebar-heading">Recent Activity</h3>
-                    <ul class="control-sidebar-menu">
-                        <li>
-                            <a href="javascript:;">
-                                <i class="menu-icon fa fa-birthday-cake bg-red"></i>
-
-                                <div class="menu-info">
-                                    <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-
-                                    <p>Will be 23 on April 24th</p>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                    <h3 class="control-sidebar-heading">Tasks Progress</h3>
-                    <ul class="control-sidebar-menu">
-                        <li>
-                            <a href="javascript:;">
-                                <h4 class="control-sidebar-subheading">
-                                    Custom Template Design
-                                    <span class="pull-right-container">
-                                        <span class="label label-danger pull-right">70%</span>
-                                    </span>
-                                </h4>
-
-                                <div class="progress progress-xxs">
-                                    <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
-                <div class="tab-pane" id="control-sidebar-settings-tab">
-                    <form id="form" method="post">
-                        <h3 class="control-sidebar-heading">General Settings</h3>
-
-                        <div class="form-group">
-                            <label class="control-sidebar-subheading">
-                                Report panel usage
-                                <input type="checkbox" class="pull-right" checked>
-                            </label>
-
-                            <p>
-                                Some information about this general settings option
-                            </p>
-
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </aside>
-        <div class="control-sidebar-bg"></div>
     </div>
-    <script src="~/Jquery/jquery.min.js"></script>
-    <script src="~/Jquery/bootstrap.min.js"></script>
-    <script src="~/Jquery/adminlte.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+
+ 
+
+
+
+
+
+
+
+
 </body>
 </html>
 
