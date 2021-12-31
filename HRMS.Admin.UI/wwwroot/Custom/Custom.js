@@ -60,48 +60,48 @@ function CustomDeleteRecord(id, getUrl, deleteUrl, event) {
 
 function UpdateCustomRecord(id, updateUrl,textData) {
     $("#modalTitle").text(textData)
-    $("#divModalPop").addClass("loading");
+    $('#divLoader').modal('show');
     $.get(updateUrl, { id: id }, function (response) {
         $("#divHRMSCreate").html(response);
         $("#divModalPop").show();
     }).done(function () {
-        $("#divModalPop").removeClass("loading");
+        $('#divLoader').modal('hide');
     });
 }
 
 function GetCustomRecord(getUrl, divId) {
-    $("#divSERP").addClass("loading");
+    $('#divLoader').modal('show');
     $.get(getUrl, function (response) {
         $("#" + divId).html(response);
     }).done(function () {
-        $("#divSERP").removeClass("loading");
+        $('#divLoader').modal('hide');
     });
 }
 
 function NewCustomRecord(url, textData) {
     $("#modalTitle").text(textData)
-    $("#divModalPop").addClass("loading");
+    $('#divLoader').modal('show');
     $.get(url, function (response) {
         $("#divHRMSCreate").html(response);
         $("#divModalPop").show();
     }).done(function () {
-        $("#divModalPop").removeClass("loading");
+        $('#divLoader').modal('hide');
     });
 }
 
 function AjaxOnBegin() {
-    $("#modalContent").addClass('loading');
+    $('#divLoader').modal('show');
 }
 function AjaxComplete() {
-    $("#modalContent").removeClass('loading');
+    $('#divLoader').modal('hide');
 }
 
 function CustomFormSubmitBegin() {
-    $("#modalContent").addClass('loading');
+    $('#divLoader').modal('show');
 }
 
 function CustomFormSubmitComplete() {
-    $("#modalContent").removeClass('loading');
+    $('#divLoader').modal('hide');
    
 }
 function HidePopUp() {
