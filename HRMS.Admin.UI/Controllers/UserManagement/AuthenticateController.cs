@@ -73,6 +73,7 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
         [HttpGet]
         public async Task<IActionResult> ChangePassword()
         {
+ 
             return await Task.Run(() => PartialView("~/Views/Authenticate/ChangePassword.cshtml"));
         }
 
@@ -103,6 +104,7 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
+ 
 
         }
     }
