@@ -1,11 +1,22 @@
-﻿
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor;
+@using HRMS.Admin.UI.Helpers;
+@using HRMS.Core.Entities.Organisation;
+@using HRMS.Core.Entities.Payroll;
+@{
+    var companyDetails = HttpContextAccessor.HttpContext.Session.GetObjectFromJson<Company>("companyDetails");
+    var todayDate = DateTime.Now.ToLongDateString();
+    var employeeName = HttpContextAccessor.HttpContext.Session.GetString("UserName");
+    var roleId = HttpContextAccessor.HttpContext.Session.GetString("RoleId");
+}
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>KudoTech HRMS</title>
+    <title>@companyDetails.Name</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="shortcut icon" href="~/resources/dist/img/favicon.png" type="image/x-icon" />
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
@@ -23,7 +34,7 @@
     <script src="~/resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="~/resources/dist/js/app.min.js" type="text/javascript"></script>
     <link href="~/resources/dist/css/rnr.css?v=1.2" rel="stylesheet" type="text/css" />
-    <link rel="shortcut icon" href="~/resources/dist/img/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="@companyDetails.FavIcon" type="image/x-icon" />
     <link href="~/resources/dist/font-awesome/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="~/resources/dist/css/build.css" rel="stylesheet" type="text/css" />
     <link href="~/resources/dist/css/custom-fonts.css" rel="stylesheet" type="text/css" />
@@ -31,7 +42,7 @@
     <link href="~/resources/dist/css/owl.theme.css" rel="stylesheet" type="text/css" />
     <script src="~/Custom/Custom.js"></script>
 
-   
+
     <script src="https://cdn.jsdelivr.net/npm/jquery-ajax-unobtrusive@3.2.6/dist/jquery.unobtrusive-ajax.min.js"
             integrity="sha256-PAC000yuHt78nszJ2RO0OiDMu/uLzPLRlYTk8J3AO10="
             crossorigin="anonymous"></script>
@@ -537,8 +548,8 @@
             }
 
         /*#incentive .table td {
-            border: 2px solid #ffffff;
-        }*/
+                    border: 2px solid #ffffff;
+                }*/
 
         #incentive .table th,
         #incentive .table td {
@@ -547,8 +558,8 @@
         }
 
         /*#incentive .table th {
-                font-size: 10px;
-            }*/
+                        font-size: 10px;
+                    }*/
 
         #incentive .table {
             font-size: 11px;
@@ -640,15 +651,15 @@
 
         <header class="main-header">
             <!-- Logo -->
-            <a href="http://beats.squareyards.com/Dashboard.aspx" class="logo">
+            <a asp-controller="Home" asp-action="Index" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels
                 <span class="logo-mini" style="color: #3C8DBC; font-size: 30px;"><i class="fa fa-heartbeat"></i></span> -->
                 <span class="logo-mini">
-                    <img src="~/resources/dist/img/beats-logo-small.png">
+                    <img src="@companyDetails.Logo">
                 </span>
                 <!-- logo for regular state and mobile devices -->
                 <span class="logo-lg">
-                    <img src="~/resources/dist/img/beats-logo-white.png">
+                    <img src="@companyDetails.Logo">
                 </span>
             </a>
             <!-- Header Navbar -->
@@ -663,7 +674,7 @@
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <img src="~/resources/dist/img/emp.png" class="user-image" alt="User Image">
-                                <span class="hidden-xs margin-r-5">Rohit Kumar</span>
+                                <span class="hidden-xs margin-r-5">@employeeName</span>
 
                                 <i class="fa fa-caret-down"></i>
                             </a>
@@ -671,8 +682,8 @@
                                 <li class="user-header">
                                     <img src="~/resources/dist/img/emp.png" width="160" height="160" class="img-circle" alt="User Image">
                                     <p>
-                                        Rohit Kumar
-                                        <small>Wednesday, December 29, 2021</small>
+                                        @employeeName
+                                        <small>@todayDate</small>
                                     </p>
                                 </li>
                                 <li class="user-footer">
@@ -681,7 +692,7 @@
 
                                     </div>
                                     <div class="pull-right">
-                                        <a href="#" class="btn bg-red btn-flat">Sign out</a>
+                                        <a asp-action="Logout" asp-controller="Authenticate" class="btn bg-red btn-flat">Sign out</a>
                                     </div>
                                 </li>
                             </ul>
@@ -714,7 +725,15 @@
                 <!-- Sidebar Menu -->
                 <div id="sideMenuContainer">
                     <ul class="sidebar-menu">
-                        <li><a asp-controller="Home" asp-action="Index"><i class="fa fa-home"></i> <span>Home</span></a></li>
+                        @if (roleId == "1" || roleId == "2" || roleId == "3")
+                        {
+                            <li><a asp-controller="Dashboard" asp-action="Index"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
+                        }
+                        else
+                        {
+                            <li><a asp-controller="Home" asp-action="Index"><i class="fa fa-home"></i> <span>Home</span></a></li>
+                        }
+
                         <li class="treeview">
                             <a href="#"><i class="fa fa-cogs"></i> <span>Organization</span><i class="fa fa-angle-left pull-right"></i></a>
                             <ul class="treeview-menu">
@@ -782,7 +801,7 @@
                             <ul class="treeview-menu">
                                 <li><a href="#"><i class="fa fa-line-chart"></i> <span>Salary Paid Register</span></a></li>
                                 <li><a href="#"><i class="fa fa-line-chart"></i> <span>Incentive Paid Register</span></a></li>
-                                 
+
                             </ul>
                         </li>
                         <li><a href="#"><i class="fa fa-line-chart"></i> <span>Exit Requisition</span></a></li>

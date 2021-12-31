@@ -26,7 +26,8 @@ namespace HRMS.Admin.UI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddService(); 
+            services.AddService();
+            services.AddHttpContextAccessor();
             services.AddSession(option => { option.IdleTimeout = TimeSpan.FromMinutes(20); });
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
