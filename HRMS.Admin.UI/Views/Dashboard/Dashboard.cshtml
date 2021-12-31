@@ -1,6 +1,7 @@
 ﻿@{
     Layout = null;
 }
+@model IEnumerable<HRMS.Core.Entities.Organisation.Subsidiary>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,36 +17,29 @@
 
     <section class="container">
         <div class="my-5 border px-3 pb-5">
+
             <div class="row">
-                <div class="col-md-4 offset-md-4 mt-5">
-                    <div class="box">
-                        <img src="~/LoginJsCss/images/" alt="" class="img-fluid">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 mt-5">
-                    <div class="box">
-                        <img src="images/logo.png" alt="" class="img-fluid">
-                    </div>
-                </div>
-                <div class="col-md-4 mt-5">
-                    <div class="box">
-                        <img src="images/logo.png" alt="" class="img-fluid">
-                    </div>
-                </div>
-                <div class="col-md-4 mt-5">
-                    <div class="box">
-                        <img src="images/logo.png" alt="" class="img-fluid">
-                    </div>
-                </div>
+                @foreach (var data in Model)
+                {
+                    <a href="javascript:void" onclick="SelectSubsidry('@data.Id')">
+                        <div class="col-md-4 mt-5">
+                            <div class="box">
+                                <img src="@data.Logo" alt="" class="img-fluid">
+                                <span>@data.Name</span>
+                            </div>
+                        </div>
+                    </a>
+
+                }
+
+
             </div>
             <div class="row">
                 <div class="col-md-1 col-3 offset-md-4">
                     <a asp-action="Index" asp-controller="Home" class="btn btn-primary mt-5">Skip</a>
                 </div>
                 <div class="col-md-1 col-3">
-                    <a asp-action="Index" asp-controller="Home" class="btn btn-success mt-5">Continue</a>
+                    <a asp-action="Index" id="btnContinue" asp-controller="Home" class="btn btn-success mt-5 disabled">Continue</a>
                 </div>
                 <div class="col-md-3 col-6">
                     <a class="btn btn-primary mt-5">Create Legal Entity</a>
@@ -56,3 +50,8 @@
 
 </body>
 </html>
+<script type="text/javascript">
+    function SelectSubsidry(id) {
+        $("#btnContinue").removeClass().addClass("btn btn-success mt-5")
+    }
+</script>
