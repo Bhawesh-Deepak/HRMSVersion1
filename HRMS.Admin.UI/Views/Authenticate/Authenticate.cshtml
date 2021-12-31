@@ -44,7 +44,7 @@
                         </label>
                     </div>
                     <div class="form-group col-md-6 text-md-right">
-                        <a href="">Forget Password</a>
+                        <a onclick="ForgetPassword()">Forget Password</a>
                     </div>
                 </div>
                 <div class="form-group text-center">
@@ -59,3 +59,11 @@
     </section>
 </body>
 </html>
+
+<script type="text/javascript">
+    function ForgetPassword() {
+        alertify.confirm("Are you sure want to reset your  forget password ?", function () {
+            alert("Forget Password page !!!");
+        });
+    }
+</script>
