@@ -53,7 +53,7 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
 
                 //Dashboard page will open for admin and super admin role only
                 // roleId=1 For SuperAdmin :: roleId=2 for admin
-                if (response.Entities.First().RoleId == 1 || response.Entities.First().RoleId==2)
+                if (response.Entities.First().RoleId == 1 || response.Entities.First().RoleId == 2)
                 {
                     return RedirectToAction("Index", "Dashboard");
                 }
@@ -66,8 +66,14 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
         [HttpGet]
         public async Task<IActionResult> Logout()
         {
-            HttpContext.Session.Clear();
+            await Task.Run(()=> HttpContext.Session.Clear());
             return RedirectToAction("LoginIndex", "Authenticate");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ChangePassword()
+        {
+
         }
     }
 }
