@@ -806,7 +806,7 @@
                         </li>
                         <li><a href="#"><i class="fa fa-line-chart"></i> <span>Exit Requisition</span></a></li>
 
-                        <li><a href="#"><i class="fa fa-key"></i> <span>Change Password</span></a></li>
+                        <li><a onclick="ChangePassword()"><i class="fa fa-key"></i> <span>Change Password</span></a></li>
                     </ul>
                 </div>
             </section>
@@ -831,16 +831,16 @@
         </footer>
     </div>
 
-
-
-
-
-
-
-
-
-
-
 </body>
 </html>
+
+<script type="text/javascript">
+    function ChangePassword() {
+        $.get("/Authenticate/ChangePassword", function (data) {
+            $("#divHRMSCreate").html(data);
+            $("#divModalPop").modal('show');
+            $("#modalTitle").text("Change Password");
+        })
+    }
+</script>
 

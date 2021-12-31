@@ -66,13 +66,43 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
         [HttpGet]
         public async Task<IActionResult> Logout()
         {
-            await Task.Run(()=> HttpContext.Session.Clear());
+            await Task.Run(() => HttpContext.Session.Clear());
             return RedirectToAction("LoginIndex", "Authenticate");
         }
 
         [HttpGet]
         public async Task<IActionResult> ChangePassword()
         {
+            return await Task.Run(() => PartialView("~/Views/Authenticate/ChangePassword.cshtml"));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePasswordPost(ChangePasswordVm model)
+        {
+            try
+            {
+                var empId = Convert.ToInt32(HttpContext.Session.GetString("EmployeeId"));
+                var oldPassword = PasswordEncryptor.Instance.Encrypt(model.OldPassword, "HRMSPAYROLLPASSWORDKEY");
+                var newPassword = PasswordEncryptor.Instance.Encrypt(model.NewPassword, "HRMSPAYROLLPASSWORDKEY");
+
+                var response = await _IAuthenticateRepository.GetAllEntities(x => x.EmployeeId == empId && x.Password.Trim().ToLower() == oldPassword.Trim().ToLower());
+                if (response.Entities.Any())
+                {
+                    var authModel = await _IAuthenticateRepository.GetAllEntities(x => x.EmployeeId == empId);
+                    authModel.Entities.First().Password = newPassword;
+
+                    var updateResponse = await _IAuthenticateRepository.UpdateMultipleEntity(authModel.Entities.ToArray());
+
+                    return Json(updateResponse.Message);
+                }
+                return Json("Old Password is not macthed, Please enter valid password !");
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(AuthenticateController)} action name {nameof(ChangePassword)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
 
         }
     }
