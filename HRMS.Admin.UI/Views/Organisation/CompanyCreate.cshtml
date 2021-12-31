@@ -1,0 +1,125 @@
+﻿@model HRMS.Core.Entities.Organisation.Company 
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+<div class="content-wrapper" style="min-height: 870px;">
+    <section class="content-header">
+        <ol class="breadcrumb">
+            <li>Home</li>
+            <li class="active">Index</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div>
+            <div>
+                <div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row" style="margin-top:0;">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="box box-primary">
+                                        <div class="box-header with-border">
+                                            <div class="box-title">
+                                                Company Details &nbsp;
+                                            </div>
+                                        </div>
+                                        <div class="box-body">
+                                            <form id="form" method="post" data-ajax="true" data-ajax-method="post" 
+                                                  data-ajax-begin="AjaxOnBegin"
+                                                  data-ajax-complete="AjaxComplete"
+                                                  asp-action="CreateCompany" asp-controller="Company"
+                                                  data-ajax-success="Success" enctype="multipart/form-data">
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <input asp-for="Id" type="hidden" />
+                                                                    <input asp-for="CreatedBy" type="hidden" />
+                                                                    <input asp-for="CreatedDate" type="hidden" />
+                                                                    <label asp-for="Name">Company Name</label>
+                                                                    <input type="text" class="form-control" asp-for="Name" />
+                                                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label asp-for="Code">Company Code</label>
+                                                                    <input asp-for="Code" class="form-control" />
+                                                                    <span asp-validation-for="Code" class="text-danger"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label asp-for="Email">Email</label>
+                                                                    <input asp-for="Email" class="form-control" />
+                                                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label asp-for="Phone">Phone</label>
+                                                                    <input asp-for="Phone" class="form-control" />
+                                                                    <span asp-validation-for="Phone" class="text-danger"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label asp-for="Url">Url</label>
+                                                                    <input asp-for="Url" class="form-control" />
+                                                                    <span asp-validation-for="Url" class="text-danger"></span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label asp-for="Logo">Logo</label>
+                                                                    <input asp-for="Logo" type="file" class="form-control" />
+                                                                    <span asp-validation-for="Logo" class="text-danger"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label asp-for="FavIcon">Fav Icon</label>
+                                                                    <input asp-for="FavIcon" type="file" class="form-control" />
+                                                                    <span asp-validation-for="FavIcon" class="text-danger"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="col-md-6">
+                                                                <input type="hidden" asp-for="Logo" />
+                                                                <input type="hidden" asp-for="FavIcon" />
+                                                                <img src="@Model.Logo" style="height:120px;width:120px;" />
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <img src="@Model.FavIcon" style="height:120px;width:120px;" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="modal-footer">
+
+
+                                                    <button type="reset" class="btn btn-default">Cancel</button>
+                                                    <input type="submit" class="btn btn-primary  " value="Save" />
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+</div>

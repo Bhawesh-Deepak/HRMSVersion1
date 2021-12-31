@@ -36,6 +36,8 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
             {
+                string template = $"Controller name {nameof(Department)} action name {nameof(GetDepartmentList)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error","Home");
             }
 
