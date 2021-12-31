@@ -63,7 +63,7 @@ namespace HRMS.Admin.UI
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Authenticate}/{action=LoginIndex}/{id?}");
             });
         }
     }

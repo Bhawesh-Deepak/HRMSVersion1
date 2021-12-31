@@ -28,4 +28,8 @@
     <ProjectReference Include="..\HRMS.Services.Repository\HRMS.Services.Repository.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\LoginJsCss\" />
+  </ItemGroup>
+
 </Project>
