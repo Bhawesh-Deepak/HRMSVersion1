@@ -1,0 +1,91 @@
+﻿@model HRMS.Core.Entities.Organisation.Subsidiary
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+      asp-action="UpSertSubsidiary" asp-controller="Subsidiary" data-ajax-success="Success">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="OrganisationId">Organisation</label>
+                    <select asp-for="OrganisationId" class="form-control"
+                            asp-items="@(new SelectList((IEnumerable<HRMS.Core.Entities.Organisation.Company>)ViewBag.Organisation,"Id","Name"))">
+                        <option value="">--Select--</option>
+                    </select>
+                    <span asp-validation-for="OrganisationId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input asp-for="Id" type="hidden" />
+                    <input asp-for="FavIcon" type="hidden" />
+                    <input asp-for="Logo" type="hidden" />
+                    <input asp-for="CreatedBy" type="hidden" />
+                    <input asp-for="CreatedDate" type="hidden" />
+                    <label asp-for="Name">Company Name</label>
+                    <input type="text" class="form-control" asp-for="Name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Email">Email</label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Code">Company Code</label>
+                    <input asp-for="Code" class="form-control" />
+                    <span asp-validation-for="Code" class="text-danger"></span>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Url">Url</label>
+                    <input asp-for="Url" class="form-control" />
+                    <span asp-validation-for="Url" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Phone">Phone</label>
+                    <input asp-for="Phone" class="form-control" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="FavIcon">Fav Icon</label>
+                    <input asp-for="FavIcon" type="file" class="form-control" />
+                    <span asp-validation-for="FavIcon" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Logo">Logo</label>
+                    <input asp-for="Logo" type="file" class="form-control" />
+                    <span asp-validation-for="Logo" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+         
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" onclick="HidePopUp();">Close</button>
+        <input type="submit" class="btn btn-primary  " value="Save" />
+    </div>
+</form>
