@@ -73,6 +73,7 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
         [HttpGet]
         public async Task<IActionResult> ChangePassword()
         {
+            return RedirectToAction("LoginIndex", "Authenticate");
 
         }
     }
