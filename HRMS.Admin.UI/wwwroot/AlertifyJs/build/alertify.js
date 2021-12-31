@@ -65,7 +65,7 @@
             }
         },
         glossary:{
-            title:'SERP Says',
+            title:'Confirmation !!',
             ok: 'OK',
             cancel: 'Cancel',
             acccpt: 'Accept',
