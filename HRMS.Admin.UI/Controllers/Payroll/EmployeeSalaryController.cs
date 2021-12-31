@@ -69,7 +69,8 @@ namespace HRMS.Admin.UI.Controllers.Payroll
                     CreatedBy = 1,
                     CreatedDate = DateTime.Now,
                     UserName=data.EmpCode,
-                    Password = PasswordEncryptor.Instance.Encrypt("123@qwe", "HRMSPAYROLLPASSWORDKEY")
+                    Password = PasswordEncryptor.Instance.Encrypt("123@qwe", "HRMSPAYROLLPASSWORDKEY"),
+                    RoleId=4// for employee role
                 };
                 models.Add(model);
             });
