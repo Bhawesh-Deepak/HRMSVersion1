@@ -853,7 +853,25 @@
     </div>
 
 </body>
-</html>
+</html><script>
+    $('#example').dataTable({
+        "iDisplayLength": 10,
+        "bDestroy": true,
+        "scrollX": true,
+        "aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+    });
+</script>
+
+<script type="text/javascript">
+
+    function ChangePassword() {
+        $.get("/Authenticate/ChangePassword", function (data) {
+            $("#divHRMSCreate").html(data);
+            $("#divModalPop").modal('show');
+            $("#modalTitle").text("Change Password");
+        })
+    }
+</script>
 
 <script type="text/javascript">
     function ChangePassword() {
