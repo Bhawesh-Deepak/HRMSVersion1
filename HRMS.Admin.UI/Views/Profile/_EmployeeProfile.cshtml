@@ -1,15 +1,15 @@
-﻿
+﻿@model HRMS.Core.Entities.Payroll.EmployeeDetail
 <link href="https://beats.squareyards.com//resources/dist/css/profile-view.css" rel="stylesheet" />
 @*<link href="https://beats.squareyards.com//resources/plugins/select2-4.0.3/dist/css/select2.min.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="https://beats.squareyards.com//resources/plugins/select2-4.0.3/dist/js/select2.min.js"></script>
-<link href="https://beats.squareyards.com//resources/plugins/bootstrap-multiselect/css/bootstrap-multiselect.css" rel="stylesheet" />
-<script type="text/javascript" src="https://beats.squareyards.com//resources/plugins/bootstrap-multiselect/js/bootstrap-multiselect.js"></script>
-<link href="https://beats.squareyards.com//resources/bootstrap/css/bootstrap-switch.css" rel="stylesheet" />
-<script src="https://beats.squareyards.com//resources/bootstrap/js/bootstrap-switch.js"></script>
-<link href="https://beats.squareyards.com//resources/plugins/awesome-cropper/components/imgareaselect/css/imgareaselect-default.css" rel="stylesheet" />
-<link href="https://beats.squareyards.com//resources/plugins/awesome-cropper/css/jquery.awesome-cropper.css" rel="stylesheet" />
-<script src="https://beats.squareyards.com//resources/plugins/awesome-cropper/components/imgareaselect/scripts/jquery.imgareaselect.js"></script>
-<script src="https://beats.squareyards.com//resources/plugins/awesome-cropper/build/jquery.awesome-cropper.js"></script>*@
+    <script type="text/javascript" src="https://beats.squareyards.com//resources/plugins/select2-4.0.3/dist/js/select2.min.js"></script>
+    <link href="https://beats.squareyards.com//resources/plugins/bootstrap-multiselect/css/bootstrap-multiselect.css" rel="stylesheet" />
+    <script type="text/javascript" src="https://beats.squareyards.com//resources/plugins/bootstrap-multiselect/js/bootstrap-multiselect.js"></script>
+    <link href="https://beats.squareyards.com//resources/bootstrap/css/bootstrap-switch.css" rel="stylesheet" />
+    <script src="https://beats.squareyards.com//resources/bootstrap/js/bootstrap-switch.js"></script>
+    <link href="https://beats.squareyards.com//resources/plugins/awesome-cropper/components/imgareaselect/css/imgareaselect-default.css" rel="stylesheet" />
+    <link href="https://beats.squareyards.com//resources/plugins/awesome-cropper/css/jquery.awesome-cropper.css" rel="stylesheet" />
+    <script src="https://beats.squareyards.com//resources/plugins/awesome-cropper/components/imgareaselect/scripts/jquery.imgareaselect.js"></script>
+    <script src="https://beats.squareyards.com//resources/plugins/awesome-cropper/build/jquery.awesome-cropper.js"></script>*@
 <div class="content-wrapper" style="min-height: 794px;">
     <section class="content-header">
         <h1></h1>
@@ -27,12 +27,11 @@
                                         <div class="pic">
                                             <div class="profile-img-wrap">
                                                 <div class="profile-img">
-                                                    <div id="cp_MainContent_divImgPic" class="img-responsive"><img src='https://s3-ap-southeast-1.amazonaws.com/sqy/employee/profile_pic/emp.png?c=12/31/2021 5:21:06 PM' onerror="this.src='https://s3-ap-southeast-1.amazonaws.com/sqy/employee/profile_pic/emp.png'" /></div>
+                                                    <div id="divImgPic" class="img-responsive"><img src="@Model.ProfilePic" /></div>
                                                     <div class="chooseIcon pull-right">
                                                         <a id="btnFileUpload" style="cursor: pointer" title="click to upload image"><em class="fa fa-camera"></em></a>
-                                                        <a id="cp_MainContent_btnuploadpic" class="btn btn-sm btn-warning UpdateBtn" href="javascript:__doPostBack(&#39;ctl00$cp_MainContent$btnuploadpic&#39;,&#39;&#39;)" style="margin-top: 10px; display: none;">Update Profile Picture</a>
+                                                        <a id="btnuploadpic" class="btn btn-sm btn-warning UpdateBtn" href="#" style="margin-top: 10px; display: none;">Update Profile Picture</a>
                                                     </div>
-                                                    <input name="ctl00$cp_MainContent$sample_input" type="hidden" id="cp_MainContent_sample_input" />
                                                 </div>
                                             </div>
                                         </div>
@@ -41,50 +40,49 @@
                                                 <div class="col-md-5 col-sm-12 col-xs-12">
                                                     <div class="profile-info-left">
                                                         <h3 class="user-name m-t-0">
-                                                            <span id="cp_MainContent_lblEmployeeNameLevel">Mr. Rohit Kumar (S3)</span>
-                                                            <a id="cp_MainContent_lnkbtnHistroyLevel" title="click to show level History" href="javascript:__doPostBack(&#39;ctl00$cp_MainContent$lnkbtnHistroyLevel&#39;,&#39;&#39;)">
+                                                            <span>@Model.Salutation     @Model.EmployeeName  (@Model.Level)</span>
+                                                            <a title="click to show level History" href="javascript:void(0)">
                                                                 <i class="fa fa-history"></i>
                                                             </a>
                                                         </h3>
                                                         <div class="staff-id">
-                                                            <span id="cp_MainContent_lblEmployeeCode">Employee code : SDC0065</span>
-                                                            <a id="cp_MainContent_lnkbtnHistoryEmployeCode" title="click to show EmploymeCode History" href="javascript:__doPostBack(&#39;ctl00$cp_MainContent$lnkbtnHistoryEmployeCode&#39;,&#39;&#39;)" style="display:none">
+                                                            <span>Employee code : @Model.EmpCode</span>
+                                                            <a title="click to show EmploymeCode History" href="javascript:void(0)" style="display:none">
                                                                 <i class="fa fa-history"></i>
                                                             </a>
                                                         </div>
                                                         <h6 class="text-muted">
-                                                            <span id="cp_MainContent_lblEmployeeDesignation">Associate Principal Partner</span>
-                                                            <a id="cp_MainContent_lnkbtnHistroyDesignation" title="click to show designation History" href="javascript:__doPostBack(&#39;ctl00$cp_MainContent$lnkbtnHistroyDesignation&#39;,&#39;&#39;)">
+                                                            <span>@Model.DesignationName</span>
+                                                            <a title="click to show designation History" href="javascript:void(0)">
                                                                 <i class="fa fa-history"></i>
                                                             </a>
                                                         </h6>
                                                         <h5 class="text-muted">
-                                                            <span id="cp_MainContent_lblEmployeePnl">Piyush Bothra, Finance</span>
-                                                            <input type="hidden" name="ctl00$cp_MainContent$hdnEmployeePnlVal" id="cp_MainContent_hdnEmployeePnlVal" value="Finance (Piyush Bothra - SDC1001)" />
-                                                            <a id="cp_MainContent_lnkbtnHistoryPnl" title="click to show P&amp;L History" href="javascript:__doPostBack(&#39;ctl00$cp_MainContent$lnkbtnHistoryPnl&#39;,&#39;&#39;)">
+                                                            <span>@Model.PAndLHeadName</span>
+                                                            <a title="click to show P&amp;L History" href="javascript:void(0)">
                                                                 <i class="fa fa-history"></i>
                                                             </a>
                                                         </h5>
                                                         <h5 class="text-muted">
-                                                            <span id="cp_MainContent_lblEmployeeDepartment">Finance, Delhi (Pragati Tower)</span>
-                                                            <a id="cp_MainContent_lnkbtnHistroyDepartment" title="click to show department History" href="javascript:__doPostBack(&#39;ctl00$cp_MainContent$lnkbtnHistroyDepartment&#39;,&#39;&#39;)">
+                                                            <span>@Model.DepartmentName</span>
+                                                            <a title="click to show department History" href="javascript:void(0)">
                                                                 <i class="fa fa-history"></i>
                                                             </a>&nbsp;
-                                                            <a id="cp_MainContent_lnkbtnHistoryWorkLocation" title="click to show work location History" href="javascript:__doPostBack(&#39;ctl00$cp_MainContent$lnkbtnHistoryWorkLocation&#39;,&#39;&#39;)">
+                                                            <a id="cp_MainContent_lnkbtnHistoryWorkLocation" title="click to show work location History" href="javascript:void(0)">
                                                                 <i class="fa fa-history"></i>
                                                             </a>
                                                         </h5>
                                                         <h5 class="text-muted">
-                                                            <span id="cp_MainContent_lblEmployeeLegalEntity">Square Dotcom Private Limited</span>
-                                                            <a id="cp_MainContent_lnkbtnHistoryLegalEntity" title="click to show legal entity History" href="javascript:__doPostBack(&#39;ctl00$cp_MainContent$lnkbtnHistoryLegalEntity&#39;,&#39;&#39;)">
+                                                            <span>@Model.LegalEntity</span>
+                                                            <a title="click to show legal entity History" href="javascript:void(0)">
                                                                 <i class="fa fa-history"></i>
                                                             </a>
                                                         </h5>
                                                         <div class="staff-id text-muted">
-                                                            <span id="cp_MainContent_lblEmployeeBiometric">Bio Metric Code : 10019</span>
+                                                            <span>Bio Metric Code : @Model.BiometricCode</span>
                                                         </div>
                                                         <h6 class="text-muted">
-                                                            <span id="cp_MainContent_lblEmployeeDOJ">Date of Join : 23 Dec 2013 (23 Dec 2013 )</span>
+                                                            <span>Date of Join : @String.Format("{0:d MMM yyyy}", @Model.JoiningDate) </span>
                                                         </h6>
                                                     </div>
                                                 </div>
@@ -93,32 +91,32 @@
                                                         <li>
                                                             <div class="title">Email :</div>
                                                             <div class="text">
-                                                                <span id="cp_MainContent_lblEmployeeEmail"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="deacb1b6b7aaf0b5abb3bfac9eadafabbfacbba7bfacbaadf0b7b0">[email&#160;protected]</a></span>
+                                                                <span><a href="javascript:void(0)" class="">[email&#160;protected]</a></span>
                                                             </div>
                                                         </li>
                                                         <li>
                                                             <div class="title">Birthday :</div>
                                                             <div class="text">
-                                                                <span id="cp_MainContent_lblEmpBirthDate">15 Jul 1987</span>
+                                                                <span> @String.Format("{0:d MMM yyyy}", @Model.DateOfBirth)</span>
                                                             </div>
                                                         </li>
                                                         <li>
                                                             <div class="title">Address :</div>
                                                             <div class="text">
-                                                                <span id="cp_MainContent_lblEmpAddress">A-1, East Baldev Park, Delhi -51</span>
+                                                                <span>@Model.PermanentAddress</span>
                                                             </div>
                                                         </li>
                                                         <li>
                                                             <div class="title">Gender :</div>
                                                             <div class="text">
-                                                                <span id="cp_MainContent_lblEmpGender">Male</span>
+                                                                <span> @Model.Gender</span>
                                                             </div>
                                                         </li>
                                                         <li>
                                                             <div class="title">Employment Status :</div>
                                                             <div class="text">
-                                                                <span id="cp_MainContent_lblEmploymentStatus">Regular</span>
-                                                                <a id="cp_MainContent_lnkbtnHistoryEmployment" title="click to show Employment Status History" href="javascript:__doPostBack(&#39;ctl00$cp_MainContent$lnkbtnHistoryEmployment&#39;,&#39;&#39;)">
+                                                                <span>@Model.EmployementStatus</span>
+                                                                <a title="click to show Employment Status History" href="javascript:void(0)">
                                                                     <i class="fa fa-history"></i>
                                                                 </a>
                                                             </div>
@@ -128,11 +126,11 @@
                                                             <div class="text">
                                                                 <div class="avatar-box">
                                                                     <div class="avatar avatar-xs">
-                                                                        <img src="https://s3-ap-southeast-1.amazonaws.com/sqy/employee/profile_pic/emp.png" id="cp_MainContent_imgProfilePicSupervisor" alt="" />
+                                                                        <img src="@Model.ProfilePic" alt="" />
                                                                     </div>
                                                                 </div>
-                                                                <span id="cp_MainContent_lblEmpSupervisor">Piyush Bothra (SDC1001)</span>
-                                                                <a id="cp_MainContent_lnkbtnHistorySupervisor" title="click to show supervisor History" href="javascript:__doPostBack(&#39;ctl00$cp_MainContent$lnkbtnHistorySupervisor&#39;,&#39;&#39;)">
+                                                                <span>@Model.LeaveSupervisor  (@Model.EmpCode)</span>
+                                                                <a title="click to show supervisor History" href="javascript:void(0)">
                                                                     <i class="fa fa-history"></i>
                                                                 </a>
                                                             </div>
@@ -142,7 +140,7 @@
                                             </div>
                                         </div>
                                         <div class="pro-edit">
-                                            <a id="cp_MainContent_lnkProfileInfo" title="click to edit" class="edit-icon" href="javascript:__doPostBack(&#39;ctl00$cp_MainContent$lnkProfileInfo&#39;,&#39;&#39;)">
+                                            <a title="click to edit" class="edit-icon" href="javascript:void(0)">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
                                         </div>
@@ -150,21 +148,15 @@
                                     <div id="dvTab" class="profile-nav nav-tabs-custom customNavigation">
                                         <span class="fa fa-bars"></span>
                                         <ul class="nav nav-tabs">
-                                            <li id="cp_MainContent_liprofiletabshow" class="active">
-                                                <a href="#tab_Profile" data-toggle="tab">Profile</a>
-                                            </li>
-                                            <li id="cp_MainContent_liinternationaltabshow"><a href="#tab_International" id="cp_MainContent_internationaltabshow" data-toggle="tab" style="display:none">International</a></li>
+                                            <li class="active"><a href="#tab_Profile" data-toggle="tab">Profile</a></li>
+                                            <li><a href="#tab_International" data-toggle="tab" style="display:none">International</a></li>
                                             <li><a href="#tab_Bank" data-toggle="tab">Bank & Statutory</a></li>
-                                            <li id="cp_MainContent_liAgentDetails"><a href="#tab_Agent" id="cp_MainContent_agentdetailtabshow" data-toggle="tab" style="display:none">Agent Details</a></li>
-                                            <li><a href="#tab_PF" id="cp_MainContent_pfTabshow" data-toggle="tab" style="display:block">PF Details</a></li>
-                                            <li id="cp_MainContent_liHealthInsurance"><a href="#tab_Insurance" id="cp_MainContent_healthinsurancetabshow" data-toggle="tab" style="display:block">Health Insurance</a></li>
+                                            <li><a href="#tab_Agent" data-toggle="tab" style="display:none">Agent Details</a></li>
+                                            <li><a href="#tab_PF" data-toggle="tab" style="display:block">PF Details</a></li>
+                                            <li><a href="#tab_Insurance" data-toggle="tab" style="display:block">Health Insurance</a></li>
                                             <li><a href="#tab_Documents" data-toggle="tab">Documents</a></li>
                                             <li><a href="#tab_Visa" data-toggle="tab">Visa</a></li>
-                                            <li class="pull-right">
-                                                <a href="#tab_Setting" id="cp_MainContent_settingTabshow" data-toggle="tab">
-                                                    Setting
-                                                </a>
-                                            </li>
+                                            <li class="pull-right"><a href="#tab_Setting" data-toggle="tab">Setting</a></li>
                                         </ul>
                                         <div class="tab-content">
                                             <div class="pro-overview tab-pane active" id="tab_Profile">
@@ -174,7 +166,7 @@
                                                             <div class="card-body">
                                                                 <h3 class="card-title">
                                                                     Contact details
-                                                                    <a id="cp_MainContent_lnkEditContactInfo" title="click to edit" class="edit-icon" href="javascript:__doPostBack(&#39;ctl00$cp_MainContent$lnkEditContactInfo&#39;,&#39;&#39;)">
+                                                                    <a title="click to edit" class="edit-icon" data-toggle="modal" data-target="#cp_MainContent_profile_info_modal">
                                                                         <i class="fa fa-pencil"></i>
                                                                     </a>
                                                                 </h3>
@@ -182,29 +174,25 @@
                                                                     <li>
                                                                         <div class="title">Personal Email Id :</div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_lblPersonalEmail"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e2908d8a8b96d5d5d589978f8390a29087868b84848f838b8ecc818d8f">[email&#160;protected]</a></span>
+                                                                            <span><a href="javascript:void(0)" class="">[email&#160;protected]</a></span>
                                                                         </div>
                                                                     </li>
                                                                     <li>
                                                                         <div class="title">Current Address :</div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_lblCurrentaddress">A-1, East Baldev Park, Delhi -51</span>
+                                                                            <span>@Model.CurrentAddress</span>
                                                                         </div>
                                                                     </li>
                                                                     <li>
                                                                         <div class="title">Phone :</div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_lblContactNo">+91-8860279880</span>
-                                                                            <input type="hidden" name="ctl00$cp_MainContent$hdnContactNo" id="cp_MainContent_hdnContactNo" value="8860279880" />
+                                                                            <span>@Model.ContactNumber</span>
                                                                         </div>
                                                                     </li>
                                                                     <li>
                                                                         <div class="title">Whatsapp :</div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_lblWhatsupNo">+91-8860279880</span>
-                                                                            <input type="hidden" name="ctl00$cp_MainContent$hdnWhatsappNo" id="cp_MainContent_hdnWhatsappNo" value="8860279880" />
-                                                                            <input type="hidden" name="ctl00$cp_MainContent$hdnCountryCode" id="cp_MainContent_hdnCountryCode" value="+91" />
-                                                                            <input type="hidden" name="ctl00$cp_MainContent$hdnCountryName" id="cp_MainContent_hdnCountryName" value="India" />
+                                                                            <span>@Model.WhatsAppNumber</span>
                                                                         </div>
                                                                     </li>
                                                                 </ul>
@@ -216,7 +204,7 @@
                                                             <div class="card-body">
                                                                 <h3 class="card-title">
                                                                     Social Media Details
-                                                                    <a id="cp_MainContent_lnkbtnEditSocialmedia" title="click to edit" class="edit-icon" href="javascript:__doPostBack(&#39;ctl00$cp_MainContent$lnkbtnEditSocialmedia&#39;,&#39;&#39;)">
+                                                                    <a title="click to edit" class="edit-icon" href="javascript:void(0)">
                                                                         <i class="fa fa-pencil"></i>
                                                                     </a>
                                                                 </h3>
@@ -224,7 +212,7 @@
                                                                     <li>
                                                                         <div class="title">Facebook :</div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_lblFacebook"></span>
+                                                                            <span></span>
                                                                         </div>
                                                                     </li>
                                                                     <li>
@@ -262,7 +250,7 @@
                                                             <div class="card-body">
                                                                 <h3 class="card-title">
                                                                     Employment Informations
-                                                                    <a id="cp_MainContent_lnkEmploymentInfo" title="click to edit" class="edit-icon" href="javascript:__doPostBack(&#39;ctl00$cp_MainContent$lnkEmploymentInfo&#39;,&#39;&#39;)">
+                                                                    <a title="click to edit" class="edit-icon" href="javascript:void(0)">
                                                                         <i class="fa fa-pencil"></i>
                                                                     </a>
                                                                 </h3>
@@ -270,14 +258,14 @@
                                                                     <li>
                                                                         <div class="title">Department Category :</div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_lblDepartmentCategory">Support</span>
+                                                                            <span> </span>
                                                                         </div>
                                                                     </li>
                                                                     <li>
                                                                         <div class="title">Home Location :</div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_lblHomeLocation">Delhi (Pragati Tower)</span>
-                                                                            <a id="cp_MainContent_lnkbtnHistoryHomeLocation" title="click to show home location History" href="javascript:__doPostBack(&#39;ctl00$cp_MainContent$lnkbtnHistoryHomeLocation&#39;,&#39;&#39;)">
+                                                                            <span> </span>
+                                                                            <a title="click to show home location History" href="javascript:void(0)">
                                                                                 <i class="fa fa-history"></i>
                                                                             </a>
                                                                         </div>
@@ -285,85 +273,85 @@
                                                                     <li>
                                                                         <div class="title">LRA-2 :</div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_lblEmployeeLRA2">Tanuj Shori</span>
+                                                                            <span></span>
                                                                         </div>
                                                                     </li>
                                                                     <li>
                                                                         <div class="title">LRA-2 Leave :</div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_lblEmployeeLRA2Leave">Tanuj Shori</span>
+                                                                            <span></span>
                                                                         </div>
                                                                     </li>
                                                                     <li>
                                                                         <div class="title">Region :</div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_lblEmployeeRegion">North</span>
+                                                                            <span>@Model.Region</span>
                                                                         </div>
                                                                     </li>
                                                                     <li>
                                                                         <div class="title">Regional Head :</div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_lblEmployeeRegionalHead">Piyush Bothra</span>
+                                                                            <span></span>
                                                                         </div>
                                                                     </li>
                                                                     <li>
                                                                         <div class="title">Confirmation Status :</div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_lblConfirmationStatus">Confirmed</span>
+                                                                            <span>@Model.ConfirmationStatus</span>
                                                                         </div>
                                                                     </li>
                                                                     <li>
                                                                         <div class="title">Notice Period :</div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_lblNoticePeriod">15</span>
+                                                                            <span>@Model.NoticePeriod</span>
                                                                         </div>
                                                                     </li>
                                                                     <li>
                                                                         <div class="title">Weekly Off :</div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_lblWeeklyOff">Sunday</span>
+                                                                            <span> </span>
                                                                         </div>
                                                                     </li>
                                                                     <li>
                                                                         <div class="title">Shift Timing :</div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_lblShiftTiming">India [9:30 AM to 6:30 PM India Time]</span>
+                                                                            <span>@Model.ShiftTiming</span>
                                                                         </div>
                                                                     </li>
                                                                     <li>
                                                                         <div class="title">Employee Type :</div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_lblEmployeeType">Employee</span>
+                                                                            <span></span>
                                                                         </div>
                                                                     </li>
                                                                     <li>
                                                                         <div class="title">ESIC Eligible :</div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_lblEsicEligible">Yes</span>
+                                                                            <span> </span>
                                                                         </div>
                                                                     </li>
                                                                     <li>
                                                                         <div class="title">Induction :</div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_lblInduction"></span>
+                                                                            <span></span>
                                                                         </div>
                                                                     </li>
                                                                     <li>
                                                                         <div class="title">Email Quota :</div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_lblEmailQuota">100</span>
+                                                                            <span>100</span>
                                                                         </div>
                                                                     </li>
                                                                     <li>
                                                                         <div class="title">PF Eligible :</div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_lblPFEligible">Yes</span>
+                                                                            <span>Yes</span>
                                                                         </div>
                                                                     </li>
                                                                     <li>
                                                                         <div class="title"></div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_textAdd"></span>
+                                                                            <span></span>
                                                                         </div>
                                                                     </li>
                                                                 </ul>
@@ -375,7 +363,7 @@
                                                             <div class="card-body">
                                                                 <h3 class="card-title">
                                                                     Personal Informations
-                                                                    <a id="cp_MainContent_lnkbtnPersonalInfo" title="click to edit" class="edit-icon" href="javascript:__doPostBack(&#39;ctl00$cp_MainContent$lnkbtnPersonalInfo&#39;,&#39;&#39;)">
+                                                                    <a title="click to edit" class="edit-icon" href="javascript:void(0)">
                                                                         <i class="fa fa-pencil"></i>
                                                                     </a>
                                                                 </h3>
@@ -383,75 +371,74 @@
                                                                     <li>
                                                                         <div class="title">Blood Group :</div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_lblBloodGroup">B+</span>
+                                                                            <span>@Model.BloodGroup</span>
                                                                         </div>
                                                                     </li>
                                                                     <li>
                                                                         <div class="title">Father's Name :</div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_lblFathersName">Harendra Singh</span>
+                                                                            <span>@Model.FatherName</span>
                                                                         </div>
                                                                     </li>
                                                                     <li>
                                                                         <div class="title">Spouse Name :</div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_lblSpouseName">Monika Saini</span>
+                                                                            <span>@Model.SpouceName</span>
                                                                         </div>
                                                                     </li>
                                                                     <li>
                                                                         <div class="title">Marital Status :</div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_lblMaritalStatus">Married</span>
+                                                                            <span>@Model.MaritalStatus</span>
                                                                         </div>
                                                                     </li>
                                                                     <li>
                                                                         <div class="title">Date Of Marriage : </div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_lblDateOfMarriage"></span>
+                                                                            <span>@Model.DateOfMairrage</span>
                                                                         </div>
                                                                     </li>
                                                                     <li>
                                                                         <div class="title">Nationality :</div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_lblNationality">India</span>
+                                                                            <span>@Model.Nationality</span>
                                                                         </div>
                                                                     </li>
                                                                     <li>
                                                                         <div class="title">Qualification Level :</div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_lblQualificationLevel"></span>
+                                                                            <span>@Model.EducationalQualification</span>
                                                                         </div>
                                                                     </li>
                                                                     <li>
                                                                         <div class="title">Educational Qualification :</div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_lblEducationalQualification">BCOM, MBA</span>
+                                                                            <span>@Model.EducationalQualification</span>
                                                                         </div>
                                                                     </li>
                                                                     <li>
                                                                         <div class="title">Institute Name :</div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_lblInstituteName">CCS MEERUT </span>
+                                                                            <span>@Model.InstituteName</span>
                                                                         </div>
                                                                     </li>
                                                                     <li>
                                                                         <div class="title">Aadhar Card No :</div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_lblAadharCardNo">881041454178</span>
+                                                                            <span>@Model.AadharCardNumber</span>
                                                                         </div>
                                                                     </li>
                                                                     <li>
                                                                         <div class="title">Aadhar Card Name :</div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_lblAadharCardName"></span>
+                                                                            <span>@Model.EmployeeName</span>
                                                                         </div>
                                                                     </li>
                                                                     <li>
                                                                         <div class="title">Specially Abled :</div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_lblSpeciallyAbled">No</span>
-                                                                            <input type="hidden" name="ctl00$cp_MainContent$hdnSpeciallyAbled" id="cp_MainContent_hdnSpeciallyAbled" value="No" />
-                                                                            <input type="hidden" name="ctl00$cp_MainContent$hdnAbledCategory" id="cp_MainContent_hdnAbledCategory" />
+                                                                            <span></span>
+
                                                                         </div>
                                                                     </li>
                                                                     <hr>
@@ -459,19 +446,19 @@
                                                                     <li>
                                                                         <div class="title">Emergency No :</div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_lblEmergencyNo">8860279880</span>
+                                                                            <span>@Model.EmergencyNumber</span>
                                                                         </div>
                                                                     </li>
                                                                     <li>
                                                                         <div class="title">Emergency Contact Person :</div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_lblEmergencyContact">9910217550</span>
+                                                                            <span>@Model.EmergencyRelationWithEmployee</span>
                                                                         </div>
                                                                     </li>
                                                                     <li id="cp_MainContent_liRelationwithEmp">
                                                                         <div class="title">Relation with Employee :</div>
                                                                         <div class="text">
-                                                                            <span id="cp_MainContent_lblRelationWithEmp">wife</span>
+                                                                            <span>@Model.EmergencyRelationWithEmployee</span>
                                                                         </div>
                                                                     </li>
                                                                 </ul>
@@ -505,7 +492,7 @@
                                                             <div class="card-body">
                                                                 <h3 class="card-title">
                                                                     Languages Known
-                                                                    <a id="cp_MainContent_lnkEditLanguageInfo" title="click to edit" class="edit-icon" href="javascript:__doPostBack(&#39;ctl00$cp_MainContent$lnkEditLanguageInfo&#39;,&#39;&#39;)">
+                                                                    <a title="click to edit" class="edit-icon" href="javascript:void(0)">
                                                                         <i class="fa fa-pencil"></i>
                                                                     </a>
                                                                 </h3>
@@ -549,7 +536,7 @@
                                                                 <div class="card-body">
                                                                     <h3 class="card-title">
                                                                         Recruitment Details
-                                                                        <a id="cp_MainContent_lnlEditRecritmentInfo" title="click to edit" class="edit-icon" href="javascript:__doPostBack(&#39;ctl00$cp_MainContent$lnlEditRecritmentInfo&#39;,&#39;&#39;)">
+                                                                        <a title="click to edit" class="edit-icon" href="javascript:void(0)">
                                                                             <i class="fa fa-pencil"></i>
                                                                         </a>
                                                                     </h3>
@@ -557,65 +544,63 @@
                                                                         <li>
                                                                             <div class="title">Total Experience :</div>
                                                                             <div class="text">
-                                                                                <span id="cp_MainContent_lblTotalExperience">8</span>
+                                                                                <span>@Model.WorkExprience</span>
                                                                             </div>
                                                                         </li>
                                                                         <li>
                                                                             <div class="title">Previous Organization :</div>
                                                                             <div class="text">
-                                                                                <span id="cp_MainContent_lblPreviousorganization">EMSIG</span>
-                                                                                <span id="cp_MainContent_lblPreviousOrgEmpCode" style="display:none"></span>
-                                                                                <input type="hidden" name="ctl00$cp_MainContent$hdnPreviousOrgEmpCode" id="cp_MainContent_hdnPreviousOrgEmpCode" />
+                                                                                <span>@Model.PreviousOrganisation</span>
+
                                                                             </div>
                                                                         </li>
                                                                         <li>
                                                                             <div class="title">Last Industry :</div>
                                                                             <div class="text">
-                                                                                <span id="cp_MainContent_lblLastindustry">Mis.</span>
+                                                                                <span></span>
                                                                             </div>
                                                                         </li>
                                                                         <li>
                                                                             <div class="title">Recruitment Source :</div>
                                                                             <div class="text">
-                                                                                <span id="cp_MainContent_lblRecruitmentSource">Portal</span>
+                                                                                <span>@Model.RecruitmentSource</span>
                                                                             </div>
                                                                         </li>
                                                                         <li>
                                                                             <div class="title">Source Name :</div>
                                                                             <div class="text">
-                                                                                <span id="cp_MainContent_lblSourcename">Naukri</span>
+                                                                                <span>@Model.RecruitmentSource</span>
                                                                             </div>
                                                                         </li>
                                                                         <li>
                                                                             <div class="title">Recruiter Name :</div>
                                                                             <div class="text">
-                                                                                <span id="cp_MainContent_lblRecrutername">Hemant Gupta (SDC0390 )</span>
-                                                                                <input type="hidden" name="ctl00$cp_MainContent$hdnRecruiterName" id="cp_MainContent_hdnRecruiterName" />
-                                                                                <input type="hidden" name="ctl00$cp_MainContent$hdnRecruiterId" id="cp_MainContent_hdnRecruiterId" value="598" />
+                                                                                <span>@Model.RecruitmentName</span>
+
                                                                             </div>
                                                                         </li>
                                                                         <li>
                                                                             <div class="title">Hike Detail :</div>
                                                                             <div class="text">
-                                                                                <span id="cp_MainContent_lblHikedetail">0%</span>
+                                                                                <span></span>
                                                                             </div>
                                                                         </li>
                                                                         <li>
                                                                             <div class="title">BVC Status :</div>
                                                                             <div class="text">
-                                                                                <span id="cp_MainContent_lblBvcStatus"></span>
+                                                                                <span></span>
                                                                             </div>
                                                                         </li>
                                                                         <li>
                                                                             <div class="title">BVC Remarks :</div>
                                                                             <div class="text">
-                                                                                <span id="cp_MainContent_lblBvcremarks"></span>
+                                                                                <span></span>
                                                                             </div>
                                                                         </li>
                                                                         <li>
                                                                             <div class="title">Authbridge :</div>
                                                                             <div class="text">
-                                                                                <span id="cp_MainContent_lblAuthbridge"></span>
+                                                                                <span></span>
                                                                             </div>
                                                                         </li>
                                                                     </ul>
@@ -1523,13 +1508,13 @@
                                                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                                                     <label>Permanent Address*</label>
                                                                     <textarea name="ctl00$cp_MainContent$txtESIC_PermanentAddress" rows="2" cols="2" id="cp_MainContent_txtESIC_PermanentAddress" disabled="disabled" class="aspNetDisabled form-control">
-      A-1, East Baldev Park, Delhi -51</textarea>
+                        A-1, East Baldev Park, Delhi -51</textarea>
                                                                     <span id="cp_MainContent_ReqESIC_PermanentAddress" style="color:Red;float:left;display:none;"><i class='fa fa-exclamation'></i></span>
                                                                 </div>
                                                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                                                     <label>Current Address*</label>
                                                                     <textarea name="ctl00$cp_MainContent$txtESIC_CurrentAddress" rows="2" cols="2" id="cp_MainContent_txtESIC_CurrentAddress" disabled="disabled" class="aspNetDisabled form-control">
-      A-1, East Baldev Park, Delhi -51</textarea>
+                        A-1, East Baldev Park, Delhi -51</textarea>
                                                                     <span id="cp_MainContent_ReqESIC_CurrentAddress" style="color:Red;float:left;display:none;"><i class='fa fa-exclamation'></i></span>
                                                                 </div>
                                                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
@@ -2382,882 +2367,5 @@
                 </div>
             </div>
         </div>
-        <div id="cp_MainContent_contact_info_modal" class="modal custom-modal fade" role="dialog">
-            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                <div id="cp_MainContent_ctl05">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Contact details</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Personal Email Id</label>
-                                        <input name="ctl00$cp_MainContent$txtpopupPersonalEmail" type="text" id="cp_MainContent_txtpopupPersonalEmail" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Current Address</label>
-                                        <div class="cal-icon">
-                                            <input name="ctl00$cp_MainContent$txtpopupCurrentAddress" type="text" id="cp_MainContent_txtpopupCurrentAddress" class="form-control" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Phone</label>
-                                        <div class="input-group">
-                                            <div class="input-group-addon no-margin no-padding no-border">
-                                                <select name="ctl00$cp_MainContent$ddlCountryCodeOff" id="cp_MainContent_ddlCountryCodeOff" class="form-control" style="width: 75px;">
-                                                </select>
-                                            </div>
-                                            <input name="ctl00$cp_MainContent$txtpopupPhone" type="text" id="cp_MainContent_txtpopupPhone" class="form-control" />
-                                        </div>
-                                        <span id="cp_MainContent_ReqddlCountryCodeOff" style="color:Red;float:left;display:none;"><i class='fa fa-exclamation'></i></span>
-                                        <span id="cp_MainContent_ReqtxtOfficalNo" style="color:Red;float:left;display:none;"><i class='fa fa-exclamation'></i></span>
-                                        <span id="cp_MainContent_regtxtOfficalNo" style="color:Red;float:left;visibility:hidden;"><i class='fa fa-exclamation'></i></span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Whatsapp</label>
-                                        <input name="ctl00$cp_MainContent$txtpopupWhatsapp" type="text" id="cp_MainContent_txtpopupWhatsapp" class="form-control" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="submit-section">
-                                <a id="cp_MainContent_btnContactDetail" class="btn btn-warning submit-btn" href="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$cp_MainContent$btnContactDetail&quot;, &quot;&quot;, true, &quot;EmpContactGroup&quot;, &quot;&quot;, false, true))">Submit</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="cp_MainContent_social_media_modal" class="modal custom-modal fade" role="dialog">
-            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                <div id="cp_MainContent_ctl07">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Social Media details</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Facebook</label>
-                                        <input name="ctl00$cp_MainContent$txtpopupFacebook" type="text" id="cp_MainContent_txtpopupFacebook" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Linkedin</label>
-                                        <div class="cal-icon">
-                                            <input name="ctl00$cp_MainContent$txtpopupLinkedin" type="text" id="cp_MainContent_txtpopupLinkedin" class="form-control" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Skype</label>
-                                        <input name="ctl00$cp_MainContent$txtpopupSkype" type="text" id="cp_MainContent_txtpopupSkype" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Twitter</label>
-                                        <input name="ctl00$cp_MainContent$txtpopupTwitter" type="text" id="cp_MainContent_txtpopupTwitter" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>About me</label>
-                                        <textarea name="ctl00$cp_MainContent$txtpopupAboutme" rows="3" cols="3" id="cp_MainContent_txtpopupAboutme" class="form-control" onkeyup="LimtCharactersAboutMe(this,1500,&#39;spAboutmeRemarksCount&#39;);"></textarea>
-                                        <span id="spAboutmeRemarksCount">1500</span> character left.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="submit-section">
-                                <a id="cp_MainContent_btnSocialdetail" class="btn btn-warning submit-btn" href="javascript:__doPostBack(&#39;ctl00$cp_MainContent$btnSocialdetail&#39;,&#39;&#39;)">Submit</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="cp_MainContent_employment_info_modal" class="modal custom-modal fade" role="dialog">
-            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                <div id="cp_MainContent_ctl09">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Employment details</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group">
-                                        <label>Region*</label>
-                                        <select name="ctl00$cp_MainContent$ddlRegion" id="cp_MainContent_ddlRegion" class="form-control">
-                                        </select>
-                                        <input type="hidden" name="ctl00$cp_MainContent$hdnRegionId" id="cp_MainContent_hdnRegionId" value="1" />
-                                        <span id="cp_MainContent_reqRegion" style="color:Red;float:left;display:none;"><i class='fa fa-exclamation'></i></span>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group">
-                                        <label>Home Location*</label>
-                                        <input name="ctl00$cp_MainContent$txtEmpHomeLocation" type="text" onchange="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$cp_MainContent$txtEmpHomeLocation\&#39;,\&#39;\&#39;)&#39;, 0)" onkeypress="if (WebForm_TextBoxKeyHandler(event) == false) return false;" id="cp_MainContent_txtEmpHomeLocation" class="form-control input-sm" placeholder="Home Location Name / Code" />
-                                        <input type="hidden" name="ctl00$cp_MainContent$hdfHomeLocationId" id="cp_MainContent_hdfHomeLocationId" value="177" />
-                                        <span id="cp_MainContent_reqEmpHomeLocation" style="color:Red;float:left;display:none;"><i class='fa fa-exclamation'></i></span>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group">
-                                        <label>Home Location Effective Date*</label>
-                                        <input name="ctl00$cp_MainContent$txtHomeLocEffDate" type="text" maxlength="50" id="cp_MainContent_txtHomeLocEffDate" class="form-control doj txtdatepickEffDate" onkeyup="return false;" onpaste="return false;" onkeydown="return false;" />
-                                        <input type="hidden" name="ctl00$cp_MainContent$hdfHomeLocEffDate" id="cp_MainContent_hdfHomeLocEffDate" value="05 Oct 2021" />
-                                        <span id="cp_MainContent_reqHomeLocEffDate" style="color:Red;float:left;display:none;"><i class='fa fa-exclamation'></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group">
-                                        <label>Regional Head</label>
-                                        <select name="ctl00$cp_MainContent$ddlRegioinalHead" id="cp_MainContent_ddlRegioinalHead" class="form-control select2">
-                                        </select>
-                                        <input type="hidden" name="ctl00$cp_MainContent$hdnRegionalHead" id="cp_MainContent_hdnRegionalHead" value="737" />
-                                        <span id="cp_MainContent_reqRegioinalHead" style="color:Red;float:left;display:none;"><i class='fa fa-exclamation'></i></span>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group">
-                                        <label>Notice Period</label>
-                                        <input name="ctl00$cp_MainContent$txtNoticePeriod" type="text" maxlength="50" id="cp_MainContent_txtNoticePeriod" disabled="disabled" class="aspNetDisabled form-control allow-numeric" />
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group">
-                                        <label>Employee Type</label>
-                                        <select name="ctl00$cp_MainContent$ddlEmpType" id="cp_MainContent_ddlEmpType" disabled="disabled" class="aspNetDisabled form-control">
-                                            <option selected="selected" value="-1">-- Select One --</option>
-                                            <option value="1">Employee</option>
-                                            <option value="2">Agent</option>
-                                        </select>
-                                        <input type="hidden" name="ctl00$cp_MainContent$hdnEmpType" id="cp_MainContent_hdnEmpType" value="1" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group">
-                                        <label>Confirmation Status</label>
-                                        <select name="ctl00$cp_MainContent$ddlConfStatus" id="cp_MainContent_ddlConfStatus" class="form-control">
-                                        </select>
-                                        <input type="hidden" name="ctl00$cp_MainContent$hdnConfirmationStatus" id="cp_MainContent_hdnConfirmationStatus" value="2" />
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group">
-                                        <label>Confirmation Date</label>
-                                        <input name="ctl00$cp_MainContent$txtConfirmationDate" type="text" maxlength="50" id="cp_MainContent_txtConfirmationDate" class="form-control datepickConfirmation" onkeyup="return false;" onpaste="return false;" onkeydown="return false;" />
-                                        <input type="hidden" name="ctl00$cp_MainContent$hdnConfirmationDate" id="cp_MainContent_hdnConfirmationDate" value="23 Mar 2014" />
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group">
-                                        <label>Shift Timing*</label>
-                                        <select name="ctl00$cp_MainContent$ddlShiftTiming" id="cp_MainContent_ddlShiftTiming" class="form-control">
-                                        </select>
-                                        <input type="hidden" name="ctl00$cp_MainContent$hdnShiftingTimeId" id="cp_MainContent_hdnShiftingTimeId" value="1" />
-                                        <span id="cp_MainContent_reqShiftTiming" style="color:Red;float:left;display:none;"><i class='fa fa-exclamation'></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group">
-                                        <label>Weekly Off</label>
-                                        <select size="4" name="ctl00$cp_MainContent$lstWeeklyOff" multiple="multiple" id="cp_MainContent_lstWeeklyOff" class="multiSelectList">
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group">
-                                        <label>ESIC Eligible*</label>
-                                        <select name="ctl00$cp_MainContent$ddlEligibleEsic" id="cp_MainContent_ddlEligibleEsic" class="form-control">
-                                            <option value="">-- Select One --</option>
-                                            <option value="1">Yes</option>
-                                            <option value="0">No</option>
-                                            <option value="2">N/A</option>
-                                        </select>
-                                        <input type="hidden" name="ctl00$cp_MainContent$hdnEsicEligible" id="cp_MainContent_hdnEsicEligible" value="1" />
-                                        <span id="cp_MainContent_reqEsicEligible" style="color:Red;float:left;display:none;"><i class='fa fa-exclamation'></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group">
-                                        <label>Induction</label>
-                                        <select name="ctl00$cp_MainContent$ddlInduction" id="cp_MainContent_ddlInduction" class="form-control">
-                                            <option value="-1">-- Select One --</option>
-                                            <option value="1">Yes</option>
-                                            <option value="0">No</option>
-                                        </select>
-                                        <input type="hidden" name="ctl00$cp_MainContent$hdnInduction" id="cp_MainContent_hdnInduction" />
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group">
-                                        <label>Email Quota</label>
-                                        <input name="ctl00$cp_MainContent$txtEmailQuota" type="text" maxlength="12" id="cp_MainContent_txtEmailQuota" class="form-control allow-numeric" />
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group">
-                                        <label>PF Eligible*</label>
-                                        <select name="ctl00$cp_MainContent$ddlEligiblePF" id="cp_MainContent_ddlEligiblePF" class="form-control">
-                                            <option value="">-- Select One --</option>
-                                            <option value="1">Yes</option>
-                                            <option value="0">No</option>
-                                        </select>
-                                        <input type="hidden" name="ctl00$cp_MainContent$hdnPFEligible" id="cp_MainContent_hdnPFEligible" value="1" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="submit-section">
-                                <a id="cp_MainContent_btnEmploymentDetails" class="btn btn-warning submit-btn" href="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$cp_MainContent$btnEmploymentDetails&quot;, &quot;&quot;, true, &quot;EmploymentDetails&quot;, &quot;&quot;, false, true))">Submit</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="cp_MainContent_personal_info_modal" class="modal custom-modal fade" role="dialog">
-            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                <div id="cp_MainContent_ctl11">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Personal details</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group">
-                                        <label>Blood Group</label>
-                                        <input name="ctl00$cp_MainContent$txtBloodGroup" type="text" maxlength="50" id="cp_MainContent_txtBloodGroup" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group">
-                                        <label>Father's Name*</label>
-                                        <input name="ctl00$cp_MainContent$txtFatherName" type="text" maxlength="50" id="cp_MainContent_txtFatherName" class="form-control" />
-                                        <span id="cp_MainContent_ReqFatherName" style="color:Red;float:left;display:none;"><i class='fa fa-exclamation'></i></span>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group">
-                                        <label>Spouse Name</label>
-                                        <input name="ctl00$cp_MainContent$txtSpouseName" type="text" maxlength="50" id="cp_MainContent_txtSpouseName" class="form-control" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group">
-                                        <label>Marital Status*</label>
-                                        <select name="ctl00$cp_MainContent$ddlMaritalStatus" id="cp_MainContent_ddlMaritalStatus" class="form-control" onchange="DisableEnableDOM();">
-                                            <option value="">-- Select One --</option>
-                                            <option value="Married">Married</option>
-                                            <option value="UnMarried">UnMarried</option>
-                                            <option value="Divorced">Divorced</option>
-                                            <option value="Widow/Widower">Widow/Widower</option>
-                                        </select>
-                                        <span id="cp_MainContent_ReqMaritalStatus" style="color:Red;float:left;display:none;"><i class='fa fa-exclamation'></i></span>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group">
-                                        <label>Date Of Marriage</label>
-                                        <input name="ctl00$cp_MainContent$txtDOMarriage" type="text" maxlength="50" id="cp_MainContent_txtDOMarriage" class="form-control txtdatepick" onkeyup="return false;" onpaste="return false;" onkeydown="return false;" />
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group">
-                                        <label>Nationality</label>
-                                        <input name="ctl00$cp_MainContent$txtNationality" type="text" maxlength="50" id="cp_MainContent_txtNationality" class="form-control " />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group">
-                                        <label>Qualification Level*</label>
-                                        <select name="ctl00$cp_MainContent$ddlQualificationLevel" id="cp_MainContent_ddlQualificationLevel" class="form-control">
-                                            <option value="">-- Select One --</option>
-                                            <option value="Graduate or above">Graduate or above</option>
-                                            <option value="Matriculation but not Graduate">Matriculation but not Graduate</option>
-                                            <option value="Below Matriculation">Below Matriculation</option>
-                                        </select>
-                                        <span id="cp_MainContent_ReqQualificationLevel" style="color:Red;float:left;display:none;"><i class='fa fa-exclamation'></i></span>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group">
-                                        <label>Educational Qualification*</label>
-                                        <input name="ctl00$cp_MainContent$txtEducationQualification" type="text" id="cp_MainContent_txtEducationQualification" class="form-control" />
-                                        <span id="cp_MainContent_ReqEducationQualification" style="color:Red;float:left;display:none;"><i class='fa fa-exclamation'></i></span>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group">
-                                        <label>Institute Name*</label>
-                                        <input name="ctl00$cp_MainContent$txtInstituteName" type="text" id="cp_MainContent_txtInstituteName" class="form-control" />
-                                        <span id="cp_MainContent_ReqInstititeName" style="color:Red;float:left;display:none;"><i class='fa fa-exclamation'></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group">
-                                        <label>Aadhar Card No</label>
-                                        <input name="ctl00$cp_MainContent$txtAadharcardno" type="text" maxlength="50" id="cp_MainContent_txtAadharcardno" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group">
-                                        <label>Aadhar Card Name</label>
-                                        <input name="ctl00$cp_MainContent$txtAadharcardname" type="text" maxlength="50" id="cp_MainContent_txtAadharcardname" class="form-control" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group">
-                                        <label id="cp_MainContent_lblSpeciallyAbledLab">Specially Abled</label>
-                                        <table id="cp_MainContent_rdoSpeciallyAbled">
-                                            <tr>
-                                                <td><input id="cp_MainContent_rdoSpeciallyAbled_0" type="radio" name="ctl00$cp_MainContent$rdoSpeciallyAbled" value="1" /><label for="cp_MainContent_rdoSpeciallyAbled_0">Yes</label></td>
-                                                <td><input id="cp_MainContent_rdoSpeciallyAbled_1" type="radio" name="ctl00$cp_MainContent$rdoSpeciallyAbled" value="0" /><label for="cp_MainContent_rdoSpeciallyAbled_1">No</label></td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group">
-                                        <label id="cp_MainContent_lblspecialAbledCategory">Abled Category*</label>
-                                        <select name="ctl00$cp_MainContent$ddlAbledCategory" id="cp_MainContent_ddlAbledCategory" class="form-control">
-                                            <option value="">-- Select One --</option>
-                                            <option value="Locomotive">Locomotive</option>
-                                            <option value="Visual">Visual</option>
-                                            <option value="Hearing">Hearing</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group">
-                                        <label>Emergency No*</label>
-                                        <input name="ctl00$cp_MainContent$txtEmergencyNo" type="text" maxlength="50" id="cp_MainContent_txtEmergencyNo" class="form-control allow-numeric" />
-                                        <span id="cp_MainContent_ReqEmergencyNo" style="color:Red;float:left;display:none;"><i class='fa fa-exclamation'></i></span>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group">
-                                        <label>Emergency Contact Person*</label>
-                                        <input name="ctl00$cp_MainContent$txtEmergencyPerson" type="text" maxlength="50" id="cp_MainContent_txtEmergencyPerson" class="form-control" />
-                                        <span id="cp_MainContent_ReqEmergencyPerson" style="color:Red;float:left;display:none;"><i class='fa fa-exclamation'></i></span>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group">
-                                        <label>Relation with Employee*</label>
-                                        <input name="ctl00$cp_MainContent$txtRelationWithEmp" type="text" maxlength="50" id="cp_MainContent_txtRelationWithEmp" class="form-control" />
-                                        <span id="cp_MainContent_ReqRelationWithEmp" style="color:Red;float:left;display:none;"><i class='fa fa-exclamation'></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="submit-section">
-                                <a id="cp_MainContent_btnsavePersonalDetails" class="btn btn-warning submit-btn" href="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$cp_MainContent$btnsavePersonalDetails&quot;, &quot;&quot;, true, &quot;PersonalDetails&quot;, &quot;&quot;, false, true))"> Submit</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="cp_MainContent_language_info_modal" class="modal custom-modal fade" role="dialog">
-            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                <div id="cp_MainContent_ctl13">
-                    <div class="modal-content">
-                        <div class="modal-header modal-headerpopup" style="background-color: #222d32; color: #ffffff;">
-                            <button id="cp_MainContent_Button1" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h5 class="modal-title">Languages Known</h5>
-                        </div>
-                        <div class="modal-body">
-                            <div class="table-responsive">
-                                <div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="cp_MainContent_recruitment_info_modal" class="modal custom-modal fade" role="dialog">
-            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                <div id="cp_MainContent_ctl15">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Recruitment details</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Total Experience*</label>
-                                        <input name="ctl00$cp_MainContent$txtNoOfExp" type="text" id="cp_MainContent_txtNoOfExp" class="form-control allow-numeric" />
-                                        <span id="cp_MainContent_ReqNoOfExp" style="color:Red;float:left;display:none;"><i class='fa fa-exclamation'></i></span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Previous Organization*</label>
-                                        <input name="ctl00$cp_MainContent$txtPreviousOrganization" type="text" id="cp_MainContent_txtPreviousOrganization" class="form-control" />
-                                        <span id="cp_MainContent_ReqPreviousOrganization" style="color:Red;float:left;display:none;"><i class='fa fa-exclamation'></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Previous Organization EmployeeCode</label>
-                                        <input name="ctl00$cp_MainContent$txtPreviousOrgEmpCode" type="text" maxlength="50" id="cp_MainContent_txtPreviousOrgEmpCode" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6"></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Last Industry*</label>
-                                        <input name="ctl00$cp_MainContent$txtPreIndustry" type="text" maxlength="50" id="cp_MainContent_txtPreIndustry" class="form-control" />
-                                        <span id="cp_MainContent_reqpreIndustry" style="color:Red;float:left;display:none;"><i class='fa fa-exclamation'></i></span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Recruitment Source*</label>
-                                        <select name="ctl00$cp_MainContent$ddlRecruitmentSource" id="cp_MainContent_ddlRecruitmentSource" class="form-control">
-                                            <option value="">-- Select One --</option>
-                                            <option value="Referrals">Referrals</option>
-                                            <option value="Management">Management</option>
-                                            <option value="Consultant">Consultant</option>
-                                            <option value="Campus">Campus</option>
-                                            <option value="IJP">IJP</option>
-                                            <option value="Portal">Portal</option>
-                                            <option value="Direct">Direct</option>
-                                            <option value="Rejoined">Rejoined</option>
-                                            <option value="Was Intern">Was Intern</option>
-                                            <option value="Dotcom">Dotcom</option>
-                                            <option value="Print Ad">Print Ad</option>
-                                        </select>
-                                        <span id="cp_MainContent_ReqRecruitmentSource" style="color:Red;float:left;display:none;"><i class='fa fa-exclamation'></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Source Name*</label>
-                                        <input name="ctl00$cp_MainContent$txtSourceName" type="text" maxlength="50" id="cp_MainContent_txtSourceName" class="form-control" />
-                                        <span id="cp_MainContent_ReqSourceName" style="color:Red;float:left;display:none;"><i class='fa fa-exclamation'></i></span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Recruiter Name*</label>
-                                        <input type="hidden" name="ctl00$cp_MainContent$hdnCandidateRecrutorId" id="cp_MainContent_hdnCandidateRecrutorId" value="0" />
-                                        <select name="ctl00$cp_MainContent$ddlRecruiterName" id="cp_MainContent_ddlRecruiterName" class="form-control select2">
-                                        </select>
-                                        <span id="cp_MainContent_ReqRecruiterName" style="color:Red;float:left;display:none;"><i class='fa fa-exclamation'></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Hike Detail*</label>
-                                        <input name="ctl00$cp_MainContent$txtHikeDetail" type="text" maxlength="50" id="cp_MainContent_txtHikeDetail" class="form-control" />
-                                        <span id="cp_MainContent_reqHikeDetail" style="color:Red;float:left;display:none;"><i class='fa fa-exclamation'></i></span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>BVC Status</label>
-                                        <select name="ctl00$cp_MainContent$ddlBVCStatus" id="cp_MainContent_ddlBVCStatus" class="form-control">
-                                            <option value="">-- Select One --</option>
-                                            <option value="Yes">Yes</option>
-                                            <option value="No">No</option>
-                                            <option value="N/A">N/A</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>BVC Remarks</label>
-                                        <input name="ctl00$cp_MainContent$txtBVCRemarks" type="text" maxlength="50" id="cp_MainContent_txtBVCRemarks" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Authbridge</label>
-                                        <input name="ctl00$cp_MainContent$txtAuthbridge" type="text" maxlength="50" id="cp_MainContent_txtAuthbridge" class="form-control" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="submit-section">
-                                <a id="cp_MainContent_btnsaveRecruitmentDetails" class="btn btn-warning submit-btn" href="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$cp_MainContent$btnsaveRecruitmentDetails&quot;, &quot;&quot;, true, &quot;RecruitmentDetails&quot;, &quot;&quot;, false, true))">Submit</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="cp_MainContent_pnlUserRemarks" tabindex="-1" class="modal custom-modal fade" role="dialog">
-            <div class="modal-dialog modal-lg">
-                <div id="cp_MainContent_ctl17">
-                    <div class="modal-content">
-                        <div class="modal-header bg-primary">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">User-Status Remarks </h4>
-                        </div>
-                        <div class="modal-body">
-                            <table align='center' style="background-color: #f5f5f5">
-                                <tbody>
-                                    <tr>
-                                        <td width='700'>
-                                            <table width='100%' border='0' cellspacing='5px' cellpadding='5px'>
-                                                <tbody>
-                                                    <tr>
-                                                        <td align='left'>
-                                                            <font style='font-size: 14px; font-weight: 700;' face='Helvetica Neue Light, Helvetica Neue Regular, Helvetica, Arial'>
-                                                                Remarks
-                                                            </font>
-                                                            <textarea name="ctl00$cp_MainContent$txtUserRemarks" rows="5" cols="20" id="cp_MainContent_txtUserRemarks" class="form-control" onkeyup="LimtCharactersAboutMe(this,499,&#39;spremarksdataCount&#39;);"></textarea>
-                                                            <span id="spremarksdataCount">500</span> character left.
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" id="userStatusRemarks" class="btn btn-primary btn-sm user-Status-Remarks">User Remarks</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="cp_MainContent_pnlUploadDocument" tabindex="-1" class="modal" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog modal-md">
-                <div id="cp_MainContent_ctl19">
-                    <div class="modal-content">
-                        <div class="modal-header bg-primary">
-                            <a id="lnkbtnPopupDocumentClear" class="btn input-sm pull-right close" onclick="SetDocumentPanelHide();"><i class="fa fa-close"></i></a>
-                            <h4 class="modal-title" id="myModalLabeldocument">
-                                <span id="cp_MainContent_lblHeadingDocument"></span>
-                            </h4>
-                        </div>
-                        <div class="modal-body" style="background-color: white;">
-                            <div class="box-body">
-                                <div id="cp_MainContent_divDocument">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label id="lblDocumentName">Document Type</label>
-                                            <select name="ctl00$cp_MainContent$ddlDocumentType" onchange="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$cp_MainContent$ddlDocumentType\&#39;,\&#39;\&#39;)&#39;, 0)" id="cp_MainContent_ddlDocumentType" class="form-control">
-                                            </select>
-                                            <span id="cp_MainContent_Req_ddlDocumentType" style="color:Red;float:left;display:none;"><i class='fa fa-exclamation'></i></span>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label>Document Name</label>
-                                            <select name="ctl00$cp_MainContent$ddlDocumentName" id="cp_MainContent_ddlDocumentName" class="form-control">
-                                            </select>
-                                            <span id="cp_MainContent_Req_ddlDocumentName" style="color:Red;float:left;display:none;"><i class='fa fa-exclamation'></i></span>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-10">
-                                            <label>Upload File</label>
-                                            <input type="file" name="ctl00$cp_MainContent$FileUploadDocument" id="cp_MainContent_FileUploadDocument" class="form-control" />
-                                            <span id="cp_MainContent_req_FileUploadDocument" style="color:Red;float:left;display:none;"><i class='fa fa-exclamation'></i></span>
-                                        </div>
-                                        <div class="col-md-2" style="margin-top: 25px;">
-                                            <a id="cp_MainContent_lnkbtnDocumentUploadEmp" class="btn btn-primary" href="javascript:__doPostBack(&#39;ctl00$cp_MainContent$lnkbtnDocumentUploadEmp&#39;,&#39;&#39;)" style="float: right;">
-                                                <i class="fa fa margin-r-5"></i>Add
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="cp_MainContent_pnlManualVerificationHR" tabindex="-1" class="modal" role="dialog" aria-labelledby="UserR">
-            <div class="modal-dialog modal-lg">
-                <div id="cp_MainContent_ctl21">
-                    <div class="modal-content">
-                        <div class="modal-header bg-primary">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">Manual Verification [<span id="cp_MainContent_lblDocumentType"></span>]</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="box-body with-border">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <input type="hidden" name="ctl00$cp_MainContent$hdnEmpVerifyId" id="cp_MainContent_hdnEmpVerifyId" />
-                                            <input type="hidden" name="ctl00$cp_MainContent$hdnEmpVerifyDocType" id="cp_MainContent_hdnEmpVerifyDocType" />
-                                            <input type="hidden" name="ctl00$cp_MainContent$hdnEmpVerifyDocTypeId" id="cp_MainContent_hdnEmpVerifyDocTypeId" />
-                                            <input type="hidden" name="ctl00$cp_MainContent$hdnEmpRejectedDocName" id="cp_MainContent_hdnEmpRejectedDocName" />
-                                            <div id="cp_MainContent_divVerifyPanCard" class="row">
-                                                <div class="col-md-6">
-                                                    <label>PanCard No</label>
-                                                    <input name="ctl00$cp_MainContent$txtPanCardVerifyNo" type="text" maxlength="50" id="cp_MainContent_txtPanCardVerifyNo" class="form-control" style="text-transform: uppercase" />
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label>Name On PanCard</label>
-                                                    <input name="ctl00$cp_MainContent$txtPanCardVerifyName" type="text" maxlength="50" id="cp_MainContent_txtPanCardVerifyName" class="form-control" />
-                                                </div>
-                                            </div>
-                                            <div id="cp_MainContent_divVerifyAadharCard" class="row">
-                                                <div class="col-md-6">
-                                                    <label>AadharCard No</label>
-                                                    <input name="ctl00$cp_MainContent$txtAadharCardVerifyNo" type="text" id="cp_MainContent_txtAadharCardVerifyNo" class="form-control" />
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label>Name On Aadhar</label>
-                                                    <input name="ctl00$cp_MainContent$txtAadharCardVerifyName" type="text" id="cp_MainContent_txtAadharCardVerifyName" class="form-control" />
-                                                </div>
-                                            </div>
-                                            <div id="cp_MainContent_divVerifyPassport" class="row">
-                                                <div class="col-md-3">
-                                                    <label>PassPort No</label>
-                                                    <input name="ctl00$cp_MainContent$txtPassportVerifyNo" type="text" id="cp_MainContent_txtPassportVerifyNo" class="form-control" style="text-transform: uppercase" />
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <label>FirstName On Passport</label>
-                                                    <input name="ctl00$cp_MainContent$txtPassportVerifyName" type="text" id="cp_MainContent_txtPassportVerifyName" class="form-control" />
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <label>MiddleName On Passport</label>
-                                                    <input name="ctl00$cp_MainContent$txtPassportMiddleNameVerify" type="text" id="cp_MainContent_txtPassportMiddleNameVerify" class="form-control" />
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <label>LastName On Passport</label>
-                                                    <input name="ctl00$cp_MainContent$txtPassportLastNameVerify" type="text" id="cp_MainContent_txtPassportLastNameVerify" class="form-control" />
-                                                </div>
-                                            </div>
-                                            <div id="cp_MainContent_divVerifyCancelledCheque" class="row">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <label>Bank Account No</label>
-                                                        <input name="ctl00$cp_MainContent$txtVerifyBankAccountNo" type="text" id="cp_MainContent_txtVerifyBankAccountNo" class="form-control" />
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <label>IFSC Code</label>
-                                                        <input name="ctl00$cp_MainContent$txtVerifyIfscCode" type="text" id="cp_MainContent_txtVerifyIfscCode" class="form-control" style="text-transform: uppercase" />
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <label>Bank Name</label>
-                                                        <input name="ctl00$cp_MainContent$txtVerifyBankName" type="text" id="cp_MainContent_txtVerifyBankName" class="form-control" />
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <label>Name as on Bank</label>
-                                                        <input name="ctl00$cp_MainContent$txtVerifyNameasOnBank" type="text" id="cp_MainContent_txtVerifyNameasOnBank" class="form-control" />
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <label>Remarks</label>
-                                                        <textarea name="ctl00$cp_MainContent$txtRejectRemarks" rows="5" cols="20" id="cp_MainContent_txtRejectRemarks" class="form-control"></textarea>
-                                                        <span id="cp_MainContent_reqRejectRemarks" style="color:Red;float:left;display:none;"><i class='fa fa-exclamation'></i></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <a id="cp_MainContent_lnkVerificationSubmit" class="btn btn-success btn-sm" href="javascript:__doPostBack(&#39;ctl00$cp_MainContent$lnkVerificationSubmit&#39;,&#39;&#39;)">Submit</a>
-                            <a id="cp_MainContent_lnkVerificationReject" class="btn btn-warning btn-sm" href="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$cp_MainContent$lnkVerificationReject&quot;, &quot;&quot;, true, &quot;RejectRemarks&quot;, &quot;&quot;, false, true))">Reject</a>
-                            &nbsp;&nbsp;
-                            <a data-dismiss="modal" aria-label="Close"><span class="btn btn-danger btn-sm" aria-hidden="true">Close</span></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="cp_MainContent_pnlRating" tabindex="-1" class="modal" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog modal-md">
-                <div id="cp_MainContent_ctl23">
-                    <div class="modal-content">
-                        <div class="modal-header" style="background-color: #222d32; color: #ffffff;">
-                            <button id="cp_MainContent_btnClose" type="button" class="close CloseModalPopup" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h5 class="modal-title" id="myModalLabel">
-                                <span id="cp_MainContent_lblHeading"></span>
-                            </h5>
-                        </div>
-                        <div class="modal-body" style="background-color: white;">
-                            <div class="box-body">
-                                <div id="cp_MainContent_dvresult">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="table-responsive">
-                                                <div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="cp_MainContent_pnlVisaRequestEmp" tabindex="-1" class="modal" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog modal-md">
-                <div id="cp_MainContent_ctl25">
-                    <div class="modal-content">
-                        <div class="modal-header bg-primary">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">
-                                <span id="cp_MainContent_Label3">Visa Request Details</span>
-                                <input type="hidden" name="ctl00$cp_MainContent$hdnVisaCandidateId" id="cp_MainContent_hdnVisaCandidateId" />
-                                <input type="hidden" name="ctl00$cp_MainContent$hdnVisaEmployeeId" id="cp_MainContent_hdnVisaEmployeeId" value="881" />
-                                <input type="hidden" name="ctl00$cp_MainContent$hdnVisaEmployeeName" id="cp_MainContent_hdnVisaEmployeeName" value="Rohit Kumar" />
-                                <input type="hidden" name="ctl00$cp_MainContent$hdnApproverIdVisa" id="cp_MainContent_hdnApproverIdVisa" />
-                                <input type="hidden" name="ctl00$cp_MainContent$hdnPnlHeadIdVisa" id="cp_MainContent_hdnPnlHeadIdVisa" />
-                            </h4>
-                        </div>
-                        <div class="box-body with-border">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <label>Employee Name</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <span id="cp_MainContent_lblVisaEmployeeName"></span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <label>Type Of Visa</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <select name="ctl00$cp_MainContent$ddlVisaNameType" onchange="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$cp_MainContent$ddlVisaNameType\&#39;,\&#39;\&#39;)&#39;, 0)" id="cp_MainContent_ddlVisaNameType" class="form-control input-sm">
-                                    </select>
-                                    <span id="cp_MainContent_Req_ddlVisaNameType" style="color:Red;float:left;display:none;"><i class='fa fa-exclamation'></i></span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <label>Visa Duration</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <select name="ctl00$cp_MainContent$ddlVisaDurationType" id="cp_MainContent_ddlVisaDurationType" class="form-control input-sm">
-                                    </select>
-                                    <span id="cp_MainContent_Req_ddlVisaDurationType" style="color:Red;float:left;display:none;"><i class='fa fa-exclamation'></i></span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12 align-center">
-                                    <a id="cp_MainContent_lnkbtnVisaSubmitEmployee" class="btn btn-success btn-sm" href="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$cp_MainContent$lnkbtnVisaSubmitEmployee&quot;, &quot;&quot;, true, &quot;EmployeeVisaRequest&quot;, &quot;&quot;, false, true))">Submit</a>
-                                    &nbsp;&nbsp;
-                                    <a data-dismiss="modal" aria-label="Close"><span class="btn btn-danger btn-sm" aria-hidden="true">Close</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="cp_MainContent_pnlEmployeeProfileImage" tabindex="-1" class="modal" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog modal-lg">
-                <div id="cp_MainContent_ctl27">
-                    <div class="modal-content">
-                        <div class="modal-header bg-primary">
-                            <button id="cp_MainContent_btnProfilePicClose" type="button" onclick="SetDocumentPanelProfilePicHide();" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">Update Profile Picture</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label>Upload File</label>
-                                    <input type="file" name="ctl00$cp_MainContent$imageUpload" id="cp_MainContent_imageUpload" class="form-control input-sm" accept=".png,.jpg,.jpeg,.gif" onchange="showimagepreview(this)" />
-                                    <span id="cp_MainContent_reqImageUploadProfilePic" style="color:Red;display:none;">Required!</span>
-                                </div>
-                                <div class="col-md-12">
-                                    <img alt="" id="imgProfilePicId" width="150px" height="150px" class="img-responsive hide" style="height: 150px; border-radius: 50%; margin: 10px auto 0px;" />
-                                </div>
-                            </div>
-                            <div style="margin-top: 15px; text-align: center">
-                                <a id="cp_MainContent_btnuploadpic1" class="btn btn-warning submit-btn" href="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$cp_MainContent$btnuploadpic1&quot;, &quot;&quot;, true, &quot;SavebtnImageProfile&quot;, &quot;&quot;, false, true))">Upload</a>
-                                &nbsp;&nbsp;
-                                <a data-dismiss="modal" onclick="SetDocumentPanelProfilePicHide();" aria-label="Close"><span class="btn btn-danger submit-btn" aria-hidden="true">Close</span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-        <script>
-            function SetDocumentPanelHide() {
-                document.getElementById('cp_MainContent_pnlUploadDocument').style.display = 'none';
-                $('.modal-backdrop').css('display', 'none');
-            }
-            function SetDocumentPanelShow() {
-                document.getElementById('cp_MainContent_pnlUploadDocument').style.display = 'block';
-                $('.modal-backdrop').css('display', 'block');
-            }
-            function SetDocumentPanelProfilePicShow() {
-                document.getElementById('cp_MainContent_pnlEmployeeProfileImage').style.display = 'block';
-                $('.modal-backdrop').css('display', 'block');
-            }
-            function SetDocumentPanelProfilePicHide() {
-                document.getElementById('cp_MainContent_pnlEmployeeProfileImage').style.display = 'none';
-                $('.modal-backdrop').css('display', 'none');
-            }
-
-        </script>
     </section>
 </div>
