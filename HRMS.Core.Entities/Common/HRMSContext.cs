@@ -1,5 +1,6 @@
 ﻿using HRMS.Core.Entities.LeadManagement;
 using HRMS.Core.Entities.Master;
+using HRMS.Core.Entities.Organisation;
 using HRMS.Core.Entities.Payroll;
 using HRMS.Core.Entities.UserManagement;
 using Microsoft.EntityFrameworkCore;
@@ -26,14 +27,13 @@ namespace HRMS.Core.Entities.Common
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //connectionString for the DataBase Migration
-            //server=122.160.49.247,1433; Database=Payroll_Devlopment;User Id=SqlAdmin;Password=SqlAdmin@123
             optionsBuilder.UseSqlServer(_connectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Department>().Property("CreatedDate").HasDefaultValue(DateTime.Now);
+            modelBuilder.Entity<Company>().Property("CreatedDate").HasDefaultValue(DateTime.Now);
         }
 
         #region Master
@@ -57,6 +57,9 @@ namespace HRMS.Core.Entities.Common
         public virtual DbSet<CustomerLead> CustomerLeads { get; set; }
         public virtual DbSet<CustomerCallingDetails> CustomerCallingDetails { get; set; }
         public virtual DbSet<CustomerLeadCloserForm> CustomerLeadCloserForms { get; set; }
+        public virtual DbSet<Company> Companies { get; set; }
+        public virtual DbSet<Subsidiary> Subsidiarys { get; set; }
+        
 
         #endregion
     }

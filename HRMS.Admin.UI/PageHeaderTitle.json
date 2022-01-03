@@ -4,5 +4,6 @@
   "DesignationIndex": "Designation",
   "RoleMasterIndex": "Role",
   "ModuleMaster": "Module/Menu",
-  "SubModuleMaster": "SubModule"
+  "SubModuleMaster": "SubModule",
+  "Company": "Create Company"
 }
