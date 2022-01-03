@@ -1,8 +1,7 @@
-﻿@model HRMS.Core.Entities.Master.RoleMaster
+﻿@model HRMS.Core.Entities.Master.CompanyHolidays
 
 <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
-
 <style>
     .modal.fade .modal-dialog {
         transform: translate(0);
@@ -23,31 +22,44 @@
 </style>
 <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
       data-ajax-complete="AjaxComplete"
-      asp-action="UpsertRole" asp-controller="RoleMaster" data-ajax-success="Success">
+      asp-action="UpsertCompanyHoliday" asp-controller="CompanyHolidays" data-ajax-success="Success">
     <div class="modal-body">
         <div class="row">
             <div class="col-md-12">
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Name">Select State</label>
+                        <select class="form-control" asp-for="StateId" asp-items="@(new SelectList(ViewBag.DepartmentList ,"Id","Name"))">
+                        </select>
+                        <span asp-validation-for="StateId" class="text-danger"></span>
+                    </div>
+
+                </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <input asp-for="Id" type="hidden" />
                         <input asp-for="CreatedBy" type="hidden" />
                         <input asp-for="CreatedDate" type="hidden" />
-                        <label asp-for="RoleName">Role Name</label>
-                        <input type="text" class="form-control" asp-for="RoleName" />
-                        <span asp-validation-for="RoleName" class="text-danger"></span>
+                        <label asp-for="Name">Name</label>
+                        <input type="text" class="form-control" placeholder="Holiday Name"  asp-for="Name" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
 
                 </div>
-               
+
+
 
                 <div class="col-md-4">
                     <div class="form-group">
-                            <label asp-for="RoleDescription">Description</label>
-                            <input asp-for="RoleDescription" class="form-control" />
-                            <span asp-validation-for="RoleDescription" class="text-danger"></span>
-                       
+                        <label asp-for="HolidayDate">Date</label>
+                        <input asp-for="HolidayDate" class="form-control" />
+                        <span asp-validation-for="HolidayDate" class="text-danger"></span>
                     </div>
                 </div>
+               
+
+
             </div>
         </div>
 
