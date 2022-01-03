@@ -1,4 +1,5 @@
-.box{box-shadow:0 0 10px #000; background:#ccc}
+.box{box-shadow:0 0 10px #000; background:#ccc; padding:10px; width:255px; text-align:center; height:150px}
+.box-link:hover{text-decoration:none; color:#fff}
 .login .position-absolute{right:0; width:400px}
 .login .btn{border-radius:20px}
 .login .form-group input{border:0; border-bottom:1px solid #007bff; border-radius:0}
@@ -6,5 +7,10 @@
 
 @media screen and (max-width:767px){
 	.bg-login{background:none !important}
-	.login .position-absolute{position:relative !important; width:300px; margin:auto}
+	.login .position-absolute{position:relative !important; width:100%; margin:auto}
+	.box {width:480px;}
+}
+
+@media screen and (max-width:479px) {
+	.box{width:300px}
 }
