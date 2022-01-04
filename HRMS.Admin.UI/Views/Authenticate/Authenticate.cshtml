@@ -15,7 +15,9 @@
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     <style>
-        .form-control:focus-within{box-shadow:0 0 5px red !important}
+        .form-control:focus-within {
+            box-shadow: 0 0 5px red !important
+        }
     </style>
 </head>
 <body class="bg-login" style="background:url(../LoginJsCss/images/bg-login-2.jpg) no-repeat top left; background-size:content">
@@ -28,31 +30,17 @@
             <h2 class="text-center my-5 font-weight-bold">Login</h2>
             @if (!string.IsNullOrEmpty(ViewBag.Message))
             {
-                <div class="col-md-12 px-5"><span style="color:red">@ViewBag.Message</span></div>
-            }
-            <div class="col-md-12 px-4 d-none" id="d-1">
-                <div class="alert alert-danger alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong>Employee Code/Password</strong> can not be blank.
-                </div>   
-                <div class="alert alert-danger alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong>Employee Code</strong> can not be blank.
-                </div>
-                <div class="alert alert-danger alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong>Passowrd</strong> can not be blank.
-                </div>
-                <div class="alert alert-danger alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong>Wrong Employee Code</strong>.
-                </div>
-                <div class="alert alert-danger alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong>Wrong Passowrd</strong>.
-                </div>
-            </div>
 
+
+                <div class="col-md-12 px-4 d-none" id="d-1">
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <p>@ViewBag.Message</p>
+                    </div>
+
+
+                </div>
+            }
             <form class="col-md-12 px-5" asp-action="Login" asp-controller="Authenticate">
 
                 <div class="form-group">
@@ -89,7 +77,7 @@
 </script>
 
 <script>
-    $("#d-2").click(function(){
-      $("#d-1").removeClass("d-none");;
+    $("#d-2").click(function () {
+        $("#d-1").removeClass("d-none");;
     });
 </script>
