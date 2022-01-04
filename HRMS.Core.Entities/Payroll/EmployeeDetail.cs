@@ -83,5 +83,7 @@ namespace HRMS.Core.Entities.Payroll
         public string LeaveApprover1 { get; set; }
         public string LeaveApprover2 { get; set; }
         public string ProfilePic { get; set; }
+        public string PTStateName { get; set; }
+        public string IsPFEligible { get; set; }
     }
 }
