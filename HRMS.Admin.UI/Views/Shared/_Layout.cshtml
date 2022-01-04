@@ -46,7 +46,24 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery-ajax-unobtrusive@3.2.6/dist/jquery.unobtrusive-ajax.min.js"
             integrity="sha256-PAC000yuHt78nszJ2RO0OiDMu/uLzPLRlYTk8J3AO10="
             crossorigin="anonymous"></script>
+    <style>
+        .modal.fade .modal-dialog {
+            transform: translate(0);
+            margin: 0 0 0 auto;
+            height: 100%
+        }
 
+        .modal-content {
+            height: 100%
+        }
+
+        .modal-footer {
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+    </style>
     <style>
         .ui-widget-content {
             z-index: 9999999 !important;
@@ -671,6 +688,9 @@
                 <!-- Navbar Right Menu -->
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
+                        <li class="hidden-sm hidden-xs" style=''>
+                            <a asp-action="Index" asp-controller="Profile" class="quicklinks" target="_self">My Profile </a>
+                        </li>
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <img src="~/resources/dist/img/emp.png" class="user-image" alt="User Image">
@@ -679,6 +699,7 @@
                                 <i class="fa fa-caret-down"></i>
                             </a>
                             <ul class="dropdown-menu">
+
                                 <li class="user-header">
                                     <img src="~/resources/dist/img/emp.png" width="160" height="160" class="img-circle" alt="User Image">
                                     <p>
@@ -688,7 +709,7 @@
                                 </li>
                                 <li class="user-footer">
                                     <div class="pull-left" style="">
-                                        <a href="#" class="btn bg-black btn-flat">My Profile</a>
+                                        <a asp-action="Index" asp-controller="Profile" class="btn bg-black btn-flat">My Profile</a>
 
                                     </div>
                                     <div class="pull-right">
@@ -832,7 +853,25 @@
     </div>
 
 </body>
-</html>
+</html><script>
+    $('#example').dataTable({
+        "iDisplayLength": 10,
+        "bDestroy": true,
+        "scrollX": true,
+        "aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+    });
+</script>
+
+<script type="text/javascript">
+
+    function ChangePassword() {
+        $.get("/Authenticate/ChangePassword", function (data) {
+            $("#divHRMSCreate").html(data);
+            $("#divModalPop").modal('show');
+            $("#modalTitle").text("Change Password");
+        })
+    }
+</script>
 
 <script type="text/javascript">
     function ChangePassword() {

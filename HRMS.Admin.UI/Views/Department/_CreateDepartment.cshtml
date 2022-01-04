@@ -1,7 +1,11 @@
 ﻿@model HRMS.Core.Entities.Master.Department
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
-
+    <style>
+        .modal.fade .modal-dialog{transform:translate(0);margin:0 0 0 auto; height:100%}
+        .modal-content{height:100%}
+        .modal-footer{width:100%; position:absolute; bottom:0; right:0;}
+    </style>
     <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
           data-ajax-complete="AjaxComplete"
           asp-action="UpSertDepartment" asp-controller="Department" data-ajax-success="Success">
@@ -40,7 +44,7 @@
         <div class="modal-footer">
 
 
-            <button type="button" class="btn btn-default" onclick="HidePopUp();">Close</button>
+            <button type="button" class="btn btn-primary" onclick="HidePopUp();">Close</button>
             <input type="submit" class="btn btn-primary  " value="Save" />
         </div>
     </form>
