@@ -43,7 +43,12 @@
         </div>
     </section>
 </div>
- 
+<script>
+    $(document).ready(function(){
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.error('Notification');
+    });
+ </script>
 
 <environment include="Development">
     <script src="~/HRMSJs/Department.js"></script>
