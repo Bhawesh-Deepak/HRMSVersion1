@@ -98,7 +98,7 @@ namespace HRMS.Core.Helpers.ExcelHelper
                 empModel.LeaveApprover1 = dataResult.dtResult.Rows[i][69].ToString().GetDefaultDBNull<string>();
                 empModel.LeaveApprover2 = dataResult.dtResult.Rows[i][70].ToString().GetDefaultDBNull<string>();
                 empModel.PTStateName = dataResult.dtResult.Rows[i][71].ToString().GetDefaultDBNull<string>();
-                empModel.IsPFEligible = dataResult.dtResult.Rows[i][72].ToString().GetDefaultDBNull<string>();
+                empModel.IsPFEligible = dataResult.dtResult.Rows[i][72].ToString().GetDefaultDBNull<int>();
                 employeeModels.Add(empModel);
 
                 var empSalaryModel = new EmployeeSalaryDetail();
