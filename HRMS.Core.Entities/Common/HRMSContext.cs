@@ -59,7 +59,13 @@ namespace HRMS.Core.Entities.Common
         public virtual DbSet<CustomerLeadCloserForm> CustomerLeadCloserForms { get; set; }
         public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<Subsidiary> Subsidiarys { get; set; }
-        
+        public virtual DbSet<CompanyHolidays> CompanyHolidays { get; set; }
+        public virtual DbSet<StateMaster> StateMasters  { get; set; }
+        public virtual DbSet<EmployeeType> EmployeeTypes { get; set; }
+        public virtual DbSet<LocationType> LocationTypes { get; set; }
+        public virtual DbSet<Location> Locations { get; set; }
+        public virtual DbSet<PAndLMaster> PAndLMasters { get; set; }
+        public virtual DbSet<RegionMaster> RegionMasters { get; set; }
 
         #endregion
     }
