@@ -6,16 +6,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace HRMS.Core.Entities.Master
 {
-    [Table("StateMaster", Schema = "Master")]
-    public class StateMaster: BaseModel<int>
+    [Table("EmployeeType", Schema = "Master")]
+    public class EmployeeType : BaseModel<int>
     {
-        public int CountryId { get; set; }
-        [Required(ErrorMessage = "State name is required.")]
-        [Display(Prompt = "State Name")]
+        [Required(ErrorMessage = "Employeetype name is required.")]
+        [Display(Prompt = "Employeetype Name")]
         public string Name { get; set; }
-        public string Code { get; set; }
     }
 }

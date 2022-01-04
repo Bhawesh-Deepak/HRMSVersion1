@@ -9,13 +9,12 @@ using System.Threading.Tasks;
 
 namespace HRMS.Core.Entities.Master
 {
-    [Table("StateMaster", Schema = "Master")]
-    public class StateMaster: BaseModel<int>
+    [Table("LocationType", Schema = "Master")]
+    public class LocationType : BaseModel<int>
     {
-        public int CountryId { get; set; }
-        [Required(ErrorMessage = "State name is required.")]
-        [Display(Prompt = "State Name")]
+        [Required(ErrorMessage = "Location Type name is required.")]
+        [Display(Prompt = "Location Type Name")]
         public string Name { get; set; }
-        public string Code { get; set; }
+      
     }
 }

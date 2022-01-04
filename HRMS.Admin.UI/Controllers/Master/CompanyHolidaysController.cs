@@ -3,21 +3,25 @@ using HRMS.Core.Entities.Common;
 using HRMS.Core.Entities.Master;
 using HRMS.Core.Helpers.CommonCRUDHelper;
 using HRMS.Core.Helpers.CommonHelper;
+using HRMS.Core.ReqRespVm.Response.Master;
 using HRMS.Services.Repository.GenericRepository;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace HRMS.Admin.UI.Controllers.Master
 {
     public class CompanyHolidaysController : Controller
     {
         private readonly IGenericRepository<CompanyHolidays, int> _ICompanyHolidaysRepository;
+        private readonly IGenericRepository<StateMaster, int> _IStateRepository;
 
-        public CompanyHolidaysController(IGenericRepository<CompanyHolidays, int> CompanyHolidayRepo)
+        public CompanyHolidaysController(IGenericRepository<CompanyHolidays, int> CompanyHolidayRepo,IGenericRepository<StateMaster, int> StateRepo )
         {
             _ICompanyHolidaysRepository = CompanyHolidayRepo;
+            _IStateRepository = StateRepo;
         }
         public async Task<IActionResult> Index()
         {
@@ -29,9 +33,20 @@ namespace HRMS.Admin.UI.Controllers.Master
         {
             try
             {
-                var response = new DBResponseHelper<CompanyHolidays, int>().GetDBResponseHelper(await _ICompanyHolidaysRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted));
+                var HolidayList = await _ICompanyHolidaysRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+                var StateList = await _IStateRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
 
-                return PartialView(ViewHelper.GetViewPathDetails("CompanyHolidays", "CompanyHolidayDetails"), response.Item2.Entities);
+                var responseDetails = (from stl in StateList.Entities
+                                       join hdl in HolidayList.Entities
+                                       on stl.Id equals hdl.StateId
+                                       select new HolidaysDetails
+                                       {
+                                           HolidayId=hdl.Id,
+                                           StateName=stl.Name,
+                                           HolidayName = hdl.Name,
+                                           Holidate = hdl.HolidayDate,
+                                       }).ToList();
+                return PartialView(ViewHelper.GetViewPathDetails("CompanyHolidays", "CompanyHolidayDetails"), responseDetails);
             }
             catch (Exception ex)
             {
@@ -76,10 +91,10 @@ namespace HRMS.Admin.UI.Controllers.Master
         #region PrivateFields
         private async Task PopulateViewBag()
         {
-            var departmentResponse = await _ICompanyHolidaysRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+            var StateResponse = await _IStateRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
 
-            if (departmentResponse.ResponseStatus == ResponseStatus.Success)
-                ViewBag.DepartmentList = departmentResponse.Entities;
+            if (StateResponse.ResponseStatus == ResponseStatus.Success)
+                ViewBag.StateList = StateResponse.Entities;
 
         }
 

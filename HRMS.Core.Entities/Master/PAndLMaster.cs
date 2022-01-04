@@ -9,13 +9,11 @@ using System.Threading.Tasks;
 
 namespace HRMS.Core.Entities.Master
 {
-    [Table("StateMaster", Schema = "Master")]
-    public class StateMaster: BaseModel<int>
+    [Table("P&LMaster", Schema = "Master")]
+    public class PAndLMaster : BaseModel<int>
     {
-        public int CountryId { get; set; }
-        [Required(ErrorMessage = "State name is required.")]
-        [Display(Prompt = "State Name")]
+        [Required(ErrorMessage = "PandL name is required.")]
+        [Display(Prompt = "PandL Name")]
         public string Name { get; set; }
-        public string Code { get; set; }
     }
 }

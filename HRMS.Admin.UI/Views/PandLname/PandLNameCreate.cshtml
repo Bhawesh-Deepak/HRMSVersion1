@@ -1,4 +1,4 @@
-﻿@model HRMS.Core.Entities.Master.CompanyHolidays
+﻿@model HRMS.Core.Entities.Master.PAndLMaster
 
 <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
@@ -22,51 +22,27 @@
 </style>
 <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
       data-ajax-complete="AjaxComplete"
-      asp-action="UpsertCompanyHoliday" asp-controller="CompanyHolidays" data-ajax-success="Success">
+      asp-action="UpsertPandLname" asp-controller="PandLname" data-ajax-success="Success">
     <div class="modal-body">
         <div class="row">
             <div class="col-md-12">
 
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label asp-for="Name">Select State</label>
-                        <select class="form-control" asp-for="StateId" asp-items="@(new SelectList(ViewBag.StateList ,"Id","Name"))">
-                        </select>
-                        <span asp-validation-for="StateId" class="text-danger"></span>
-                    </div>
 
-                </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <input asp-for="Id" type="hidden" />
                         <input asp-for="CreatedBy" type="hidden" />
                         <input asp-for="CreatedDate" type="hidden" />
-                        <label asp-for="Name">Holiday Name</label>
-                        <input type="text" class="form-control"  asp-for="Name" />
+                        <label asp-for="Name">PandL Name</label>
+                        <input type="text" class="form-control" asp-for="Name" />
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
-
                 </div>
-
-
-
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label asp-for="HolidayDate">Date</label>
-                        <input asp-for="HolidayDate" class="form-control" />
-                        <span asp-validation-for="HolidayDate" class="text-danger"></span>
-                    </div>
-                </div>
-               
-
-
             </div>
         </div>
 
     </div>
     <div class="modal-footer">
-
-
         <button type="button" class="btn btn-primary" onclick="HidePopUp();">Close</button>
         <input type="submit" class="btn btn-primary  " value="Save" />
     </div>

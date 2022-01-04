@@ -15,12 +15,12 @@ namespace HRMS.Core.Entities.Master
         public int StateId { get; set; }
 
 
-        [Required(ErrorMessage = "Department name is required.")]
-        [Display(Prompt = "Department Name")]
+        [Required(ErrorMessage = "Holiday name is required.")]
+        [Display(Prompt = "Holiday Name")]
         public string  Name { get; set; }
 
         
-        public string HolidayDate { get; set; }
+        public DateTime HolidayDate { get; set; }
 
        
        
