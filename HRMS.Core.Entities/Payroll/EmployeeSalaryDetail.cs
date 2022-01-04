@@ -29,9 +29,8 @@ namespace HRMS.Core.Entities.Payroll
         public decimal MediClaimAmount { get; set; }
         public decimal PFDeduction { get; set; }
         public decimal ESIDeduction { get; set; }
-        public string PTStateName { get; set; }
-        public string IsPFEligible { get; set; }
         public decimal LWFDeduction { get; set; }
         public decimal PLP { get; set; }
+        public decimal StatutoryBonus { get; set; }
     }
 }

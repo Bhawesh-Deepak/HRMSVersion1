@@ -21,7 +21,7 @@ namespace HRMS.Core.Helpers.ExcelHelper
             var salaryModels = new List<EmployeeSalaryDetail>();
 
 
-            for (int i = 1; i < dataResult.dtResult.Rows.Count; i++)
+            for (int i = 2; i < dataResult.dtResult.Rows.Count; i++)
             {
                 var empModel = new EmployeeDetail();
 
@@ -47,7 +47,6 @@ namespace HRMS.Core.Helpers.ExcelHelper
                 empModel.IFSCCode = dataResult.dtResult.Rows[i][19].ToString().GetDefaultDBNull<string>();
                 empModel.PreviousOrganisation= dataResult.dtResult.Rows[i][20].ToString().GetDefaultDBNull<string>();
                 empModel.WorkExprience = dataResult.dtResult.Rows[i][21].ToString().GetDefaultDBNull<string>();
-
                 empModel.EducationalQualification = dataResult.dtResult.Rows[i][22].ToString().GetDefaultDBNull<string>();
                 empModel.InstituteName = dataResult.dtResult.Rows[i][23].ToString().GetDefaultDBNull<string>();
                 empModel.ConfirmationDate = dataResult.dtResult.Rows[i][24].ToString().GetDefaultDBNull<DateTime>();
@@ -57,7 +56,6 @@ namespace HRMS.Core.Helpers.ExcelHelper
                 empModel.PersonalEmailId = dataResult.dtResult.Rows[i][28].ToString().GetDefaultDBNull<string>();
                 empModel.ContactNumber = dataResult.dtResult.Rows[i][29].ToString().GetDefaultDBNull<string>();
                 empModel.DateOfBirth = dataResult.dtResult.Rows[i][30].ToString().GetDefaultDBNull<DateTime>();
-
                 empModel.CurrentAddress = dataResult.dtResult.Rows[i][31].ToString().GetDefaultDBNull<string>();
                 empModel.PermanentAddress = dataResult.dtResult.Rows[i][32].ToString().GetDefaultDBNull<string>();
                 empModel.BiometricCode = dataResult.dtResult.Rows[i][33].ToString().GetDefaultDBNull<string>();
@@ -67,7 +65,6 @@ namespace HRMS.Core.Helpers.ExcelHelper
                 empModel.Region = dataResult.dtResult.Rows[i][37].ToString().GetDefaultDBNull<string>();
                 empModel.PIPStartDate = dataResult.dtResult.Rows[i][38].ToString().GetDefaultDBNull<string>();
                 empModel.PIPEndDate = dataResult.dtResult.Rows[i][39].ToString().GetDefaultDBNull<string>();
-
                 empModel.PIP = dataResult.dtResult.Rows[i][40].ToString().GetDefaultDBNull<string>();
                 empModel.WhatsAppNumber = dataResult.dtResult.Rows[i][41].ToString().GetDefaultDBNull<string>();
                 empModel.NoticePeriod = dataResult.dtResult.Rows[i][42].ToString().GetDefaultDBNull<string>();
@@ -77,7 +74,6 @@ namespace HRMS.Core.Helpers.ExcelHelper
                 empModel.EmergencyRelationWithEmployee = dataResult.dtResult.Rows[i][46].ToString().GetDefaultDBNull<string>();
                 empModel.UANNumber = dataResult.dtResult.Rows[i][47].ToString().GetDefaultDBNull<string>();
                 empModel.ESICNew = dataResult.dtResult.Rows[i][48].ToString().GetDefaultDBNull<string>();
-
                 empModel.LeaveSupervisor = dataResult.dtResult.Rows[i][49].ToString().GetDefaultDBNull<string>();
                 empModel.IJPLocation = dataResult.dtResult.Rows[i][50].ToString().GetDefaultDBNull<string>();
                 empModel.ShiftTiming = dataResult.dtResult.Rows[i][51].ToString().GetDefaultDBNull<string>();
@@ -86,50 +82,51 @@ namespace HRMS.Core.Helpers.ExcelHelper
                 empModel.PAndFBankAccountNumberx = dataResult.dtResult.Rows[i][54].ToString().GetDefaultDBNull<string>();
                 empModel.ESICPreviousNumber = dataResult.dtResult.Rows[i][55].ToString().GetDefaultDBNull<string>();
                 empModel.Induction = dataResult.dtResult.Rows[i][56].ToString().GetDefaultDBNull<string>();
-                empModel.VISANumber = dataResult.dtResult.Rows[i][60].ToString().GetDefaultDBNull<string>();
-                empModel.VISADate= dataResult.dtResult.Rows[i][61].ToString().GetDefaultDBNull<DateTime>();
-                empModel.TaxFileNumber = dataResult.dtResult.Rows[i][62].ToString().GetDefaultDBNull<string>();
-                empModel.SupernationAccountNumber = dataResult.dtResult.Rows[i][63].ToString().GetDefaultDBNull<string>();
-                empModel.SwiftCode = dataResult.dtResult.Rows[i][64].ToString().GetDefaultDBNull<string>();
-                empModel.RoutingCode = dataResult.dtResult.Rows[i][65].ToString().GetDefaultDBNull<string>();
-                empModel.AlternateMobileNumber = dataResult.dtResult.Rows[i][66].ToString().GetDefaultDBNull<string>();
-                empModel.BranchOfficeId = dataResult.dtResult.Rows[i][67].ToString().GetDefaultDBNull<string>();
-                empModel.ExitDate = dataResult.dtResult.Rows[i][68].ToString().GetDefaultDBNull<DateTime>();
-                empModel.HolidayGroupId = dataResult.dtResult.Rows[i][69].ToString().GetDefaultDBNull<string>();
-                empModel.IsESICEligible = dataResult.dtResult.Rows[i][70].ToString().GetDefaultDBNull<string>();
 
-                empModel.LandLineNumber = dataResult.dtResult.Rows[i][71].ToString().GetDefaultDBNull<string>();
-                empModel.LeaveApprover1 = dataResult.dtResult.Rows[i][72].ToString().GetDefaultDBNull<string>();
-                empModel.LeaveApprover2 = dataResult.dtResult.Rows[i][73].ToString().GetDefaultDBNull<string>();
-
+                empModel.VISANumber = dataResult.dtResult.Rows[i][57].ToString().GetDefaultDBNull<string>();
+                empModel.VISADate= dataResult.dtResult.Rows[i][58].ToString().GetDefaultDBNull<DateTime>();
+                empModel.TaxFileNumber = dataResult.dtResult.Rows[i][59].ToString().GetDefaultDBNull<string>();
+                empModel.SupernationAccountNumber = dataResult.dtResult.Rows[i][60].ToString().GetDefaultDBNull<string>();
+                empModel.SwiftCode = dataResult.dtResult.Rows[i][61].ToString().GetDefaultDBNull<string>();
+                empModel.RoutingCode = dataResult.dtResult.Rows[i][62].ToString().GetDefaultDBNull<string>();
+                empModel.AlternateMobileNumber = dataResult.dtResult.Rows[i][63].ToString().GetDefaultDBNull<string>();
+                empModel.BranchOfficeId = dataResult.dtResult.Rows[i][64].ToString().GetDefaultDBNull<string>();
+                empModel.ExitDate = dataResult.dtResult.Rows[i][65].ToString().GetDefaultDBNull<DateTime>();
+                empModel.HolidayGroupId = dataResult.dtResult.Rows[i][66].ToString().GetDefaultDBNull<string>();
+                empModel.IsESICEligible = dataResult.dtResult.Rows[i][67].ToString().GetDefaultDBNull<string>();
+                empModel.LandLineNumber = dataResult.dtResult.Rows[i][68].ToString().GetDefaultDBNull<string>();
+                empModel.LeaveApprover1 = dataResult.dtResult.Rows[i][69].ToString().GetDefaultDBNull<string>();
+                empModel.LeaveApprover2 = dataResult.dtResult.Rows[i][70].ToString().GetDefaultDBNull<string>();
+                empModel.PTStateName = dataResult.dtResult.Rows[i][71].ToString().GetDefaultDBNull<string>();
+                empModel.IsPFEligible = dataResult.dtResult.Rows[i][72].ToString().GetDefaultDBNull<string>();
                 employeeModels.Add(empModel);
 
                 var empSalaryModel = new EmployeeSalaryDetail();
-                empSalaryModel.CTC = dataResult.dtResult.Rows[i][74].ToString().GetDefaultDBNull<decimal>();
+                empSalaryModel.CTC = dataResult.dtResult.Rows[i][73].ToString().GetDefaultDBNull<decimal>();
                 empSalaryModel.EmpCode = empModel.EmpCode;
-                empSalaryModel.BasicSalary = dataResult.dtResult.Rows[i][75].ToString().GetDefaultDBNull<decimal>();
-                empSalaryModel.ConvenanceAllowance = dataResult.dtResult.Rows[i][76].ToString().GetDefaultDBNull<decimal>();
-                empSalaryModel.EducationAllowance = dataResult.dtResult.Rows[i][77].ToString().GetDefaultDBNull<decimal>();
-                empSalaryModel.FoodCouponAllowance = dataResult.dtResult.Rows[i][78].ToString().GetDefaultDBNull<decimal>();
-                empSalaryModel.HouseRentAllowance = dataResult.dtResult.Rows[i][79].ToString().GetDefaultDBNull<decimal>();
-                empSalaryModel.LTARiembursement = dataResult.dtResult.Rows[i][80].ToString().GetDefaultDBNull<decimal>();
+                empSalaryModel.BasicSalary = dataResult.dtResult.Rows[i][74].ToString().GetDefaultDBNull<decimal>();
+                empSalaryModel.ConvenanceAllowance = dataResult.dtResult.Rows[i][75].ToString().GetDefaultDBNull<decimal>();
+                empSalaryModel.EducationAllowance = dataResult.dtResult.Rows[i][76].ToString().GetDefaultDBNull<decimal>();
+                empSalaryModel.FoodCouponAllowance = dataResult.dtResult.Rows[i][77].ToString().GetDefaultDBNull<decimal>();
+                empSalaryModel.HouseRentAllowance = dataResult.dtResult.Rows[i][78].ToString().GetDefaultDBNull<decimal>();
+                empSalaryModel.LTARiembursement = dataResult.dtResult.Rows[i][79].ToString().GetDefaultDBNull<decimal>();
 
-                empSalaryModel.MedicalAllowance = dataResult.dtResult.Rows[i][81].ToString().GetDefaultDBNull<decimal>();
-                empSalaryModel.SpecialAllowance = dataResult.dtResult.Rows[i][82].ToString().GetDefaultDBNull<decimal>();
-                empSalaryModel.TelephoneAllowance = dataResult.dtResult.Rows[i][83].ToString().GetDefaultDBNull<decimal>();
-                empSalaryModel.UniformReimburesement = dataResult.dtResult.Rows[i][84].ToString().GetDefaultDBNull<decimal>();
-                empSalaryModel.BookAndPriodical = dataResult.dtResult.Rows[i][85].ToString().GetDefaultDBNull<decimal>();
+                empSalaryModel.MedicalAllowance = dataResult.dtResult.Rows[i][80].ToString().GetDefaultDBNull<decimal>();
+                empSalaryModel.SpecialAllowance = dataResult.dtResult.Rows[i][81].ToString().GetDefaultDBNull<decimal>();
+                empSalaryModel.TelephoneAllowance = dataResult.dtResult.Rows[i][82].ToString().GetDefaultDBNull<decimal>();
+                empSalaryModel.UniformReimburesement = dataResult.dtResult.Rows[i][83].ToString().GetDefaultDBNull<decimal>();
+                empSalaryModel.BookAndPriodical = dataResult.dtResult.Rows[i][84].ToString().GetDefaultDBNull<decimal>();
 
+                empSalaryModel.PLP = dataResult.dtResult.Rows[i][85].ToString().GetDefaultDBNull<decimal>();
                 empSalaryModel.CarRunningAndMaintainence = dataResult.dtResult.Rows[i][86].ToString().GetDefaultDBNull<decimal>();
-                empSalaryModel.PACover = dataResult.dtResult.Rows[i][87].ToString().GetDefaultDBNull<decimal>();
-                empSalaryModel.MediClaimAmount = dataResult.dtResult.Rows[i][88].ToString().GetDefaultDBNull<decimal>();
-                empSalaryModel.PFDeduction = dataResult.dtResult.Rows[i][89].ToString().GetDefaultDBNull<decimal>();
-                empSalaryModel.ESIDeduction = dataResult.dtResult.Rows[i][90].ToString().GetDefaultDBNull<decimal>();
 
-                empSalaryModel.PTStateName = dataResult.dtResult.Rows[i][91].ToString().GetDefaultDBNull<string>();
-                empSalaryModel.IsPFEligible = dataResult.dtResult.Rows[i][92].ToString().GetDefaultDBNull<string>();
-                empSalaryModel.LWFDeduction = dataResult.dtResult.Rows[i][93].ToString().GetDefaultDBNull<decimal>();
-                empSalaryModel.PLP = dataResult.dtResult.Rows[i][94].ToString().GetDefaultDBNull<decimal>();
+                empSalaryModel.StatutoryBonus = dataResult.dtResult.Rows[i][87].ToString().GetDefaultDBNull<decimal>();
+                empSalaryModel.PACover = dataResult.dtResult.Rows[i][88].ToString().GetDefaultDBNull<decimal>();
+                empSalaryModel.MediClaimAmount = dataResult.dtResult.Rows[i][89].ToString().GetDefaultDBNull<decimal>();
+                empSalaryModel.PFDeduction = dataResult.dtResult.Rows[i][90].ToString().GetDefaultDBNull<decimal>();
+                empSalaryModel.ESIDeduction = dataResult.dtResult.Rows[i][91].ToString().GetDefaultDBNull<decimal>();
+                empSalaryModel.LWFDeduction = dataResult.dtResult.Rows[i][92].ToString().GetDefaultDBNull<decimal>();
+               
 
                 salaryModels.Add(empSalaryModel);
 
