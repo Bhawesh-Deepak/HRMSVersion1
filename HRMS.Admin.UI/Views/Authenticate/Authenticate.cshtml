@@ -30,15 +30,11 @@
             <h2 class="text-center my-5 font-weight-bold">Login</h2>
             @if (!string.IsNullOrEmpty(ViewBag.Message))
             {
-
-
                 <div class="col-md-12 px-4 d-none" id="d-1">
                     <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert">&times;</button>
                         <p>@ViewBag.Message</p>
                     </div>
-
-
                 </div>
             }
             <form class="col-md-12 px-5" asp-action="Login" asp-controller="Authenticate">
