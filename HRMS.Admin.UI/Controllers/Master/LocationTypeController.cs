@@ -59,8 +59,7 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             else
             {
-
-                return PartialView(ViewHelper.GetViewPathDetails("LocationType", "LocationTypeCreate"), response.Entities.First());
+                            return PartialView(ViewHelper.GetViewPathDetails("LocationType", "LocationTypeCreate"), response.Entities.First());
             }
         }
 
