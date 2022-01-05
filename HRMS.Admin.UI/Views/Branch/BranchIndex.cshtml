@@ -1,7 +1,6 @@
-﻿@model HRMS.Core.Entities.Master.LocationType
-<link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
-<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+﻿@model HRMS.Core.Entities.Organisation.Branch
 
+ 
 
 <div class="content-wrapper" style="min-height: 870px;">
     <section class="content-header">
@@ -53,7 +52,7 @@
 
 <script>
     function GetDepartmentList() {
-        GetCustomRecord("/LocationType/GetLocationTypeList", "divHRMS")
+        GetCustomRecord("/Branch/GetBranchList", "divHRMS")
     }
 
     $(document).ready(function () {
@@ -61,7 +60,7 @@
     })
 
     function AddRecord() {
-        NewCustomRecord("/LocationType/CreateLocationType", "Create Location Type")
+        NewCustomRecord("/Branch/CreateBranch", "Create Branch")
     }
 
     function Delete(id, eData) {
