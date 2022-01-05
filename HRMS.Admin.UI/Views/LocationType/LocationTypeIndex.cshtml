@@ -53,7 +53,7 @@
 
 <script>
     function GetDepartmentList() {
-        GetCustomRecord("/Employeetype/GetEmployeeTypeList", "divHRMS")
+        GetCustomRecord("/LocationType/GetLocationTypeList", "divHRMS")
     }
 
     $(document).ready(function () {
@@ -61,7 +61,7 @@
     })
 
     function AddRecord() {
-        NewCustomRecord("/Employeetype/CreateEmployeeType", "Create Employeetype")
+        NewCustomRecord("/LocationType/CreateLocationType", "Create Location Type")
     }
 
     function Delete(id, eData) {

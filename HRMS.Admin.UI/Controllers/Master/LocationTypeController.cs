@@ -65,7 +65,7 @@ namespace HRMS.Admin.UI.Controllers.Master
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpsertPandLname(LocationType model)
+        public async Task<IActionResult> UpsertLocationType(LocationType model)
         {
             if (model.Id == 0)
             {
