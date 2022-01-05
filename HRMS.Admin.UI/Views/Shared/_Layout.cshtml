@@ -673,7 +673,7 @@
             <!-- Logo -->
             <a asp-controller="Home" asp-action="Index" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels
-                <span class="logo-mini" style="color: #3C8DBC; font-size: 30px;"><i class="fa fa-heartbeat"></i></span> -->
+            <span class="logo-mini" style="color: #3C8DBC; font-size: 30px;"><i class="fa fa-heartbeat"></i></span> -->
                 <span class="logo-mini">
                     <img src="@companyDetails.Logo">
                 </span>
@@ -757,11 +757,29 @@
                         {
                             <li><a asp-controller="Home" asp-action="Index"><i class="fa fa-home"></i> <span>Home</span></a></li>
                         }
+                        <li class="treeview">
+                            <a href="#"><i class="fa fa-cogs"></i> <span>Square Yards</span><i class="fa fa-angle-left pull-right"></i></a>
+                            <ul class="treeview-menu">
+                                <li><a asp-action="Index" asp-controller="Subsidiary"><i class="fa fa-line-chart"></i> <span>Legal Entity</span></a></li>
+                                <li><a asp-action="Index" asp-controller="Branch"><i class="fa fa-line-chart"></i> <span>Branch</span></a></li>
+                                <li><a asp-action="Index" asp-controller="Location"><i class="fa fa-line-chart"></i> <span>Location</span></a></li>
+                                <li><a asp-action="Index" asp-controller="Department"><i class="fa fa-line-chart"></i> <span>Department</span></a></li>
+                                <li><a asp-action="Index" asp-controller="Designation"><i class="fa fa-line-chart"></i> <span>Designation</span></a></li>
+                                <li><a asp-action="Index" asp-controller="LocationType"><i class="fa fa-line-chart"></i> <span>Location Type</span></a></li>
+                                <li><a asp-action="Index" asp-controller="PandLname"><i class="fa fa-line-chart"></i> <span>P and L Master</span></a></li>
+                                <li><a asp-action="Index" asp-controller="Region"><i class="fa fa-line-chart"></i> <span>Region</span></a></li>
+                                <li><a asp-action="Index" asp-controller="CompanyHolidays"><i class="fa fa-line-chart"></i> <span>Holidays</span></a></li>
+                                <li><a asp-action="Index" asp-controller="Employeetype"><i class="fa fa-line-chart"></i> <span>Employee Type</span></a></li>
+                                <li><a asp-action="Index" asp-controller="Shift"><i class="fa fa-line-chart"></i> <span>Shift</span></a></li>
 
+
+
+                            </ul>
+                        </li>
                         <li class="treeview">
                             <a href="#"><i class="fa fa-cogs"></i> <span>Organization</span><i class="fa fa-angle-left pull-right"></i></a>
                             <ul class="treeview-menu">
-                                <li><a asp-controller="CompanyHolidays" asp-action="Index"><i class="fa fa-line-chart"></i> <span>List of Company / Branch</span></a></li>
+                                <li><a asp-controller="CompanyDirectory" asp-action="Index"><i class="fa fa-line-chart"></i> <span>List of Company / Branch</span></a></li>
                                 <li><a href="#"><i class="fa fa-line-chart"></i> <span>Department & Designation</span></a></li>
                                 <li><a href="#"><i class="fa fa-line-chart"></i> <span>Employee Directory</span></a></li>
                             </ul>
@@ -783,7 +801,7 @@
                             <a href="#"><i class="fa fa-cogs"></i> <span>Employee Master</span><i class="fa fa-angle-left pull-right"></i></a>
                             <ul class="treeview-menu">
                                 <li><a href="#"><i class="fa fa-line-chart"></i> <span>Employee Increment</span></a></li>
-                                <li><a href="#"><i class="fa fa-line-chart"></i> <span>Employee Master Import</span></a></li>
+                                <li><a asp-action="Index" asp-controller="EmployeeSalary"><i class="fa fa-line-chart"></i> <span>Employee Master Import</span></a></li>
                                 <li><a href="#"><i class="fa fa-line-chart"></i> <span>Employee Master Details</span></a></li>
                                 <li><a href="#"><i class="fa fa-line-chart"></i> <span>Active Employee</span></a></li>
                                 <li><a href="#"><i class="fa fa-line-chart"></i> <span>In-Active Employee</span></a></li>
@@ -795,7 +813,7 @@
                         <li class="treeview">
                             <a href="#"><i class="fa fa-cogs"></i> <span>Payroll Managment</span><i class="fa fa-angle-left pull-right"></i></a>
                             <ul class="treeview-menu">
-                                <li><a href="#"><i class="fa fa-line-chart"></i> <span>Month Attendance Upload</span></a></li>
+                                <li><a asp-action="Index" asp-controller="EmployeeAttendance"><i class="fa fa-line-chart"></i> <span>Month Attendance Upload</span></a></li>
                                 <li><a href="#"><i class="fa fa-line-chart"></i> <span>Arrear Upload</span></a></li>
                                 <li><a href="#"><i class="fa fa-line-chart"></i> <span>Payment/Deduction</span></a></li>
                                 <li><a href="#"><i class="fa fa-line-chart"></i> <span>Salary Posting Import</span></a></li>
@@ -842,21 +860,17 @@
 
         @RenderBody()
         @await Html.PartialAsync("~/Views/Shared/_CommomModalPopUpPartial.cshtml")
-        <div id="divLoader" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" class="modal fade in"
-             data-backdrop="static" data-keyboard="false">
-            <div class="modal-dialog" style="position: absolute; top: 50%; left: 50%; margin-left: -50px; margin-top: -50px;">
-                <img src="https://static-site-data.s3-ap-southeast-1.amazonaws.com/logo/loader-128x128.gif" style="width: 100px; height: 100px;" />
-            </div>
-        </div>
+        @await Html.PartialAsync("~/Views/Shared/_LoadingPopup.cshtml")
+        @await Html.PartialAsync("~/Views/Shared/_Footer.cshtml")
 
-        <footer class="main-footer">
 
-            <strong>Copyright © @DateTime.Now.Year <a target="_blank" href="http://kudotech.in/">Kudo Tech </a>.</strong> All rights reserved.
-        </footer>
+
+
     </div>
 
 </body>
-</html><script>
+</html>
+<script>
     $('#example').dataTable({
         "iDisplayLength": 10,
         "bDestroy": true,
