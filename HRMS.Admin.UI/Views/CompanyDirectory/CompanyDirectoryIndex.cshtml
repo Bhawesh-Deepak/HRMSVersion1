@@ -1,0 +1,106 @@
+﻿@model IEnumerable<HRMS.Core.ReqRespVm.Response.Organisation.SubsidiaryVM>
+<link href="~/resources/jstree/style.css" rel="stylesheet" />
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.22.0/css/uikit.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.22.0/css/uikit.almost-flat.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.22.0/css/uikit.gradient.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" rel="stylesheet" />
+
+
+<div class="content-wrapper" style="min-height: 870px;">
+    <section class="content-header">
+        <ol class="breadcrumb">
+            <li>Home</li>
+            <li class="active">Index</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row" style="margin-top:0;">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-building-o"></i>&nbsp;&nbsp; Company Directory &nbsp;
+
+                                </div>
+
+                            </div>
+                            <div class="box-body">
+                                <div class="uk-container uk-grid">
+                                    <div class="uk-width-1-1">
+                                        <div id="jstree" class="uk-panel uk-panel-box jstree jstree-1 jstree-default" role="tree" tabindex="0" aria-activedescendant="user1" aria-busy="false">
+                                            <ul class="jstree-container-ul jstree-children" role="group">
+                                                @foreach (var Root in Model.GroupBy(x => x.CompanyName))
+                                                {
+
+
+                                                    <li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="user1_anchor" aria-expanded="true" id="user1" class="jstree-node jstree-open" aria-busy="false">
+                                                        <i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="user1_anchor"><i class="jstree-icon jstree-themeicon fa fa-home fa-lg jstree-themeicon-custom" role="presentation"></i>@Root.First().CompanyName</a>
+                                                        <ul role="group" class="jstree-children" style="">
+                                                            @foreach (var item in Root)
+                                                            {
+                                                                <li role="treeitem" aria-selected="false" aria-level="2" aria-labelledby="post1_anchor" aria-expanded="true" id="post1" class="jstree-node jstree-open" aria-busy="false">
+                                                                    <i class="jstree-icon jstree-ocl" role="presentation"></i>
+                                                                    <a class="jstree-anchor" href="jvaccript:void(0)" onclick="GetBranchDetail();" tabindex="-1" id="post1_anchor">
+                                                                        <i class="jstree-icon jstree-themeicon fa fa-building fa-lg jstree-themeicon-custom" role="presentation">
+                                                                        </i>@item.Name
+                                                                    </a>
+
+                                                                </li>
+
+                                                            }
+
+                                                        </ul>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row" style="margin-top:0;">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="box box-success">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-building-o"></i>&nbsp;&nbsp;Branch Detail's (Live Data)&nbsp;
+
+                                </div>
+
+                            </div>
+                            <div class="box-body" id="div_Branch">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</div>
+<script>
+    function GetBranchDetail() {
+        $('#divLoader').modal('show');
+        $.get("/CompanyDirectory/GetBranchList", {}, function (response) {
+            $("#div_Branch").html(response);
+        }).done(function () {
+            $('#divLoader').modal('hide');
+        });
+
+    }
+</script>
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.22.0/js/uikit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+
+    <script src="~/resources/jstree/script2.js"></script>*@
