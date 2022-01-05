@@ -59,13 +59,12 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             else
             {
-
                 return PartialView(ViewHelper.GetViewPathDetails("LocationType", "LocationTypeCreate"), response.Entities.First());
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpsertPandLname(LocationType model)
+        public async Task<IActionResult> UpsertLocationType(LocationType model)
         {
             if (model.Id == 0)
             {
