@@ -66,6 +66,11 @@ namespace HRMS.Core.Entities.Common
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<PAndLMaster> PAndLMasters { get; set; }
         public virtual DbSet<RegionMaster> RegionMasters { get; set; }
+        public virtual DbSet<CompanyNews> CompanyNews { get; set; }
+        public virtual DbSet<Shift> Shifts { get; set; }
+        public virtual DbSet<Branch> Branches { get; set; }
+        public virtual DbSet<CompanyPolicy> CompanyPolicies { get; set; }
+
 
         #endregion
     }

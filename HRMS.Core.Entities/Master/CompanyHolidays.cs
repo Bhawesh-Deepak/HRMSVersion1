@@ -18,13 +18,6 @@ namespace HRMS.Core.Entities.Master
         [Required(ErrorMessage = "Holiday name is required.")]
         [Display(Prompt = "Holiday Name")]
         public string  Name { get; set; }
-
-        
         public DateTime HolidayDate { get; set; }
-
-       
-       
-
-
     }
 }

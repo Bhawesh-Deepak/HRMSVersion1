@@ -1,13 +1,10 @@
-﻿@model HRMS.Core.Entities.Master.LocationType
+﻿@model HRMS.Core.Entities.Master.CompanyNews
 <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 
 
 <div class="content-wrapper" style="min-height: 870px;">
     <section class="content-header">
-        <h1>
-            @ViewBag.HeaderTitle
-        </h1>
         <ol class="breadcrumb">
             <li>Home</li>
             <li class="active">Index</li>
@@ -30,7 +27,7 @@
                                                 <h3 class="box-title pull-left">Create @ViewBag.HeaderTitle</h3>
 
                                             </div>
-                                            <a class="btn btn-primary pull-right btn-xs" onclick="AddRecord()" title="Add New Department">
+                                            <a class="btn btn-primary pull-right btn-xs" onclick="AddHolidays()" title="Add New Department">
                                                 <i class="fa fa-plus"> &nbsp; Add</i>
                                             </a>
                                         </div>
@@ -51,25 +48,25 @@
     </section>
 </div>
 
+
 <script>
-    function GetDepartmentList() {
-        GetCustomRecord("/LocationType/GetLocationTypeList", "divHRMS")
+    function GetHolidayList() {
+        GetCustomRecord("/CompanyNews/GetCompanyNewsList", "divHRMS")
     }
 
     $(document).ready(function () {
-        GetDepartmentList();
+        GetHolidayList();
     })
 
-    function AddRecord() {
-        NewCustomRecord("/LocationType/CreateLocationType", "Create Location Type")
+    function AddHolidays() {
+        NewCustomRecord("/CompanyNews/CompanyNewsCreate", "Create CompanyNews")
     }
 
     function Delete(id, eData) {
-        CustomDeleteRecord(id, "/Designation/GetDesignationList", "/Designation/DeleteDepartment", eData);
+        CustomDeleteRecord(id, "/CompanyHolidays/GetDesignationList", "/CompanyHolidays/DeleteDepartment", eData);
     }
 
-    function UpdateRecord(id) {
-        UpdateCustomRecord(id, "/LocationType/CreateLocationType", "Create Employeetype", "Update Employeetype");
+    function UpdateRecordHolidays(id) {
+        UpdateCustomRecord(id, "/CompanyNews/CompanyNewsCreate", "Create Holidays", "Update Designation");
     }
 </script>
-
