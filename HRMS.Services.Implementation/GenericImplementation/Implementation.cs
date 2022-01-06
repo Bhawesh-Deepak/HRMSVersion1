@@ -23,6 +23,8 @@ namespace HRMS.Services.Implementation.GenericImplementation
             TEntities = context.Set<TEntity>();
         }
 
+       
+
         /// <summary>
         /// Check the Item present on to the data base or not
         /// </summary>

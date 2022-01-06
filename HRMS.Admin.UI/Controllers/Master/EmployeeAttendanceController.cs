@@ -2,6 +2,7 @@
 using HRMS.Core.Helpers.CommonHelper;
 using HRMS.Core.Helpers.ExcelHelper;
 using HRMS.Core.ReqRespVm.RequestVm;
+using HRMS.Core.ReqRespVm.SqlParams;
 using HRMS.Services.Repository.GenericRepository;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -14,10 +15,13 @@ namespace HRMS.Admin.UI.Controllers.Master
     {
 
         private readonly IGenericRepository<EmployeeAttendance, int> _IEmployeeAttendanceRepository;
+        private readonly IDapperRepository<AttendanceParams> _IEmployeeDapperRepository;
 
-        public EmployeeAttendanceController(IGenericRepository<EmployeeAttendance, int> employeeAttendanceRepo)
+        public EmployeeAttendanceController(IGenericRepository<EmployeeAttendance, int> employeeAttendanceRepo,
+            IDapperRepository<AttendanceParams> employeeDapperRepository)
         {
             _IEmployeeAttendanceRepository = employeeAttendanceRepo;
+            _IEmployeeDapperRepository = employeeDapperRepository;
         }
         public IActionResult Index()
         {
@@ -27,22 +31,31 @@ namespace HRMS.Admin.UI.Controllers.Master
         [HttpPost]
         public async Task<IActionResult> UploadAttendance(UploadExcelVm model)
         {
-            var deleteModel = await _IEmployeeAttendanceRepository
-                .GetAllEntities(x => x.DateMonth == model.MonthId && x.DateYear == model.YearId);
+            try
+            {
+                var response = new ReadAttendanceExcelHelper().GetAttendanceDetails(model.UploadFile);
+                response.ToList().ForEach(item =>
+                {
+                    var model = new AttendanceParams()
+                    {
+                        EmpCode = item.EmployeeCode,
+                        LopDays = item.LOPDays,
+                        MonthId = item.DateMonth,
+                        YearId = item.DateYear
+                    };
 
-            deleteModel.Entities.ToList().ForEach(x => {
-                x.IsActive = false;
-                x.IsDeleted = true;
-                x.UpdatedDate = DateTime.Now;
-            });
+                    var uploadResponse = _IEmployeeDapperRepository
+                    .Execute<AttendanceParams>("UploadAttendance", model);
+                });
+               
+                return Json($"Employee Attendance uploaded successfully !!");
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
+                return Json(message);
+            }
 
-            var deleteResponse = await _IEmployeeAttendanceRepository.DeleteEntities(deleteModel.Entities.ToArray());
-
-            var response = new ReadAttendanceExcelHelper().GetAttendanceDetails(model.UploadFile);
-
-            var dbResponse = await _IEmployeeAttendanceRepository.CreateEntities(response.ToArray());
-
-            return Json($"Employee Attendance uploaded successfully !!");
         }
     }
 }
