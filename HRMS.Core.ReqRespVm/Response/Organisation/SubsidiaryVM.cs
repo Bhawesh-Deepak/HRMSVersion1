@@ -16,6 +16,8 @@ namespace HRMS.Core.ReqRespVm.Response.Organisation
         public string Url { get; set; }
         public string FavIcon { get; set; }
         public string Logo { get; set; }
+        public string CompanyLogo { get; set; }
+        public string CompanyCode { get; set; }
 
     }
 }

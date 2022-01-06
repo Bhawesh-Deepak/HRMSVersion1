@@ -1,0 +1,75 @@
+﻿@model HRMS.Core.Entities.Master.LocationType
+<link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+
+
+<div class="content-wrapper" style="min-height: 870px;">
+    <section class="content-header">
+        <h1>
+            @ViewBag.HeaderTitle
+        </h1>
+        <ol class="breadcrumb">
+            <li>Home</li>
+            <li class="active">Index</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div>
+            <div>
+
+                <div>
+
+                    <div class="row">
+
+                        <div class="col-md-8">
+                            <div class="row" style="margin-top:0;">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="box box-primary">
+                                        <div class="box-header with-border">
+                                            <div class="box-title">
+                                                <h3 class="box-title pull-left">Create @ViewBag.HeaderTitle</h3>
+
+                                            </div>
+                                            <a class="btn btn-primary pull-right btn-xs" onclick="AddRecord()" title="Add New Location Type">
+                                                <i class="fa fa-plus"> &nbsp; Add</i>
+                                            </a>
+                                        </div>
+                                        <div class="box-body">
+                                            <div id="divHRMS">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+</div>
+
+<script>
+    function GetDepartmentList() {
+        GetCustomRecord("/LocationType/GetLocationTypeList", "divHRMS")
+    }
+
+    $(document).ready(function () {
+        GetDepartmentList();
+    })
+
+    function AddRecord() {
+        NewCustomRecord("/LocationType/CreateLocationType", "Create Location Type")
+    }
+
+    function Delete(id, eData) {
+        CustomDeleteRecord(id, "/Designation/GetDesignationList", "/Designation/DeleteDepartment", eData);
+    }
+
+    function UpdateRecord(id) {
+        UpdateCustomRecord(id, "/LocationType/CreateLocationType",  "Update Location Type");
+    }
+</script>
+

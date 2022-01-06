@@ -41,7 +41,7 @@ namespace HRMS.Admin.UI.Controllers.Payroll
 
                 var employeeSalaryReponse = await _IEmployeeSalaryDetailRepository.CreateEntities(response.EmployeeSalaryDetails.ToArray());
 
-                await CreateUserCredential();
+                await CreateUserCredential(response.EmployeeDetails.ToList());
 
                 return Json("Employee Basic information and Salary Detail Uploaded successfully !!!");
             }
@@ -52,30 +52,43 @@ namespace HRMS.Admin.UI.Controllers.Payroll
             }
         }
 
-        public  async Task<IActionResult> CreateUserCredential()
+        public async Task<IActionResult> CreateUserCredential(List<EmployeeDetail> responseData)
         {
-            var responseData = await _IEmployeeDetailRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+            var employeemodels = await _IEmployeeDetailRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted && x.CreatedDate.Value.Date == DateTime.Now.Date);
             var models = new List<AuthenticateUser>();
-            responseData.Entities.ToList().ForEach(data =>
+
+            responseData.ToList().ForEach(data =>
             {
-                var model = new AuthenticateUser()
+                employeemodels.Entities.ToList().ForEach(item =>
                 {
-                    EmployeeId = data.Id,
-                    DisplayUserName = data.EmployeeName,
-                    IsDeleted = false,
-                    IsActive = true,
-                    IsLocked = false,
-                    IsPasswordExpired = false,
-                    CreatedBy = 1,
-                    CreatedDate = DateTime.Now,
-                    UserName=data.EmpCode,
-                    Password = PasswordEncryptor.Instance.Encrypt("123@qwe", "HRMSPAYROLLPASSWORDKEY"),
-                    RoleId=4// for employee role
-                };
-                models.Add(model);
+                    if (data.EmpCode.Trim().ToLower() == item.EmpCode.Trim().ToLower())
+                    {
+                        var model = new AuthenticateUser()
+                        {
+                            EmployeeId = item.Id,
+                            DisplayUserName = data.EmployeeName,
+                            IsDeleted = false,
+                            IsActive = true,
+                            IsLocked = false,
+                            IsPasswordExpired = false,
+                            CreatedBy = 1,
+                            CreatedDate = DateTime.Now,
+                            UserName = data.EmpCode,
+                            Password = PasswordEncryptor.Instance.Encrypt("123@qwe", "HRMSPAYROLLPASSWORDKEY"),
+                            RoleId = 4// for employee role
+                        };
+                        models.Add(model);
+
+                    }
+                });
+
+
             });
 
+
             var response = await _IAuthenticateRepository.CreateEntities(models.ToArray());
+
+
             return Json(response.Message);
         }
     }
