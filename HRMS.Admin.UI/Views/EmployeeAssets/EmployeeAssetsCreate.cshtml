@@ -1,0 +1,133 @@
+﻿@model HRMS.Core.Entities.Master.EmployeeAssets
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+<form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+      data-ajax-complete="AjaxComplete"
+      asp-action="UpsertEmployeeAssets" asp-controller="EmployeeAssets" data-ajax-success="Success">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="AssetsCategoryId">Select Assets Category Name</label>
+                        <select class="form-control" asp-for="AssetsCategoryId" asp-items="@(new SelectList(ViewBag.AssCatName ,"Id","Name"))">
+                            <option>--Select--</option>
+                        </select>
+                        <span asp-validation-for="AssetsCategoryId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="BranchId">Select Branch</label>
+                        <select class="form-control" asp-for="BranchId" asp-items="@(new SelectList(ViewBag.Branch ,"Id","Name"))">
+                            <option>--Select--</option>
+                        </select>
+                        <span asp-validation-for="BranchId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="EmployeeId">Select Employee Name</label>
+                        <select class="form-control" asp-for="EmployeeId" asp-items="@(new SelectList(ViewBag.EmployeeName ,"Id","EmployeeName"))">
+                            <option>--Select--</option>
+                        </select>
+                        <span asp-validation-for="EmployeeId" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input asp-for="Id" type="hidden" />
+                        <input asp-for="CreatedBy" type="hidden" />
+                        <input asp-for="CreatedDate" type="hidden" />
+                        <label asp-for="Name"> Name</label>
+                        <input type="text" class="form-control" asp-for="Name" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="AssetsStatus">Assets Status</label>
+                        <input asp-for="AssetsStatus" class="form-control" />
+                        <span asp-validation-for="AssetsStatus" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="SerialNumber">Serial Number</label>
+                        <input asp-for="SerialNumber" class="form-control" />
+                        <span asp-validation-for="SerialNumber" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="MEID">MEID</label>
+                        <input asp-for="MEID" class="form-control" />
+                        <span asp-validation-for="MEID" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="AssetsTag">Assets Tag</label>
+                        <input asp-for="AssetsTag" class="form-control" />
+                        <span asp-validation-for="AssetsTag" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="ModelNumbar">Model Numbar</label>
+                        <input asp-for="ModelNumbar" class="form-control" />
+                        <span asp-validation-for="ModelNumbar" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Category">Category</label>
+                        <input asp-for="Category" class="form-control" />
+                        <span asp-validation-for="Category" class="text-danger"></span>
+                    </div>
+                </div>
+
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="DongleNumber">DongleNumber</label>
+                        <input asp-for="DongleNumber" class="form-control" />
+                        <span asp-validation-for="DongleNumber" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Make">Make</label>
+                        <input asp-for="Make" class="form-control" />
+                        <span asp-validation-for="Make" class="text-danger"></span>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+
+
+        <button type="button" class="btn btn-primary" onclick="HidePopUp();">Close</button>
+        <input type="submit" class="btn btn-primary  " value="Save" />
+    </div>
+</form>
