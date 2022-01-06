@@ -30,7 +30,7 @@
                                                 <h3 class="box-title pull-left">Create @ViewBag.HeaderTitle</h3>
 
                                             </div>
-                                            <a class="btn btn-primary pull-right btn-xs" onclick="AddEmpType()" title="Add New Department">
+                                            <a class="btn btn-primary pull-right btn-xs" onclick="AddEmpType()" title="Add New Shift">
                                                 <i class="fa fa-plus"> &nbsp; Add</i>
                                             </a>
                                         </div>
@@ -61,7 +61,7 @@
     })
 
     function AddEmpType() {
-        NewCustomRecord("/Shift/CreateShift", "Create Employeetype")
+        NewCustomRecord("/Shift/CreateShift", "Create Shift")
     }
 
     function Delete(id, eData) {
@@ -69,7 +69,7 @@
     }
 
     function UpdateRecord(id) {
-        UpdateCustomRecord(id, "/Shift/CreateShift", "Create Employeetype", "Update Employeetype");
+        UpdateCustomRecord(id, "/Shift/CreateShift",  "Update Shift");
     }
 </script>
 
