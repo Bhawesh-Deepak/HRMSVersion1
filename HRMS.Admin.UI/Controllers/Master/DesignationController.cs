@@ -38,16 +38,16 @@ namespace HRMS.Admin.UI.Controllers.Master
             var departmentList = await _IDepartmentRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
             var designationLIst = await _IDesignationRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
 
-            var responseDetails = (from dpt in departmentList.Entities
-                                   join dsg in designationLIst.Entities
-                                   on dpt.Id equals dsg.DepartmentId
-                                   select new DesignationDetail
+            var responseDetails = (from department in departmentList.Entities
+                                   join designtion in designationLIst.Entities
+                                   on department.Id equals designtion.DepartmentId
+                                   select new Designation
                                    {
-                                       DesignationId = dsg.Id,
-                                       DesignationCode = dsg.Code,
-                                       DepartmentName = dpt.Name,
-                                       Desscription = dsg.Description,
-                                       DesignationName=dsg.Name
+                                       Id = designtion.Id,
+                                       Code = designtion.Code,
+                                       DepartmentName = department.Name,
+                                       Description = designtion.Description,
+                                       Name= designtion.Name
                                    }).ToList();
 
             return PartialView(ViewHelper.GetViewPathDetails("Designation", "DesignationDetails"), responseDetails);

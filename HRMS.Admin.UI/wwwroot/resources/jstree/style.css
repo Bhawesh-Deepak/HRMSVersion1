@@ -1,0 +1,6 @@
+/* Styles go here */
+
+#node {
+  max-height: 100px;
+  overflow: auto;
+}
