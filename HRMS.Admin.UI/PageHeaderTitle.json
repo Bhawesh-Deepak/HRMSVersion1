@@ -5,5 +5,18 @@
   "RoleMasterIndex": "Role",
   "ModuleMaster": "Module/Menu",
   "SubModuleMaster": "SubModule",
-  "Company": "Create Company"
+  "Company": "Create Company",
+  "CompanyHolidaysIndex": "Company Holidays",
+  "BranchIndex": "Branch",
+  "CompanyNewsIndex": "Company News",
+  "CompanyPolicyIndex": "CompanyPolicy",
+  "EmployeeAssetsIndex": "Company Assets",
+  "EmployeeTypeIndex": "Employee Type",
+  "LocationIndex": "Location",
+  "LocationTypeIndex": "Location Type",
+  "PandLNameIndex": "PandLName",
+  "RegionIndex": "Region",
+  "ShiftIndex": "Shift"
+
+
 }

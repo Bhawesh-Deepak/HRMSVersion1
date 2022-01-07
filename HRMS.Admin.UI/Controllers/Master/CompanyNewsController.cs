@@ -7,6 +7,7 @@ using HRMS.Core.ReqRespVm.Response.Master;
 using HRMS.Services.Repository.GenericRepository;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,7 +25,7 @@ namespace HRMS.Admin.UI.Controllers.Master
         }
         public async Task<IActionResult> Index()
         {
-            ViewBag.HeaderTitle = PageHeader.HeaderSetting["CompanyHolidaysIndex"];
+            ViewBag.HeaderTitle = PageHeader.HeaderSetting["CompanyNewsIndex"];
             return await Task.Run(() => View(ViewHelper.GetViewPathDetails("CompanyNews", "CompanyNewsIndex")));
         }
 
@@ -43,7 +44,7 @@ namespace HRMS.Admin.UI.Controllers.Master
                                            CompanyNewsId = cpn.Id,
                                            DepartmentName = dpt.Name,
                                            CompanyNewsName = cpn.Name,
-                                           NewsDate = cpn.NewsDate,
+                                           NewsDate = cpn.NewsDate.ToString("dd-M-yyyy", CultureInfo.InvariantCulture),
                                        }).ToList();
                 return PartialView(ViewHelper.GetViewPathDetails("CompanyNews", "CompanyNewsDetails"), responseDetails);
             }

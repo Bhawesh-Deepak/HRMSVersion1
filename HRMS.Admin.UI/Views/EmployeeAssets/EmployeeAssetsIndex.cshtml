@@ -1,4 +1,4 @@
-﻿@model HRMS.Core.Entities.Master.PAndLMaster
+﻿@model HRMS.Core.Entities.Master.EmployeeAssets
 
 
 <div class="content-wrapper" style="min-height: 870px;">
@@ -28,7 +28,7 @@
                                                 <h3 class="box-title pull-left">Create @ViewBag.HeaderTitle</h3>
 
                                             </div>
-                                            <a class="btn btn-primary pull-right btn-xs" onclick="AddPandL()" title="Add New PandLname">
+                                            <a class="btn btn-primary pull-right btn-xs" onclick="AddHolidays()" title="Add New Employee Assets">
                                                 <i class="fa fa-plus"> &nbsp; Add</i>
                                             </a>
                                         </div>
@@ -49,25 +49,25 @@
     </section>
 </div>
 
+
 <script>
-    function GetDepartmentList() {
-        GetCustomRecord("/PandLname/GetPandLList", "divHRMS")
+    function GetHolidayList() {
+        GetCustomRecord("/EmployeeAssets/GetEmployeeAssetsList", "divHRMS")
     }
 
     $(document).ready(function () {
-        GetDepartmentList();
+        GetHolidayList();
     })
 
-    function AddPandL() {
-        NewCustomRecord("/PandLname/CreatePandLname", "Create PandLname")
+    function AddHolidays() {
+        NewCustomRecord("/EmployeeAssets/EmployeeAssetsCreate", "Create Employee Assets")
     }
 
     function Delete(id, eData) {
-        CustomDeleteRecord(id, "/Designation/GetDesignationList", "/Designation/DeleteDepartment", eData);
+        CustomDeleteRecord(id, "/CompanyHolidays/GetDesignationList", "/CompanyHolidays/DeleteDepartment", eData);
     }
 
-    function UpdateRecord(id) {
-        UpdateCustomRecord(id, "/PandLname/CreatePandLname",  "Update PandLname");
+    function UpdateRecordHolidays(id) {
+        UpdateCustomRecord(id, "/EmployeeAssets/EmployeeAssetsCreate",  "Update Employee Assets");
     }
 </script>
-

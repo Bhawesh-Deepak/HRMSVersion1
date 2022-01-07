@@ -25,7 +25,7 @@ namespace HRMS.Admin.UI.Controllers.Master
         }
         public async Task<IActionResult> Index()
         {
-            ViewBag.HeaderTitle = PageHeader.HeaderSetting["DesignationIndex"];
+            ViewBag.HeaderTitle = PageHeader.HeaderSetting["ShiftIndex"];
 
             return await Task.Run(() => View(ViewHelper.GetViewPathDetails("Shift", "ShiftIndex")));
         }
