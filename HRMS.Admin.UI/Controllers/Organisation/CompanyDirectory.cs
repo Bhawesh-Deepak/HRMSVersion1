@@ -1,5 +1,6 @@
 ﻿using HRMS.Admin.UI.Helpers;
 using HRMS.Core.Entities.Organisation;
+using HRMS.Core.Entities.Payroll;
 using HRMS.Core.Helpers.CommonHelper;
 using HRMS.Core.ReqRespVm.Response.Organisation;
 using HRMS.Services.Repository.GenericRepository;
@@ -15,11 +16,17 @@ namespace HRMS.Admin.UI.Controllers.Organisation
     {
         private readonly IGenericRepository<Company, int> _ICompanyRepository;
         private readonly IGenericRepository<Subsidiary, int> _ISubsidiaryRepository;
+        private readonly IGenericRepository<Branch, int> _IBranchRepository;
+        private readonly IGenericRepository<EmployeeDetail, int> _IEmployeeDetailRepository;
 
-        public CompanyDirectory(IGenericRepository<Company, int> companyRepository, IGenericRepository<Subsidiary, int> SubsidiaryRepository)
+        public CompanyDirectory(IGenericRepository<Company, int> companyRepository, IGenericRepository<Subsidiary, int> SubsidiaryRepository,
+             IGenericRepository<Branch, int> BranchRepository,
+             IGenericRepository<EmployeeDetail, int> EmployeeDetailRepository)
         {
             _ICompanyRepository = companyRepository;
             _ISubsidiaryRepository = SubsidiaryRepository;
+            _IBranchRepository = BranchRepository;
+            _IEmployeeDetailRepository = EmployeeDetailRepository;
         }
         public async Task<IActionResult> Index()
         {
@@ -58,13 +65,29 @@ namespace HRMS.Admin.UI.Controllers.Organisation
             }
 
         }
-        public async Task<IActionResult> GetBranchList()
+        public async Task<IActionResult> GetBranchList(int subsidiaryId)
         {
             try
             {
-                
+                var branchList = await _IBranchRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+                var subsidiaryList = await _ISubsidiaryRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+                var response = from subsidry in subsidiaryList.Entities
+                               join branch in branchList.Entities
+                               on subsidry.Id equals branch.CompanyId
+                               where branch.CompanyId == subsidiaryId
+                               select new BranchDirectoryVM
+                               {
+                                   SubsidiaryId = subsidry.Id,
+                                   SubsidiaryName = subsidry.Name,
+                                   BranchId = branch.Id,
+                                   BranchName = branch.Name,
+                               };
+                response.ToList().ForEach(item =>
+                {
 
-                return PartialView(ViewHelper.GetViewPathDetails("CompanyDirectory", "GetBranchDetails") );
+                    item.TotalEmployee = _IEmployeeDetailRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted && x.BranchOfficeId.Trim() == item.BranchName.Trim()).Result.Entities.Count();
+                });
+                return PartialView(ViewHelper.GetViewPathDetails("CompanyDirectory", "GetBranchDetails"), response);
             }
             catch (Exception ex)
             {
