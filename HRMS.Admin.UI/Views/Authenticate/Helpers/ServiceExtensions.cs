@@ -18,8 +18,8 @@ namespace HRMS.Admin.UI.Helpers
         {
             #region GenericImplementationService 
 
-            services.AddTransient(typeof(IGenericRepository<,>), typeof(Implementation<,>));
-            services.AddTransient(typeof(IDapperRepository<>), typeof(DapperImplementation<>));
+            services.AddScoped(typeof(IGenericRepository<,>), typeof(Implementation<,>));
+            services.AddScoped(typeof(IDapperRepository<>), typeof(DapperImplementation<>));
 
             #endregion
         }

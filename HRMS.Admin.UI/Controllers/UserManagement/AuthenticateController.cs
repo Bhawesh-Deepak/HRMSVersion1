@@ -12,11 +12,13 @@ using System.Threading.Tasks;
 using HRMS.Admin.UI.Helpers;
 using Microsoft.AspNetCore.Http;
 using HRMS.Core.Entities.Organisation;
+using System.Net.Http;
 
 namespace HRMS.Admin.UI.Controllers.UserManagement
 {
     public class AuthenticateController : Controller
     {
+        private const string BASEURL = "http://smsinteract.in/";
         private readonly IGenericRepository<EmployeeDetail, int> _IEmployeeDetailRepository;
         private readonly IGenericRepository<AuthenticateUser, int> _IAuthenticateRepository;
         private readonly IGenericRepository<Company, int> _ICompanyRepository;
@@ -74,7 +76,7 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
         [HttpGet]
         public async Task<IActionResult> ChangePassword()
         {
- 
+
             return await Task.Run(() => PartialView("~/Views/Authenticate/ChangePassword.cshtml"));
         }
 
@@ -105,8 +107,97 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
- 
+
 
         }
+
+        public async Task<IActionResult> ForgetPassword(string empCode)
+        {
+            try
+            {
+                var empDetails = await _IEmployeeDetailRepository.GetAllEntities(x => x.EmpCode.Trim().ToLower() == empCode.Trim().ToLower());
+
+                var randomOtp = GetRandomOtp();
+
+                if (empDetails != null && empDetails.Entities.Any())
+                {
+                    var updateResponse = await UpdateEmpForgetPasswordOtp(randomOtp, empCode);
+
+                    if (updateResponse)
+                    {
+                        var message = GetOtpMessage(empDetails.Entities.First(), randomOtp);
+
+                        var sentOtpStatus = await SendOtp(empDetails.Entities.First(), message);
+
+                        return Json(sentOtpStatus);
+                    }
+
+                    return Json(false);
+                }
+
+                return Json(false);
+            }
+            catch (Exception ex)
+            {
+                Serilog.Log.Error(ex, ex.Message);
+                return Json(false);
+            }
+        }
+
+        #region PrivateMethod
+        public async Task<bool> SendOtp(EmployeeDetail empDetail, string message)
+        {
+            using var client = new HttpClient();
+            client.BaseAddress = new Uri(BASEURL);
+            var response = await client.GetAsync("SMSApi/send?userid=klbsotp&password=Klb@2020&sendMethod=quick&mobile=" + empDetail?.ContactNumber + "&msg=" + message + "&senderid=MODOTP&msgType=text&duplicatecheck=true&format=text");
+            return response.IsSuccessStatusCode;
+        }
+
+        private string GetRandomOtp()
+        {
+            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+            var stringChars = new char[5];
+
+            var random = new Random();
+
+            for (int i = 0; i < stringChars.Length; i++)
+            {
+                stringChars[i] = chars[random.Next(chars.Length)];
+            }
+
+            return new string(stringChars);
+        }
+
+        public string GetOtpMessage(EmployeeDetail empDetail, string randomPassword) =>
+             $"Dear {empDetail?.EmployeeName}.  Your OTP is {randomPassword}" +
+                $" Do not share with any one for security. Regards Square HR.";
+
+        private async Task<bool> UpdateEmpForgetPasswordOtp(string otpCode, string empCode)
+        {
+            if (!string.IsNullOrEmpty(empCode))
+            {
+                var authDetails = await _IAuthenticateRepository.GetAllEntities(x => x.UserName.Trim().ToLower() == empCode.Trim().ToLower());
+
+                if (authDetails != null && authDetails.Entities.Any())
+                {
+                    var updateModel = authDetails.Entities.First();
+                    updateModel.ForgetPasswordCode = otpCode;
+                    updateModel.ForgetPasswordTime = DateTime.Now;
+                    updateModel.UpdatedBy = 1;
+                    updateModel.UpdatedDate = DateTime.Now;
+
+                    var updateResponse = await _IAuthenticateRepository.UpdateEntity(updateModel);
+
+                    return updateResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Updated;
+                }
+
+                return false;
+            }
+            return false;
+
+        }
+
+        #endregion
     }
 }
