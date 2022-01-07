@@ -11,7 +11,7 @@ namespace HRMS.Core.ReqRespVm.Response.Master
         public int CompanyNewsId { get; set; }
         public string DepartmentName { get; set; }
         public string CompanyNewsName { get; set; }
-        public DateTime NewsDate { get; set; }
+        public string NewsDate { get; set; }
        
     }
 }

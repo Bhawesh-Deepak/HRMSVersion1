@@ -11,7 +11,7 @@ namespace HRMS.Core.ReqRespVm.Response.Master
         public int CompanyPolicyId { get; set; }
         public  string DepartmentName { get; set; }
         public string Name { get; set; }
-        public DateTime CalenderDate { get; set; }
+        public string CalenderDate { get; set; }
         public string DocumentUrl { get; set; }
     }
 }

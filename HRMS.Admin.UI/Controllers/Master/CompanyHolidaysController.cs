@@ -7,6 +7,7 @@ using HRMS.Core.ReqRespVm.Response.Master;
 using HRMS.Services.Repository.GenericRepository;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -44,7 +45,7 @@ namespace HRMS.Admin.UI.Controllers.Master
                                            HolidayId=hdl.Id,
                                            StateName=stl.Name,
                                            HolidayName = hdl.Name,
-                                           Holidate = hdl.HolidayDate,
+                                           Holidate = hdl.HolidayDate.ToString("dd-M-yyyy", CultureInfo.InvariantCulture)
                                        }).ToList();
                 return PartialView(ViewHelper.GetViewPathDetails("CompanyHolidays", "CompanyHolidayDetails"), responseDetails);
             }

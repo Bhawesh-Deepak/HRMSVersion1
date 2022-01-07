@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -28,7 +29,7 @@ namespace HRMS.Admin.UI.Controllers.Master
         }
         public async Task<IActionResult> Index()
         {
-            ViewBag.HeaderTitle = PageHeader.HeaderSetting["DesignationIndex"];
+            ViewBag.HeaderTitle = PageHeader.HeaderSetting["CompanyPolicyIndex"];
 
             return await Task.Run(() => View(ViewHelper.GetViewPathDetails("CompanyPolicy", "CompanyPolicyIndex")));
         }
@@ -47,7 +48,7 @@ namespace HRMS.Admin.UI.Controllers.Master
                                        {
                                            CompanyPolicyId = cpl.Id,
                                            DepartmentName = dpt.Name,
-                                           CalenderDate = cpl.CalenderDate,
+                                           CalenderDate = cpl.CalenderDate.ToString("dd-M-yyyy", CultureInfo.InvariantCulture),
                                            Name=cpl.Name,
                                            DocumentUrl=cpl.DocumentUrl
 

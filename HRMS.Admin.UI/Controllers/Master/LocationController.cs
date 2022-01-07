@@ -29,7 +29,7 @@ namespace HRMS.Admin.UI.Controllers.Master
         }
         public async Task<IActionResult> Index()
         {
-            ViewBag.HeaderTitle = PageHeader.HeaderSetting["DesignationIndex"];
+            ViewBag.HeaderTitle = PageHeader.HeaderSetting["LocationIndex"];
 
             return await Task.Run(() => View(ViewHelper.GetViewPathDetails("Location", "LocationIndex")));
         }

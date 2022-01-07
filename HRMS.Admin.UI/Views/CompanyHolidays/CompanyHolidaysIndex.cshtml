@@ -1,10 +1,11 @@
 ﻿@model HRMS.Core.Entities.Master.Designation
-<link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
-<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-
+ 
 
 <div class="content-wrapper" style="min-height: 870px;">
     <section class="content-header">
+        <h1>
+            @ViewBag.HeaderTitle
+        </h1>
         <ol class="breadcrumb">
             <li>Home</li>
             <li class="active">Index</li>
@@ -67,6 +68,6 @@
     }
 
     function UpdateRecordHolidays(id) {
-        UpdateCustomRecord(id, "/CompanyHolidays/HolidayCreate", "Create Holidays", "Update Company Holidays");
+        UpdateCustomRecord(id, "/CompanyHolidays/HolidayCreate", "Update Company Holidays");
     }
 </script>

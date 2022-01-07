@@ -27,7 +27,7 @@ namespace HRMS.Admin.UI.Controllers.Master
         }
         public async Task<IActionResult> Index()
         {
-            ViewBag.HeaderTitle = PageHeader.HeaderSetting["DesignationIndex"];
+            ViewBag.HeaderTitle = PageHeader.HeaderSetting["PandLNameIndex"];
 
             return await Task.Run(() => View(ViewHelper.GetViewPathDetails("PandLname", "PandLnameIndex")));
         }

@@ -17,10 +17,13 @@ namespace HRMS.Core.Entities.Master
         [Display(Prompt = "Shift Name")]
         public string Name { get; set; }
 
+        [Required(ErrorMessage = "Shift  StartTime is required.")]
         [Display(Prompt = "Shift StartTime")]
         public string ShiftStartTime { get; set; }
+        [Required(ErrorMessage = "Shift  EndTime is required.")]
         [Display(Prompt = "Shift EndTime")]
         public string ShiftEndTime { get; set; }
+        [Required(ErrorMessage = "Shift  LateTime is required.")]
         [Display(Prompt = "Shift LateTime")]
         public string ShiftLateTime { get; set; }
 

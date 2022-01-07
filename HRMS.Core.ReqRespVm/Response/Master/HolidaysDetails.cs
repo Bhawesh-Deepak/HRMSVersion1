@@ -11,7 +11,7 @@ namespace HRMS.Core.ReqRespVm.Response.Master
         public int HolidayId { get; set; }
         public string StateName { get; set; }
         public string HolidayName { get; set; }
-        public DateTime Holidate{ get; set; }
+        public string Holidate{ get; set; }
         public string Desscription { get; set; }
     }
 }

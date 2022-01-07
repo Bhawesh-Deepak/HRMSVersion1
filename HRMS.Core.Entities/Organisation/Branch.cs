@@ -17,17 +17,28 @@ namespace HRMS.Core.Entities.Organisation
         [Required(ErrorMessage = "Branch  name is required.")]
         [Display(Prompt = "Branch Name")]
         public string Name { get; set; }
-      
-        [Display(Prompt = "Branch code")]
+        [Required(ErrorMessage = "Branch  code is required.")]
+        [Display(Prompt = "code")]
         public string Code { get; set; }
         [Required(ErrorMessage = "Branch logo is required.")]
+        [Display(Prompt = "logo")]
         public string Logo { get; set; }
+        [Required(ErrorMessage = "Branch Address is required.")]
+        [Display(Prompt = "Address")]
         public string Address { get; set; }
+
+        [Required(ErrorMessage = "ZipCode  is required.")]
+        [Display(Prompt = "ZipCode")]
         public int ZipCode { get; set; }
-        [Display(Prompt = "Branch email")]
+
+        [Required(ErrorMessage = "Email  is required.")]
+        [Display(Prompt = "Email")]
         public string Email { get; set; }
-        [Display(Prompt = "Branch phone")]
+        [Required(ErrorMessage = "phone  is required.")]
+        [Display(Prompt = "phone")]
         public string Phone { get; set; }
+        [Required(ErrorMessage = "ContactPerson  is required.")]
+        [Display(Prompt = "ContactPerson")]
         public string ContactPerson { get; set; }
     }
 }
