@@ -26,7 +26,6 @@ namespace HRMS.Services.Implementation.GenericImplementation
         {
 
         }
-
         public T Execute<T>(string sp, TEntity entity)
         {
             try
@@ -50,14 +49,12 @@ namespace HRMS.Services.Implementation.GenericImplementation
                 throw new Exception(ex.Message, ex);
             }
         }
-
         public T Get<T>(string sp,TEntity entity)
         {
             var parms = ConvertObjectToDBParameter<TEntity>(entity);
             using IDbConnection db = new SqlConnection(_connectionString);
             return db.Query<T>(sp, parms, commandType: CommandType.StoredProcedure).FirstOrDefault();
         }
-
         public List<T> GetAll<T>(string sp, TEntity entity)
         {
             //var spName= SqlQuery.
@@ -65,12 +62,10 @@ namespace HRMS.Services.Implementation.GenericImplementation
             var parms = ConvertObjectToDBParameter<TEntity>(entity);
             return db.Query<T>(sp, parms, commandType: CommandType.StoredProcedure).ToList();
         }
-
         public DbConnection GetDbconnection()
         {
             return new SqlConnection(_config.GetConnectionString(_connectionString));
         }
-
         public DynamicParameters ConvertObjectToDBParameter<T>(T entity)
         {
             Type t = entity.GetType();
@@ -81,7 +76,6 @@ namespace HRMS.Services.Implementation.GenericImplementation
             }
             return paramData;
         }
-
         public static DbType GetDbType(Type runtimeType)
         {
             var nonNullableType = Nullable.GetUnderlyingType(runtimeType);
@@ -101,7 +95,6 @@ namespace HRMS.Services.Implementation.GenericImplementation
 
             return sqlParamter.DbType;
         }
-
         public string GetQueryString(string spName)
         {
             string query = string.Empty;

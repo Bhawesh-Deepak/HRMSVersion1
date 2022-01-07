@@ -3,6 +3,7 @@ using HRMS.Core.Helpers.CommonHelper;
 using HRMS.Core.Helpers.ExcelHelper;
 using HRMS.Core.ReqRespVm.RequestVm;
 using HRMS.Core.ReqRespVm.SqlParams;
+using HRMS.Services.Implementation.SqlConstant;
 using HRMS.Services.Repository.GenericRepository;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -45,15 +46,15 @@ namespace HRMS.Admin.UI.Controllers.Master
                     };
 
                     var uploadResponse = _IEmployeeDapperRepository
-                    .Execute<AttendanceParams>("UploadAttendance", model);
+                    .Execute<AttendanceParams>(SqlQuery.UploadAttendance, model);
                 });
-               
+
                 return Json($"Employee Attendance uploaded successfully !!");
             }
             catch (Exception ex)
             {
-                string message = ex.Message;
-                return Json(message);
+                Serilog.Log.Error(ex, $"controller name  is {nameof(EmployeeAttendanceController)} action name {nameof(UploadAttendance)}");
+                return Json("Something wents wrong, Please contact admin !!!");
             }
 
         }
