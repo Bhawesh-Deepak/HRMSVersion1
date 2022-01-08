@@ -36,9 +36,11 @@ namespace HRMS.Admin.UI.Controllers.Organisation
                 var Subsidryresponse = new DBResponseHelper<Subsidiary, int>()
                     .GetDBResponseHelper(await _ISubsidiaryRepository
                     .GetAllEntities(x => x.IsActive && !x.IsDeleted));
+
                 var Companyresponse = new DBResponseHelper<Company, int>()
                   .GetDBResponseHelper(await _ICompanyRepository
                   .GetAllEntities(x => x.IsActive && !x.IsDeleted));
+
                 var response = from subsidry in Subsidryresponse.Item2.Entities
                                join company in Companyresponse.Item2.Entities
                                on subsidry.OrganisationId equals company.Id

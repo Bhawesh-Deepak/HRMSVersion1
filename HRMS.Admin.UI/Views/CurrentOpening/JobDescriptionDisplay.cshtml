@@ -1,0 +1,30 @@
+﻿@model HRMS.Core.Entities.Posting.CurrentOpening
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.min.js"></script>
+<style>
+    .modal.fade .modal-dialog {
+        transform: translate(0);
+        margin: 0 0 0 auto;
+        height: 100%
+    }
+
+    .modal-content {
+        height: 100%
+    }
+
+    .modal-footer {
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+    }
+</style>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <iframe id="displayPDFFrame"></iframe>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" onclick="HidePopUp();">Close</button>
+</div>

@@ -2,6 +2,7 @@
 using HRMS.Core.Entities.Master;
 using HRMS.Core.Entities.Organisation;
 using HRMS.Core.Entities.Payroll;
+using HRMS.Core.Entities.Posting;
 using HRMS.Core.Entities.UserManagement;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -74,6 +75,8 @@ namespace HRMS.Core.Entities.Common
         public virtual DbSet<AssetsCategory> AssetsCategories { get; set; }
 
         public virtual DbSet<EmployeeAssets> EmployeeAssets { get; set; }
+
+        public virtual DbSet<CurrentOpening> CurrentOpenings { get; set; }
 
         #endregion
     }

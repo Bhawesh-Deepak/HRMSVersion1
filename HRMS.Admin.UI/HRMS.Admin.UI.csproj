@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\LoginJsCss\" />
+    <Folder Include="wwwroot\PDF\" />
     <Folder Include="wwwroot\resources\Subsidiary\js\" />
   </ItemGroup>
 
