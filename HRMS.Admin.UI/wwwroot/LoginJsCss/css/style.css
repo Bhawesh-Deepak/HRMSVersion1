@@ -1,6 +1,7 @@
+*{font-family:'Montserrat', sans-serif !important;}
 .box{box-shadow:0 0 10px #000; background:#ccc; padding:10px; width:255px; text-align:center; height:150px}
 .box-link:hover{text-decoration:none; color:#fff}
-.login .position-absolute{right:0; width:400px}
+.login .position-absolute{right:0; width:500px}
 .login .btn{border-radius:20px}
 .login .form-group input{border:0; border-bottom:1px solid #007bff; border-radius:0}
 .login img{width:250px}
