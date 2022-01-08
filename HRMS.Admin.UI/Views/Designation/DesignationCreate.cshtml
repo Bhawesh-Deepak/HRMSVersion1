@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-md-12">
 
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="form-group">
  
                    
@@ -23,27 +23,31 @@
                     </div>
 
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="form-group">
                         <input asp-for="Id" type="hidden" />
                         <input asp-for="CreatedBy" type="hidden" />
                         <input asp-for="CreatedDate" type="hidden" />
-                        <label asp-for="Name">Name</label>
+                        <label asp-for="Name">Designation</label>
                         <input type="text" class="form-control" asp-for="Name" />
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
                 </div>
-                <div class="col-md-4">
+               
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="col-md-6">
                     <div class="form-group">
                         <label asp-for="Code">Code</label>
                         <input asp-for="Code" class="form-control" />
                         <span asp-validation-for="Code" class="text-danger"></span>
                     </div>
                 </div>
-            </div>
-        </div><div class="row">
-            <div class="col-md-12">
-                <div class="col-md-4">
+
+                <div class="col-md-6">
                     <div class="form-group">
                         <label asp-for="Description">Description</label>
                         <input asp-for="Description" class="form-control" />
@@ -51,7 +55,7 @@
                     </div>
                 </div>
 
-             
+
 
 
             </div>

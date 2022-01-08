@@ -10,42 +10,43 @@
         <div class="row">
             <div class="col-md-12">
 
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label asp-for="Name">State</label><span style="color:red">  *</span>
-                        <select class="form-control" asp-for="StateId" asp-items="@(new SelectList(ViewBag.StateList ,"Id","Name"))">
-                            <option value="">--Select--</option>
-                        </select>
-                        <span asp-validation-for="StateId" class="text-danger"></span>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Name">State</label><span style="color:red">  *</span>
+                            <select class="form-control" asp-for="StateId" asp-items="@(new SelectList(ViewBag.StateList ,"Id","Name"))">
+                                <option value="">--Select--</option>
+                            </select>
+                            <span asp-validation-for="StateId" class="text-danger"></span>
+                        </div>
+
                     </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input asp-for="Id" type="hidden" />
+                            <input asp-for="CreatedBy" type="hidden" />
+                            <input asp-for="CreatedDate" type="hidden" />
+                            <label asp-for="Name">Holiday Name</label><span style="color:red">  *</span>
+                            <input type="text" class="form-control" asp-for="Name" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
 
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <input asp-for="Id" type="hidden" />
-                        <input asp-for="CreatedBy" type="hidden" />
-                        <input asp-for="CreatedDate" type="hidden" />
-                        <label asp-for="Name">Holiday Name</label><span style="color:red">  *</span>
-                        <input type="text" class="form-control"  asp-for="Name" />
-                        <span asp-validation-for="Name" class="text-danger"></span>
-                    </div>
-
-                </div>
-
-
-
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label asp-for="HolidayDate">Date</label><span style="color:red">  *</span>
-                        <input asp-for="HolidayDate" class="form-control" />
-                        <span asp-validation-for="HolidayDate" class="text-danger"></span>
                     </div>
                 </div>
-               
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="HolidayDate">Holiday Date</label><span style="color:red">  *</span>
+                            <input asp-for="HolidayDate" class="form-control" />
+                            <span asp-validation-for="HolidayDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                 </div>
 
 
+                </div>
             </div>
-        </div>
 
     </div>
     <div class="modal-footer">
