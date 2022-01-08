@@ -3,7 +3,7 @@
 
 <div class="content-wrapper" style="min-height: 870px;">
     <section class="content-header">
-       
+
         <ol class="breadcrumb">
             <li>Home</li>
             <li class="active">Index</li>
@@ -46,26 +46,11 @@
         </div>
     </section>
 </div>
+<environment include="Development">
+    <script src="~/HRMSJs/Shift.js"></script>
+</environment>
+<environment include="Production">
+    <script src="~/HRMSJs/Shift.js"></script>
+</environment>
 
-<script>
-    function GetShiftList() {
-        GetCustomRecord("/Shift/GetShiftList", "divHRMS")
-    }
-
-    $(document).ready(function () {
-        GetShiftList();
-    })
-
-    function AddEmpType() {
-        NewCustomRecord("/Shift/CreateShift", "Create Shift")
-    }
-
-    function Delete(id, eData) {
-        CustomDeleteRecord(id, "/Designation/GetDesignationList", "/Designation/DeleteDepartment", eData);
-    }
-
-    function UpdateRecord(id) {
-        UpdateCustomRecord(id, "/Shift/CreateShift",  "Update Shift");
-    }
-</script>
 

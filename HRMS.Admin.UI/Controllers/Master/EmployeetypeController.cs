@@ -1,6 +1,7 @@
 ﻿using HRMS.Admin.UI.Helpers;
 using HRMS.Core.Entities.Common;
 using HRMS.Core.Entities.Master;
+using HRMS.Core.Helpers.CommonCRUDHelper;
 using HRMS.Core.Helpers.CommonHelper;
 using HRMS.Core.ReqRespVm.Response.Master;
 using HRMS.Services.Repository.GenericRepository;
@@ -78,6 +79,21 @@ namespace HRMS.Admin.UI.Controllers.Master
                 var response = await _IEmployeeTypeRepository.UpdateEntity(model);
                 return Json(response.Message);
             }
+        }
+        [HttpGet]
+        public async Task<IActionResult> DeleteEmployeeType(int id)
+        {
+            var deleteModel = await _IEmployeeTypeRepository.GetAllEntityById(x => x.Id == id);
+
+            var deleteDbModel = CrudHelper.DeleteHelper<EmployeeType>(deleteModel.Entity, 1);
+
+            var deleteResponse = await _IEmployeeTypeRepository.DeleteEntity(deleteDbModel);
+
+            if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
+            {
+                return Json(deleteResponse.Message);
+            }
+            return Json(deleteResponse.Message);
         }
     }
 }

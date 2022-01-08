@@ -2,9 +2,13 @@
 using HRMS.Core.Entities.Common;
 using HRMS.Core.Entities.Master;
 using HRMS.Core.Entities.Organisation;
+using HRMS.Core.Helpers.BlobHelper;
+using HRMS.Core.Helpers.CommonCRUDHelper;
 using HRMS.Core.Helpers.CommonHelper;
 using HRMS.Core.ReqRespVm.Response.Master;
 using HRMS.Services.Repository.GenericRepository;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -18,14 +22,14 @@ namespace HRMS.Admin.UI.Controllers.Master
     {
         private readonly IGenericRepository<Branch, int> _IBranchRepository;
         private readonly IGenericRepository<Subsidiary, int> _ISubsidiaryRepository;
+        private readonly IHostingEnvironment _IHostingEnviroment;
 
-
-        public BranchController(IGenericRepository<Branch, int> BranchRepo,
+        public BranchController(IGenericRepository<Branch, int> BranchRepo, IHostingEnvironment hostingEnvironment,
             IGenericRepository<Subsidiary, int> SubsidiaryRepo)
         {
             _IBranchRepository = BranchRepo;
             _ISubsidiaryRepository = SubsidiaryRepo;
-
+            _IHostingEnviroment = hostingEnvironment;
         }
         public async Task<IActionResult> Index()
         {
@@ -84,8 +88,9 @@ namespace HRMS.Admin.UI.Controllers.Master
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpsertBranch(Branch model)
+        public async Task<IActionResult> UpsertBranch(Branch model, IFormFile Logo)
         {
+            model.Logo = await new BlobHelper().UploadImageToFolder(Logo, _IHostingEnviroment);
             if (model.Id == 0)
             {
                 var response = await _IBranchRepository.CreateEntity(model);
@@ -97,7 +102,21 @@ namespace HRMS.Admin.UI.Controllers.Master
                 return Json(response.Message);
             }
         }
+        [HttpGet]
+        public async Task<IActionResult> DeleteBranch(int id)
+        {
+            var deleteModel = await _IBranchRepository.GetAllEntityById(x => x.Id == id);
 
+            var deleteDbModel = CrudHelper.DeleteHelper<Branch>(deleteModel.Entity, 1);
+
+            var deleteResponse = await _IBranchRepository.DeleteEntity(deleteDbModel);
+
+            if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
+            {
+                return Json(deleteResponse.Message);
+            }
+            return Json(deleteResponse.Message);
+        }
         #region PrivateFields
         private async Task PopulateViewBag()
         {

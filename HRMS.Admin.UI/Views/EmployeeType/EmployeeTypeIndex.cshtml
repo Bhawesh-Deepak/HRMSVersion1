@@ -3,7 +3,7 @@
 
 <div class="content-wrapper" style="min-height: 870px;">
     <section class="content-header">
-       
+
         <ol class="breadcrumb">
             <li>Home</li>
             <li class="active">Index</li>
@@ -47,25 +47,10 @@
     </section>
 </div>
 
-<script>
-    function GetEmployeeTypeList() {
-        GetCustomRecord("/Employeetype/GetEmployeeTypeList", "divHRMS")
-    }
-
-    $(document).ready(function () {
-        GetEmployeeTypeList();
-    })
-
-    function AddEmpType() {
-        NewCustomRecord("/Employeetype/CreateEmployeeType", "Create Employeetype")
-    }
-
-    function Delete(id, eData) {
-        CustomDeleteRecord(id, "/Designation/GetDesignationList", "/Designation/DeleteDepartment", eData);
-    }
-
-    function UpdateRecord(id) {
-        UpdateCustomRecord(id, "/Employeetype/CreateEmployeeType",  "Update Employeetype");
-    }
-</script>
+<environment include="Development">
+    <script src="~/HRMSJs/EmployeeType.js"></script>
+</environment>
+<environment include="Production">
+    <script src="~/HRMSJs/EmployeeType.js"></script>
+</environment>
 

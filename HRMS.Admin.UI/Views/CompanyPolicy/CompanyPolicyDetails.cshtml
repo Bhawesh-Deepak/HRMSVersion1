@@ -37,10 +37,10 @@
                     <td align="left" style="width:5%;" class="sorting_1">
                         @count
                     </td>
-                    <td align="left" style="width:5%;" class="sorting_1">
+                    <td align="left" style="width:15%;" class="sorting_1">
                         @data.DepartmentName
                     </td>
-                    <td align="left" style="width:10%;" class="sorting_1">
+                    <td align="left" style="width:50%;" class="sorting_1">
                         @data.Name
                     </td>
                     <td align="left" style="width:10%;" class="sorting_1">
@@ -48,12 +48,12 @@
                     </td>
 
                     <td align="left" style="width:10%;" class="sorting_1">
-                        @data.DocumentUrl
+                       <a href="@data.DocumentUrl" target="_blank"><i class="fa fa-download"></i></a>
                     </td>
 
 
 
-                    <td align="center" style="width:20%;" class="sorting_1">
+                    <td align="center" style="width:10%;" class="sorting_1">
                         <a title="Edit" class="btn btn-primary btn-xs" onclick="UpdateRecord(@data.CompanyPolicyId, this)">
                             <span class="fa fa-pencil "></span>
                         </a>

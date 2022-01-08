@@ -1,6 +1,7 @@
 ﻿using HRMS.Admin.UI.Helpers;
 using HRMS.Core.Entities.Common;
 using HRMS.Core.Entities.Master;
+using HRMS.Core.Helpers.CommonCRUDHelper;
 using HRMS.Core.Helpers.CommonHelper;
 using HRMS.Core.ReqRespVm.Response.Master;
 using HRMS.Services.Repository.GenericRepository;
@@ -27,7 +28,7 @@ namespace HRMS.Admin.UI.Controllers.Master
         }
         public async Task<IActionResult> Index()
         {
-            ViewBag.HeaderTitle = PageHeader.HeaderSetting["PandLNameIndex"];
+            ViewBag.HeaderTitle = PageHeader.HeaderSetting["P and L Name"];
 
             return await Task.Run(() => View(ViewHelper.GetViewPathDetails("PandLname", "PandLnameIndex")));
         }
@@ -80,6 +81,20 @@ namespace HRMS.Admin.UI.Controllers.Master
                 return Json(response.Message);
             }
         }
+        [HttpGet]
+        public async Task<IActionResult> DeletePandLname(int id)
+        {
+            var deleteModel = await _IPandLnameRepository.GetAllEntityById(x => x.Id == id);
 
+            var deleteDbModel = CrudHelper.DeleteHelper<PAndLMaster>(deleteModel.Entity, 1);
+
+            var deleteResponse = await _IPandLnameRepository.DeleteEntity(deleteDbModel);
+
+            if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
+            {
+                return Json(deleteResponse.Message);
+            }
+            return Json(deleteResponse.Message);
+        }
     }
 }

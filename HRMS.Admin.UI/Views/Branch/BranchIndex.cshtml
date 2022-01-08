@@ -1,10 +1,10 @@
 ﻿@model HRMS.Core.Entities.Organisation.Branch
 
- 
+
 
 <div class="content-wrapper" style="min-height: 870px;">
     <section class="content-header">
-       
+
         <ol class="breadcrumb">
             <li>Home</li>
             <li class="active">Index</li>
@@ -48,25 +48,12 @@
     </section>
 </div>
 
-<script>
-    function GetBranchListList() {
-        GetCustomRecord("/Branch/GetBranchList", "divHRMS")
-    }
 
-    $(document).ready(function () {
-        GetBranchListList();
-    })
+<environment include="Development">
+    <script src="~/HRMSJs/Branch.js"></script>
+</environment>
+<environment include="Production">
+    <script src="~/HRMSJs/Branch.js"></script>
+</environment>
 
-    function AddRecord() {
-        NewCustomRecord("/Branch/CreateBranch", "Create Branch")
-    }
-
-    function Delete(id, eData) {
-        CustomDeleteRecord(id, "/Designation/GetDesignationList", "/Designation/DeleteDepartment", eData);
-    }
-
-    function UpdateRecord(id) {
-        UpdateCustomRecord(id, "/Branch/CreateBranch",  "Update Branch");
-    }
-</script>
 
