@@ -12,6 +12,7 @@ namespace HRMS.Core.Entities.Master
     [Table("CompanyHolidays", Schema = "Master")]
     public class CompanyHolidays : BaseModel<int>
     {
+        [Required(ErrorMessage = "Select State")]
         public int StateId { get; set; }
 
 

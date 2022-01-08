@@ -12,6 +12,7 @@ namespace HRMS.Core.Entities.Master
     [Table("CompanyPolicy", Schema = "Master")]
     public class CompanyPolicy : BaseModel<int>
     {
+        [Required(ErrorMessage = "Department is required.")]
         public int DepartmentId { get; set; }
 
 

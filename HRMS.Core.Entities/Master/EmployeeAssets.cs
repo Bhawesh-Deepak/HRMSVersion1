@@ -12,32 +12,37 @@ namespace HRMS.Core.Entities.Master
     [Table("EmployeeAssets", Schema = "Master")]
     public class EmployeeAssets : BaseModel<int>
     {
+        [Required(ErrorMessage = "AssetsCategory is required.")]
         public int AssetsCategoryId { get; set; }
+
+        [Required(ErrorMessage = "Employee is required.")]
         public int EmployeeId { get; set; }
+
+        [Required(ErrorMessage = "Branch is required.")]
         public int BranchId { get; set; }
 
-        [Required(ErrorMessage = "AssetsTag is required.")]
+       
         [Display(Prompt = "AssetsTag Name")]
         public string AssetsTag { get; set; }
 
-        [Required(ErrorMessage = "SerialNumber is required.")]
+    
         [Display(Prompt = "SerialNumber Name")]
         public string SerialNumber { get; set; }
 
-        [Required(ErrorMessage = "ModelNumbar is required.")]
+     
         [Display(Prompt = "ModelNumbar Name")]
         public string ModelNumbar { get; set; }
 
-        [Required(ErrorMessage = "MEID is required.")]
+    
         [Display(Prompt = "MEID Name")]
         public string MEID { get; set; }
 
 
-        [Required(ErrorMessage = "AssetsStatus is required.")]
+      
         [Display(Prompt = "AssetsStatus Name")]
         public string AssetsStatus { get; set; }
 
-        [Required(ErrorMessage = "Category is required.")]
+       
         [Display(Prompt = "Category Name")]
         public string Category { get; set; }
 
@@ -45,11 +50,11 @@ namespace HRMS.Core.Entities.Master
         [Display(Prompt = "Employee Assets Name")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Make is required.")]
+       
         [Display(Prompt = "Make Name")]
         public string Make { get; set; }
 
-        [Required(ErrorMessage = "DongleNumber is required.")]
+       
         [Display(Prompt = "DongleNumber Name")]
         public string DongleNumber { get; set; }
     }

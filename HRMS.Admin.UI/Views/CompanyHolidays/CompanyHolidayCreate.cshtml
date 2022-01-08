@@ -12,9 +12,9 @@
 
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label asp-for="Name">Select State</label>
+                        <label asp-for="Name">State</label><span style="color:red">  *</span>
                         <select class="form-control" asp-for="StateId" asp-items="@(new SelectList(ViewBag.StateList ,"Id","Name"))">
-                            <option>Select State</option>
+                            <option value="">--Select--</option>
                         </select>
                         <span asp-validation-for="StateId" class="text-danger"></span>
                     </div>
@@ -25,7 +25,7 @@
                         <input asp-for="Id" type="hidden" />
                         <input asp-for="CreatedBy" type="hidden" />
                         <input asp-for="CreatedDate" type="hidden" />
-                        <label asp-for="Name">Holiday Name</label>
+                        <label asp-for="Name">Holiday Name</label><span style="color:red">  *</span>
                         <input type="text" class="form-control"  asp-for="Name" />
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
@@ -36,7 +36,7 @@
 
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label asp-for="HolidayDate">Date</label>
+                        <label asp-for="HolidayDate">Date</label><span style="color:red">  *</span>
                         <input asp-for="HolidayDate" class="form-control" />
                         <span asp-validation-for="HolidayDate" class="text-danger"></span>
                     </div>
