@@ -16,7 +16,7 @@ namespace HRMS.Admin.UI.Controllers.Master
     public class EmployeetypeController : Controller
     {
         private readonly IGenericRepository<EmployeeType, int> _IEmployeeTypeRepository;
-       
+
 
 
         public EmployeetypeController(IGenericRepository<EmployeeType, int> EmployeeTypeRepo)
@@ -39,7 +39,7 @@ namespace HRMS.Admin.UI.Controllers.Master
                    .GetAllEntities(x => x.IsActive && !x.IsDeleted));
 
 
-            return PartialView(ViewHelper.GetViewPathDetails("Employeetype", "EmployeeTypeList"), response.Item2.Entities);
+                return PartialView(ViewHelper.GetViewPathDetails("Employeetype", "EmployeeTypeList"), response.Item2.Entities);
             }
             catch (Exception ex)
             {
@@ -51,7 +51,7 @@ namespace HRMS.Admin.UI.Controllers.Master
 
         public async Task<IActionResult> CreateEmployeeType(int id)
         {
-            
+
             var response = await _IEmployeeTypeRepository.GetAllEntities(x => x.Id == id);
 
             if (id == 0)

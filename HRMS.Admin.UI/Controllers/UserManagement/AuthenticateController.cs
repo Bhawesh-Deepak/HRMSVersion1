@@ -22,6 +22,7 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
         private readonly IGenericRepository<EmployeeDetail, int> _IEmployeeDetailRepository;
         private readonly IGenericRepository<AuthenticateUser, int> _IAuthenticateRepository;
         private readonly IGenericRepository<Company, int> _ICompanyRepository;
+
         public AuthenticateController(IGenericRepository<EmployeeDetail, int> employeeDetailRepository,
             IGenericRepository<AuthenticateUser, int> authenticateRepo, IGenericRepository<Company, int> companyRepository)
         {
@@ -35,6 +36,7 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
             ViewBag.Message = message;
             return await Task.Run(() => View(ViewHelper.GetViewPathDetails("Authenticate", "Authenticate")));
         }
+
         [HttpPost]
         public async Task<IActionResult> Login(AuthenticateModel model)
         {
