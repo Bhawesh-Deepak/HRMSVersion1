@@ -20,7 +20,7 @@ namespace HRMS.Core.Entities.Organisation
         public int CityId { get; set; }
         [Required(ErrorMessage = "Subsidiary name is required.")]
         [Display(Prompt = "Subsidiary name")]
-        public string Name { get; set; }
+        public string Name { get; set;  }
         [Display(Prompt = "Subsidiary code")]
         public string Code { get; set; }
         [Required(ErrorMessage = "Subsidiary logo is required.")]
