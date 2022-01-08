@@ -55,15 +55,34 @@ namespace HRMS.Admin.UI.Controllers.Organisation
             var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.Id == Id);
             return PartialView(ViewHelper.GetViewPathDetails("EmployeeDirectory", "_EmployeeDetails"), response.Entities.FirstOrDefault());
         }
-        [HttpPost]
-        public async Task<IActionResult> EmployeeDirectorySearch(EmployeeDetail model)
+        [HttpGet]
+        public async Task<IActionResult> EmployeeDirectorySearch(string empCode, string LegalEntity, string IsActive)
         {
             await PopulateViewBag();
-            var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted || x.EmpCode.Trim() == model.EmpCode.Trim() || x.LegalEntity.Trim() == model.LegalEntity.Trim() || x.IsActive == model.IsActive);
-             
-
-            return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeeDirectory", "_EmployeeDirectoryIndex"), response.Entities));
-
+            if (empCode != null && LegalEntity == null && IsActive == null)
+            {
+                var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.EmpCode.Trim().ToLower() == empCode.Trim().ToLower());
+                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeeDirectory", "_EmployeeDirectoryIndex"), response.Entities));
+            }
+            else if (empCode == null && LegalEntity != null && IsActive == null)
+            {
+                var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.EmpCode.Trim().ToLower() == empCode.Trim().ToLower());
+                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeeDirectory", "_EmployeeDirectoryIndex"), response.Entities));
+            }
+            else if (empCode == null && LegalEntity == null && IsActive != null)
+            {
+                bool status = false;
+                if (IsActive == "1")
+                    status = true;
+                else status = false;
+                var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.IsActive == status);
+                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeeDirectory", "_EmployeeDirectoryIndex"), response.Entities));
+            }
+            else
+            {
+                var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.IsActive == true);
+                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeeDirectory", "_EmployeeDirectoryIndex"), response.Entities));
+            }
         }
         public async Task<IActionResult> ExportEmployee()
         {
