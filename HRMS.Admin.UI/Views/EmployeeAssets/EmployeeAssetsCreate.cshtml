@@ -12,27 +12,27 @@
 
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label asp-for="AssetsCategoryId">Select Assets Category Name</label>
+                        <label asp-for="AssetsCategoryId">Assets Category Name</label><span style="color:red">  *</span>
                         <select class="form-control" asp-for="AssetsCategoryId" asp-items="@(new SelectList(ViewBag.AssCatName ,"Id","Name"))">
-                            <option>--Select--</option>
+                            <option value="">--Select--</option>
                         </select>
                         <span asp-validation-for="AssetsCategoryId" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label asp-for="BranchId">Select Branch</label>
+                        <label asp-for="BranchId">Branch</label><span style="color:red">  *</span>
                         <select class="form-control" asp-for="BranchId" asp-items="@(new SelectList(ViewBag.Branch ,"Id","Name"))">
-                            <option>--Select--</option>
+                            <option value="">--Select--</option>
                         </select>
                         <span asp-validation-for="BranchId" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label asp-for="EmployeeId">Select Employee Name</label>
+                        <label asp-for="EmployeeId">Select Employee Name</label><span style="color:red">  *</span>
                         <select class="form-control" asp-for="EmployeeId" asp-items="@(new SelectList(ViewBag.EmployeeName ,"Id","EmployeeName"))">
-                            <option>--Select--</option>
+                            <option value="">--Select--</option>
                         </select>
                         <span asp-validation-for="EmployeeId" class="text-danger"></span>
                     </div>
@@ -43,7 +43,7 @@
                         <input asp-for="Id" type="hidden" />
                         <input asp-for="CreatedBy" type="hidden" />
                         <input asp-for="CreatedDate" type="hidden" />
-                        <label asp-for="Name"> Name</label>
+                        <label asp-for="Name"> Name</label><span style="color:red">  *</span>
                         <input type="text" class="form-control" asp-for="Name" />
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
@@ -56,7 +56,7 @@
                     <div class="form-group">
                         <label asp-for="AssetsStatus">Assets Status</label>
                         <input asp-for="AssetsStatus" class="form-control" />
-                        <span asp-validation-for="AssetsStatus" class="text-danger"></span>
+                      
                     </div>
                 </div>
 
@@ -67,39 +67,41 @@
                         <span asp-validation-for="SerialNumber" class="text-danger"></span>
                     </div>
                 </div>
-
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label asp-for="MEID">MEID</label>
-                        <input asp-for="MEID" class="form-control" />
-                        <span asp-validation-for="MEID" class="text-danger"></span>
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="MEID">MEID</label>
+                            <input asp-for="MEID" class="form-control" />
+                            <span asp-validation-for="MEID" class="text-danger"></span>
+                        </div>
                     </div>
-                </div>
 
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label asp-for="AssetsTag">Assets Tag</label>
-                        <input asp-for="AssetsTag" class="form-control" />
-                        <span asp-validation-for="AssetsTag" class="text-danger"></span>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="AssetsTag">Assets Tag</label>
+                            <input asp-for="AssetsTag" class="form-control" />
+                            <span asp-validation-for="AssetsTag" class="text-danger"></span>
+                        </div>
                     </div>
-                </div>
 
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label asp-for="ModelNumbar">Model Numbar</label>
-                        <input asp-for="ModelNumbar" class="form-control" />
-                        <span asp-validation-for="ModelNumbar" class="text-danger"></span>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="ModelNumbar">Model Numbar</label>
+                            <input asp-for="ModelNumbar" class="form-control" />
+                            <span asp-validation-for="ModelNumbar" class="text-danger"></span>
+                        </div>
                     </div>
+               
                 </div>
-
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label asp-for="Category">Category</label>
-                        <input asp-for="Category" class="form-control" />
-                        <span asp-validation-for="Category" class="text-danger"></span>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Category">Category</label>
+                            <input asp-for="Category" class="form-control" />
+                            <span asp-validation-for="Category" class="text-danger"></span>
+                        </div>
                     </div>
-                </div>
-
+             
 
                 <div class="col-md-4">
                     <div class="form-group">
@@ -121,7 +123,7 @@
 
 
             </div>
-        </div>
+            </div>
 
     </div>
     <div class="modal-footer">

@@ -12,12 +12,12 @@
     <div class="modal-body">
         <div class="row">
             <div class="col-md-12">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="form-group">
                         <input asp-for="Id" type="hidden" />
                         <input asp-for="CreatedBy" type="hidden" />
                         <input asp-for="CreatedDate" type="hidden" />
-                        <label asp-for="RoleName">Role Name</label>
+                        <label asp-for="RoleName">Role Name</label><span style="color:red">  *</span>
                         <input type="text" class="form-control" asp-for="RoleName" />
                         <span asp-validation-for="RoleName" class="text-danger"></span>
                     </div>
@@ -25,7 +25,7 @@
                 </div>
                
 
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="form-group">
                             <label asp-for="RoleDescription">Description</label>
                             <input asp-for="RoleDescription" class="form-control" />
