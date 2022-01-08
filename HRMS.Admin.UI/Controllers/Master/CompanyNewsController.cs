@@ -87,7 +87,21 @@ namespace HRMS.Admin.UI.Controllers.Master
                 return Json(response.Message);
             }
         }
+        [HttpGet]
+        public async Task<IActionResult> DeleteCompanyNews(int id)
+        {
+            var deleteModel = await _ICompanyNewsRepository.GetAllEntityById(x => x.Id == id);
 
+            var deleteDbModel = CrudHelper.DeleteHelper<CompanyNews>(deleteModel.Entity, 1);
+
+            var deleteResponse = await _ICompanyNewsRepository.DeleteEntity(deleteDbModel);
+
+            if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
+            {
+                return Json(deleteResponse.Message);
+            }
+            return Json(deleteResponse.Message);
+        }
         #region PrivateFields
         private async Task PopulateViewBag()
         {

@@ -12,13 +12,14 @@ namespace HRMS.Core.Entities.Master
     [Table("CompanyHolidays", Schema = "Master")]
     public class CompanyHolidays : BaseModel<int>
     {
-        [Required(ErrorMessage = "Select State")]
+        [Required(ErrorMessage = "this filed is required")]
         public int StateId { get; set; }
 
 
-        [Required(ErrorMessage = "Holiday name is required.")]
+        [Required(ErrorMessage = "this filed is required")]
         [Display(Prompt = "Holiday Name")]
-        public string  Name { get; set; }
+        public string Name { get; set; }
+        [Required(ErrorMessage = "this filed is required")]
         public DateTime HolidayDate { get; set; }
     }
 }

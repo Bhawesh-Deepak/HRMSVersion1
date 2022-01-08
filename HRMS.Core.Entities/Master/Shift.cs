@@ -13,17 +13,17 @@ namespace HRMS.Core.Entities.Master
     public class Shift: BaseModel<int>
     {
       
-        [Required(ErrorMessage = "Shift  name is required.")]
+        [Required(ErrorMessage = "this field is required.")]
         [Display(Prompt = "Shift Name")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Shift  StartTime is required.")]
+        [Required(ErrorMessage = "this field is required.")]
         [Display(Prompt = "Shift StartTime")]
         public string ShiftStartTime { get; set; }
-        [Required(ErrorMessage = "Shift  EndTime is required.")]
+        [Required(ErrorMessage = "this field is required.")]
         [Display(Prompt = "Shift EndTime")]
         public string ShiftEndTime { get; set; }
-        [Required(ErrorMessage = "Shift  LateTime is required.")]
+        [Required(ErrorMessage = "this field is required.")]
         [Display(Prompt = "Shift LateTime")]
         public string ShiftLateTime { get; set; }
 

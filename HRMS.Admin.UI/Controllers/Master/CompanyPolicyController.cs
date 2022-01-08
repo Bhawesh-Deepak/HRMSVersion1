@@ -1,9 +1,13 @@
 ﻿using HRMS.Admin.UI.Helpers;
 using HRMS.Core.Entities.Common;
 using HRMS.Core.Entities.Master;
+using HRMS.Core.Helpers.BlobHelper;
+using HRMS.Core.Helpers.CommonCRUDHelper;
 using HRMS.Core.Helpers.CommonHelper;
 using HRMS.Core.ReqRespVm.Response.Master;
 using HRMS.Services.Repository.GenericRepository;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -19,10 +23,11 @@ namespace HRMS.Admin.UI.Controllers.Master
         private readonly IGenericRepository<CompanyPolicy, int> _ICompanyPolicyRepository;
         private readonly IGenericRepository<Department, int> _IDepartmentRepository;
 
-
+        private readonly IHostingEnvironment _IHostingEnviroment;
         public CompanyPolicyController(IGenericRepository<CompanyPolicy, int> CompanyPolicyRepo,
-            IGenericRepository<Department, int> DepartmentRepo)
+            IGenericRepository<Department, int> DepartmentRepo, IHostingEnvironment hostingEnvironment)
         {
+            _IHostingEnviroment = hostingEnvironment;
             _ICompanyPolicyRepository = CompanyPolicyRepo;
             _IDepartmentRepository = DepartmentRepo;
 
@@ -80,8 +85,9 @@ namespace HRMS.Admin.UI.Controllers.Master
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpsertCompanyPolicy(CompanyPolicy model)
+        public async Task<IActionResult> UpsertCompanyPolicy(CompanyPolicy model,IFormFile DocumentUrl)
         {
+            model.DocumentUrl= await new BlobHelper().UploadImageToFolder(DocumentUrl, _IHostingEnviroment);
             if (model.Id == 0)
             {
                 var response = await _ICompanyPolicyRepository.CreateEntity(model);
@@ -93,7 +99,21 @@ namespace HRMS.Admin.UI.Controllers.Master
                 return Json(response.Message);
             }
         }
+        [HttpGet]
+        public async Task<IActionResult> DeleteCompanyPolicy(int id)
+        {
+            var deleteModel = await _ICompanyPolicyRepository.GetAllEntityById(x => x.Id == id);
 
+            var deleteDbModel = CrudHelper.DeleteHelper<CompanyPolicy>(deleteModel.Entity, 1);
+
+            var deleteResponse = await _ICompanyPolicyRepository.DeleteEntity(deleteDbModel);
+
+            if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
+            {
+                return Json(deleteResponse.Message);
+            }
+            return Json(deleteResponse.Message);
+        }
         #region PrivateFields
         private async Task PopulateViewBag()
         {

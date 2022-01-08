@@ -3,7 +3,7 @@
 
 <div class="content-wrapper" style="min-height: 870px;">
     <section class="content-header">
-       
+
         <ol class="breadcrumb">
             <li>Home</li>
             <li class="active">Index</li>
@@ -47,25 +47,9 @@
     </section>
 </div>
 
-<script>
-    function GetLocationList() {
-        GetCustomRecord("/Location/GetLoctionList", "divHRMS")
-    }
-
-    $(document).ready(function () {
-        GetLocationList();
-    })
-
-    function AddLocation() {
-        NewCustomRecord("/Location/CreateLocation", "Create Location")
-    }
-
-    function Delete(id, eData) {
-        CustomDeleteRecord(id, "/Designation/GetDesignationList", "/Designation/DeleteDepartment", eData);
-    }
-
-    function UpdateRecord(id) {
-        UpdateCustomRecord(id, "/Location/CreateLocation",  "Update Location");
-    }
-</script>
-
+<environment include="Development">
+    <script src="~/HRMSJs/Location.js"></script>
+</environment>
+<environment include="Production">
+    <script src="~/HRMSJs/Location.js"></script>
+</environment>

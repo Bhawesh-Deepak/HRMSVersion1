@@ -1,6 +1,7 @@
 ﻿using HRMS.Admin.UI.Helpers;
 using HRMS.Core.Entities.Common;
 using HRMS.Core.Entities.Master;
+using HRMS.Core.Helpers.CommonCRUDHelper;
 using HRMS.Core.Helpers.CommonHelper;
 using HRMS.Core.ReqRespVm.Response.Master;
 using HRMS.Services.Repository.GenericRepository;
@@ -59,7 +60,7 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             else
             {
-                            return PartialView(ViewHelper.GetViewPathDetails("LocationType", "LocationTypeCreate"), response.Entities.First());
+                return PartialView(ViewHelper.GetViewPathDetails("LocationType", "LocationTypeCreate"), response.Entities.First());
             }
         }
 
@@ -77,6 +78,20 @@ namespace HRMS.Admin.UI.Controllers.Master
                 return Json(response.Message);
             }
         }
+        [HttpGet]
+        public async Task<IActionResult> DeleteLocationType(int id)
+        {
+            var deleteModel = await _ILocationTypeRepository.GetAllEntityById(x => x.Id == id);
 
+            var deleteDbModel = CrudHelper.DeleteHelper<LocationType>(deleteModel.Entity, 1);
+
+            var deleteResponse = await _ILocationTypeRepository.DeleteEntity(deleteDbModel);
+
+            if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
+            {
+                return Json(deleteResponse.Message);
+            }
+            return Json(deleteResponse.Message);
+        }
     }
 }

@@ -11,9 +11,9 @@
                 <tr class="th-primary" role="row">
                     <th>#</th>
                     <th>Name</th>
-                    <th>ShiftStart</th>
-                    <th>ShiftEnd</th>
-                    <th>ShiftLate</th>
+                    <th> Start Time</th>
+                    <th> End Time</th>
+                    <th>Late Time</th>
                     <th>Action</th>
 
 
@@ -34,31 +34,31 @@
                     {
                         trclass = "odd";
                     }
-                <tr>
-                    <td align="left" style="width:5%;" class="sorting_1">
-                        @count
-                    </td>
-                    <td align="left" style="width:5%;" class="sorting_1">
-                        @data.Name
-                    </td>
-                    <td align="left" style="width:5%;" class="sorting_1">
-                        @data.ShiftStartTime
-                    </td>
-                    <td align="left" style="width:5%;" class="sorting_1">
-                        @data.ShiftEndTime
-                    </td>
-                    <td align="left" style="width:5%;" class="sorting_1">
-                        @data.ShiftLateTime
-                    </td>
-                    <td align="center" style="width:20%;" class="sorting_1">
-                        <a title="Edit" class="btn btn-primary btn-xs" onclick="UpdateRecord(@data.Id, this)">
-                            <span class="fa fa-pencil "></span>
-                        </a>
-                        <a title="Delete" class="btn btn-xs btn-danger" onclick="Delete(@data.Id, this)">
-                            <i class="fa fa-ban"></i>
-                        </a>
-                    </td>
-                </tr>
+                    <tr>
+                        <td align="left" style="width:5%;" class="sorting_1">
+                            @count
+                        </td>
+                        <td align="left" style="width:40%;" class="sorting_1">
+                            @data.Name
+                        </td>
+                        <td align="left" style="width:5%;" class="sorting_1">
+                            @data.ShiftStartTime
+                        </td>
+                        <td align="left" style="width:5%;" class="sorting_1">
+                            @data.ShiftEndTime
+                        </td>
+                        <td align="left" style="width:5%;" class="sorting_1">
+                            @data.ShiftLateTime
+                        </td>
+                        <td align="center" style="width:15%;" class="sorting_1">
+                            <a title="Edit" class="btn btn-primary btn-xs" onclick="UpdateRecord(@data.Id, this)">
+                                <span class="fa fa-pencil "></span>
+                            </a>
+                            <a title="Delete" class="btn btn-xs btn-danger" onclick="Delete(@data.Id, this)">
+                                <i class="fa fa-ban"></i>
+                            </a>
+                        </td>
+                    </tr>
                     count++;
                 }
 
@@ -70,10 +70,10 @@
 
 </div>
 <script>
-        $('#example').dataTable({
-            "iDisplayLength": 10,
-            "bDestroy": true,
-            "scrollX": true,
-            "aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
-        });
+    $('#example').dataTable({
+        "iDisplayLength": 10,
+        "bDestroy": true,
+        "scrollX": true,
+        "aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+    });
 </script>

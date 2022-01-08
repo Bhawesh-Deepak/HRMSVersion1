@@ -771,7 +771,6 @@
                                 <li><a asp-action="Index" asp-controller="LocationType"><i class="fa fa-line-chart"></i> <span>Location Type</span></a></li>
                                 <li><a asp-action="Index" asp-controller="PandLname"><i class="fa fa-line-chart"></i> <span>P and L Master</span></a></li>
                                 <li><a asp-action="Index" asp-controller="Region"><i class="fa fa-line-chart"></i> <span>Region</span></a></li>
-                                <li><a asp-action="Index" asp-controller="CompanyHolidays"><i class="fa fa-line-chart"></i> <span>Holidays</span></a></li>
                                 <li><a asp-action="Index" asp-controller="Employeetype"><i class="fa fa-line-chart"></i> <span>Employee Type</span></a></li>
                                 <li><a asp-action="Index" asp-controller="Shift"><i class="fa fa-line-chart"></i> <span>Shift</span></a></li>
 
@@ -783,17 +782,17 @@
                             <a href="#"><i class="fa fa-cogs"></i> <span>Organization</span><i class="fa fa-angle-left pull-right"></i></a>
                             <ul class="treeview-menu">
                                 <li><a asp-controller="CompanyDirectory" asp-action="Index"><i class="fa fa-line-chart"></i> <span>List of Company / Branch</span></a></li>
-                                <li><a href="#"><i class="fa fa-line-chart"></i> <span>Department & Designation</span></a></li>
-                                <li><a href="#"><i class="fa fa-line-chart"></i> <span>Employee Directory</span></a></li>
+                                <li><a asp-controller="DepartmentDirectory" asp-action="Index"><i class="fa fa-line-chart"></i> <span>Department & Designation</span></a></li>
+                                <li><a asp-controller="EmployeeDirectory" asp-action="Index"><i class="fa fa-line-chart"></i> <span>Employee Directory</span></a></li>
                             </ul>
                         </li>
                         <li class="treeview">
                             <a href="#"><i class="fa fa-cogs"></i> <span>HR</span><i class="fa fa-angle-left pull-right"></i></a>
                             <ul class="treeview-menu">
-                                <li><a href="#"><i class="fa fa-line-chart"></i> <span>Policies</span></a></li>
-                                <li><a href="#"><i class="fa fa-line-chart"></i> <span>List of Holidays</span></a></li>
+                                <li><a asp-action="Index" asp-controller="CompanyPolicy"><i class="fa fa-line-chart"></i> <span>Policies</span></a></li>
+                                <li><a asp-action="Index" asp-controller="CompanyHolidays"><i class="fa fa-line-chart"></i> <span>List of Holidays</span></a></li>
                                 <li><a href="#"><i class="fa fa-line-chart"></i> <span>Announcement &amp; Update</span></a></li>
-                                <li><a href="#"><i class="fa fa-line-chart"></i> <span>Company News</span></a></li>
+                                <li><a asp-action="Index" asp-controller="CompanyNews"><i class="fa fa-line-chart"></i> <span>Company News</span></a></li>
                                 <li><a href="#"><i class="fa fa-line-chart"></i> <span>Current Opening</span></a></li>
                                 <li><a href="#"><i class="fa fa-line-chart"></i> <span>Gallery</span></a></li>
                                 <li><a href="#"><i class="fa fa-line-chart"></i> <span>Leave Approval</span></a></li>
