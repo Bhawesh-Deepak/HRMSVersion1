@@ -13,7 +13,7 @@ namespace HRMS.Core.Entities.Organisation
     [Table("Company", Schema = "Organisation")]
     public class Subsidiary : BaseModel<int>
     {
-        [Required(ErrorMessage = "Organisation  is required.")]
+        [Required(ErrorMessage = "Company Name  is required.")]
         public int OrganisationId { get; set; }
         public int CountryId { get; set; }
         public int StateId { get; set; }
