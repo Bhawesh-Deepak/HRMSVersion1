@@ -10,10 +10,12 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Dashboard || Subsidiary</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <link href="~/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <script src="~/resources/Subsidiary/js/jquery.min.js"></script>
     <script src="~/resources/Subsidiary/js/script.js"></script>
     <style>
+        *{font-family:'Montserrat', sans-serif !important;}
         .auto {
             margin: 20px auto;
         }
@@ -91,6 +93,7 @@
             border: 1px solid #2bbea1 !important;
             color: #fff;
         }
+        .container{margin-bottom:20px}
     </style>
 </head>
 <body>
@@ -131,16 +134,12 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-2 col-md-6 col-sm-12 col-lg-offset-3 mt-5">
+            <div class="col-lg-3 col-md-4 col-sm-12 col-lg-offset-3 col-md-offset-2 mt-5">
                 <a asp-action="Index" asp-controller="Home" class="btn btn-primary btn-block">Skip</a>
             </div>
-            <div class="col-lg-2 col-md-6 col-sm-12 mt-5">
+            <div class="col-lg-3 col-md-4 col-sm-12 mt-5">
                 <a asp-action="Index" id="btnContinue" asp-controller="Home" class="btn btn-primary btn-block disabled">Continue</a>
             </div>
-            <<div class="col-lg-2 col-md-6 col-sm-12 mt-5">
-                <a class="btn btn-primary btn-block">Create Legal Entity</a>
-            </div>
-            <div class="clearfix"></div>
         </div>
     </div>
 
