@@ -3,7 +3,7 @@
 
 <div class="content-wrapper" style="min-height: 870px;">
     <section class="content-header">
-      
+
         <ol class="breadcrumb">
             <li>Home</li>
             <li class="active">Index</li>
@@ -46,26 +46,11 @@
         </div>
     </section>
 </div>
-
-<script>
-    function GetRegionList() {
-        GetCustomRecord("/Region/GetRegionList", "divHRMS")
-    }
-
-    $(document).ready(function () {
-        GetRegionList();
-    })
-
-    function AddRegion() {
-        NewCustomRecord("/Region/CreateRegion", "Create Region")
-    }
-
-    function Delete(id, eData) {
-        CustomDeleteRecord(id, "/Designation/GetDesignationList", "/Designation/DeleteDepartment", eData);
-    }
-
-    function UpdateRecord(id) {
-        UpdateCustomRecord(id, "/Region/CreateRegion",  "Update Region");
-    }
-</script>
+<environment include="Development">
+    <script src="~/HRMSJs/Region.js"></script>
+</environment>
+<environment include="Production">
+    <script src="~/HRMSJs/Region.js"></script>
+</environment>
+ 
 

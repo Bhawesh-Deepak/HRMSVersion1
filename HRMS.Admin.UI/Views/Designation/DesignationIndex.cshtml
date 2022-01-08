@@ -1,5 +1,5 @@
 ﻿@model HRMS.Core.Entities.Master.Designation
- 
+
 
 <div class="content-wrapper" style="min-height: 870px;">
     <section class="content-header">
@@ -32,9 +32,7 @@
                         </div>
 
                     </div>
-                    <a class="btn btn-primary pull-right btn-xs" onclick="AddDesignation()" title="Add New Designation">
-                        <i class="fa fa-plus"> &nbsp; Add</i>
-                    </a>
+
                 </div>
                 <div class="box-body">
                     <div id="divHRMS">
@@ -47,25 +45,10 @@
     </section>
 </div>
 
-<script>
-    function GetDesignationList() {
-        GetCustomRecord("/Designation/GetDesignationList", "divHRMS")
-    }
-
-    $(document).ready(function () {
-        GetDesignationList();
-    })
-
-    function AddDesignation() {
-        NewCustomRecord("/Designation/CreateDesignation", "Create Designation")
-    }
-
-    function Delete(id, eData) {
-        CustomDeleteRecord(id, "/Designation/GetDesignationList", "/Designation/DeleteDepartment", eData);
-    }
-
-    function UpdateRecord(id) {
-        UpdateCustomRecord(id, "/Designation/CreateDesignation",  "Update Designation");
-    }
-</script>
+<environment include="Development">
+    <script src="~/HRMSJs/Designation.js"></script>
+</environment>
+<environment include="Production">
+    <script src="~/HRMSJs/Designation.js"></script>
+</environment>
 

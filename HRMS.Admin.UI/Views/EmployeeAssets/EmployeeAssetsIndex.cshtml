@@ -3,7 +3,7 @@
 
 <div class="content-wrapper" style="min-height: 870px;">
     <section class="content-header">
-       
+
         <ol class="breadcrumb">
             <li>Home</li>
             <li class="active">Index</li>
@@ -48,24 +48,9 @@
 </div>
 
 
-<script>
-    function GetEmployeeAssetsList() {
-        GetCustomRecord("/EmployeeAssets/GetEmployeeAssetsList", "divHRMS")
-    }
-
-    $(document).ready(function () {
-        GetEmployeeAssetsList();
-    })
-
-    function AddHolidays() {
-        NewCustomRecord("/EmployeeAssets/EmployeeAssetsCreate", "Create Employee Assets")
-    }
-
-    function Delete(id, eData) {
-        CustomDeleteRecord(id, "/CompanyHolidays/GetDesignationList", "/CompanyHolidays/DeleteDepartment", eData);
-    }
-
-    function UpdateRecordHolidays(id) {
-        UpdateCustomRecord(id, "/EmployeeAssets/EmployeeAssetsCreate",  "Update Employee Assets");
-    }
-</script>
+<environment include="Development">
+    <script src="~/HRMSJs/EmployeeAssets.js"></script>
+</environment>
+<environment include="Production">
+    <script src="~/HRMSJs/EmployeeAssets.js"></script>
+</environment>

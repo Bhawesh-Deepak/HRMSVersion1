@@ -1,9 +1,9 @@
 ﻿@model HRMS.Core.Entities.Master.Designation
- 
+
 
 <div class="content-wrapper" style="min-height: 870px;">
     <section class="content-header">
-       
+
         <ol class="breadcrumb">
             <li>Home</li>
             <li class="active">Index</li>
@@ -47,25 +47,9 @@
     </section>
 </div>
 
-
-<script>
-    function GetHolidayList() {
-        GetCustomRecord("/CompanyHolidays/GetHolidayList", "divHRMS")
-    }
-
-    $(document).ready(function () {
-        GetHolidayList();
-    })
-
-    function AddHolidays() {
-        NewCustomRecord("/CompanyHolidays/HolidayCreate", "Create CompanyHoliday")
-    }
-
-    function Delete(id, eData) {
-        CustomDeleteRecord(id, "/CompanyHolidays/GetDesignationList", "/CompanyHolidays/DeleteDepartment", eData);
-    }
-
-    function UpdateRecordHolidays(id) {
-        UpdateCustomRecord(id, "/CompanyHolidays/HolidayCreate", "Update Company Holidays");
-    }
-</script>
+<environment include="Development">
+    <script src="~/HRMSJs/CompanyHoliday.js"></script>
+</environment>
+<environment include="Production">
+    <script src="~/HRMSJs/CompanyHoliday.js"></script>
+</environment>

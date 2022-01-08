@@ -1,11 +1,7 @@
 ﻿@model HRMS.Core.Entities.Master.LocationType
-<link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
-<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-
-
 <div class="content-wrapper" style="min-height: 870px;">
     <section class="content-header">
-       
+
         <ol class="breadcrumb">
             <li>Home</li>
             <li class="active">Index</li>
@@ -49,25 +45,11 @@
     </section>
 </div>
 
-<script>
-    function GetLocationTypeList() {
-        GetCustomRecord("/LocationType/GetLocationTypeList", "divHRMS")
-    }
+<environment include="Development">
+    <script src="~/HRMSJs/LocationType.js"></script>
+</environment>
+<environment include="Production">
+    <script src="~/HRMSJs/LocationType.js"></script>
+</environment>
 
-    $(document).ready(function () {
-        GetLocationTypeList();
-    })
-
-    function AddRecord() {
-        NewCustomRecord("/LocationType/CreateLocationType", "Create Location Type")
-    }
-
-    function Delete(id, eData) {
-        CustomDeleteRecord(id, "/Designation/GetDesignationList", "/Designation/DeleteDepartment", eData);
-    }
-
-    function UpdateRecord(id) {
-        UpdateCustomRecord(id, "/LocationType/CreateLocationType",  "Update Location Type");
-    }
-</script>
 
