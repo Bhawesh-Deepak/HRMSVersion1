@@ -29,6 +29,8 @@ namespace HRMS.Core.Entities.Organisation
         public int ZipCode { get; set; }
 
         [Display(Prompt = "Email")]
+
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string Email { get; set; }
         [Display(Prompt = "phone")]
         public string Phone { get; set; }

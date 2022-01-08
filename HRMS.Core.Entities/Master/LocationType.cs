@@ -13,7 +13,7 @@ namespace HRMS.Core.Entities.Master
     public class LocationType : BaseModel<int>
     {
         [Required(ErrorMessage = "Location Type name is required.")]
-        [Display(Prompt = "Location Type Name")]
+        [Display(Prompt = "Location Type")]
         public string Name { get; set; }
       
     }

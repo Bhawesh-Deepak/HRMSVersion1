@@ -28,6 +28,8 @@ namespace HRMS.Core.Entities.Organisation
         public string Address { get; set; }
         public string ZipCode { get; set; }
         [Display(Prompt = "Subsidiary email")]
+
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string Email { get; set; }
         [Display(Prompt = "Subsidiary phone")]
         public string Phone { get; set; }
