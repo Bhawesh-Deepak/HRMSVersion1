@@ -10,17 +10,18 @@
     <div class="modal-body">
         <div class="row">
             <div class="col-md-12">
-                <div class="form-group">
-                    <input asp-for="Id" type="hidden" />
-                    <input asp-for="CreatedBy" type="hidden" />
-                    <input asp-for="CreatedDate" type="hidden" />
-                    <label asp-for="Name">Location Type Name</label><span style="color:red">  *</span>
-                    <input type="text" class="form-control" asp-for="Name" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input asp-for="Id" type="hidden" />
+                        <input asp-for="CreatedBy" type="hidden" />
+                        <input asp-for="CreatedDate" type="hidden" />
+                        <label asp-for="Name">Location Type</label><span style="color:red">  *</span>
+                        <input type="text" class="form-control" asp-for="Name" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
                 </div>
-
+                </div>
             </div>
-        </div>
 
     </div>
     <div class="modal-footer">

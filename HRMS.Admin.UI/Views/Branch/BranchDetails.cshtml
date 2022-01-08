@@ -15,10 +15,10 @@
                     <th>Code</th>
                     <th>Address</th>
                     <th>Email</th>
-                    <th>Logo</th>
                     <th>Phone</th>
-                    <th>ZipCode</th>
+                    <th>Zip Code</th>
                     <th>Contact Person</th>
+                    <th>Logo</th>
                     <th>Action</th>
 
                 </tr>
@@ -57,10 +57,7 @@
                     <td align="left" style="width:5%;" class="sorting_1">
                         @data.Email
                     </td>
-                    <td align="left" style="width:5%;" class="sorting_1">
-                       
-                        <a href="@data.Logo" target="_blank"><i class="fa fa-download"></i></a>
-                    </td>
+
                     <td align="left" style="width:5%;" class="sorting_1">
                         @data.Phone
                     </td>
@@ -69,6 +66,10 @@
                     </td>
                     <td align="left" style="width:5%;" class="sorting_1">
                         @data.ContactPerson
+                    </td>
+                    <td align="left" style="width:5%;" class="sorting_1">
+
+                        <a href="@data.Logo" target="_blank"><i class="fa fa-download"></i></a>
                     </td>
                     <td align="center" style="width:20%;" class="sorting_1">
                         <a title="Edit" class="btn btn-primary btn-xs" onclick="UpdateRecord(@data.BranchId, this)">

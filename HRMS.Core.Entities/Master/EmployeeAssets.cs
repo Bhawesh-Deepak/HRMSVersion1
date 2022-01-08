@@ -22,28 +22,28 @@ namespace HRMS.Core.Entities.Master
         public int BranchId { get; set; }
 
        
-        [Display(Prompt = "AssetsTag Name")]
+        [Display(Prompt = "AssetsTag")]
         public string AssetsTag { get; set; }
 
     
-        [Display(Prompt = "SerialNumber Name")]
+        [Display(Prompt = "Serial Number")]
         public string SerialNumber { get; set; }
 
      
-        [Display(Prompt = "ModelNumbar Name")]
+        [Display(Prompt = "Model Numbar")]
         public string ModelNumbar { get; set; }
 
     
-        [Display(Prompt = "MEID Name")]
+        [Display(Prompt = "MEID")]
         public string MEID { get; set; }
 
 
       
-        [Display(Prompt = "AssetsStatus Name")]
+        [Display(Prompt = "Assets Status")]
         public string AssetsStatus { get; set; }
 
        
-        [Display(Prompt = "Category Name")]
+        [Display(Prompt = "Category")]
         public string Category { get; set; }
 
         [Required(ErrorMessage = "Employee Assets is required.")]
@@ -51,11 +51,11 @@ namespace HRMS.Core.Entities.Master
         public string Name { get; set; }
 
        
-        [Display(Prompt = "Make Name")]
+        [Display(Prompt = "Make")]
         public string Make { get; set; }
 
        
-        [Display(Prompt = "DongleNumber Name")]
+        [Display(Prompt = "Dongle Number")]
         public string DongleNumber { get; set; }
     }
 }
