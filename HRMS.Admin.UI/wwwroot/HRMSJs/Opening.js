@@ -11,7 +11,7 @@ function AddOpening() {
 }
 
 function Delete(id, eData) {
-    CustomDeleteRecord(id, "/Department/GetDepartmentList", "/Department/DeleteDepartment", eData);
+    CustomDeleteRecord(id, "/CurrentOpening/GetOpeningDetails", "/CurrentOpening/DeleteOpening", eData);
 }
 
 function UpdateRecord(id) {

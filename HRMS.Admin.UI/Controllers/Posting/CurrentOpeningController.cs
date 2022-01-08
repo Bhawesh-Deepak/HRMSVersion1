@@ -20,7 +20,7 @@ namespace HRMS.Admin.UI.Controllers.Posting
         private readonly IGenericRepository<CurrentOpening, int> _ICurrentOpeningRepository;
         private readonly IHostingEnvironment _IhostingEnviroment;
 
-        public CurrentOpeningController(IGenericRepository<CurrentOpening, int> currentOpeningRepository, 
+        public CurrentOpeningController(IGenericRepository<CurrentOpening, int> currentOpeningRepository,
             IHostingEnvironment hostingEnviroment)
         {
             _ICurrentOpeningRepository = currentOpeningRepository;
@@ -51,11 +51,35 @@ namespace HRMS.Admin.UI.Controllers.Posting
         [HttpPost]
         public async Task<IActionResult> UpSertOpening(CurrentOpening model, IFormFile PdfFile)
         {
-            model.DescriptionPath =PdfFile==null? model.DescriptionPath: await UploadPDFFile(PdfFile);
+            model.DescriptionPath = PdfFile == null ? model.DescriptionPath : await UploadPDFFile(PdfFile);
 
             var response = model.Id == 0 ? await CreateOpeningDb(model) : await UpdateOpeningDb(model);
 
             return Json(response);
+        }
+
+        public async Task<IActionResult> DeleteOpening(int id)
+        {
+            try
+            {
+                var response = await _ICurrentOpeningRepository.GetAllEntityById(x => x.Id == id);
+
+                var deleteModel = CrudHelper.DeleteHelper(response.Entity, 1);
+
+                var deleteResponse = await _ICurrentOpeningRepository.DeleteEntity(deleteModel);
+
+                if (deleteResponse.ResponseStatus == ResponseStatus.Deleted)
+                {
+                    return Json("Record Deleted successfully...");
+                }
+
+                return Json("Something wents wrong, Please contact admin team.");
+            }
+            catch (Exception ex)
+            {
+                Serilog.Log.Error(ex, $"COntroller name is {nameof(CurrentOpeningController)} action name {nameof(DeleteOpening)}");
+                return Json("Something wents wrong, Please contact admin team.");
+            }
         }
 
         #region PrivateMethods

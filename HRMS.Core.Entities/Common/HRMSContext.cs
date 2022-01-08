@@ -78,6 +78,8 @@ namespace HRMS.Core.Entities.Common
 
         public virtual DbSet<CurrentOpening> CurrentOpenings { get; set; }
 
+        public virtual DbSet<ReferCandidate> ReferCandidates { get; set; }
+
         #endregion
     }
 }
