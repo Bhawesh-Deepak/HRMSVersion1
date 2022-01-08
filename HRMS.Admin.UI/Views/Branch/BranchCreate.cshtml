@@ -15,10 +15,11 @@
 
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label asp-for="Name">Select Company</label>
+                        <label asp-for="CompanyId">Company</label><span style="color:red">  *</span>
                         <select class="form-control" asp-for="CompanyId" asp-items="@(new SelectList(ViewBag.CompanyList ,"Id","Name"))">
-                            <option>--Select--</option>
+                            <option value="">--Select--</option>
                         </select>
+
                         <span asp-validation-for="CompanyId" class="text-danger"></span>
                     </div>
                 </div>
@@ -28,9 +29,17 @@
                         <input asp-for="Id" type="hidden" />
                         <input asp-for="CreatedBy" type="hidden" />
                         <input asp-for="CreatedDate" type="hidden" />
-                        <label asp-for="Name">Name</label>
+                        <label asp-for="Name">Name</label><span style="color:red">  *</span>
                         <input type="text" class="form-control" asp-for="Name" />
                         <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="ZipCode">ZipCode</label><span style="color:red">  *</span>
+                        <input asp-for="ZipCode" class="form-control" />
+                        <span asp-validation-for="ZipCode" class="text-danger"></span>
                     </div>
                 </div>
 
@@ -58,13 +67,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label asp-for="ZipCode">ZipCode</label>
-                        <input asp-for="ZipCode" class="form-control" />
-                        <span asp-validation-for="ZipCode" class="text-danger"></span>
-                    </div>
-                </div>
+
 
                 <div class="col-md-4">
                     <div class="form-group">

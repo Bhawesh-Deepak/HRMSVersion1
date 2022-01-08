@@ -12,6 +12,7 @@ namespace HRMS.Core.Entities.Master
     [Table("Location", Schema = "Master")]
     public class Location: BaseModel<int>
     {
+        [Required(ErrorMessage = "Location is required.")]
         public int LocationTypeid { get; set; }
 
  

@@ -18,7 +18,7 @@
                         <input asp-for="Id" type="hidden" />
                         <input asp-for="CreatedBy" type="hidden" />
                         <input asp-for="CreatedDate" type="hidden" />
-                        <label asp-for="Name">Shift Name</label>
+                        <label asp-for="Name">Shift Name</label><span style="color:red">  *</span>
                         <input type="text" class="form-control" asp-for="Name" />
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
@@ -26,7 +26,7 @@
 
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label asp-for="ShiftStartTime">Shift StartTime</label>
+                        <label asp-for="ShiftStartTime">Shift StartTime</label><span style="color:red">  *</span>
                         <input type="text" class="form-control" asp-for="ShiftStartTime" />
                         <span asp-validation-for="ShiftStartTime" class="text-danger"></span>
                     </div>
@@ -34,7 +34,7 @@
 
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label asp-for="ShiftEndTime">Shift EndTime</label>
+                        <label asp-for="ShiftEndTime">Shift EndTime</label><span style="color:red">  *</span>
                         <input type="text" class="form-control" asp-for="ShiftEndTime" />
                         <span asp-validation-for="ShiftEndTime" class="text-danger"></span>
                     </div>
