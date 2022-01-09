@@ -1,0 +1,46 @@
+﻿
+
+<div class="content-wrapper" style="min-height: 870px;">
+    <section class="content">
+        <div>
+            <div>
+                <div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row" style="margin-top:0;">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="box box-primary">
+                                        <div class="box-header with-border">
+                                            <div class="box-title">
+                                                Candidate Referal &nbsp;
+
+                                            </div>
+                                            <a class="btn btn-primary pull-right btn-xs" onclick="AddCandidate()" title="Refer Candidate for Job">
+                                                <i class="fa fa-plus"> &nbsp; Add</i>
+                                            </a>
+                                        </div>
+                                        <div class="box-body">
+                                            <div id="divHRMS">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+</div>
+
+
+<environment include="Development">
+
+    <script src="~/HRMSJs/Opening.js"></script>
+</environment>
+<environment include="Production">
+    <script src="~/HRMSJs/Opening.js"></script>
+</environment>
