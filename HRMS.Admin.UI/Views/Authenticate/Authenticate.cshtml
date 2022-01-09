@@ -4,9 +4,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Login</title>
+    <title>Dashboard || Login</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="~/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/LoginJsCss/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
@@ -16,15 +18,18 @@
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     <script src="~/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <style>
+        *{font-family:'Montserrat', sans-serif !important;}
+        h2{font-size:16px}
         .form-control:focus-within {
             box-shadow: 0 0 5px red !important
         }
+        .btn{padding:0.20rem 0.75rem}
     </style>
 </head>
 <body class="bg-login" style="background:url(../LoginJsCss/images/bg-login-2.jpg) no-repeat top left; background-size:content">
 
     <section class="login">
-        <div class="position-absolute bg-white h-100">
+        <div class="position-absolute bg-white h-100 p-md-5">
             <div class="text-center mt-5">
                 <img src="~/LoginJsCss/images/logo.png" alt="" class="img-fluid">
             </div>
@@ -48,7 +53,7 @@
                         <input type="password" asp-for="Password" class="form-control" placeholder="Password">
                     </div>
                     <div class="row">
-                        <div class="form-group col-md-6 text-md-right">
+                        <div class="form-group col-md-12 text-right">
                             <a href="#" onclick="ForgetPassword()">Forget Password</a>
                         </div>
                     </div>
@@ -57,13 +62,13 @@
                     </div>
                 </form>
             </div>
-            <div id="ForgetPasswordView" style="display:none">
+            <div id="ForgetPasswordView" class="px-5" style="display:none">
                 <div class="form-group">
                     <input type="text" id="txtEmpCode" class="form-control" placeholder="Employee Code">
                 </div>
 
                 <div class="row">
-                    <div class="form-group col-md-6 text-md-right">
+                    <div class="form-group col-md-12">
                         <a  href="#" onclick="Login()">Login</a>
                     </div>
                 </div>
@@ -71,8 +76,6 @@
                     <button type="button" onclick="SendOtp()" class="btn btn-primary btn-block" id="d-2">Send OTP</button>
                 </div>
             </div>
-
-
         </div>
     </section>
 </body>

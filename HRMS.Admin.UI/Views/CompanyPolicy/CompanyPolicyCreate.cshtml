@@ -6,7 +6,7 @@
    
 </style>
 <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
-      data-ajax-complete="AjaxComplete"
+      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
       asp-action="UpsertCompanyPolicy" asp-controller="CompanyPolicy" data-ajax-success="Success">
     <div class="modal-body">
         <div class="row">
@@ -47,7 +47,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label asp-for="DocumentUrl">Document Url</label>
-                            <input asp-for="DocumentUrl" class="form-control" />
+                            <input asp-for="DocumentUrl" class="form-control" type="file"/>
                             <span asp-validation-for="DocumentUrl" class="text-danger"></span>
                         </div>
                     </div>

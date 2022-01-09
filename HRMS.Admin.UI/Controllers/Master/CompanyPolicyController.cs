@@ -53,7 +53,7 @@ namespace HRMS.Admin.UI.Controllers.Master
                                        {
                                            CompanyPolicyId = cpl.Id,
                                            DepartmentName = dpt.Name,
-                                           CalenderDate = cpl.CalenderDate.ToString("dd-M-yyyy", CultureInfo.InvariantCulture),
+                                           CalenderDate = cpl.CalenderDate.ToString("dd-MM-yyyy", CultureInfo.InvariantCulture),
                                            Name=cpl.Name,
                                            DocumentUrl=cpl.DocumentUrl
 
