@@ -1,19 +1,21 @@
-﻿@model IEnumerable<HRMS.Core.Entities.Posting.CurrentOpening>
+﻿@model IEnumerable<HRMS.Core.ReqRespVm.Response.Posting.ReferCandidateDetailVm>
 
 <script src="~/resources/dist/js/jquery.dataTables.js" type="text/javascript"></script>
 <div class="table-responsive">
+
     <div class="dataTables_wrapper" role="grid">
+
+
         <table class="table table-condensed table-striped table-hover table-bordered table-body-nowrap table-head-nowrap dataTable" cellspacing="0" rules="all" border="1" id="example" style="border-collapse:collapse;" aria-describedby="cp_MainContent_widgetExitEmployee_grdExitEmployees_info">
             <thead>
                 <tr class="th-primary" role="row">
                     <th>#</th>
+                    <th>Refer By</th>
                     <th>Job Title</th>
-                    <th>Required Exprience</th>
-                    <th>Key Skills</th>
-                    <th>Vacancy</th>
-                    <th>Last Apply Date</th>
-                    <th>Job Location</th>
-                    <th>Job Description</th>
+                    <th>Candidate Name</th>
+                    <th>Email</th>
+                    <th>Mobile</th>
+                    <th>Resume</th>
                     <th>Action</th>
 
                 </tr>
@@ -38,34 +40,32 @@
                             @count
                         </td>
                         <td align="left" style="width:10%;" class="sorting_1">
-                            @data.Title
+                            @data.EmployeeName (@data.EmpCode)
                         </td>
                         <td align="left" style="width:20%;" class="sorting_1">
-                            @data.RequiredExprience
+                            @data.Title
                         </td>
                         <td align="left" style="width:45%;" class="sorting_1">
-                            @data.KeySkills
+                            @data.CandidateName
                         </td>
 
                         <td align="left" style="width:45%;" class="sorting_1">
-                            @data.Vacancy
+                            @data.Email
                         </td>
                         <td align="left" style="width:45%;" class="sorting_1">
-                            @data.LastApplyDate
+                            @data.Phone
                         </td>
                         <td align="left" style="width:45%;" class="sorting_1">
-                            @data.Location
+                            @data.ResumePath
                         </td>
-                        <td align="left" style="width:45%;" class="sorting_1">
-                            <a title="Refer Candidate Details" onclick="GetCandidateDetails(@data.Id)">
-                                <span class="fa fa-eye"></span>
-                            </a>
-                        </td>
-
                         <td align="center" style="width:20%;" class="sorting_1">
-                            <a title="Refer Candidate" class="btn btn-primary btn-xs" onclick="UpdateRecord(@data.Id, this)">
+                            <a title="Edit" class="btn btn-primary btn-xs" onclick="UpdateRecord(@data.Id, this)">
                                 <span class="fa fa-pencil "></span>
                             </a>
+                            <a title="Delete" class="btn btn-xs btn-danger" onclick="Delete(@data.Id, this)"><i class="fa fa-ban"></i></a>
+
+
+
                         </td>
                     </tr>
                     count++;

@@ -51,15 +51,22 @@ namespace HRMS.Services.Implementation.GenericImplementation
         }
         public T Get<T>(string sp,TEntity entity)
         {
-            var parms = ConvertObjectToDBParameter<TEntity>(entity);
+            DynamicParameters parms = null;
+            if (entity != null) {
+                 parms = ConvertObjectToDBParameter<TEntity>(entity);
+            }
+           
             using IDbConnection db = new SqlConnection(_connectionString);
             return db.Query<T>(sp, parms, commandType: CommandType.StoredProcedure).FirstOrDefault();
         }
         public List<T> GetAll<T>(string sp, TEntity entity)
         {
-            //var spName= SqlQuery.
+            DynamicParameters parms = null;
+            if (entity != null)
+            {
+                parms = ConvertObjectToDBParameter<TEntity>(entity);
+            }
             using IDbConnection db = new SqlConnection(_connectionString);
-            var parms = ConvertObjectToDBParameter<TEntity>(entity);
             return db.Query<T>(sp, parms, commandType: CommandType.StoredProcedure).ToList();
         }
         public DbConnection GetDbconnection()

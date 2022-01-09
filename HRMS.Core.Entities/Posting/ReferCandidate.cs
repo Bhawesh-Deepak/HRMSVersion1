@@ -20,11 +20,15 @@ namespace HRMS.Core.Entities.Posting
 
         [Required(ErrorMessage ="Candidate email is required.")]
         [DataType(DataType.EmailAddress)]
+        [Display(Prompt = "Please enter candidate email")]
         public string Email { get; set; }
 
         [Required(ErrorMessage ="Candidate phone is required.")]
+        [Display(Prompt = "Please enter candidate phone")]
         [DataType(DataType.PhoneNumber)]
         public string Phone { get; set; }
         public string ResumePath { get; set; }
+        [NotMapped]
+        public bool IsSubmitted { get; set; }
     }
 }
