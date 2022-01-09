@@ -33,6 +33,7 @@ namespace HRMS.Core.Entities.Posting
 
         [Required()]
         [Display(Prompt = "Please Enter Last Apply Date")]
+        [DataType(DataType.Date)]
         public DateTime LastApplyDate { get; set; }
 
         [Required()]

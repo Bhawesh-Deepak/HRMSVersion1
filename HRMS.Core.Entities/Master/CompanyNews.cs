@@ -14,6 +14,7 @@ namespace HRMS.Core.Entities.Master
     {
 
         [Required(ErrorMessage = "this field   is required.")]
+        [DataType(DataType.Date)]
         public DateTime NewsDate { get; set; }
 
         [Required(ErrorMessage = "this field   is required.")]

@@ -19,6 +19,7 @@ namespace HRMS.Core.Entities.Master
         [Required(ErrorMessage = "Company Policy name is required.")]
         [Display(Prompt = "policy Name")]
         public string Name { get; set; }
+        [DataType(DataType.Date)]
         public DateTime CalenderDate { get; set; }
 
         public string DocumentUrl { get; set; }
