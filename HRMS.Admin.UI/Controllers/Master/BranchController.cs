@@ -33,9 +33,17 @@ namespace HRMS.Admin.UI.Controllers.Master
         }
         public async Task<IActionResult> Index()
         {
-            ViewBag.HeaderTitle = PageHeader.HeaderSetting["BranchIndex"];
-
-            return await Task.Run(() => View(ViewHelper.GetViewPathDetails("Branch", "BranchIndex")));
+            try
+            {
+                ViewBag.HeaderTitle = PageHeader.HeaderSetting["BranchIndex"];
+                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("Branch", "BranchIndex")));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(Branch)} action name {nameof(Index)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> GetBranchList()
@@ -66,7 +74,7 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(Department)} action name {nameof(GetBranchList)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(Branch)} action name {nameof(GetBranchList)} exceptio is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -74,22 +82,32 @@ namespace HRMS.Admin.UI.Controllers.Master
 
         public async Task<IActionResult> CreateBranch(int id)
         {
-            await PopulateViewBag();
-            var response = await _IBranchRepository.GetAllEntities(x => x.Id == id);
-
-            if (id == 0)
+            try
             {
-                return PartialView(ViewHelper.GetViewPathDetails("Branch", "BranchCreate"));
+                await PopulateViewBag();
+                var response = await _IBranchRepository.GetAllEntities(x => x.Id == id);
+                if(id == 0)
+                {
+                    return PartialView(ViewHelper.GetViewPathDetails("Branch", "BranchCreate"));
+                }
+                else
+                {
+                    return PartialView(ViewHelper.GetViewPathDetails("Branch", "BranchCreate"), response.Entities.First());
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return PartialView(ViewHelper.GetViewPathDetails("Branch", "BranchCreate"), response.Entities.First());
+                string template = $"Controller name {nameof(Branch)} action name {nameof(CreateBranch)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
         }
 
         [HttpPost]
         public async Task<IActionResult> UpsertBranch(Branch model, IFormFile Logo)
         {
+            try
+            {
             model.Logo = await new BlobHelper().UploadImageToFolder(Logo, _IHostingEnviroment);
             if (model.Id == 0)
             {
@@ -101,21 +119,34 @@ namespace HRMS.Admin.UI.Controllers.Master
                 var response = await _IBranchRepository.UpdateEntity(model);
                 return Json(response.Message);
             }
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(Branch)} action name {nameof(UpsertBranch)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
         [HttpGet]
         public async Task<IActionResult> DeleteBranch(int id)
         {
+            try
+            {
             var deleteModel = await _IBranchRepository.GetAllEntityById(x => x.Id == id);
-
             var deleteDbModel = CrudHelper.DeleteHelper<Branch>(deleteModel.Entity, 1);
-
             var deleteResponse = await _IBranchRepository.DeleteEntity(deleteDbModel);
-
             if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
             {
                 return Json(deleteResponse.Message);
             }
             return Json(deleteResponse.Message);
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(Branch)} action name {nameof(DeleteBranch)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
         #region PrivateFields
         private async Task PopulateViewBag()

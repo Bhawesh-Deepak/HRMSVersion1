@@ -26,9 +26,17 @@ namespace HRMS.Admin.UI.Controllers.Master
         }
         public async Task<IActionResult> Index()
         {
-            ViewBag.HeaderTitle = PageHeader.HeaderSetting["LocationTypeIndex"];
-
-            return await Task.Run(() => View(ViewHelper.GetViewPathDetails("LocationType", "LocationTypeIndex")));
+            try
+            {
+                ViewBag.HeaderTitle = PageHeader.HeaderSetting["LocationTypeIndex"];
+                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("LocationType", "LocationTypeIndex")));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(LocationType)} action name {nameof(Index)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> GetLocationTypeList()
@@ -43,7 +51,7 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(Department)} action name {nameof(GetLocationTypeList)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(LocationType)} action name {nameof(GetLocationTypeList)} exceptio is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -51,47 +59,69 @@ namespace HRMS.Admin.UI.Controllers.Master
 
         public async Task<IActionResult> CreateLocationType(int id)
         {
-
-            var response = await _ILocationTypeRepository.GetAllEntities(x => x.Id == id);
-
-            if (id == 0)
+            try
             {
-                return PartialView(ViewHelper.GetViewPathDetails("LocationType", "LocationTypeCreate"));
+                var response = await _ILocationTypeRepository.GetAllEntities(x => x.Id == id);
+                if (id == 0)
+                {
+                    return PartialView(ViewHelper.GetViewPathDetails("LocationType", "LocationTypeCreate"));
+                }
+                else
+                {
+                    return PartialView(ViewHelper.GetViewPathDetails("LocationType", "LocationTypeCreate"), response.Entities.First());
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return PartialView(ViewHelper.GetViewPathDetails("LocationType", "LocationTypeCreate"), response.Entities.First());
+                string template = $"Controller name {nameof(LocationType)} action name {nameof(CreateLocationType)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
         }
 
         [HttpPost]
         public async Task<IActionResult> UpsertLocationType(LocationType model)
         {
-            if (model.Id == 0)
+            try
             {
-                var response = await _ILocationTypeRepository.CreateEntity(model);
-                return Json(response.Message);
+                if (model.Id == 0)
+                {
+                    var response = await _ILocationTypeRepository.CreateEntity(model);
+                    return Json(response.Message);
+                }
+                else
+                {
+                    var response = await _ILocationTypeRepository.UpdateEntity(model);
+                    return Json(response.Message);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                var response = await _ILocationTypeRepository.UpdateEntity(model);
-                return Json(response.Message);
+                string template = $"Controller name {nameof(LocationType)} action name {nameof(UpsertLocationType)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
         }
         [HttpGet]
         public async Task<IActionResult> DeleteLocationType(int id)
         {
-            var deleteModel = await _ILocationTypeRepository.GetAllEntityById(x => x.Id == id);
-
-            var deleteDbModel = CrudHelper.DeleteHelper<LocationType>(deleteModel.Entity, 1);
-
-            var deleteResponse = await _ILocationTypeRepository.DeleteEntity(deleteDbModel);
-
-            if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
+            try
             {
+                var deleteModel = await _ILocationTypeRepository.GetAllEntityById(x => x.Id == id);
+                var deleteDbModel = CrudHelper.DeleteHelper<LocationType>(deleteModel.Entity, 1);
+                var deleteResponse = await _ILocationTypeRepository.DeleteEntity(deleteDbModel);
+                if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
+                {
+                    return Json(deleteResponse.Message);
+                }
                 return Json(deleteResponse.Message);
             }
-            return Json(deleteResponse.Message);
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(LocationType)} action name {nameof(DeleteLocationType)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
     }
 }

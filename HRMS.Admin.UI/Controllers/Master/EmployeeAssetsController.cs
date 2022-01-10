@@ -31,8 +31,17 @@ namespace HRMS.Admin.UI.Controllers.Master
         }
         public async Task<IActionResult> Index()
         {
+            try
+            {
             ViewBag.HeaderTitle = PageHeader.HeaderSetting["EmployeeAssetsIndex"];
             return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeeAssets", "EmployeeAssetsIndex")));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(EmployeeAssets)} action name {nameof(Index)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> GetEmployeeAssetsList()
@@ -71,7 +80,7 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(Department)} action name {nameof(GetEmployeeAssetsList)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(EmployeeAssets)} action name {nameof(GetEmployeeAssetsList)} exceptio is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -80,48 +89,71 @@ namespace HRMS.Admin.UI.Controllers.Master
 
         public async Task<IActionResult> EmployeeAssetsCreate(int id)
         {
-            await PopulateViewBag();
-            var response = await _IEmployeeAssetsRepository.GetAllEntities(x => x.Id == id);
-
-            if (id == 0)
+            try
             {
-                return PartialView(ViewHelper.GetViewPathDetails("EmployeeAssets", "EmployeeAssetsCreate"));
+                await PopulateViewBag();
+                var response = await _IEmployeeAssetsRepository.GetAllEntities(x => x.Id == id);
+
+                if (id == 0)
+                {
+                    return PartialView(ViewHelper.GetViewPathDetails("EmployeeAssets", "EmployeeAssetsCreate"));
+                }
+                else
+                {
+                    return PartialView(ViewHelper.GetViewPathDetails("EmployeeAssets", "EmployeeAssetsCreate"), response.Entities.First());
+                }
             }
-            else
+            catch (Exception ex)
             {
-
-                return PartialView(ViewHelper.GetViewPathDetails("EmployeeAssets", "EmployeeAssetsCreate"), response.Entities.First());
+                string template = $"Controller name {nameof(EmployeeAssets)} action name {nameof(EmployeeAssetsCreate)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
         }
 
         [HttpPost]
         public async Task<IActionResult> UpsertEmployeeAssets(EmployeeAssets model)
         {
-            if (model.Id == 0)
+            try
             {
-                var response = await _IEmployeeAssetsRepository.CreateEntity(model);
-                return Json(response.Message);
-            }
+                if (model.Id == 0)
+                {
+                    var response = await _IEmployeeAssetsRepository.CreateEntity(model);
+                    return Json(response.Message);
+                }
             else
             {
                 var response = await _IEmployeeAssetsRepository.UpdateEntity(model);
                 return Json(response.Message);
             }
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(EmployeeAssets)} action name {nameof(UpsertEmployeeAssets)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
         [HttpGet]
         public async Task<IActionResult> DeleteEmployeeAssets(int id)
         {
+            try
+            {
             var deleteModel = await _IEmployeeAssetsRepository.GetAllEntityById(x => x.Id == id);
-
             var deleteDbModel = CrudHelper.DeleteHelper<EmployeeAssets>(deleteModel.Entity, 1);
-
             var deleteResponse = await _IEmployeeAssetsRepository.DeleteEntity(deleteDbModel);
-
             if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
             {
                 return Json(deleteResponse.Message);
             }
             return Json(deleteResponse.Message);
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(EmployeeAssets)} action name {nameof(DeleteEmployeeAssets)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
         #region PrivateFields
         private async Task PopulateViewBag()

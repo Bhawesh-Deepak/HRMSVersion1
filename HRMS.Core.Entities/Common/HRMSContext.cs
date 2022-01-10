@@ -77,6 +77,9 @@ namespace HRMS.Core.Entities.Common
         public virtual DbSet<ReferCandidate> ReferCandidates { get; set; }
         public virtual DbSet<AssesmentYear> AssesmentYears { get; set; }
 
+        public virtual DbSet<AnnouncementAndUpdate> AnnouncementAndUpdates { get; set; }
+
+
         #endregion
     }
 }

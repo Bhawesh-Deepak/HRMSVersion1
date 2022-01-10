@@ -25,8 +25,17 @@ namespace HRMS.Admin.UI.Controllers.Master
         }
         public async Task<IActionResult> Index()
         {
+            try
+            {
             ViewBag.HeaderTitle = PageHeader.HeaderSetting["CompanyNewsIndex"];
             return await Task.Run(() => View(ViewHelper.GetViewPathDetails("CompanyNews", "CompanyNewsIndex")));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(CompanyNews)} action name {nameof(Index)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> GetCompanyNewsList()
@@ -50,7 +59,7 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(Department)} action name {nameof(GetCompanyNewsList)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(CompanyNews)} action name {nameof(GetCompanyNewsList)} exceptio is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -59,7 +68,9 @@ namespace HRMS.Admin.UI.Controllers.Master
 
         public async Task<IActionResult> CompanyNewsCreate(int id)
         {
-            await PopulateViewBag();
+            try
+            {
+                await PopulateViewBag();
             var response = await _ICompanyNewsRepository.GetAllEntities(x => x.Id == id);
 
             if (id == 0)
@@ -68,14 +79,22 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             else
             {
-
                 return PartialView(ViewHelper.GetViewPathDetails("CompanyNews", "CompanyNewsCreate"), response.Entities.First());
+            }
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(CompanyNews)} action name {nameof(CompanyNewsCreate)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
         }
 
         [HttpPost]
         public async Task<IActionResult> UpsertCompanyNews(CompanyNews model)
         {
+            try
+            {
             if (model.Id == 0)
             {
                 var response = await _ICompanyNewsRepository.CreateEntity(model);
@@ -86,21 +105,34 @@ namespace HRMS.Admin.UI.Controllers.Master
                 var response = await _ICompanyNewsRepository.UpdateEntity(model);
                 return Json(response.Message);
             }
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(CompanyNews)} action name {nameof(UpsertCompanyNews)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
         [HttpGet]
         public async Task<IActionResult> DeleteCompanyNews(int id)
         {
-            var deleteModel = await _ICompanyNewsRepository.GetAllEntityById(x => x.Id == id);
-
-            var deleteDbModel = CrudHelper.DeleteHelper<CompanyNews>(deleteModel.Entity, 1);
-
-            var deleteResponse = await _ICompanyNewsRepository.DeleteEntity(deleteDbModel);
-
-            if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
+            try
             {
+                var deleteModel = await _ICompanyNewsRepository.GetAllEntityById(x => x.Id == id);
+                var deleteDbModel = CrudHelper.DeleteHelper<CompanyNews>(deleteModel.Entity, 1);
+                var deleteResponse = await _ICompanyNewsRepository.DeleteEntity(deleteDbModel);
+                if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
+                {
+                    return Json(deleteResponse.Message);
+                }
                 return Json(deleteResponse.Message);
             }
-            return Json(deleteResponse.Message);
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(CompanyNews)} action name {nameof(DeleteCompanyNews)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
         #region PrivateFields
         private async Task PopulateViewBag()
