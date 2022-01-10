@@ -27,7 +27,10 @@ namespace HRMS.Admin.UI.Controllers.Common
                 designation = designation,
                 department = department
             };
-            var response = await Task.Run(() => _IFilteredEmployeeRepository.GetAll<FilteredEmployee>(SqlQuery.GetFileteredEmployee, model));
+
+            var response = await Task.Run(() => _IFilteredEmployeeRepository
+                    .GetAll<FilteredEmployee>(SqlQuery.GetFileteredEmployee, model));
+
             return Json(response);
         }
     }
