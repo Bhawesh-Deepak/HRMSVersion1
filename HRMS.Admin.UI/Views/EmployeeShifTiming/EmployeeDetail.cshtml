@@ -1,0 +1,116 @@
+﻿@model HRMS.Core.Entities.Payroll.EmployeeDetail
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <div class="row" style="margin-top:0;">
+        <div class="col-md-12 col-sm-12">
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <div class="box-title">
+                        <i class="fa fa-info-circle"></i>   Employee Details
+                        &nbsp;
+                    </div>
+                </div>
+                <div class="box-body">
+                    <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                          data-ajax-complete="AjaxComplete"
+                          asp-action="UpdateShiftTiming" asp-controller="EmployeeShifTiming" data-ajax-success="Success">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <label for="exampleInputEmail2">Emp Code:</label>
+                                <input type="hidden" id="employeeId" name="employeeId" value="103">
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="exampleInputEmail2">@Model.EmpCode</label>
+                            </div>
+                            <div class="col-sm-2">
+                                <label for="exampleInputEmail2">Employee Name:</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="exampleInputEmail2">@Model.EmployeeName</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <label for="exampleInputEmail2">Department:</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="exampleInputEmail2">@Model.DepartmentName</label>
+                            </div>
+                            <div class="col-sm-2">
+                                <label for="exampleInputEmail2">Designation:</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="exampleInputEmail2">@Model.DesignationName</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <label for="exampleInputEmail2">Date Of Joining:</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="exampleInputEmail2">@string.Format("{0:dd/MM/yyyy}", @Model.JoiningDate)</label>
+                            </div>
+                            <div class="col-sm-2">
+                                <label for="exampleInputEmail2">Location:</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="exampleInputEmail2">@Model.Location</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <label for="exampleInputEmail2">Current Shift Timing:</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="exampleInputEmail2">@Model.ShiftTiming</label>
+                            </div>
+                            <div class="col-sm-2">
+                                <label for="exampleInputEmail2">Change Shift Timing:</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <select class="form-control" asp-for="ShiftTiming" asp-items="@(new SelectList(ViewBag.ShiftList ,"Name","Name"))">
+                                    <option value="">--Select--</option>
+                                </select>
+                                <input asp-for="Id" type="hidden" />
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-10">
+
+                            </div>
+                            <div class="col-sm-2">
+
+                                <button type="submit" class="btn btn-success">   Update </button>
+
+
+                            </div>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+
+    function Success(response) {
+        if (response == "Server error please contact admin team") {
+            alertify.set('notifier', 'position', 'bottom-right');
+            alertify.error(response);
+        }
+        else {
+            alertify.set('notifier', 'position', 'bottom-right');
+            alertify.success(response);
+        }
+
+        $("#form")[0].reset();//reset the form controll.
+        $(".form-control").val('');//Clear the controll which is present inside the form.
+
+        setTimeout(function () {
+            location.reload();
+        }, 300)
+    }
+</script>
