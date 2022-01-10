@@ -77,8 +77,10 @@ namespace HRMS.Admin.UI.Controllers.Master
         [HttpPost]
         public async Task<IActionResult> UpSertDepartment(Department model)
         {
+ 
             try
             {
+ 
             if (model.Id == 0)
             {
                 var response = await _IDepartmentRepository.CreateEntity(model);

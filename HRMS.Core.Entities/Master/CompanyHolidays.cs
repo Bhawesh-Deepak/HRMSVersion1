@@ -20,6 +20,7 @@ namespace HRMS.Core.Entities.Master
         [Display(Prompt = "Holiday Name")]
         public string Name { get; set; }
         [Required(ErrorMessage = "this filed is required")]
+        [DataType(DataType.Date)]
         public DateTime HolidayDate { get; set; }
     }
 }

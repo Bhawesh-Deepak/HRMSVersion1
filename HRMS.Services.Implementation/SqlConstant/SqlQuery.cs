@@ -9,5 +9,7 @@ namespace HRMS.Services.Implementation.SqlConstant
     public static class SqlQuery
     {
         public const string UploadAttendance = @"[Payroll].[usp_UploadEmployeeAttendance]";
+        public const string GetReferedCandidate = @"Posting.usp_GetReferedCandidate";
+        public const string GetFileteredEmployee = @"Payroll.usp_GetEmployeeList";
     }
 }

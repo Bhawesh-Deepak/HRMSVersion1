@@ -33,7 +33,7 @@ function CustomDelete(id, url) {
     });
 }
 
-function CustomDeleteRecord(id, getUrl, deleteUrl, event) {
+function CustomDeleteRecord(id, getUrl, deleteUrl, event, divurl ="#divHRMS") {
     alertify.set('notifier', 'position', 'top-center');
     alertify.confirm("Are you sure want to delete the record ?", function () {
         debugger;
@@ -48,7 +48,7 @@ function CustomDeleteRecord(id, getUrl, deleteUrl, event) {
             
             $.get(getUrl, function (response) {
                 
-                $("#divHRMS").html(response);
+                $(divurl).html(response);
                 
             }).done(function () {
                  

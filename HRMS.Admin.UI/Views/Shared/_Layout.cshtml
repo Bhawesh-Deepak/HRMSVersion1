@@ -19,6 +19,7 @@
     <title>@companyDetails.Name</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="shortcut icon" href="~/resources/dist/img/favicon.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="@companyDetails.FavIcon" type="image/x-icon" />
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
     <link href="~/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
@@ -34,7 +35,6 @@
     <script src="~/resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="~/resources/dist/js/app.min.js" type="text/javascript"></script>
     <link href="~/resources/dist/css/rnr.css?v=1.2" rel="stylesheet" type="text/css" />
-    <link rel="shortcut icon" href="@companyDetails.FavIcon" type="image/x-icon" />
     <link href="~/resources/dist/font-awesome/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="~/resources/dist/css/build.css" rel="stylesheet" type="text/css" />
     <link href="~/resources/dist/css/custom-fonts.css" rel="stylesheet" type="text/css" />
@@ -50,9 +50,11 @@
             integrity="sha256-PAC000yuHt78nszJ2RO0OiDMu/uLzPLRlYTk8J3AO10="
             crossorigin="anonymous"></script>
     <style>
-        
-       
-        
+
+       /* * {
+            font-family: 'Montserrat', sans-serif !important;
+        }*/
+
         .modal.fade .modal-dialog {
             transform: translate(0);
             margin: 0 0 0 auto;
@@ -69,8 +71,7 @@
             bottom: 0;
             right: 0;
         }
-    </style>
-    <style>
+
         .ui-widget-content {
             z-index: 9999999 !important;
         }
@@ -110,7 +111,7 @@
 
     <script src="~/resources/plugins/toastr/toastr.min.js"></script>
     <script src="~/resources/dist/js/jquery.MultiFile.js"></script>
-    @*<script src="~/resources/dist/js/custom.js?v=3"></script>*@
+    <script src="~/resources/dist/js/custom.js?v=3"></script>
     <link href="~/AlertifyJs/build/css/themes/bootstrap.css" rel="stylesheet" />
     <script src="~/AlertifyJs/build/alertify.js"></script>
     <link href="~/AlertifyJs/build/css/alertify.css" rel="stylesheet" />
@@ -694,9 +695,7 @@
                 <!-- Navbar Right Menu -->
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
-                        <li class="hidden-sm hidden-xs" style=''>
-                            <a asp-action="Index" asp-controller="Profile" class="quicklinks" target="_self">My Profile </a>
-                        </li>
+                        
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <img src="~/resources/dist/img/emp.png" class="user-image" alt="User Image">
@@ -763,6 +762,7 @@
                         <li class="treeview">
                             <a href="#"><i class="fa fa-cogs"></i> <span>Square Yards</span><i class="fa fa-angle-left pull-right"></i></a>
                             <ul class="treeview-menu">
+                                <li><a asp-action="Index" asp-controller="AssesmentYear"><i class="fa fa-line-chart"></i> <span>Assesment Year</span></a></li>
                                 <li><a asp-action="Index" asp-controller="Subsidiary"><i class="fa fa-line-chart"></i> <span>Legal Entity</span></a></li>
                                 <li><a asp-action="Index" asp-controller="Branch"><i class="fa fa-line-chart"></i> <span>Branch</span></a></li>
                                 <li><a asp-action="Index" asp-controller="Location"><i class="fa fa-line-chart"></i> <span>Location</span></a></li>
@@ -773,9 +773,6 @@
                                 <li><a asp-action="Index" asp-controller="Region"><i class="fa fa-line-chart"></i> <span>Region</span></a></li>
                                 <li><a asp-action="Index" asp-controller="Employeetype"><i class="fa fa-line-chart"></i> <span>Employee Type</span></a></li>
                                 <li><a asp-action="Index" asp-controller="Shift"><i class="fa fa-line-chart"></i> <span>Shift</span></a></li>
-
-
-
                             </ul>
                         </li>
                         <li class="treeview">
@@ -791,12 +788,10 @@
                             <ul class="treeview-menu">
                                 <li><a asp-action="Index" asp-controller="CompanyPolicy"><i class="fa fa-line-chart"></i> <span>Policies</span></a></li>
                                 <li><a asp-action="Index" asp-controller="CompanyHolidays"><i class="fa fa-line-chart"></i> <span>List of Holidays</span></a></li>
-                                <li><a href="#"><i class="fa fa-line-chart"></i> <span>Announcement &amp; Update</span></a></li>
+                                <li><a asp-action="Index" asp-controller="Announcement"><i class="fa fa-line-chart"></i> <span>Announcement &amp; Update</span></a></li>
                                 <li><a asp-action="Index" asp-controller="CompanyNews"><i class="fa fa-line-chart"></i> <span>Company News</span></a></li>
-                                <li><a href="#"><i class="fa fa-line-chart"></i> <span>Current Opening</span></a></li>
-                                <li><a href="#"><i class="fa fa-line-chart"></i> <span>Gallery</span></a></li>
-                                <li><a href="#"><i class="fa fa-line-chart"></i> <span>Leave Approval</span></a></li>
-                                <li><a href="#"><i class="fa fa-line-chart"></i> <span>Referral Candidate</span></a></li>
+                                <li><a asp-controller="CurrentOpening" asp-action="Index"><i class="fa fa-line-chart"></i> <span>Current Opening</span></a></li>
+                                <li><a asp-action="Index" asp-controller="ReferDetail"><i class="fa fa-line-chart"></i> <span>Referral Candidate</span></a></li>
                             </ul>
                         </li>
                         <li class="treeview">
@@ -804,12 +799,11 @@
                             <ul class="treeview-menu">
                                 <li><a href="#"><i class="fa fa-line-chart"></i> <span>Employee Increment</span></a></li>
                                 <li><a asp-action="Index" asp-controller="EmployeeSalary"><i class="fa fa-line-chart"></i> <span>Employee Master Import</span></a></li>
-                                <li><a href="#"><i class="fa fa-line-chart"></i> <span>Employee Master Details</span></a></li>
-                                <li><a href="#"><i class="fa fa-line-chart"></i> <span>Active Employee</span></a></li>
-                                <li><a href="#"><i class="fa fa-line-chart"></i> <span>In-Active Employee</span></a></li>
-                                <li><a href="#"><i class="fa fa-line-chart"></i> <span>Assets</span></a></li>
-                                <li><a href="#"><i class="fa fa-line-chart"></i> <span>Shift Timing of Employee</span></a></li>
-                                <li><a href="#"><i class="fa fa-line-chart"></i> <span>Internal Transfer</span></a></li>
+                                <li><a asp-action="Index" asp-controller="EmployeeDetail"><i class="fa fa-line-chart"></i> <span>Employee Details</span></a></li>
+                               
+                                <li><a asp-controller="EmployeeAssets" asp-action="Index"><i class="fa fa-line-chart"></i> <span>Assets</span></a></li>
+                                <li><a asp-controller="EmployeeShifTiming" asp-action="Index"><i class="fa fa-line-chart"></i> <span>Shift Timing of Employee</span></a></li>
+                                <li><a asp-controller="InternalTransfer" asp-action="Index"  ><i class="fa fa-line-chart"></i> <span>Internal Transfer</span></a></li>
                             </ul>
                         </li>
                         <li class="treeview">

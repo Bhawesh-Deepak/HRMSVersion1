@@ -2,13 +2,7 @@
 <script src="~/resources/dist/js/jquery.dataTables.js" type="text/javascript"></script>
 
 <div class="content-wrapper" style="min-height: 870px;">
-    <section class="content-header">
-
-        <ol class="breadcrumb">
-            <li>Home</li>
-            <li class="active">Index</li>
-        </ol>
-    </section>
+    
     <section class="content">
         <div class="row">
             <div class="col-md-8">
@@ -26,37 +20,36 @@
                             </div>
                             <div class="box-body">
                                 <div class="row">
-                                    <form asp-action="EmployeeDirectorySearch" asp-controller="EmployeeDirectory" method="post" novalidate="novalidate">
+                                    <form asp-action="EmployeeDirectorySearch" asp-controller="EmployeeDirectory" method="get" novalidate="novalidate">
                                         <div class="col-sm-3">
-                                            <input type="search" class="form-control input-sm" asp-for="@Model.First().EmpCode" value="" placeholder="empCode">
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div>
-                                                <select class="form-control input-sm" asp-for="@Model.First().LegalEntity" asp-items="@(new SelectList(ViewBag.SubsidiaryList ,"Name","Name"))">
-                                                    <option value="">--Select--</option>
-                                                </select>
+                                            
+                                                <input type="search" class="form-control input-sm" id="empCode" name="empCode" placeholder="empCode">
                                             </div>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <div>
-
-                                                <select class="form-comtrol input-sm valid" asp-for="@Model.First().IsActive">
-                                                    <option selected="selected" value="">---Select One---</option>
-                                                    <option value="1">Active</option>
-                                                    <option value="0">INn-Active</option>
-                                                </select>
-
+                                            <div class="col-sm-4">
+                                                <div>
+                                                    <select class="form-control input-sm" asp-for="@Model.First().LegalEntity" asp-items="@(new SelectList(ViewBag.SubsidiaryList ,"Name","Name"))">
+                                                        <option value="">--Select--</option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-1">
-                                            <br>
-                                            <button type="submit" class="btn btn-info btn-sm"><i class="fa fa-search"></i>  </button>
-                                        </div>
-                                        <div class="col-sm-1">
-                                            <br>
-                                            <a asp-action="Index" asp-controller="EmployeeDirectory" class="btn btn-info btn-sm"><i class="fa fa-refresh"></i>  </a>
-                                        </div>
-                                    </form>
+                                            <div class="col-sm-3">
+                                                <div>
+
+                                                    <select class="form-comtrol input-sm valid" asp-for="@Model.First().IsActive">
+                                                        <option selected="selected" value="">---Select One---</option>
+                                                        <option value="1">Active</option>
+                                                        <option value="0">INn-Active</option>
+                                                    </select>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button type="submit" class="btn btn-info btn-sm" title="Search Employee"><i class="fa fa-search"></i>  </button>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <a asp-action="Index" asp-controller="EmployeeDirectory" class="btn btn-info btn-sm" title="Refresh"><i class="fa fa-refresh"></i>  </a>
+                                            </div>
+</form>
                                 </div>
                                 <hr />
                                 <div class="table-responsive">
@@ -138,7 +131,6 @@
 
     </section>
 </div>
-
 <script>
     function employeedetail(id) {
         $('#divLoader').modal('show');
@@ -148,6 +140,16 @@
         });
     }
 
+    $(document).ready(function () {
+        var employees = [];
+        $.get("/Common/GetFilteredEmployee", { empCode: '' }, function (data) {
+            employees = data;
+        })
+        debugger;
+        $("#empCode").autocomplete({
+            source: employees
+        })
+    })
 
 </script>
 
