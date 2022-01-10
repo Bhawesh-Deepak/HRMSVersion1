@@ -762,6 +762,7 @@
                         <li class="treeview">
                             <a href="#"><i class="fa fa-cogs"></i> <span>Square Yards</span><i class="fa fa-angle-left pull-right"></i></a>
                             <ul class="treeview-menu">
+                                <li><a asp-action="Index" asp-controller="AssesmentYear"><i class="fa fa-line-chart"></i> <span>Assesment Year</span></a></li>
                                 <li><a asp-action="Index" asp-controller="Subsidiary"><i class="fa fa-line-chart"></i> <span>Legal Entity</span></a></li>
                                 <li><a asp-action="Index" asp-controller="Branch"><i class="fa fa-line-chart"></i> <span>Branch</span></a></li>
                                 <li><a asp-action="Index" asp-controller="Location"><i class="fa fa-line-chart"></i> <span>Location</span></a></li>
@@ -772,9 +773,6 @@
                                 <li><a asp-action="Index" asp-controller="Region"><i class="fa fa-line-chart"></i> <span>Region</span></a></li>
                                 <li><a asp-action="Index" asp-controller="Employeetype"><i class="fa fa-line-chart"></i> <span>Employee Type</span></a></li>
                                 <li><a asp-action="Index" asp-controller="Shift"><i class="fa fa-line-chart"></i> <span>Shift</span></a></li>
-
-
-
                             </ul>
                         </li>
                         <li class="treeview">
@@ -790,11 +788,9 @@
                             <ul class="treeview-menu">
                                 <li><a asp-action="Index" asp-controller="CompanyPolicy"><i class="fa fa-line-chart"></i> <span>Policies</span></a></li>
                                 <li><a asp-action="Index" asp-controller="CompanyHolidays"><i class="fa fa-line-chart"></i> <span>List of Holidays</span></a></li>
-                                <li><a href="#"><i class="fa fa-line-chart"></i> <span>Announcement &amp; Update</span></a></li>
+                                <li><a asp-action="Index" asp-controller="Announcement"><i class="fa fa-line-chart"></i> <span>Announcement &amp; Update</span></a></li>
                                 <li><a asp-action="Index" asp-controller="CompanyNews"><i class="fa fa-line-chart"></i> <span>Company News</span></a></li>
                                 <li><a asp-controller="CurrentOpening" asp-action="Index"><i class="fa fa-line-chart"></i> <span>Current Opening</span></a></li>
-                                <li><a href="#"><i class="fa fa-line-chart"></i> <span>Gallery</span></a></li>
-                                <li><a href="#"><i class="fa fa-line-chart"></i> <span>Leave Approval</span></a></li>
                                 <li><a asp-action="Index" asp-controller="ReferDetail"><i class="fa fa-line-chart"></i> <span>Referral Candidate</span></a></li>
                             </ul>
                         </li>
@@ -804,9 +800,8 @@
                                 <li><a href="#"><i class="fa fa-line-chart"></i> <span>Employee Increment</span></a></li>
                                 <li><a asp-action="Index" asp-controller="EmployeeSalary"><i class="fa fa-line-chart"></i> <span>Employee Master Import</span></a></li>
                                 <li><a asp-action="Index" asp-controller="EmployeeDetail"><i class="fa fa-line-chart"></i> <span>Employee Details</span></a></li>
-                                <li><a href="#"><i class="fa fa-line-chart"></i> <span>Active Employee</span></a></li>
-                                <li><a href="#"><i class="fa fa-line-chart"></i> <span>In-Active Employee</span></a></li>
-                                <li><a href="#"><i class="fa fa-line-chart"></i> <span>Assets</span></a></li>
+                               
+                                <li><a asp-controller="EmployeeAssets" asp-action="Index"><i class="fa fa-line-chart"></i> <span>Assets</span></a></li>
                                 <li><a href="#"><i class="fa fa-line-chart"></i> <span>Shift Timing of Employee</span></a></li>
                                 <li><a href="#"><i class="fa fa-line-chart"></i> <span>Internal Transfer</span></a></li>
                             </ul>
