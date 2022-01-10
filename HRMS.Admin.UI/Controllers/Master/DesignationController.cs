@@ -29,13 +29,23 @@ namespace HRMS.Admin.UI.Controllers.Master
         }
         public async Task<IActionResult> Index()
         {
+            try
+            {
             ViewBag.HeaderTitle = PageHeader.HeaderSetting["DesignationIndex"];
-           
             return await Task.Run(() => View(ViewHelper.GetViewPathDetails("Designation", "DesignationIndex")));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(Designation)} action name {nameof(Index)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> GetDesignationList()
         {
+            try
+            {
             var departmentList = await _IDepartmentRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
             var designationLIst = await _IDesignationRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
 
@@ -52,10 +62,19 @@ namespace HRMS.Admin.UI.Controllers.Master
                                    }).ToList();
 
             return PartialView(ViewHelper.GetViewPathDetails("Designation", "DesignationDetails"), responseDetails);
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(Designation)} action name {nameof(GetDesignationList)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> CreateDesignation(int id)
         {
+            try
+            {
             await PopulateViewBag();
             var response = await _IDesignationRepository.GetAllEntities(x => x.Id == id);
 
@@ -68,11 +87,20 @@ namespace HRMS.Admin.UI.Controllers.Master
 
                 return PartialView(ViewHelper.GetViewPathDetails("Designation", "DesignationCreate"), response.Entities.First());
             }
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(Designation)} action name {nameof(CreateDesignation)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> UpsertDesignation(Designation model)
         {
+            try
+            {
             if (model.Id == 0)
             {
                 var response = await _IDesignationRepository.CreateEntity(model);
@@ -83,21 +111,34 @@ namespace HRMS.Admin.UI.Controllers.Master
                 var response = await _IDesignationRepository.UpdateEntity(model);
                 return Json(response.Message);
             }
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(Designation)} action name {nameof(UpsertDesignation)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
         [HttpGet]
         public async Task<IActionResult> DeleteDesignation(int id)
         {
+            try
+            {
             var deleteModel = await _IDesignationRepository.GetAllEntityById(x => x.Id == id);
-
             var deleteDbModel = CrudHelper.DeleteHelper<Designation>(deleteModel.Entity, 1);
-
             var deleteResponse = await _IDesignationRepository.DeleteEntity(deleteDbModel);
-
             if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
             {
                 return Json(deleteResponse.Message);
             }
             return Json(deleteResponse.Message);
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(Designation)} action name {nameof(DeleteDesignation)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
         #region PrivateFields
         private async Task PopulateViewBag()

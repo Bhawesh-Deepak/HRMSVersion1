@@ -28,9 +28,17 @@ namespace HRMS.Admin.UI.Controllers.Master
         }
         public async Task<IActionResult> Index()
         {
-            ViewBag.HeaderTitle = PageHeader.HeaderSetting["P and L Name"];
-
-            return await Task.Run(() => View(ViewHelper.GetViewPathDetails("PandLname", "PandLnameIndex")));
+            try
+            {
+                ViewBag.HeaderTitle = PageHeader.HeaderSetting["P and L Name"];
+                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("PandLname", "PandLnameIndex")));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(PAndLMaster)} action name {nameof(Index)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> GetPandLList()
@@ -45,7 +53,7 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(Department)} action name {nameof(GetPandLList)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(PAndLMaster)} action name {nameof(GetPandLList)} exceptio is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -53,48 +61,69 @@ namespace HRMS.Admin.UI.Controllers.Master
 
         public async Task<IActionResult> CreatePandLname(int id)
         {
-          
-            var response = await _IPandLnameRepository.GetAllEntities(x => x.Id == id);
-
-            if (id == 0)
+            try
             {
-                return PartialView(ViewHelper.GetViewPathDetails("PandLname", "PandLNameCreate"));
+                var response = await _IPandLnameRepository.GetAllEntities(x => x.Id == id);
+                if (id == 0)
+                {
+                    return PartialView(ViewHelper.GetViewPathDetails("PandLname", "PandLNameCreate"));
+                }
+                else
+                {
+                    return PartialView(ViewHelper.GetViewPathDetails("PandLname", "PandLNameCreate"), response.Entities.First());
+                }
             }
-            else
+            catch (Exception ex)
             {
-
-                return PartialView(ViewHelper.GetViewPathDetails("PandLname", "PandLNameCreate"), response.Entities.First());
+                string template = $"Controller name {nameof(PAndLMaster)} action name {nameof(CreatePandLname)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
         }
 
         [HttpPost]
         public async Task<IActionResult> UpsertPandLname(PAndLMaster model)
         {
-            if (model.Id == 0)
+            try
             {
-                var response = await _IPandLnameRepository.CreateEntity(model);
-                return Json(response.Message);
+                if (model.Id == 0)
+                {
+                    var response = await _IPandLnameRepository.CreateEntity(model);
+                    return Json(response.Message);
+                }
+                else
+                {
+                    var response = await _IPandLnameRepository.UpdateEntity(model);
+                    return Json(response.Message);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                var response = await _IPandLnameRepository.UpdateEntity(model);
-                return Json(response.Message);
+                string template = $"Controller name {nameof(PAndLMaster)} action name {nameof(UpsertPandLname)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
         }
         [HttpGet]
         public async Task<IActionResult> DeletePandLname(int id)
         {
-            var deleteModel = await _IPandLnameRepository.GetAllEntityById(x => x.Id == id);
-
-            var deleteDbModel = CrudHelper.DeleteHelper<PAndLMaster>(deleteModel.Entity, 1);
-
-            var deleteResponse = await _IPandLnameRepository.DeleteEntity(deleteDbModel);
-
-            if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
+            try
             {
+                var deleteModel = await _IPandLnameRepository.GetAllEntityById(x => x.Id == id);
+                var deleteDbModel = CrudHelper.DeleteHelper<PAndLMaster>(deleteModel.Entity, 1);
+                var deleteResponse = await _IPandLnameRepository.DeleteEntity(deleteDbModel);
+                if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
+                {
+                    return Json(deleteResponse.Message);
+                }
                 return Json(deleteResponse.Message);
             }
-            return Json(deleteResponse.Message);
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(PAndLMaster)} action name {nameof(DeletePandLname)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
     }
 }

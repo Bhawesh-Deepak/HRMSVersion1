@@ -20,9 +20,17 @@ namespace HRMS.Admin.UI.Controllers.Master
 
         public async Task<IActionResult> Index()
         {
-            ViewBag.HeaderTitle = PageHeader.HeaderSetting["RoleMasterIndex"];
-            return await Task.Run(() => View(ViewHelper
-                .GetViewPathDetails("RoleMaster", "RoleIndex")));
+            try
+            {
+                ViewBag.HeaderTitle = PageHeader.HeaderSetting["RoleMasterIndex"];
+                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("RoleMaster", "RoleIndex")));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(RoleMaster)} action name {nameof(GetRoleDetail)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
@@ -35,6 +43,8 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
             {
+                string template = $"Controller name {nameof(RoleMaster)} action name {nameof(GetRoleDetail)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
 
@@ -43,46 +53,70 @@ namespace HRMS.Admin.UI.Controllers.Master
         [HttpGet]
         public async Task<IActionResult> CreateRole(int id)
         {
-            if (id == 0)
+            try
             {
-                return await Task.Run(() => PartialView(ViewHelper.GetViewPathDetails("RoleMaster", "RoleCreate")));
+                if (id == 0)
+                {
+                    return await Task.Run(() => PartialView(ViewHelper.GetViewPathDetails("RoleMaster", "RoleCreate")));
+                }
+                var response = await _IRoleMasterRepository.GetAllEntities(x => x.Id == id);
+                if (response.ResponseStatus == Core.Entities.Common.ResponseStatus.Success)
+                {
+                    return PartialView(ViewHelper.GetViewPathDetails("RoleMaster", "RoleCreate"), response.Entities.First());
+                }
+                return RedirectToAction("Error", "Home");
             }
-            var response = await _IRoleMasterRepository.GetAllEntities(x => x.Id == id);
-            if (response.ResponseStatus == Core.Entities.Common.ResponseStatus.Success)
+            catch (Exception ex)
             {
-                return PartialView(ViewHelper.GetViewPathDetails("RoleMaster", "RoleCreate"), response.Entities.First());
+                string template = $"Controller name {nameof(RoleMaster)} action name {nameof(CreateRole)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
-            return RedirectToAction("Error", "Home");
         }
 
         [HttpPost]
         public async Task<IActionResult> UpsertRole(RoleMaster model)
         {
-            model.CreatedDate = DateTime.Now;
-            if (model.Id == 0)
+            try
             {
-                var response = await _IRoleMasterRepository.CreateEntity(model);
-                return Json(new DBResponseHelper<RoleMaster, int>().GetDBResponseHelper(response).message);
+                model.CreatedDate = DateTime.Now;
+                if (model.Id == 0)
+                {
+                    var response = await _IRoleMasterRepository.CreateEntity(model);
+                    return Json(new DBResponseHelper<RoleMaster, int>().GetDBResponseHelper(response).message);
+                }
+                var updateResponse = await _IRoleMasterRepository.UpdateEntity(model);
+                return Json(new DBResponseHelper<RoleMaster, int>().GetDBResponseHelper(updateResponse).message);
             }
-
-            var updateResponse = await _IRoleMasterRepository.UpdateEntity(model);
-            return Json(new DBResponseHelper<RoleMaster, int>().GetDBResponseHelper(updateResponse).message);
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(RoleMaster)} action name {nameof(UpsertRole)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> DeleteRole(int id)
         {
-            var deleteModelResponse = await _IRoleMasterRepository.GetAllEntityById(x => x.Id == id);
-            if (deleteModelResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Success)
+            try
             {
-                deleteModelResponse.Entity.IsActive = false;
-                deleteModelResponse.Entity.IsDeleted = true;
-
-                var deleteResponse = await _IRoleMasterRepository.DeleteEntity(deleteModelResponse.Entity);
-
-                return Json(new DBResponseHelper<RoleMaster, int>().GetDBResponseHelper(deleteResponse));
-            }
+                var deleteModelResponse = await _IRoleMasterRepository.GetAllEntityById(x => x.Id == id);
+                if (deleteModelResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Success)
+                {
+                    deleteModelResponse.Entity.IsActive = false;
+                    deleteModelResponse.Entity.IsDeleted = true;
+                    var deleteResponse = await _IRoleMasterRepository.DeleteEntity(deleteModelResponse.Entity);
+                    return Json(new DBResponseHelper<RoleMaster, int>().GetDBResponseHelper(deleteResponse));
+                }
 
             return Json($"The Role Id {id} you have passed is not valid !!!");
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(RoleMaster)} action name {nameof(DeleteRole)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
     }
 }

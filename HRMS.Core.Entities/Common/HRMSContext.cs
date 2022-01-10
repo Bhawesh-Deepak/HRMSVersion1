@@ -75,6 +75,9 @@ namespace HRMS.Core.Entities.Common
 
         public virtual DbSet<EmployeeAssets> EmployeeAssets { get; set; }
 
+        public virtual DbSet<AnnouncementAndUpdate> AnnouncementAndUpdates { get; set; }
+
+
         #endregion
     }
 }

@@ -26,8 +26,17 @@ namespace HRMS.Admin.UI.Controllers.Master
         }
         public async Task<IActionResult> Index()
         {
-            ViewBag.HeaderTitle = PageHeader.HeaderSetting["CompanyHolidaysIndex"];
-            return await Task.Run(() => View(ViewHelper.GetViewPathDetails("CompanyHolidays", "CompanyHolidaysIndex")));
+            try
+            {
+                ViewBag.HeaderTitle = PageHeader.HeaderSetting["CompanyHolidaysIndex"];
+                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("CompanyHolidays", "CompanyHolidaysIndex")));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(CompanyHolidays)} action name {nameof(Index)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> GetHolidayList()
@@ -60,6 +69,8 @@ namespace HRMS.Admin.UI.Controllers.Master
 
         public async Task<IActionResult> HolidayCreate(int id)
         {
+            try
+            {
             await PopulateViewBag();
             var response = await _ICompanyHolidaysRepository.GetAllEntities(x => x.Id == id);
 
@@ -72,36 +83,58 @@ namespace HRMS.Admin.UI.Controllers.Master
 
                 return PartialView(ViewHelper.GetViewPathDetails("CompanyHolidays", "CompanyHolidayCreate"), response.Entities.First());
             }
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(CompanyHolidays)} action name {nameof(HolidayCreate)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> UpsertCompanyHoliday(CompanyHolidays model)
         {
-            if (model.Id == 0)
+            try
             {
-                var response = await _ICompanyHolidaysRepository.CreateEntity(model);
-                return Json(response.Message);
+                if (model.Id == 0)
+                {
+                    var response = await _ICompanyHolidaysRepository.CreateEntity(model);
+                    return Json(response.Message);
+                }
+                else
+                {
+                    var response = await _ICompanyHolidaysRepository.UpdateEntity(model);
+                    return Json(response.Message);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                var response = await _ICompanyHolidaysRepository.UpdateEntity(model);
-                return Json(response.Message);
+                string template = $"Controller name {nameof(CompanyHolidays)} action name {nameof(UpsertCompanyHoliday)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
         }
         [HttpGet]
         public async Task<IActionResult> DeleteCompanyHoliday(int id)
         {
+            try
+            {
             var deleteModel = await _ICompanyHolidaysRepository.GetAllEntityById(x => x.Id == id);
-
             var deleteDbModel = CrudHelper.DeleteHelper<CompanyHolidays>(deleteModel.Entity, 1);
-
             var deleteResponse = await _ICompanyHolidaysRepository.DeleteEntity(deleteDbModel);
-
             if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
             {
                 return Json(deleteResponse.Message);
             }
             return Json(deleteResponse.Message);
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(CompanyHolidays)} action name {nameof(DeleteCompanyHoliday)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         #region PrivateFields

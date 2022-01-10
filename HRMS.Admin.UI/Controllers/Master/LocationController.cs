@@ -30,9 +30,17 @@ namespace HRMS.Admin.UI.Controllers.Master
         }
         public async Task<IActionResult> Index()
         {
+            try
+            {
             ViewBag.HeaderTitle = PageHeader.HeaderSetting["LocationIndex"];
-
             return await Task.Run(() => View(ViewHelper.GetViewPathDetails("Location", "LocationIndex")));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(Location)} action name {nameof(Index)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> GetLoctionList()
@@ -56,7 +64,7 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(Department)} action name {nameof(GetLoctionList)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(Location)} action name {nameof(GetLoctionList)} exceptio is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -64,47 +72,70 @@ namespace HRMS.Admin.UI.Controllers.Master
 
         public async Task<IActionResult> CreateLocation(int id)
         {
-            await PopulateViewBag();
-            var response = await _ILocationRepository.GetAllEntities(x => x.Id == id);
-
-            if (id == 0)
+            try
             {
-                return PartialView(ViewHelper.GetViewPathDetails("Location", "LocationCreate"));
+                await PopulateViewBag();
+                var response = await _ILocationRepository.GetAllEntities(x => x.Id == id);
+                if(id == 0)
+                {
+                    return PartialView(ViewHelper.GetViewPathDetails("Location", "LocationCreate"));
+                }
+                else
+                {
+                    return PartialView(ViewHelper.GetViewPathDetails("Location", "LocationCreate"), response.Entities.First());
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return PartialView(ViewHelper.GetViewPathDetails("Location", "LocationCreate"), response.Entities.First());
+                string template = $"Controller name {nameof(Location)} action name {nameof(CreateLocation)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
         }
 
         [HttpPost]
         public async Task<IActionResult> UpsertLocation(Location model)
         {
-            if (model.Id == 0)
+            try
             {
-                var response = await _ILocationRepository.CreateEntity(model);
-                return Json(response.Message);
+                if (model.Id == 0)
+                {
+                    var response = await _ILocationRepository.CreateEntity(model);
+                    return Json(response.Message);
+                }
+                else
+                {
+                    var response = await _ILocationRepository.UpdateEntity(model);
+                    return Json(response.Message);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                var response = await _ILocationRepository.UpdateEntity(model);
-                return Json(response.Message);
+                string template = $"Controller name {nameof(Location)} action name {nameof(UpsertLocation)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
         }
         [HttpGet]
         public async Task<IActionResult> DeleteLocation(int id)
         {
-            var deleteModel = await _ILocationRepository.GetAllEntityById(x => x.Id == id);
-
-            var deleteDbModel = CrudHelper.DeleteHelper<Location>(deleteModel.Entity, 1);
-
-            var deleteResponse = await _ILocationRepository.DeleteEntity(deleteDbModel);
-
-            if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
+            try
             {
+                var deleteModel = await _ILocationRepository.GetAllEntityById(x => x.Id == id);
+                var deleteDbModel = CrudHelper.DeleteHelper<Location>(deleteModel.Entity, 1);
+                var deleteResponse = await _ILocationRepository.DeleteEntity(deleteDbModel);
+                if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
+                {
+                    return Json(deleteResponse.Message);
+                }
                 return Json(deleteResponse.Message);
             }
-            return Json(deleteResponse.Message);
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(Location)} action name {nameof(DeleteLocation)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
         #region PrivateFields
         private async Task PopulateViewBag()

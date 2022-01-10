@@ -34,9 +34,17 @@ namespace HRMS.Admin.UI.Controllers.Master
         }
         public async Task<IActionResult> Index()
         {
+            try
+            {
             ViewBag.HeaderTitle = PageHeader.HeaderSetting["CompanyPolicyIndex"];
-
             return await Task.Run(() => View(ViewHelper.GetViewPathDetails("CompanyPolicy", "CompanyPolicyIndex")));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(CompanyPolicy)} action name {nameof(Index)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> GetCompanyPolicyList()
@@ -63,7 +71,7 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(Department)} action name {nameof(GetCompanyPolicyList)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(CompanyPolicy)} action name {nameof(GetCompanyPolicyList)} exceptio is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -71,9 +79,10 @@ namespace HRMS.Admin.UI.Controllers.Master
 
         public async Task<IActionResult> CreateCompanyPolicy(int id)
         {
+            try
+            {
             await PopulateViewBag();
             var response = await _ICompanyPolicyRepository.GetAllEntities(x => x.Id == id);
-
             if (id == 0)
             {
                 return PartialView(ViewHelper.GetViewPathDetails("CompanyPolicy", "CompanyPolicyCreate"));
@@ -82,11 +91,20 @@ namespace HRMS.Admin.UI.Controllers.Master
             {
                 return PartialView(ViewHelper.GetViewPathDetails("CompanyPolicy", "CompanyPolicyCreate"), response.Entities.First());
             }
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(CompanyPolicy)} action name {nameof(CreateCompanyPolicy)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> UpsertCompanyPolicy(CompanyPolicy model,IFormFile DocumentUrl)
         {
+            try
+            {
             model.DocumentUrl= await new BlobHelper().UploadImageToFolder(DocumentUrl, _IHostingEnviroment);
             if (model.Id == 0)
             {
@@ -98,14 +116,21 @@ namespace HRMS.Admin.UI.Controllers.Master
                 var response = await _ICompanyPolicyRepository.UpdateEntity(model);
                 return Json(response.Message);
             }
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(CompanyPolicy)} action name {nameof(UpsertCompanyPolicy)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
         [HttpGet]
         public async Task<IActionResult> DeleteCompanyPolicy(int id)
         {
+            try
+            {
             var deleteModel = await _ICompanyPolicyRepository.GetAllEntityById(x => x.Id == id);
-
             var deleteDbModel = CrudHelper.DeleteHelper<CompanyPolicy>(deleteModel.Entity, 1);
-
             var deleteResponse = await _ICompanyPolicyRepository.DeleteEntity(deleteDbModel);
 
             if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
@@ -113,6 +138,13 @@ namespace HRMS.Admin.UI.Controllers.Master
                 return Json(deleteResponse.Message);
             }
             return Json(deleteResponse.Message);
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(CompanyPolicy)} action name {nameof(DeleteCompanyPolicy)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
         #region PrivateFields
         private async Task PopulateViewBag()

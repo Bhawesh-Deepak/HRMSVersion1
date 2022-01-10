@@ -26,7 +26,15 @@ namespace HRMS.Admin.UI.Controllers.Master
         }
         public IActionResult Index()
         {
-            return View(ViewHelper.GetViewPathDetails("EmployeeAttendance", "EmployeeAttendanceCreate"));
+            try
+            {
+                return View(ViewHelper.GetViewPathDetails("EmployeeAttendance", "EmployeeAttendanceCreate"));
+            }
+            catch (Exception ex)
+            {
+                Serilog.Log.Error(ex, $"controller name  is {nameof(EmployeeAttendanceController)} action name {nameof(UploadAttendance)}");
+                return Json("Something wents wrong, Please contact admin !!!");
+            }
         }
 
         [HttpPost]
