@@ -44,6 +44,8 @@ namespace HRMS.Admin.UI.Controllers.Payroll
         {
             var response = await _IEmployeeDetailRepository.GetAllEntities(null);
 
+            HttpContext.Session.SetObjectAsJson("EmpDetail", response.Entities);
+
             await PopulateViewBag();
 
             ViewBag.HeaderTitle = PageHeader.HeaderSetting["EmployeeDetailIndex"];
@@ -85,30 +87,33 @@ namespace HRMS.Admin.UI.Controllers.Payroll
             }
             if (!string.IsNullOrEmpty(status))
             {
-                bool statusValue = status == "0" ? false : true;
+                bool statusValue = status != "0";
                 models = models.Where(x => x.IsActive == Convert.ToBoolean(statusValue)).ToList();
             }
-
+            HttpContext.Session.SetObjectAsJson("EmpDetail", models);
             return await Task.Run(() => PartialView(ViewHelper.GetViewPathDetails("EmployeeDetail", "EmployeeFilteredList"), models));
         }
 
 
         public async Task<IActionResult> GetActiveInActiveDetails(int status)
         {
-            var response = await _IEmployeeDetailRepository.GetAllEntities(null);
-            var models = response.Entities;
+            var response = (await _IEmployeeDetailRepository.GetAllEntities(null)).Entities;
 
-            bool statusValue = status == 0 ? false : true;
-            models = models.Where(x => x.IsActive == Convert.ToBoolean(statusValue)).ToList();
+            bool statusValue = status != 0;
 
-            return await Task.Run(() => PartialView(ViewHelper.GetViewPathDetails("EmployeeDetail", "EmployeeFilteredList"), models));
+            response = response.Where(x => x.IsActive == Convert.ToBoolean(statusValue)).ToList();
+
+            HttpContext.Session.SetObjectAsJson("EmpDetail", response.ToList());
+
+            return await Task.Run(() => PartialView(ViewHelper.GetViewPathDetails("EmployeeDetail", "EmployeeFilteredList"), response.ToList()));
         }
 
         public async Task<IActionResult> ExportToExcel()
         {
-            var response = (await _IEmployeeDetailRepository.GetAllEntities(null)).Entities;
+            var models = HttpContext.Session.GetObjectFromJson<List<EmployeeDetail>>("EmpDetail");
+            
 
-            var dataTable = ListToDataTable.GetDataTableFromList<EmployeeDetail>(response.ToList());
+            var dataTable = ListToDataTable.GetDataTableFromList<EmployeeDetail>(models.ToList());
 
             string fileName = "Employee Directory.xlsx";
 
