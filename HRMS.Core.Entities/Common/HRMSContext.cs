@@ -76,7 +76,7 @@ namespace HRMS.Core.Entities.Common
         public virtual DbSet<CurrentOpening> CurrentOpenings { get; set; }
         public virtual DbSet<ReferCandidate> ReferCandidates { get; set; }
         public virtual DbSet<AssesmentYear> AssesmentYears { get; set; }
-
+        public virtual DbSet<EmployeeArrears> EmployeeArrearss { get; set; }
         public virtual DbSet<AnnouncementAndUpdate> AnnouncementAndUpdates { get; set; }
 
 

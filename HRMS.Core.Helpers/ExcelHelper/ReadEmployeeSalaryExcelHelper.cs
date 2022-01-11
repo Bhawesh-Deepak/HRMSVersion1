@@ -135,5 +135,6 @@ namespace HRMS.Core.Helpers.ExcelHelper
             model.EmployeeSalaryDetails = salaryModels;
             return model;
         }
+        
     }
 }
