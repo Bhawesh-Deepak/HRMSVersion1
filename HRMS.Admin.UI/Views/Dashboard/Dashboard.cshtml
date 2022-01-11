@@ -3,334 +3,133 @@
 }
 @model IEnumerable<HRMS.Core.ReqRespVm.Response.Organisation.SubsidiaryVM>
 
-
-
-<!DOCTYPE html">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!doctype html>
+<html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Dashboard || Subsidiary</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
-    <link href="~/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <script src="~/resources/Subsidiary/js/jquery.min.js"></script>
-    <script src="~/resources/Subsidiary/js/script.js"></script>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>Kudo Tech || Dashboard </title>
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css' rel='stylesheet'>
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet'>
+    <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
     <style>
-        * {
-            font-family: 'Montserrat', sans-serif !important;
+        @@import url('https://fonts.googleapis.com/css2?family=Maven+Pro&display=swap');
+
+        body {
+            font-family: 'Maven Pro', sans-serif
         }
 
-        .auto {
-            margin: 20px auto;
+        body {
+            background-color: #eee
         }
 
-        .img-1 {
-            width: 200px;
-            height: 100px;
+        .add {
+            border-radius: 20px
         }
 
-        .flip-card {
-            width: 270px;
-            height: 170px;
-            box-shadow: 0 0 10px #000;
-            margin: auto;
-            border-radius: 10px
+        .card {
+            border: none;
+            border-radius: 10px;
+            transition: all 1s;
+            cursor: pointer;
+            min-height: 157px;
         }
 
-        .flip-card-inner {
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            transition: transform .6s;
-            transform-style: preserve-3d;
-            border-radius: 10px
-        }
-
-        .flip-card:hover .flip-card-inner {
-            transform: rotateY(180deg)
-        }
-
-        .flip-card-front, .flip-card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            padding: 15px;
-            transition: .5s;
-            border-radius: 10px
-        }
-
-        .flip-card-front {
-            background-color: #ccc;
-            color: black;
-        }
-
-        .flip-card-back {
-            background-color: #2bbea1;
-            color: white;
-            transform: rotateY(180deg);
-        }
-
-            .flip-card-back p {
-                font-size: 20px
+            .card:hover {
+                -webkit-box-shadow: 3px 5px 17px -4px #777777;
+                box-shadow: 3px 5px 17px -4px #777777
             }
 
-        .new {
-            box-shadow: 0 0 20px #2bbea1;
+        .ratings i {
+            color: green
         }
 
-        .mt-5 {
-            margin-top: 20px
+        .apointment button {
+            border-radius: 20px;
+            background-color: #eee;
+            color: #000;
+            border-color: #eee;
+            font-size: 13px
         }
 
-        .mb-5 {
-            margin-bottom: 20px
-        }
-
-        p {
-            font-size: 16px;
-        }
-
-        .btn {
-            background: #2bbea1 !important;
-            border: 1px solid #2bbea1 !important;
-            color: #fff;
-        }
-
-        .container {
-            margin-bottom: 20px
+        .addborder {
+            border: 2px solid #1f8ccf;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px #000;
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="mt-5 mb-5 col-lg-4 col-md-6 col-sm-12 col-lg-offset-4 col-md-offset-3">
-                <div class="flip-card">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <img src="@Model.First().CompanyLogo" alt="More about Subsidiary" class="img-1" />
-                            <p class="text-center mt-5">@Model.First().CompanyCode</p>
-                        </div>
-                        <div class="flip-card-back">
-                            <p>@Model.First().CompanyName</p>
-                        </div>
+<body oncontextmenu='return false' class='snippet-body'>
+    <div class="container mt-1 mb-1">
+        <div class="d-flex justify-content-between mb-1">
+            <span><img src="~/LoginJsCss/images/logo.png" style="width:20%" alt="" class="img-fluid"></span>
+            <a asp-action="Logout" asp-controller="Authenticate" class="btn btn-success add"><i class="fa fa-power-off"></i> Log Out</a>
+        </div>
+        <div class="d-flex justify-content-between mb-2">
+            <div class="row" style="padding-left: 37%;">
+                <div class="col-md-5">
+                    <div class="card p-2 py-3 text-center">
+                        <div class="img mb-2 divSelect"> <img src="@Model.First().Logo" width="80" class="rounded-circle"> </div>
+                        <h5 class="mb-0">@Model.First().Code</h5> <small>@Model.First().Name</small>
                     </div>
                 </div>
+
+
             </div>
         </div>
-
-        <div class="row">
+        <div class="row g-2">
             @foreach (var item in Model)
             {
-                <div class="mt-5 col-lg-3 col-md-6 col-sm-12 auto">
-                    <div class="flip-card">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front">
-                                <img src="@item.Logo" alt="More about Subsidiary" class="img-fluid" />
-                                <p class="text-center pt-3">@item.Code</p>
-                            </div>
-                            <div class="flip-card-back">
-                                <p> @item.Name</p>
-                            </div>
-                        </div>
+                <div class="col-md-3">
+                    <div class="card p-2 py-3 text-center @("divId"+item.Id)" onclick="selectfunction(@item.Id,this)" id="@("divId"+item.Id)">
+                        <input type="hidden" name="hdnDivLoop" value="@("divId"+item.Id)" />
+                        <div class="img mb-2"> <img src="@item.Logo" width="80" class="rounded-circle"> </div>
+                        <h5 class="mb-0">@item.Code</h5> <small>@item.Name</small>
+
                     </div>
                 </div>
             }
-        </div>
 
-        <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-12 col-lg-offset-3 col-md-offset-2 mt-5">
-                <a asp-action="Index" asp-controller="Home" class="btn btn-primary btn-block">Skip</a>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-12 mt-5">
-                <a asp-action="Index" id="btnContinue" asp-controller="Home" class="btn btn-primary btn-block disabled">Continue</a>
+        </div>
+        <input type="hidden" name="hdnsubsidiaryId" id="hdnsubsidiaryId" value="" />
+        <input type="hidden" name="hdnsubsidiaryName" id="hdnsubsidiaryName" value="" />
+        <div class="d-flex justify-content-between mt-1 text-center">
+            <div class="row " style="margin-top: -35px;">
+                <div class="col-lg-3 col-md-4 col-sm-12 col-lg-offset-3 col-md-offset-2 mt-5">
+                    <button id="btnSkip" class="btn btn-primary btn-block">Skip</button>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-12 mt-5">
+                    <button id="btnContinue" class="btn btn-primary btn-block" disabled>Continue</button>
+                </div>
             </div>
         </div>
     </div>
-
+    <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js'></script>
     <script>
-        $('.flip-card').click(function () {
-            $('.flip-card').removeClass("new");
-            $(this).addClass("new");
-            $('#btnContinue').removeClass("disabled");
-        })
-    </script>
+        $("#btnSkip,#btnContinue").click(function () {
+            location.href="/Home/Index"
+        });
+        function selectfunction(Id, event) {
+            $('input[name^="hdnDivLoop"]').each(function () {
+                var ids = Id;
+                var loopid = $(this).val().substr(5);
+                if (Id == loopid) {
+                    $("#divId" + loopid).addClass("addborder");
+                    $('#btnContinue').removeAttr("disabled");
+                    $('#btnSkip').attr("disabled", true);
+                    $('#hdnsubsidiaryId').val(loopid);
+                    //  $('#hdnsubsidiaryName').val(event);
+                }
+                else {
 
+                    $("#divId" + loopid).removeClass("addborder");
+
+                }
+            });
+
+        }
+    </script>
 </body>
 </html>
- 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--@{
-    Layout = null;
-}
- 
-
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Dashboard || Subsidiary</title>
-    <script src="~/resources/Subsidiary/js/jquery.min.js"></script>
-    <script src="~/resources/Subsidiary/js/jquery-ui.min.js"></script>
-    <script src="~/resources/Subsidiary/js/jquery.flip.min.js"></script>
-    <script src="~/resources/Subsidiary/js/script.js"></script>
-    <link href="~/resources/Subsidiary/css/styles.css" rel="stylesheet" />
-    <style>
-        .sponsorDescription {
-            font-size: 15px;
-            padding: 20px 10px 20px 20px;
-            color: white;
-            font-style: italic;
-        }
-        .sponsor {
-            width: 170px;
-            height: 115px;
-            float: left;
-            margin: 4px;
-            position: relative;
-            cursor: pointer;
-        }
-        .sponsor1 {
-            width: 170px;
-            height: 115px;
-            margin: 4px;
-            position: relative;
-            cursor: pointer;
-        }
-        .sponsorFlip img {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            margin: -54px 0 0 -83px;
-        }
-    </style>
-</head>
-<body>
-    <div id="main">
-        <div class="sponsorListHolder">
-            <div class="clear"></div>
-            <div class="row" style="text-align: -webkit-center;margin-left: -18px;">
-                <div class="col-md-12">
-                    <div class="sponsor1" title="Click to flip">
-                        <div class="sponsorFlip">
-                            <img src="@Model.First().CompanyLogo" alt="More about Subsidiary" style="width:90%" />
-
-                            <p style="padding: 81px;">@Model.First().CompanyCode</p>
-                        </div>
-                        <div class="sponsorData">
-                            <div class="sponsorDescription">
-                                @Model.First().CompanyName
-                            </div>
-                            <div class="sponsorURL">
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <br />
-
-            @foreach (var item in Model)
-            {
-                <div class="sponsor" title="Click to flip">
-                    <div class="sponsorFlip">
-                        <img src="@item.Logo" alt="More about Subsidiary" style="width:90%" />
-                        <p style="padding: 81px;white-space: nowrap;">@item.Code</p>
-                    </div>
-                    <div class="sponsorData">
-                        <div class="sponsorDescription">
-                            @item.Name
-                        </div>
-                        <div class="sponsorURL">
-
-                        </div>
-                    </div>
-                </div>
-            }
-            <div class="row">
-                <div class="col-lg-2 offset-lg-3">
-                    <a asp-action="Index" asp-controller="Home" class="btn btn-primary btn-block mt-5">Skip</a>
-                </div>
-                <div class="col-lg-2">
-                    <a asp-action="Index" id="btnContinue" asp-controller="Home" class="btn btn-primary btn-block mt-lg-5 mt-3 disabled">Continue</a>
-                </div>
-                <div class="col-lg-3">
-                    <a class="btn btn-primary btn-block mt-lg-5 mt-3">Create Legal Entity</a>
-                </div>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </div>
-    <script src="~/resources/Subsidiary/js/v1.js"></script>
-</body>
-</html>-->
-@*<!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-        <link rel="stylesheet" href="~/LoginJsCss/css/style.css">
-        <script src="~/Jquery/jquery.min.js"></script>
-        <style>
-            .box:hover, .box:active{background:#2bbea1 !important}
-            .btn-primary{background:#2bbea1 !important; border:1px solid #2bbea1 !important}
-            .btn-primary:hover{background:#0069d9 !important; border:1px solid #0069d9 !important}
-        </style>
-    </head>
-    <body>
-
-        <section class="container">
-            <div class="row">
-                @foreach (var data in Model)
-                {
-
-                    <a href="javascript:void(0)" class="box-link" onclick="SelectSubsidry('@data.Id')">
-                        <div class="col-lg-3 col-12 mt-5">
-                            <div class="box d-block">
-                                <img src="@data.Logo" alt="" class="img-fluid">
-                                <p class="text-center">@data.Code   </p>
-                            </div>
-                        </div>
-                    </a>
-                }
-            </div>
-            <div class="row">
-                <div class="col-lg-2 offset-lg-3">
-                    <a asp-action="Index" asp-controller="Home" class="btn btn-primary btn-block mt-5">Skip</a>
-                </div>
-                <div class="col-lg-2">
-                    <a asp-action="Index" id="btnContinue" asp-controller="Home" class="btn btn-primary btn-block mt-lg-5 mt-3 disabled">Continue</a>
-                </div>
-                <div class="col-lg-3">
-                    <a class="btn btn-primary btn-block mt-lg-5 mt-3">Create Legal Entity</a>
-                </div>
-            </div>
-        </section>
-
-    </body>
-    </html>
-    <script type="text/javascript">
-        function SelectSubsidry(id) {
-            $("#btnContinue").removeClass().addClass("btn btn-primary btn-block mt-5")
-        }
-    </script>*@

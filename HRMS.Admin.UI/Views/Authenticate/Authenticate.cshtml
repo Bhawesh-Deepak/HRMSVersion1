@@ -1,119 +1,342 @@
 ﻿@model HRMS.Core.ReqRespVm.RequestVm.AuthenticateModel;
 @{ Layout = null;}
 
-<!DOCTYPE html>
-<html lang="en">
+
+<!doctype html>
+<html>
 <head>
-    <title>Dashboard || Login</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Kudo Tech || Login</title>
+    <mimeMap fileExtension="webmanifest" mimeType="application/manifest+json" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="manifest" href="site.webmanifest">
     <link rel="shortcut icon" href="~/favicon.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="~/LoginJsCss/css/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
-    <script src="~/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+
+    <link href="~/resources/login/css/login-page.css" rel="stylesheet" />
+     
     <style>
-        *{font-family:'Montserrat', sans-serif !important;}
-        h2{font-size:16px}
-        .form-control:focus-within {
-            box-shadow: 0 0 5px red !important
+        .login-page {
+            background-image: url(../LoginJsCss/images/LoginImage.jpg);
+            background-size: cover;
+            height: 100vh;
+            left: 0px !important;
         }
-        .btn{padding:0.20rem 0.75rem}
+
+        .alert-danger {
+            color: #31708f;
+            background-color: #d9edf7;
+            border-color: #bce8f1;
+            position: absolute;
+            width: 96%;
+            z-index: 2;
+            left: 2%;
+            top: 1%;
+            margin-left: -1%;
+            font-size: 13px;
+        }
+
+        .alert-dismissable {
+            padding-right: 35px;
+        }
+
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+
+        .alert-dismissable .close {
+            position: relative;
+            top: 0px;
+            right: 0px;
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .close {
+            float: right;
+            font-size: 21px;
+            font-weight: 700;
+            line-height: 1;
+            color: #000;
+            text-shadow: 0 1px 0 #fff;
+            filter: alpha(opacity=20);
+            opacity: .2;
+        }
+
+        .fadeIn {
+            display: inline-block;
+            margin: 0px auto;
+            position: fixed;
+            transition: all 0.5s ease-in-out;
+            z-index: 1031;
+            top: 20px;
+            left: 0px;
+            right: 0px;
+        }
+
+        .fadeOut {
+            height: 1px;
+            position: absolute;
+            top: -100px;
+            transition: all 0.5s ease-in-out;
+        }
     </style>
 </head>
-<body class="bg-login" style="background:url(../LoginJsCss/images/bg-login-2.jpg) no-repeat top left; background-size:content">
+<body>
 
-    <section class="login">
-        <div class="position-absolute bg-white h-100 p-md-5">
-            <div class="text-center mt-5">
-                <img src="~/LoginJsCss/images/logo.png" alt="" class="img-fluid">
-            </div>
-            <h2 class="text-center my-5 font-weight-bold">Login</h2>
-            @if (!string.IsNullOrEmpty(ViewBag.Message))
-            {
-                <div class="col-md-12 px-4 d-none" id="d-1">
-                    <div class="alert alert-danger alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        <p>@ViewBag.Message</p>
+    <div class="main-content login-page">
+        <section>
+            <div class="db-overlay"></div>
+            <div class="db-head login-head">
+                <div class="main-container ot-pd">
+                    <div class="db-head-content">
+                        <div class="left-block">
+                            <div class="menu-tab">
+                                <!--<div class="menu-icon icon icon-menu-group">
+                                </div>-->
+                                <div class="menu-main-content">
+
+                                    <div class="close-btn icon icon-wrong"></div>
+                                </div>
+                            </div>
+                            <div class="main-logo">
+                                <a href="#">
+                                    <img src="~/LoginJsCss/images/logo.png" />
+
+                                    <span>zing</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="right-block">
+
+                            <div class="imp-link" id="HDSupport">
+                                <a href="https://support.zinghr.com/support/tickets/new" target="_blank">
+                                    <span class="icon icon-24hours"></span>
+                                    <span>need support?</span>
+                                </a>
+                            </div>
+
+
+                        </div>
                     </div>
                 </div>
-            }
-            <div id="LoginView">
-                <form class="col-md-12 px-5" asp-action="Login" asp-controller="Authenticate">
+            </div>
 
-                    <div class="form-group">
-                        <input type="text" asp-for="UserName" class="form-control" placeholder="Employee Code">
+        </section>
+        <section>
+
+            <div class="login-body main-container ot-pd">
+                <div class="login-block">
+                    <div class="login-title-block">
+                        <span class="icon icon-lock"></span>
+                        <span class="login-txt">user login</span>
                     </div>
-                    <div class="form-group">
-                        <input type="password" asp-for="Password" class="form-control" placeholder="Password">
+                    <div class="login-body-block">
+                        <form asp-action="Login" asp-controller="Authenticate">
+
+
+
+                            <div class="input-group emp-code">
+                                <input type="text" id="UserName" name="UserName" required />
+                                <label for="txtEmpCode">employee code</label>
+                            </div>
+
+                            <div class="input-group pas-code">
+                                <input type="password" id="Password" name="Password" maxlength="24" required />
+                                <label for="txtPassword">Password</label>
+
+                            </div>
+
+                            <div class="login-input-list">
+                                <div class="login-input-item re-me" id="chkRemember">
+                                    <span class="icon icon-ok"></span>
+                                    <span>Remember me</span>
+                                </div>
+                                <div class="login-input-item for-pass" id="btnForgot">
+                                    <span><a href="">Forgot password?</a></span>
+                                </div>
+                            </div>
+                            @if (!string.IsNullOrEmpty(ViewBag.Message))
+                            {
+
+                                <p style="color:red">@ViewBag.Message</p>
+
+                            }
+                            <a style="text-decoration:none;">
+                                <button type="submit" class="db-btn login-btn sub-btn" id="btnLogin">
+                                    <span>login</span>
+                                </button>
+                                <div class="db-btn login-btn sub-btn" style="margin-top:5px" id="btnCustomSSO">
+                                    <span>SSO Login</span>
+                                </div>
+                            </a>
+                        </form>
+                           
+                            <div class="btn-group punch">
+                                <div class="db-btn PunchBtn PunchButton" data-status="PUNCHIN">
+                                    <span>punch in</span>
+                                </div>
+                                <div class="db-btn PunchBtn PunchButton" data-status="PUNCHOUT">
+                                    <span>punch out</span>
+                                </div>
+                            </div>
+
+
                     </div>
+                </div>
+
+                <div class="zingo-desc">
+
+                    <div class="zingo-content">
+                        <span class="loginTitle">Welcome to ZingHR</span>
+                        <span class="loginSubtitle">Change Enabling a more connected, truly digital workforce to "Enabling a more connected, truly digital workforce"</span>
+                        <a href="" target="_blank" class="login-link login-link-url ">Discover More...</a>
+                    </div>
+                </div>
+
+             </div>
+
+        </section>
+        <section></section>
+    </div>
+     
+
+     
+
+    <!--<div class="db-loader">
+        <div class="db-loader-img">
+            <img src="https://portal.zinghr.com/2015/App_Themes/Images/DashboardV1/main-loader.gif" />-->
+    <!--<img src="../images/main-loader.gif" alt="">-->
+    <!--</div>
+    </div>-->
+    <!-- *****fancy box**** -->
+    <link href="~/resources/login/css/swiper.min.css" rel="stylesheet" />
+    <link href="~/resources/login/css/jquery.fancybox.min.css" rel="stylesheet" />
+    
+    <script src="~/resources/login/js/jquery-3.3.1.min.js"></script>
+    <script src="~/resources/login/js/jquery.fancybox.min.js"></script>
+
+
+     
+</body>
+</html>
+@*<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <title>Dashboard || Login</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" href="~/favicon.ico">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="~/LoginJsCss/css/style.css">
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+        <script src="~/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+        <style>
+            *{font-family:'Montserrat', sans-serif !important;}
+            h2{font-size:16px}
+            .form-control:focus-within {
+                box-shadow: 0 0 5px red !important
+            }
+            .btn{padding:0.20rem 0.75rem}
+        </style>
+    </head>
+    <body class="bg-login" style="background:url(../LoginJsCss/images/bg-login-2.jpg) no-repeat; background-size:content">
+
+        <section class="login" >
+            <div class="position-absolute bg-white h-100 p-md-5">
+                <div class="text-center mt-5">
+                    <img src="~/LoginJsCss/images/logo.png" alt="" class="img-fluid">
+                </div>
+                <h2 class="text-center my-5 font-weight-bold">Login</h2>
+                @if (!string.IsNullOrEmpty(ViewBag.Message))
+                {
+                    <div class="col-md-12 px-4 d-none" id="d-1">
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <p>@ViewBag.Message</p>
+                        </div>
+                    </div>
+                }
+                <div id="LoginView">
+                    <form class="col-md-12 px-5" asp-action="Login" asp-controller="Authenticate">
+
+                        <div class="form-group">
+                            <input type="text" asp-for="UserName" class="form-control" placeholder="Employee Code">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" asp-for="Password" class="form-control" placeholder="Password">
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-12 text-right">
+                                <a href="#" onclick="ForgetPassword()">Forget Password</a>
+                            </div>
+                        </div>
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-primary btn-block" id="d-2">Login</button>
+                        </div>
+                    </form>
+                </div>
+                <div id="ForgetPasswordView" class="px-5" style="display:none">
+                    <div class="form-group">
+                        <input type="text" id="txtEmpCode" class="form-control" placeholder="Employee Code">
+                    </div>
+
                     <div class="row">
-                        <div class="form-group col-md-12 text-right">
-                            <a href="#" onclick="ForgetPassword()">Forget Password</a>
+                        <div class="form-group col-md-12">
+                            <a  href="#" onclick="Login()">Login</a>
                         </div>
                     </div>
                     <div class="form-group text-center">
-                        <button type="submit" class="btn btn-primary btn-block" id="d-2">Login</button>
-                    </div>
-                </form>
-            </div>
-            <div id="ForgetPasswordView" class="px-5" style="display:none">
-                <div class="form-group">
-                    <input type="text" id="txtEmpCode" class="form-control" placeholder="Employee Code">
-                </div>
-
-                <div class="row">
-                    <div class="form-group col-md-12">
-                        <a  href="#" onclick="Login()">Login</a>
+                        <button type="button" onclick="SendOtp()" class="btn btn-primary btn-block" id="d-2">Send OTP</button>
                     </div>
                 </div>
-                <div class="form-group text-center">
-                    <button type="button" onclick="SendOtp()" class="btn btn-primary btn-block" id="d-2">Send OTP</button>
-                </div>
             </div>
-        </div>
-    </section>
-</body>
-</html>
+        </section>
+    </body>
+    </html>
 
-<script type="text/javascript">
-    function ForgetPassword()
-    {
-        debugger;
-        $("#ForgetPasswordView").removeAttr("style");
-        $("#LoginView").attr("style", "display:none");
-    }
+    <script type="text/javascript">
+        function ForgetPassword()
+        {
+            debugger;
+            $("#ForgetPasswordView").removeAttr("style");
+            $("#LoginView").attr("style", "display:none");
+        }
 
-    function Login()
-    {
-        $("#ForgetPasswordView").attr("style", "display:none");
-        $("#LoginView").removeAttr("style");
-    }
+        function Login()
+        {
+            $("#ForgetPasswordView").attr("style", "display:none");
+            $("#LoginView").removeAttr("style");
+        }
 
-    function SendOtp() {
-        var empCode = $("#txtEmpCode").val();
+        function SendOtp() {
+            var empCode = $("#txtEmpCode").val();
 
-        let forgetPasswordUrl = "/Authenticate/ForgetPassword"
+            let forgetPasswordUrl = "/Authenticate/ForgetPassword"
 
-        $.get(forgetPasswordUrl, { empCode: empCode }, function (data) {
-            if (data) {
-                alert("OTP has been sent, Please check and login")
-            } else {
-                alert("Something wents wrong, Please contact admin");
-            }
-        })
-    }
+            $.get(forgetPasswordUrl, { empCode: empCode }, function (data) {
+                if (data) {
+                    alert("OTP has been sent, Please check and login")
+                } else {
+                    alert("Something wents wrong, Please contact admin");
+                }
+            })
+        }
 
 
-</script>
+    </script>
 
-<script>
-    $("#d-2").click(function () {
-        $("#d-1").removeClass("d-none");;
-    });
-</script>
+    <script>
+        $("#d-2").click(function () {
+            $("#d-1").removeClass("d-none");;
+        });
+    </script>*@
