@@ -71,14 +71,14 @@ namespace HRMS.Core.Entities.Common
         public virtual DbSet<Shift> Shifts { get; set; }
         public virtual DbSet<Branch> Branches { get; set; }
         public virtual DbSet<CompanyPolicy> CompanyPolicies { get; set; }
-
         public virtual DbSet<AssetsCategory> AssetsCategories { get; set; }
-
         public virtual DbSet<EmployeeAssets> EmployeeAssets { get; set; }
-
         public virtual DbSet<CurrentOpening> CurrentOpenings { get; set; }
-
         public virtual DbSet<ReferCandidate> ReferCandidates { get; set; }
+        public virtual DbSet<AssesmentYear> AssesmentYears { get; set; }
+
+        public virtual DbSet<AnnouncementAndUpdate> AnnouncementAndUpdates { get; set; }
+
 
         #endregion
     }

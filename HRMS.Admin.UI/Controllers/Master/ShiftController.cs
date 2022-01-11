@@ -26,9 +26,17 @@ namespace HRMS.Admin.UI.Controllers.Master
         }
         public async Task<IActionResult> Index()
         {
-            ViewBag.HeaderTitle = PageHeader.HeaderSetting["ShiftIndex"];
-
-            return await Task.Run(() => View(ViewHelper.GetViewPathDetails("Shift", "ShiftIndex")));
+            try
+            {
+                ViewBag.HeaderTitle = PageHeader.HeaderSetting["ShiftIndex"];
+                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("Shift", "ShiftIndex")));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(Shift)} action name {nameof(Index)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> GetShiftList()
@@ -44,7 +52,7 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(Department)} action name {nameof(GetShiftList)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(Shift)} action name {nameof(GetShiftList)} exceptio is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -52,48 +60,69 @@ namespace HRMS.Admin.UI.Controllers.Master
 
         public async Task<IActionResult> CreateShift(int id)
         {
-
-            var response = await _IShiftRepository.GetAllEntities(x => x.Id == id);
-
-            if (id == 0)
+            try
             {
-                return PartialView(ViewHelper.GetViewPathDetails("Shift", "ShiftCreate"));
+                var response = await _IShiftRepository.GetAllEntities(x => x.Id == id);
+                if (id == 0)
+                {
+                    return PartialView(ViewHelper.GetViewPathDetails("Shift", "ShiftCreate"));
+                }
+                else
+                {
+                    return PartialView(ViewHelper.GetViewPathDetails("Shift", "ShiftCreate"), response.Entities.First());
+                }
             }
-            else
+            catch (Exception ex)
             {
-
-                return PartialView(ViewHelper.GetViewPathDetails("Shift", "ShiftCreate"), response.Entities.First());
+                string template = $"Controller name {nameof(Shift)} action name {nameof(CreateShift)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
         }
 
         [HttpPost]
         public async Task<IActionResult> UpsertShift(Shift model)
         {
-            if (model.Id == 0)
+            try
             {
-                var response = await _IShiftRepository.CreateEntity(model);
-                return Json(response.Message);
+                if (model.Id == 0)
+                {
+                    var response = await _IShiftRepository.CreateEntity(model);
+                    return Json(response.Message);
+                }
+                else
+                {
+                    var response = await _IShiftRepository.UpdateEntity(model);
+                    return Json(response.Message);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                var response = await _IShiftRepository.UpdateEntity(model);
-                return Json(response.Message);
+                string template = $"Controller name {nameof(Shift)} action name {nameof(UpsertShift)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
         }
         [HttpGet]
         public async Task<IActionResult> DeleteShift(int id)
         {
-            var deleteModel = await _IShiftRepository.GetAllEntityById(x => x.Id == id);
-
-            var deleteDbModel = CrudHelper.DeleteHelper<Shift>(deleteModel.Entity, 1);
-
-            var deleteResponse = await _IShiftRepository.DeleteEntity(deleteDbModel);
-
-            if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
+            try
             {
+                var deleteModel = await _IShiftRepository.GetAllEntityById(x => x.Id == id);
+                var deleteDbModel = CrudHelper.DeleteHelper<Shift>(deleteModel.Entity, 1);
+                var deleteResponse = await _IShiftRepository.DeleteEntity(deleteDbModel);
+                if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
+                {
+                     return Json(deleteResponse.Message);
+                }
                 return Json(deleteResponse.Message);
             }
-            return Json(deleteResponse.Message);
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(Shift)} action name {nameof(DeleteShift)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
     }
 }

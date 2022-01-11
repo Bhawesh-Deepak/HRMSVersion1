@@ -26,9 +26,17 @@ namespace HRMS.Admin.UI.Controllers.Master
         }
         public async Task<IActionResult> Index()
         {
-            ViewBag.HeaderTitle = PageHeader.HeaderSetting["EmployeeTypeIndex"];
-
-            return await Task.Run(() => View(ViewHelper.GetViewPathDetails("Employeetype", "EmployeeTypeIndex")));
+            try
+            {
+                ViewBag.HeaderTitle = PageHeader.HeaderSetting["EmployeeTypeIndex"];
+                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("Employeetype", "EmployeeTypeIndex")));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(EmployeeType)} action name {nameof(Index)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> GetEmployeeTypeList()
@@ -44,7 +52,7 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(Department)} action name {nameof(GetEmployeeTypeList)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(EmployeeType)} action name {nameof(GetEmployeeTypeList)} exceptio is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -52,48 +60,69 @@ namespace HRMS.Admin.UI.Controllers.Master
 
         public async Task<IActionResult> CreateEmployeeType(int id)
         {
-
-            var response = await _IEmployeeTypeRepository.GetAllEntities(x => x.Id == id);
-
-            if (id == 0)
+            try
             {
-                return PartialView(ViewHelper.GetViewPathDetails("Employeetype", "EmployeeTypeCreate"));
-            }
-            else
-            {
-
+                var response = await _IEmployeeTypeRepository.GetAllEntities(x => x.Id == id);
+                if (id == 0)
+                {
+                    return PartialView(ViewHelper.GetViewPathDetails("Employeetype", "EmployeeTypeCreate"));
+                }
+                else
+                {
                 return PartialView(ViewHelper.GetViewPathDetails("Employeetype", "EmployeeTypeCreate"), response.Entities.First());
+                }
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(EmployeeType)} action name {nameof(CreateEmployeeType)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
         }
 
         [HttpPost]
         public async Task<IActionResult> UpsertEmployeeType(EmployeeType model)
         {
-            if (model.Id == 0)
+            try
             {
-                var response = await _IEmployeeTypeRepository.CreateEntity(model);
-                return Json(response.Message);
+                 if (model.Id == 0)
+                 {
+                    var response = await _IEmployeeTypeRepository.CreateEntity(model);
+                    return Json(response.Message);
+                 }
+                else
+                {
+                    var response = await _IEmployeeTypeRepository.UpdateEntity(model);
+                    return Json(response.Message);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                var response = await _IEmployeeTypeRepository.UpdateEntity(model);
-                return Json(response.Message);
+                string template = $"Controller name {nameof(EmployeeType)} action name {nameof(UpsertEmployeeType)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
         }
         [HttpGet]
         public async Task<IActionResult> DeleteEmployeeType(int id)
         {
-            var deleteModel = await _IEmployeeTypeRepository.GetAllEntityById(x => x.Id == id);
-
-            var deleteDbModel = CrudHelper.DeleteHelper<EmployeeType>(deleteModel.Entity, 1);
-
-            var deleteResponse = await _IEmployeeTypeRepository.DeleteEntity(deleteDbModel);
-
-            if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
+            try
             {
+                var deleteModel = await _IEmployeeTypeRepository.GetAllEntityById(x => x.Id == id);
+                var deleteDbModel = CrudHelper.DeleteHelper<EmployeeType>(deleteModel.Entity, 1);
+                var deleteResponse = await _IEmployeeTypeRepository.DeleteEntity(deleteDbModel);
+                if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
+                {
+                    return Json(deleteResponse.Message);
+                }
                 return Json(deleteResponse.Message);
             }
-            return Json(deleteResponse.Message);
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(EmployeeType)} action name {nameof(DeleteEmployeeType)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
     }
 }

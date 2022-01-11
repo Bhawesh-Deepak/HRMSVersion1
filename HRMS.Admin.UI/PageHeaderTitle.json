@@ -17,9 +17,13 @@
   "PandLNameIndex": "PandLName",
   "RegionIndex": "Region",
   "ShiftIndex": "Shift",
+ 
+  "AnnouncementandudpateIndex": "Announcement And Update"
+ 
   "CurrentOpeningIndex": "Current Opening",
   "CandidateReferal": "Refer Candidate",
   
 
+ 
 
 }

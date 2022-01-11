@@ -26,9 +26,17 @@ namespace HRMS.Admin.UI.Controllers.Master
         }
         public async Task<IActionResult> Index()
         {
-            ViewBag.HeaderTitle = PageHeader.HeaderSetting["RegionIndex"];
-
-            return await Task.Run(() => View(ViewHelper.GetViewPathDetails("Region", "RegionIndex")));
+            try
+            {
+                ViewBag.HeaderTitle = PageHeader.HeaderSetting["RegionIndex"];
+                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("Region", "RegionIndex")));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(RegionMaster)} action name {nameof(Index)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> GetRegionList()
@@ -43,7 +51,7 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(Department)} action name {nameof(GetRegionList)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(RegionMaster)} action name {nameof(GetRegionList)} exceptio is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -51,48 +59,69 @@ namespace HRMS.Admin.UI.Controllers.Master
 
         public async Task<IActionResult> CreateRegion(int id)
         {
-
-            var response = await _IRegionRepository.GetAllEntities(x => x.Id == id);
-
-            if (id == 0)
+            try
             {
-                return PartialView(ViewHelper.GetViewPathDetails("Region", "RegionCreate"));
+                var response = await _IRegionRepository.GetAllEntities(x => x.Id == id);
+                if (id == 0)
+                {
+                    return PartialView(ViewHelper.GetViewPathDetails("Region", "RegionCreate"));
+                }
+                else
+                {
+                    return PartialView(ViewHelper.GetViewPathDetails("Region", "RegionCreate"), response.Entities.First());
+                }
             }
-            else
+            catch (Exception ex)
             {
-
-                return PartialView(ViewHelper.GetViewPathDetails("Region", "RegionCreate"), response.Entities.First());
+                string template = $"Controller name {nameof(RegionMaster)} action name {nameof(CreateRegion)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
         }
 
         [HttpPost]
         public async Task<IActionResult> UpsertRegion(RegionMaster model)
         {
-            if (model.Id == 0)
+            try
             {
-                var response = await _IRegionRepository.CreateEntity(model);
-                return Json(response.Message);
+                if (model.Id == 0)
+                 {
+                    var response = await _IRegionRepository.CreateEntity(model);
+                    return Json(response.Message);
+                }
+                else
+                {
+                    var response = await _IRegionRepository.UpdateEntity(model);
+                    return Json(response.Message);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                var response = await _IRegionRepository.UpdateEntity(model);
-                return Json(response.Message);
+                string template = $"Controller name {nameof(RegionMaster)} action name {nameof(UpsertRegion)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
         }
         [HttpGet]
         public async Task<IActionResult> DeleteRegion(int id)
         {
-            var deleteModel = await _IRegionRepository.GetAllEntityById(x => x.Id == id);
-
-            var deleteDbModel = CrudHelper.DeleteHelper<RegionMaster>(deleteModel.Entity, 1);
-
-            var deleteResponse = await _IRegionRepository.DeleteEntity(deleteDbModel);
-
-            if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
+            try
             {
+                var deleteModel = await _IRegionRepository.GetAllEntityById(x => x.Id == id);
+                var deleteDbModel = CrudHelper.DeleteHelper<RegionMaster>(deleteModel.Entity, 1);
+                var deleteResponse = await _IRegionRepository.DeleteEntity(deleteDbModel);
+                if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
+                {
+                      return Json(deleteResponse.Message);
+                }
                 return Json(deleteResponse.Message);
             }
-            return Json(deleteResponse.Message);
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(RegionMaster)} action name {nameof(DeleteRegion)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
     }
 }

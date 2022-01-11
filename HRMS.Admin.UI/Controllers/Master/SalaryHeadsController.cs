@@ -21,59 +21,100 @@ namespace HRMS.Admin.UI.Controllers.Master
         }
         public async Task<IActionResult> Index()
         {
-            ViewBag.HeaderTitle = PageHeader.HeaderSetting["SalaryHeadIndex"];
-            return await Task.Run(() => View(ViewHelper.GetViewPathDetails("SalaryHeads", "SalaryHeadsIndex")));
+            try
+            {
+                ViewBag.HeaderTitle = PageHeader.HeaderSetting["SalaryHeadIndex"];
+                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("SalaryHeads", "SalaryHeadsIndex")));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(SalaryHeads)} action name {nameof(Index)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> GetSalaryHeadList()
         {
-            var response = await _ISalaryHeadRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
-            return PartialView(ViewHelper.GetViewPathDetails("SalaryHeads", "_SalaryHeadList"), response.Entities);
+            try
+            {
+                var response = await _ISalaryHeadRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+                return PartialView(ViewHelper.GetViewPathDetails("SalaryHeads", "_SalaryHeadList"), response.Entities);
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(SalaryHeads)} action name {nameof(GetSalaryHeadList)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> CreateSalaryHead(int id)
         {
-            if (id == 0)
+            try
             {
-                return PartialView(ViewHelper.GetViewPathDetails("SalaryHeads", "_SalaryHeadCreate"));
+                if (id == 0)
+                {
+                    return PartialView(ViewHelper.GetViewPathDetails("SalaryHeads", "_SalaryHeadCreate"));
+                }
+                else
+                {
+                    var response = await _ISalaryHeadRepository.GetAllEntities(x => x.Id == id);
+                    return PartialView(ViewHelper.GetViewPathDetails("SalaryHeads", "_SalaryHeadCreate"), response.Entities.First());
+                }
             }
-            else
+            catch (Exception ex)
             {
-                var response = await _ISalaryHeadRepository.GetAllEntities(x => x.Id == id);
-                return PartialView(ViewHelper.GetViewPathDetails("SalaryHeads", "_SalaryHeadCreate"), response.Entities.First());
+                string template = $"Controller name {nameof(SalaryHeads)} action name {nameof(CreateSalaryHead)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
         }
 
         [HttpPost]
         public async Task<IActionResult> UpsertSalaryHeads(SalaryHeads model)
         {
-            if (model.Id == 0)
+            try
             {
-                var response = await _ISalaryHeadRepository.CreateEntity(model);
-                return Json(response.Message);
+                if (model.Id == 0)
+                {
+                    var response = await _ISalaryHeadRepository.CreateEntity(model);
+                    return Json(response.Message);
+                }
+                else
+                {
+                    var response = await _ISalaryHeadRepository.UpdateEntity(model);
+                    return Json(response.Message);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                var response = await _ISalaryHeadRepository.UpdateEntity(model);
-                return Json(response.Message);
+                string template = $"Controller name {nameof(SalaryHeads)} action name {nameof(UpsertSalaryHeads)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
-
         }
 
         [HttpGet]
         public async Task<IActionResult> DeleteSalaryHead(int id)
         {
-            var deleteModel = await _ISalaryHeadRepository.GetAllEntityById(x => x.Id == id);
-
-            var deleteDbModel = CrudHelper.DeleteHelper<SalaryHeads>(deleteModel.Entity, 1);
-
-            var deleteResponse = await _ISalaryHeadRepository.DeleteEntity(deleteDbModel);
-
-            if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
+            try
             {
+                var deleteModel = await _ISalaryHeadRepository.GetAllEntityById(x => x.Id == id);
+                var deleteDbModel = CrudHelper.DeleteHelper<SalaryHeads>(deleteModel.Entity, 1);
+                var deleteResponse = await _ISalaryHeadRepository.DeleteEntity(deleteDbModel);
+                if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
+                {
+                    return Json(deleteResponse.Message);
+                }
                 return Json(deleteResponse.Message);
             }
-            return Json(deleteResponse.Message);
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(SalaryHeads)} action name {nameof(DeleteSalaryHead)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
     }
 }
