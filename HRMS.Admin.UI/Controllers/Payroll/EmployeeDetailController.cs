@@ -38,8 +38,11 @@ namespace HRMS.Admin.UI.Controllers.Payroll
         public async Task<IActionResult> Index()
         {
             var response = await _IEmployeeDetailRepository.GetAllEntities(null);
+
             await PopulateViewBag();
+
             ViewBag.HeaderTitle = PageHeader.HeaderSetting["EmployeeDetailIndex"];
+
             return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeeDetail", "EmployeeDetailIndex"), response.Entities));
         }
         #region PrivateFields
