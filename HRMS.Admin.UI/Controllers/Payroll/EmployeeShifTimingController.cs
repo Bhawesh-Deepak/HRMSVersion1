@@ -23,20 +23,40 @@ namespace HRMS.Admin.UI.Controllers.Payroll
         }
         public async Task<IActionResult> Index()
         {
-            await PopulateViewBag();
+            try
+            {
+                await PopulateViewBag();
             ViewBag.HeaderTitle = PageHeader.HeaderSetting["EmployeeShifTimingIndex"];
             return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeeShifTiming", "EmployeeShifTimingIndex")));
+             }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(EmployeeShifTimingController)} action name {nameof(Index)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
         public async Task<IActionResult> GetEmployeeDetail(int Id)
         {
-            await PopulateShiftViewBag();
+            try
+            {
+                await PopulateShiftViewBag();
             var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.Id == Id);
             return PartialView(ViewHelper.GetViewPathDetails("EmployeeShifTiming", "EmployeeDetail"), response.Entities.First());
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(EmployeeShifTimingController)} action name {nameof(GetEmployeeDetail)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
         [HttpPost]
         public async Task<IActionResult> UpdateShiftTiming(EmployeeDetail model)
         {
-            var deleteModel = await _IEmployeeDetailRepository.GetAllEntities(x => x.Id == model.Id);
+            try
+            {
+                var deleteModel = await _IEmployeeDetailRepository.GetAllEntities(x => x.Id == model.Id);
             deleteModel.Entities.ToList().ForEach(data =>
             {
                 data.IsActive = false;
@@ -55,6 +75,13 @@ namespace HRMS.Admin.UI.Controllers.Payroll
              
             var createresponse = await _IEmployeeDetailRepository.CreateEntity(deleteModel.Entities.First());
             return Json("Shift Time Change Sucrssfully");
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(EmployeeShifTimingController)} action name {nameof(UpdateShiftTiming)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
         #region PrivateFields
         private async Task PopulateViewBag()
