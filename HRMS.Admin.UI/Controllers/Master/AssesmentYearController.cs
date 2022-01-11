@@ -21,8 +21,17 @@ namespace HRMS.Admin.UI.Controllers.Master
         }
         public async Task<IActionResult> Index()
         {
-            ViewBag.HeaderTitle = PageHeader.HeaderSetting["AssesmentYearIndex"];
-            return await Task.Run(() => View(ViewHelper.GetViewPathDetails("AssesmentYear", "AssesmentYearIndex")));
+            try
+            {
+                ViewBag.HeaderTitle = PageHeader.HeaderSetting["AssesmentYearIndex"];
+                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("AssesmentYear", "AssesmentYearIndex")));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(AssesmentYear)} action name {nameof(Index)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> GetAssesmentYearList()
@@ -46,33 +55,51 @@ namespace HRMS.Admin.UI.Controllers.Master
 
         public async Task<IActionResult> CreateAssesmentYear(int id)
         {
-            var response = new DBResponseHelper<AssesmentYear, int>().GetDBResponseHelper(await _IAssesmentYearRepository.GetAllEntities(x => x.Id == id));
-
-            if (id == 0)
+            try
             {
-                return PartialView(ViewHelper.GetViewPathDetails("AssesmentYear", "_CreateAssesmentYear"));
+                var response = new DBResponseHelper<AssesmentYear, int>().GetDBResponseHelper(await _IAssesmentYearRepository.GetAllEntities(x => x.Id == id));
+
+                if (id == 0)
+                {
+                    return PartialView(ViewHelper.GetViewPathDetails("AssesmentYear", "_CreateAssesmentYear"));
+                }
+                else
+                {
+
+                    return PartialView(ViewHelper.GetViewPathDetails("AssesmentYear", "_CreateAssesmentYear"), response.Item2.Entities.First());
+                }
             }
-            else
+            catch (Exception ex)
             {
-
-                return PartialView(ViewHelper.GetViewPathDetails("AssesmentYear", "_CreateAssesmentYear"), response.Item2.Entities.First());
+                string template = $"Controller name {nameof(AssesmentYear)} action name {nameof(CreateAssesmentYear)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
         }
 
         [HttpPost]
         public async Task<IActionResult> UpSertAssesmentYear(AssesmentYear model)
         {
-            model.Name = model.StartYear + "-" + model.EndYear;
-            model.CreatedDate = DateTime.Now;
-            if (model.Id == 0)
+            try
             {
-                var response = await _IAssesmentYearRepository.CreateEntity(model);
-                return Json(response.Message);
+                model.Name = model.StartYear + "-" + model.EndYear;
+                model.CreatedDate = DateTime.Now;
+                if (model.Id == 0)
+                {
+                    var response = await _IAssesmentYearRepository.CreateEntity(model);
+                    return Json(response.Message);
+                }
+                else
+                {
+                    var response = await _IAssesmentYearRepository.UpdateEntity(model);
+                    return Json(response.Message);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                var response = await _IAssesmentYearRepository.UpdateEntity(model);
-                return Json(response.Message);
+                string template = $"Controller name {nameof(AssesmentYear)} action name {nameof(UpSertAssesmentYear)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
 
         }
@@ -80,17 +107,26 @@ namespace HRMS.Admin.UI.Controllers.Master
         [HttpGet]
         public async Task<IActionResult> DeleteAssesmentYear(int id)
         {
-            var deleteModel = await _IAssesmentYearRepository.GetAllEntityById(x => x.Id == id);
-
-            var deleteDbModel = CrudHelper.DeleteHelper<AssesmentYear>(deleteModel.Entity, 1);
-
-            var deleteResponse = await _IAssesmentYearRepository.DeleteEntity(deleteDbModel);
-
-            if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
+            try
             {
+                var deleteModel = await _IAssesmentYearRepository.GetAllEntityById(x => x.Id == id);
+
+                var deleteDbModel = CrudHelper.DeleteHelper<AssesmentYear>(deleteModel.Entity, 1);
+
+                var deleteResponse = await _IAssesmentYearRepository.DeleteEntity(deleteDbModel);
+
+                if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
+                {
+                    return Json(deleteResponse.Message);
+                }
                 return Json(deleteResponse.Message);
             }
-            return Json(deleteResponse.Message);
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(AssesmentYear)} action name {nameof(DeleteAssesmentYear)} exceptio is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
     }
 }
