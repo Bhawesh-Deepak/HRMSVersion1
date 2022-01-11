@@ -29,8 +29,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\LoginJsCss\" />
     <Folder Include="wwwroot\PDF\" />
+    <Folder Include="wwwroot\resources\login\css\" />
+    <Folder Include="wwwroot\resources\login\js\" />
     <Folder Include="wwwroot\resources\Subsidiary\js\" />
   </ItemGroup>
 
