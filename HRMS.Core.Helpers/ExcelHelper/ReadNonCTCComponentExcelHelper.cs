@@ -1,6 +1,7 @@
 ﻿using HRMS.Core.Entities.Payroll;
 using HRMS.Core.Helpers.CommonHelper;
 using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 
 
@@ -47,15 +48,15 @@ namespace HRMS.Core.Helpers.ExcelHelper
                 model.OtherDeduction = dataResult.dtResult.Rows[i][24].ToString().GetDefaultDBNull<decimal>();
 
                 model.SalaryAdvanceDeduction = dataResult.dtResult.Rows[i][25].ToString().GetDefaultDBNull<decimal>();
-                model.FoodCouponDeduction = dataResult.dtResult.Rows[i][26].ToString().GetDefaultDBNull<decimal>();
-                model.AssetsRecovery = dataResult.dtResult.Rows[i][27].ToString().GetDefaultDBNull<decimal>();
-                model.TravelDeduction = dataResult.dtResult.Rows[i][28].ToString().GetDefaultDBNull<decimal>();
-                model.EPFRecovery = dataResult.dtResult.Rows[i][29].ToString().GetDefaultDBNull<decimal>();
+                model.FoodCouponDeduction = 0;// dataResult.dtResult.Rows[i][26].ToString().GetDefaultDBNull<decimal>();
+                model.AssetsRecovery = dataResult.dtResult.Rows[i][26].ToString().GetDefaultDBNull<decimal>();
+                model.TravelDeduction = dataResult.dtResult.Rows[i][27].ToString().GetDefaultDBNull<decimal>();
+                model.EPFRecovery = dataResult.dtResult.Rows[i][28].ToString().GetDefaultDBNull<decimal>();
 
 
-                model.NPS = dataResult.dtResult.Rows[i][30].ToString().GetDefaultDBNull<decimal>();
-                model.ARRVPF_Deduction = dataResult.dtResult.Rows[i][31].ToString().GetDefaultDBNull<decimal>();
-                
+                model.NPS = dataResult.dtResult.Rows[i][29].ToString().GetDefaultDBNull<decimal>();
+                model.ARRVPF_Deduction = dataResult.dtResult.Rows[i][30].ToString().GetDefaultDBNull<decimal>();
+                model.CreatedDate = DateTime.Now;
 
 
                 models.Add(model);

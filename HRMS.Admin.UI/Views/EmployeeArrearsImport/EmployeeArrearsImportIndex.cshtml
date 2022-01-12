@@ -17,7 +17,7 @@
                         <div class="box box-primary">
                             <div class="box-header with-border">
                                 <div class="box-title">
-                                    <i class="fa fa-cloud-upload text-primary"></i> &nbsp;  Employee Non-CTC Import
+                                    <i class="fa fa-cloud-upload text-primary"></i> &nbsp;  Employee Arrears Import
                                 </div>
                             </div>
                             <div class="box-body">
@@ -27,8 +27,8 @@
                                             <div class="panel-body">
                                                 <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
                                                       data-ajax-complete="AjaxComplete"
-                                                      asp-action="UploadNonCTCComponent" enctype="multipart/form-data"
-                                                      asp-controller="EmployeeNonCTC" data-ajax-success="Success">
+                                                      asp-action="UploadArrearsSalary" enctype="multipart/form-data"
+                                                      asp-controller="EmployeeArrearsImport" data-ajax-success="Success">
                                                     <div class="col-md-12 px-4 d-none" id="d-1">
                                                         <div class="alert alert-danger alert-dismissible" style="display:none" id="Div_ExcelValidate">
                                                             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -46,7 +46,7 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-sm-6">
-                                                            <a href="~/Documents/Employee-Non-CTC.xlsx" class="btn btn-success" download="Arrear"><i class="fa fa-download"></i> Download Templete</a>
+                                                            <a href="~/Documents/Arrear.xlsx" class="btn btn-success" download="Arrear"><i class="fa fa-download"></i> Download Templete</a>
                                                         </div>
                                                         <div class="col-sm-6">
                                                             <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-upload"></i> Submit</button>
@@ -78,7 +78,7 @@
             $('#span_excelValidate').text("Invalid file selected, valid files are of " + validExts.toString() + " types.");
             return false;
         }
-        else if (filename != 'Employee-Non-CTC.xlsx') {
+        else if (filename != 'Arrear.xlsx') {
             $('#UploadFile').val(null);
             $('#Div_ExcelValidate').show('slow');
             $('#span_excelValidate').text("Invalid file Uploade");
