@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace HRMS.Core.Entities.Payroll
 {
-    [Table("EmployeeNonCTC", Schema = "Payroll")]
-    public class EmployeeNonCTC : BaseModel<int>
+    [Table("EmployeeSalary", Schema = "Payroll")]
+    public class EmployeeSalary : BaseModel<int>
     {
         public string EmpCode { get; set; }
-        public int DateYear { get; set; }
-        public int DateMonth { get; set; }
-        public int ComponentId { get; set; }
-        public decimal ComponentValue { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public decimal CTC { get; set; }
+
     }
 }

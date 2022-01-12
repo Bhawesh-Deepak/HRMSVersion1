@@ -10,6 +10,7 @@ namespace HRMS.Core.ReqRespVm.RequestVm
     public class EmployeeSalaryVm
     {
         public List<EmployeeDetail> EmployeeDetails { get; set; }
-        public List<EmployeeSalaryDetail> EmployeeSalaryDetails { get; set; }
+        public List<EmployeeSalary> EmployeeSalaryDetails { get; set; }
+        public List<EmployeeCtcComponent> EmployeeCtcComponentDetails { get; set; }
     }
 }

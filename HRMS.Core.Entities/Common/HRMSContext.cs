@@ -43,9 +43,7 @@ namespace HRMS.Core.Entities.Common
         public virtual DbSet<SalaryHeads> SalaryHeads { get; set; }
         public virtual DbSet<Designation> Designations { get; set; }
         public virtual DbSet<EmployeeAttendance> EmployeeAttendances { get; set; }
-        public virtual DbSet<EmployeeNonCTC> EmployeeNonCTCs { get; set; }
         public virtual DbSet<EmployeeDetail> EmployeeDetails { get; set; }
-        public virtual DbSet<EmployeeSalaryDetail> EmployeeSalaryDetails { get; set; }
         public virtual DbSet<CustomerLeadDetail> CustomerLeadDetails { get; set; }
         public virtual DbSet<RoleMaster> RoleMasters { get; set; }
         public virtual DbSet<ModuleMaster> ModuleMasters { get; set; }
@@ -78,6 +76,9 @@ namespace HRMS.Core.Entities.Common
         public virtual DbSet<AssesmentYear> AssesmentYears { get; set; }
         public virtual DbSet<EmployeeArrears> EmployeeArrearss { get; set; }
         public virtual DbSet<AnnouncementAndUpdate> AnnouncementAndUpdates { get; set; }
+        public virtual DbSet<CtcComponentDetail> CtcComponentDetails { get; set; }
+        public virtual DbSet<EmployeeSalary> EmployeeSalarys { get; set; }
+        public virtual DbSet<EmployeeCtcComponent> EmployeeCtcComponents { get; set; }
 
 
         #endregion

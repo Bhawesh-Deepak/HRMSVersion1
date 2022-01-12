@@ -51,7 +51,7 @@
             crossorigin="anonymous"></script>
     <style>
 
-       /* * {
+        /* * {
             font-family: 'Montserrat', sans-serif !important;
         }*/
 
@@ -104,7 +104,12 @@
 
             .logo-lg img {
                 width: 220px;
+                background: white;
             }
+
+        .skin-blue .wrapper, .skin-blue .main-sidebar, .skin-blue .left-side {
+            background-color: #4d4d4d;
+        }
     </style>
     <link href="~/resources/plugins/jQueryUI/jquery-ui.min.css" rel="stylesheet" />
     <script src="~/resources/plugins/jQueryUI/jquery-ui.min.js"></script>
@@ -677,7 +682,7 @@
             <!-- Logo -->
             <a asp-controller="Home" asp-action="Index" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels
-            <span class="logo-mini" style="color: #3C8DBC; font-size: 30px;"><i class="fa fa-heartbeat"></i></span> -->
+                <span class="logo-mini" style="color: #3C8DBC; font-size: 30px;"><i class="fa fa-heartbeat"></i></span> -->
                 <span class="logo-mini">
                     <img src="@companyDetails.Logo">
                 </span>
@@ -695,7 +700,7 @@
                 <!-- Navbar Right Menu -->
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
-                        
+
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <img src="~/resources/dist/img/emp.png" class="user-image" alt="User Image">
@@ -788,7 +793,7 @@
                             <ul class="treeview-menu">
                                 <li><a asp-action="Index" asp-controller="CompanyPolicy"><i class="fa fa-line-chart"></i> <span>Policies</span></a></li>
                                 <li><a asp-action="Index" asp-controller="CompanyHolidays"><i class="fa fa-line-chart"></i> <span>List of Holidays</span></a></li>
-                                <li><a asp-action="Index" asp-controller="Announcement"><i class="fa fa-line-chart"></i> <span>Announcement &amp; Update</span></a></li>
+                                <li><a asp-action="Index" asp-controller="AnnouncementAndUpdate"><i class="fa fa-line-chart"></i> <span>Announcement &amp; Update</span></a></li>
                                 <li><a asp-action="Index" asp-controller="CompanyNews"><i class="fa fa-line-chart"></i> <span>Company News</span></a></li>
                                 <li><a asp-controller="CurrentOpening" asp-action="Index"><i class="fa fa-line-chart"></i> <span>Current Opening</span></a></li>
                                 <li><a asp-action="Index" asp-controller="ReferDetail"><i class="fa fa-line-chart"></i> <span>Referral Candidate</span></a></li>
@@ -800,10 +805,10 @@
                                 <li><a href="#"><i class="fa fa-line-chart"></i> <span>Employee Increment</span></a></li>
                                 <li><a asp-action="Index" asp-controller="EmployeeSalary"><i class="fa fa-line-chart"></i> <span>Employee Master Import</span></a></li>
                                 <li><a asp-action="Index" asp-controller="EmployeeDetail"><i class="fa fa-line-chart"></i> <span>Employee Details</span></a></li>
-                               
+
                                 <li><a asp-controller="EmployeeAssets" asp-action="Index"><i class="fa fa-line-chart"></i> <span>Assets</span></a></li>
                                 <li><a asp-controller="EmployeeShifTiming" asp-action="Index"><i class="fa fa-line-chart"></i> <span>Shift Timing of Employee</span></a></li>
-                                <li><a asp-controller="InternalTransfer" asp-action="Index"  ><i class="fa fa-line-chart"></i> <span>Internal Transfer</span></a></li>
+                                <li><a asp-controller="InternalTransfer" asp-action="Index"><i class="fa fa-line-chart"></i> <span>Internal Transfer</span></a></li>
                             </ul>
                         </li>
                         <li class="treeview">

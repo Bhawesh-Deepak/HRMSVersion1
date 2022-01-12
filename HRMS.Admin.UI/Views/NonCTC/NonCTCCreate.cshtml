@@ -46,7 +46,8 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-sm-6">
-                                                            <a href="~/Documents/Employee-Non-CTC.xlsx" class="btn btn-success" download="Arrear"><i class="fa fa-download"></i> Download Templete</a>
+                                                            @*<a href="~/Documents/Employee-Non-CTC.xlsx" class="btn btn-success" download="Arrear"><i class="fa fa-download"></i> Download Templete</a>*@
+                                                            <a asp-action="DownloadExcelFormat" asp-controller="EmployeeNonCTC" class="btn btn-success"  ><i class="fa fa-download"></i> Download Templete</a>
                                                         </div>
                                                         <div class="col-sm-6">
                                                             <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-upload"></i> Submit</button>
