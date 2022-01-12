@@ -35,7 +35,7 @@ namespace HRMS.Admin.UI.Controllers.Payroll
         {
             var response = await _ICtcComponentDetailRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted && x.ComponentValueType == 3);
             string[] cells = { "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "AA", "AB", "AC", "AD", "AE", "AF", "AG" };
-            
+
             ExcelPackage Eps = new ExcelPackage();
             ExcelWorksheet Sheets = Eps.Workbook.Worksheets.Add("non-ctc");
             Sheets.Cells["A1"].Value = "Month";
@@ -50,7 +50,18 @@ namespace HRMS.Admin.UI.Controllers.Payroll
             Sheets.Cells["A:AZ"].AutoFitColumns();
             Eps.Save();
 
-            return View(ViewHelper.GetViewPathDetails("NonCTC", "NonCTCCreate"));
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "ExportCustomers.xlsx");
+            var memory = new MemoryStream();
+            using (var stream = new FileStream(path, FileMode.Open))
+            {
+                await stream.CopyToAsync(memory);
+            }
+            memory.Position = 0;
+
+            DeleteFile(new FileInfo(path));
+
+            return File(memory, GetContentType(path), Path.GetFileName(path));
+
         }
 
         [HttpPost]
@@ -67,6 +78,41 @@ namespace HRMS.Admin.UI.Controllers.Payroll
                 string message = ex.Message;
             }
             return Json("");
+        }
+
+
+        private string GetContentType(string path)
+        {
+            var types = GetMimeTypes();
+            var ext = Path.GetExtension(path).ToLowerInvariant();
+            return types[ext];
+        }
+
+        private Dictionary<string, string> GetMimeTypes()
+        {
+            return new Dictionary<string, string>
+            {
+                {".txt", "text/plain"},
+                {".pdf", "application/pdf"},
+                {".doc", "application/vnd.ms-word"},
+                {".docx", "application/vnd.ms-word"},
+                {".xls", "application/vnd.ms-excel"},
+                {".xlsx", "application/vnd.openxmlformatsofficedocument.spreadsheetml.sheet"},
+                {".png", "image/png"},
+                {".jpg", "image/jpeg"},
+                {".jpeg", "image/jpeg"},
+                {".gif", "image/gif"},
+                {".csv", "text/csv"}
+            };
+        }
+
+        private void DeleteFile(FileInfo file)
+        {
+            if (file.Exists)//check file exsit or not  
+            {
+                file.Delete();
+            }
+         
         }
     }
 }
