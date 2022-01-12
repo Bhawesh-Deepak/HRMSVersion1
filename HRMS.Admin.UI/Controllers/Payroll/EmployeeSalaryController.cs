@@ -16,10 +16,10 @@ namespace HRMS.Admin.UI.Controllers.Payroll
     public class EmployeeSalaryController : Controller
     {
         private readonly IGenericRepository<EmployeeDetail, int> _IEmployeeDetailRepository;
-        private readonly IGenericRepository<EmployeeSalaryDetail, int> _IEmployeeSalaryDetailRepository;
+        private readonly IGenericRepository<EmployeeSalary, int> _IEmployeeSalaryDetailRepository;
         private readonly IGenericRepository<AuthenticateUser, int> _IAuthenticateRepository;
         public EmployeeSalaryController(IGenericRepository<EmployeeDetail, int> employeeDetailRepo,
-            IGenericRepository<EmployeeSalaryDetail, int> employeeSalaryDetailRepo, IGenericRepository<AuthenticateUser, int> authRepository)
+            IGenericRepository<EmployeeSalary, int> employeeSalaryDetailRepo, IGenericRepository<AuthenticateUser, int> authRepository)
         {
             _IEmployeeDetailRepository = employeeDetailRepo;
             _IEmployeeSalaryDetailRepository = employeeSalaryDetailRepo;
