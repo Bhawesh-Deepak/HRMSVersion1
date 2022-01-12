@@ -88,7 +88,6 @@
     </style>
 </head>
 <body>
-
     <div class="main-content login-page">
         <section>
             <div class="db-overlay"></div>
@@ -154,37 +153,37 @@
 
                             <div class="login-input-list">
                                 <div class="login-input-item re-me" id="chkRemember">
-                                    <span class="icon icon-ok"></span>
-                                    <span>Remember me</span>
+                                    <span class="icon icon"></span>
+                                    <span> </span>
                                 </div>
                                 <div class="login-input-item for-pass" id="btnForgot">
-                                    <span><a href="#myModal" data-toggle="modal" data-target="#error-popup">Forgot password?</a></span>
+                                    <span><a href="javascript:void(0);">Forgot password?</a></span>
                                 </div>
                             </div>
                             @if (!string.IsNullOrEmpty(ViewBag.Message))
                             {
 
-                                <p style="color:red">@ViewBag.Message</p>
+                            <p style="color:red">@ViewBag.Message</p>
 
                             }
                             <a style="text-decoration:none;">
                                 <button type="submit" class="db-btn login-btn sub-btn" id="btnLogin">
                                     <span>login</span>
                                 </button>
-                                <div class="db-btn login-btn sub-btn" style="margin-top:5px" id="btnCustomSSO">
-                                    <span>SSO Login</span>
-                                </div>
+                                @*<div class="db-btn login-btn sub-btn" style="margin-top:5px" id="btnCustomSSO">
+                                        <span>SSO Login</span>
+                                    </div>*@
                             </a>
                         </form>
 
-                        <div class="btn-group punch">
-                            <div class="db-btn PunchBtn PunchButton" data-status="PUNCHIN">
-                                <span>punch in</span>
-                            </div>
-                            <div class="db-btn PunchBtn PunchButton" data-status="PUNCHOUT">
-                                <span>punch out</span>
-                            </div>
-                        </div>
+                        @*<div class="btn-group punch">
+                                <div class="db-btn PunchBtn PunchButton" data-status="PUNCHIN">
+                                    <span>punch in</span>
+                                </div>
+                                <div class="db-btn PunchBtn PunchButton" data-status="PUNCHOUT">
+                                    <span>punch out</span>
+                                </div>
+                            </div>*@
 
 
                     </div>
@@ -202,11 +201,11 @@
             </div>
 
         </section>
-        <section></section>
+
     </div>
 
 
-     
+
 
 
     <!-- *****fancy box**** -->

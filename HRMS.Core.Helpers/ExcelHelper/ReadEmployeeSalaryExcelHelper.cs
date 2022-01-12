@@ -18,7 +18,8 @@ namespace HRMS.Core.Helpers.ExcelHelper
 
             var model = new EmployeeSalaryVm();
             var employeeModels = new List<EmployeeDetail>();
-            var salaryModels = new List<EmployeeSalaryDetail>();
+            var salaryModels = new List<EmployeeSalary>();
+            var ctccomponentModels = new List<EmployeeCtcComponent>();
 
 
             for (int i = 2; i < dataResult.dtResult.Rows.Count; i++)
@@ -101,32 +102,10 @@ namespace HRMS.Core.Helpers.ExcelHelper
                 empModel.IsPFEligible = dataResult.dtResult.Rows[i][72].ToString().GetDefaultDBNull<int>();
                 employeeModels.Add(empModel);
 
-                var empSalaryModel = new EmployeeSalaryDetail();
+                var empSalaryModel = new EmployeeSalary();
                 empSalaryModel.CTC = dataResult.dtResult.Rows[i][73].ToString().GetDefaultDBNull<decimal>();
                 empSalaryModel.EmpCode = empModel.EmpCode;
-                empSalaryModel.BasicSalary = dataResult.dtResult.Rows[i][74].ToString().GetDefaultDBNull<decimal>();
-                empSalaryModel.ConvenanceAllowance = dataResult.dtResult.Rows[i][75].ToString().GetDefaultDBNull<decimal>();
-                empSalaryModel.EducationAllowance = dataResult.dtResult.Rows[i][76].ToString().GetDefaultDBNull<decimal>();
-                empSalaryModel.FoodCouponAllowance = dataResult.dtResult.Rows[i][77].ToString().GetDefaultDBNull<decimal>();
-                empSalaryModel.HouseRentAllowance = dataResult.dtResult.Rows[i][78].ToString().GetDefaultDBNull<decimal>();
-                empSalaryModel.LTARiembursement = dataResult.dtResult.Rows[i][79].ToString().GetDefaultDBNull<decimal>();
-
-                empSalaryModel.MedicalAllowance = dataResult.dtResult.Rows[i][80].ToString().GetDefaultDBNull<decimal>();
-                empSalaryModel.SpecialAllowance = dataResult.dtResult.Rows[i][81].ToString().GetDefaultDBNull<decimal>();
-                empSalaryModel.TelephoneAllowance = dataResult.dtResult.Rows[i][82].ToString().GetDefaultDBNull<decimal>();
-                empSalaryModel.UniformReimburesement = dataResult.dtResult.Rows[i][83].ToString().GetDefaultDBNull<decimal>();
-                empSalaryModel.BookAndPriodical = dataResult.dtResult.Rows[i][84].ToString().GetDefaultDBNull<decimal>();
-
-                empSalaryModel.PLP = dataResult.dtResult.Rows[i][85].ToString().GetDefaultDBNull<decimal>();
-                empSalaryModel.CarRunningAndMaintainence = dataResult.dtResult.Rows[i][86].ToString().GetDefaultDBNull<decimal>();
-
-                empSalaryModel.StatutoryBonus = dataResult.dtResult.Rows[i][87].ToString().GetDefaultDBNull<decimal>();
-                empSalaryModel.PACover = dataResult.dtResult.Rows[i][88].ToString().GetDefaultDBNull<decimal>();
-                empSalaryModel.MediClaimAmount = dataResult.dtResult.Rows[i][89].ToString().GetDefaultDBNull<decimal>();
-                empSalaryModel.PFDeduction = dataResult.dtResult.Rows[i][90].ToString().GetDefaultDBNull<decimal>();
-                empSalaryModel.ESIDeduction = dataResult.dtResult.Rows[i][91].ToString().GetDefaultDBNull<decimal>();
-                empSalaryModel.LWFDeduction = dataResult.dtResult.Rows[i][92].ToString().GetDefaultDBNull<decimal>();
-               
+                
 
                 salaryModels.Add(empSalaryModel);
 

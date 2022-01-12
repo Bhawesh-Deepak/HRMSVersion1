@@ -6,6 +6,7 @@ using HRMS.Core.Entities.Payroll;
 using HRMS.Core.Helpers.CommonHelper;
 using HRMS.Services.Repository.GenericRepository;
 using Microsoft.AspNetCore.Mvc;
+using OfficeOpenXml.Core.ExcelPackage;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -86,6 +87,7 @@ namespace HRMS.Admin.UI.Controllers.Organisation
         }
         public async Task<IActionResult> ExportEmployee()
         {
+             
             var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
             DataTable dt = new DataTable("Employee");
             dt.Columns.AddRange(new DataColumn[10] {
