@@ -2,8 +2,10 @@
 
 <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+
+
 <style>
-   
 </style>
 <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
       data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
@@ -16,7 +18,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label asp-for="Name">Department</label> <span style="color:red">  *</span>
-                            <select class="form-control" asp-for="DepartmentId" asp-items="@(new SelectList(ViewBag.DepartmentList ,"Id","Name"))">
+                            <select  class="selectpicker form-control" multiple data-live-search="true" asp-for="DepartmentId" asp-items="@(new SelectList(ViewBag.DepartmentList ,"Id","Name"))">
                                 <option value="">--Select--</option>
                             </select>
                             <span asp-validation-for="DepartmentId" class="text-danger"></span>
@@ -47,7 +49,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label asp-for="DocumentUrl">Document Url</label>
-                            <input asp-for="DocumentUrl" class="form-control" type="file"/>
+                            <input asp-for="DocumentUrl" class="form-control" type="file" />
                             <span asp-validation-for="DocumentUrl" class="text-danger"></span>
                         </div>
                     </div>
@@ -57,8 +59,8 @@
 
 
 
-                </div>
             </div>
+        </div>
 
     </div>
     <div class="modal-footer">
@@ -68,3 +70,9 @@
         <input type="submit" class="btn btn-primary  " value="Save" />
     </div>
 </form>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('select').selectpicker();
+    })
+</script>
