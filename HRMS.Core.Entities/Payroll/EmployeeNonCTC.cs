@@ -16,5 +16,7 @@ namespace HRMS.Core.Entities.Payroll
         public int DateMonth { get; set; }
         public int ComponentId { get; set; }
         public decimal ComponentValue { get; set; }
+        [NotMapped]
+        public string ComponentName { get; set; }
     }
 }
