@@ -33,9 +33,17 @@ namespace HRMS.Admin.UI.Controllers.Payroll
 
         public async Task<IActionResult> DownloadExcelFormat()
         {
+            string sWebRootFolder = _IHostingEnviroment.WebRootPath;
+            string sFileName = @"EmployeeNonCTC.xlsx";
+            string URL = string.Format("{0}://{1}/{2}", Request.Scheme, Request.Host, sFileName);
+            FileInfo file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
+            if (file.Exists)
+            {
+                file.Delete();
+                file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
+            }
             var response = await _ICtcComponentDetailRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted && x.ComponentValueType == 3);
             string[] cells = { "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "AA", "AB", "AC", "AD", "AE", "AF", "AG" };
-
             ExcelPackage Eps = new ExcelPackage();
             ExcelWorksheet Sheets = Eps.Workbook.Worksheets.Add("non-ctc");
             Sheets.Cells["A1"].Value = "Month";
@@ -47,21 +55,8 @@ namespace HRMS.Admin.UI.Controllers.Payroll
                 Sheets.Cells[cells[cell] + "1"].Value = item.ComponentName.Trim();
                 cell++;
             }
-            Sheets.Cells["A:AZ"].AutoFitColumns();
-            Eps.Save();
-
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "ExportCustomers.xlsx");
-            var memory = new MemoryStream();
-            using (var stream = new FileStream(path, FileMode.Open))
-            {
-                await stream.CopyToAsync(memory);
-            }
-            memory.Position = 0;
-
-            DeleteFile(new FileInfo(path));
-
-            return File(memory, GetContentType(path), Path.GetFileName(path));
-
+            var stream = new MemoryStream(Eps.GetAsByteArray());
+            return File(stream.ToArray(), "application/vnd.ms-excel", sFileName);
         }
 
         [HttpPost]
@@ -70,8 +65,13 @@ namespace HRMS.Admin.UI.Controllers.Payroll
             try
             {
                 var response = new ReadNonCTCComponentExcelHelper().GetEmployeeNonCTCComponent(model.UploadFile);
+                var ctcresponse = await _ICtcComponentDetailRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted && x.ComponentValueType == 3);
+                response.ToList().ForEach(data =>
+                {
+                    data.ComponentId = ctcresponse.Entities.Where(x => x.ComponentName == data.ComponentName).FirstOrDefault().Id;
+                });
                 var dbResponse = await _IEmployeeNonCTCRepository.CreateEntities(response.ToArray());
-                return Json("");
+                return Json("Non CTC Uploaded Sucessfully");
             }
             catch (Exception ex)
             {
@@ -112,7 +112,7 @@ namespace HRMS.Admin.UI.Controllers.Payroll
             {
                 file.Delete();
             }
-         
+
         }
     }
 }
