@@ -15,6 +15,8 @@ namespace HRMS.Core.Entities.Payroll
         public int ComponentId { get; set; }
         public string EmpCode { get; set; }
         public decimal ComponentValue { get; set; }
+        [NotMapped]
+        public string ComponentName { get; set; }
 
     }
 }

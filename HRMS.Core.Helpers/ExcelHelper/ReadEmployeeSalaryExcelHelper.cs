@@ -83,7 +83,6 @@ namespace HRMS.Core.Helpers.ExcelHelper
                 empModel.PAndFBankAccountNumberx = dataResult.dtResult.Rows[i][54].ToString().GetDefaultDBNull<string>();
                 empModel.ESICPreviousNumber = dataResult.dtResult.Rows[i][55].ToString().GetDefaultDBNull<string>();
                 empModel.Induction = dataResult.dtResult.Rows[i][56].ToString().GetDefaultDBNull<string>();
-
                 empModel.VISANumber = dataResult.dtResult.Rows[i][57].ToString().GetDefaultDBNull<string>();
                 empModel.VISADate= dataResult.dtResult.Rows[i][58].ToString().GetDefaultDBNull<DateTime>();
                 empModel.TaxFileNumber = dataResult.dtResult.Rows[i][59].ToString().GetDefaultDBNull<string>();
@@ -100,18 +99,198 @@ namespace HRMS.Core.Helpers.ExcelHelper
                 empModel.LeaveApprover2 = dataResult.dtResult.Rows[i][70].ToString().GetDefaultDBNull<string>();
                 empModel.PTStateName = dataResult.dtResult.Rows[i][71].ToString().GetDefaultDBNull<string>();
                 empModel.IsPFEligible = dataResult.dtResult.Rows[i][72].ToString().GetDefaultDBNull<int>();
+                empModel.CreatedDate = DateTime.Now;
                 employeeModels.Add(empModel);
 
                 var empSalaryModel = new EmployeeSalary();
                 empSalaryModel.CTC = dataResult.dtResult.Rows[i][73].ToString().GetDefaultDBNull<decimal>();
-                empSalaryModel.EmpCode = empModel.EmpCode;
-                
-
+                empSalaryModel.EmpCode = dataResult.dtResult.Rows[i][2].ToString().GetDefaultDBNull<string>();
+                empSalaryModel.StartDate = dataResult.dtResult.Rows[i][3].ToString().GetDefaultDBNull<DateTime>();
+                empSalaryModel.CreatedDate = DateTime.Now;
                 salaryModels.Add(empSalaryModel);
 
+                List<int> ComponentID = new List<int>();
+                List<decimal> ComponentValue = new List<decimal>();
+                //-------------Start Earning------------------------------------------------
+                ComponentValue.Add(dataResult.dtResult.Rows[i][74].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(1);
+                ComponentValue.Add(dataResult.dtResult.Rows[i][74].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(2);
+
+                ComponentValue.Add(dataResult.dtResult.Rows[i][75].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(3);
+                ComponentValue.Add(dataResult.dtResult.Rows[i][75].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(4);
+
+                ComponentValue.Add(dataResult.dtResult.Rows[i][76].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(5);
+                ComponentValue.Add(dataResult.dtResult.Rows[i][76].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(6);
+
+                ComponentValue.Add(dataResult.dtResult.Rows[i][77].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(7);
+                ComponentValue.Add(dataResult.dtResult.Rows[i][77].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(8);
+
+                ComponentValue.Add(dataResult.dtResult.Rows[i][78].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(9);
+                ComponentValue.Add(dataResult.dtResult.Rows[i][78].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(10);
+
+                ComponentValue.Add(dataResult.dtResult.Rows[i][79].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(11);
+                ComponentValue.Add(dataResult.dtResult.Rows[i][79].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(12);
+
+                ComponentValue.Add(dataResult.dtResult.Rows[i][80].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(13);
+                ComponentValue.Add(dataResult.dtResult.Rows[i][80].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(14);
+
+                ComponentValue.Add(dataResult.dtResult.Rows[i][81].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(15);
+                ComponentValue.Add(dataResult.dtResult.Rows[i][81].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(16);
+
+                ComponentValue.Add(dataResult.dtResult.Rows[i][82].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(17);
+                ComponentValue.Add(dataResult.dtResult.Rows[i][82].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(18);
+
+                ComponentValue.Add(dataResult.dtResult.Rows[i][83].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(19);
+                ComponentValue.Add(dataResult.dtResult.Rows[i][83].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(20);
+
+                ComponentValue.Add(dataResult.dtResult.Rows[i][84].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(21);
+                ComponentValue.Add(dataResult.dtResult.Rows[i][84].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(22);
+
+                ComponentValue.Add(dataResult.dtResult.Rows[i][85].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(23);
+                ComponentValue.Add(dataResult.dtResult.Rows[i][85].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(24);
+
+                ComponentValue.Add(dataResult.dtResult.Rows[i][86].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(25);
+                ComponentValue.Add(dataResult.dtResult.Rows[i][86].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(26);
+
+                ComponentValue.Add(dataResult.dtResult.Rows[i][87].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(27);
+                ComponentValue.Add(dataResult.dtResult.Rows[i][87].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(28);
+                //---------------------------NON-CTC --------------------------------------------------
+                ComponentValue.Add(0);
+                ComponentID.Add(29);
+                ComponentValue.Add(0);
+                ComponentID.Add(30);
+                ComponentValue.Add(0);
+                ComponentID.Add(31);
+                ComponentValue.Add(0);
+                ComponentID.Add(32);
+                ComponentValue.Add(0);
+                ComponentID.Add(33);
+                ComponentValue.Add(0);
+                ComponentID.Add(34);
+                ComponentValue.Add(0);
+                ComponentID.Add(35);
+                ComponentValue.Add(0);
+                ComponentID.Add(36);
+                ComponentValue.Add(0);
+                ComponentID.Add(37);
+                ComponentValue.Add(0);
+                ComponentID.Add(38);
+                ComponentValue.Add(0);
+                ComponentID.Add(39);
+                ComponentValue.Add(0);
+                ComponentID.Add(40);
+                ComponentValue.Add(0);
+                ComponentID.Add(41);
+                ComponentValue.Add(0);
+                ComponentID.Add(42);
+                //---------------------------End Earning ------Start Deduction -----------------------------------------
+                ComponentValue.Add(dataResult.dtResult.Rows[i][88].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(43);
+                ComponentValue.Add(dataResult.dtResult.Rows[i][88].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(44);
+
+                ComponentValue.Add(dataResult.dtResult.Rows[i][89].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(45);
+                ComponentValue.Add(dataResult.dtResult.Rows[i][89].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(46);
+                //----------------------------NON CTC-----------------------------
+                ComponentValue.Add(0);
+                ComponentID.Add(47);
+                ComponentValue.Add(0);
+                ComponentID.Add(48);
+                ComponentValue.Add(0);
+                ComponentID.Add(49);
+                ComponentValue.Add(0);
+                ComponentID.Add(50);
+                ComponentValue.Add(0);
+                ComponentID.Add(51);
+                ComponentValue.Add(0);
+                ComponentID.Add(52);
+                ComponentValue.Add(0);
+                ComponentID.Add(53);
+                ComponentValue.Add(0);
+                ComponentID.Add(54);
+                ComponentValue.Add(0);
+                ComponentID.Add(55);
+                ComponentValue.Add(0);
+                ComponentID.Add(56);
+                ComponentValue.Add(0);
+                ComponentID.Add(57);
+                ComponentValue.Add(0);
+                ComponentID.Add(58);
+                ComponentValue.Add(0);
+                ComponentID.Add(59);
+                ComponentValue.Add(dataResult.dtResult.Rows[i][89].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(60);
+                ComponentValue.Add(dataResult.dtResult.Rows[i][89].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(61);
+                ComponentValue.Add(0);
+                ComponentID.Add(62);
+                ComponentValue.Add(0);
+                ComponentID.Add(63);
+                ComponentValue.Add(dataResult.dtResult.Rows[i][90].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(64);
+                ComponentValue.Add(dataResult.dtResult.Rows[i][90].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(65);
+                ComponentValue.Add(dataResult.dtResult.Rows[i][91].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(66);
+                ComponentValue.Add(dataResult.dtResult.Rows[i][91].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(67);
+                ComponentValue.Add(dataResult.dtResult.Rows[i][92].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(68);
+                ComponentValue.Add(dataResult.dtResult.Rows[i][92].ToString().GetDefaultDBNull<decimal>());
+                ComponentID.Add(69);
+                ComponentValue.Add(0);
+                ComponentID.Add(70);
+                for (int J = 0; J < ComponentValue.Count(); J++)
+                {
+                    var employeectccomponent = new EmployeeCtcComponent();
+                    employeectccomponent.EmployeeSalaryId = 0;
+                    employeectccomponent.EmpCode = dataResult.dtResult.Rows[i][2].ToString().GetDefaultDBNull<string>();
+                    employeectccomponent.ComponentId = ComponentID[J];                     
+                    employeectccomponent.ComponentValue = ComponentValue[J];
+                    ctccomponentModels.Add(employeectccomponent);
+                }
+                //for (int J = 74; J < dataResult.dtResult.Columns.Count; J++)
+                //{
+                //    var employeectccomponent = new EmployeeCtcComponent();
+                //    employeectccomponent.EmployeeSalaryId = 0;
+                //    employeectccomponent.EmpCode = dataResult.dtResult.Rows[i][2].ToString().GetDefaultDBNull<string>();
+                //    employeectccomponent.ComponentName = dataResult.dtResult.Rows[0][J].ToString().GetDefaultDBNull<string>();
+                //    employeectccomponent.ComponentValue = dataResult.dtResult.Rows[i][J].ToString().GetDefaultDBNull<decimal>();
+                //    ctccomponentModels.Add(employeectccomponent);
+                //}
             }
             model.EmployeeDetails = employeeModels;
             model.EmployeeSalaryDetails = salaryModels;
+            model.EmployeeCtcComponentDetails = ctccomponentModels;
             return model;
         }
         
