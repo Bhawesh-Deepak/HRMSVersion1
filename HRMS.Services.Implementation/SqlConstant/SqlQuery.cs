@@ -11,5 +11,7 @@ namespace HRMS.Services.Implementation.SqlConstant
         public const string UploadAttendance = @"[Payroll].[usp_UploadEmployeeAttendance]";
         public const string GetReferedCandidate = @"Posting.usp_GetReferedCandidate";
         public const string GetFileteredEmployee = @"Payroll.usp_GetEmployeeList";
+        public const string GetEmployeeSalaryByCode = @"[dbo].[usp_GetEmployeeSalaryByEmpCode]";
+        public const string GetEmployeeSalary = @"[dbo].[usp_GetEmployeeSalary]";
     }
 }
