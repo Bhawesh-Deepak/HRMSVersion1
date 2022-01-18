@@ -11,6 +11,6 @@ namespace HRMS.Core.ReqRespVm.SqlParams
         public int MonthId { get; set; }
         public int YearId { get; set; }
         public string EmpCode { get; set; }
-        public int LopDays { get; set; }
+        public decimal LopDays { get; set; }
     }
 }
