@@ -37,10 +37,8 @@ namespace HRMS.Services.Implementation.GenericImplementation
                 if (db.State == ConnectionState.Closed)
                     db.Open();
 
-                var query = GetQueryString(sp);
-
                 var parms = ConvertObjectToDBParameter<TEntity>(entity);
-                result = db.Query<T>(query, parms, commandType: CommandType.StoredProcedure, transaction: null).FirstOrDefault();
+                result = db.Query<T>(sp, parms, commandType: CommandType.StoredProcedure, transaction: null).FirstOrDefault();
 
                 return result;
             }
