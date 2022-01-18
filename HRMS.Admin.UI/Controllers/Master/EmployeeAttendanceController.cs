@@ -47,10 +47,11 @@ namespace HRMS.Admin.UI.Controllers.Master
                 {
                     var model = new AttendanceParams()
                     {
-                        EmpCode = item.EmployeeCode,
-                        LopDays = item.LOPDays,
                         MonthId = item.DateMonth,
-                        YearId = item.DateYear
+                        YearId = item.DateYear,
+                        EmpCode = item.EmployeeCode,
+                        LopDays = item.LOPDays
+                        
                     };
 
                     var uploadResponse = _IEmployeeDapperRepository

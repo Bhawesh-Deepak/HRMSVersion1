@@ -101,7 +101,7 @@ namespace HRMS.Admin.UI.Controllers.Master
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpsertCompanyPolicy(CompanyPolicy model,IFormFile DocumentUrl)
+        public async Task<IActionResult> UpsertCompanyPolicy(CompanyPolicy model,List<int> DepartmentId, IFormFile DocumentUrl)
         {
             try
             {

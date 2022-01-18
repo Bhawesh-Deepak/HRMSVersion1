@@ -2,9 +2,8 @@
 
 <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+@*<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">*@
 
-<style>
-</style>
 
 <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
       data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
@@ -17,7 +16,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label asp-for="Name">Department</label> <span style="color:red">  *</span>
-                            <select  class="selectpicker form-control" multiple data-live-search="true" asp-for="DepartmentId" asp-items="@(new SelectList(ViewBag.DepartmentList ,"Id","Name"))">
+                            <select class="selectpicker form-control" multiple data-live-search="true" asp-for="DepartmentId" asp-items="@(new SelectList(ViewBag.DepartmentList ,"Id","Name"))">
                                 <option value="">--Select--</option>
                             </select>
                             <span asp-validation-for="DepartmentId" class="text-danger"></span>
