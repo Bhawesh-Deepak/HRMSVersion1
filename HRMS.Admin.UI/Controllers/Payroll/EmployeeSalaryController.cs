@@ -236,7 +236,6 @@ namespace HRMS.Admin.UI.Controllers.Payroll
                 var employeeSalaryList = await _IEmployeeSalaryDetailRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
                 response.EmployeeCtcComponentDetails.ToList().ForEach(data =>
                 {
-                     
                     data.EmployeeSalaryId = employeeSalaryList.Entities.Where(x => x.EmpCode == data.EmpCode && x.EndDate == null).FirstOrDefault().Id;
                 });
                 var ctccomponentReponse = await _IEmployeeCtcComponentRepository.CreateEntities(response.EmployeeCtcComponentDetails.ToArray());

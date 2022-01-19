@@ -50,8 +50,7 @@ namespace HRMS.Admin.UI.Controllers.Master
                         MonthId = item.DateMonth,
                         YearId = item.DateYear,
                         EmpCode = item.EmployeeCode,
-                        LopDays = item.LOPDays
-                        
+                        LopDays = item.LOPDays                        
                     };
 
                     var uploadResponse = _IEmployeeDapperRepository
