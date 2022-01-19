@@ -746,7 +746,7 @@
                 <!-- search form -->
                 <div class="sidebar-form" style="">
                     <div class="input-group">
-                        <input type="text" id="txtSearchEmp" class="form-control ui-autocomplete-input" autocomplete="off" placeholder="Search ...">
+                        <input type="text" id="txtSearchMenu" class="form-control ui-autocomplete-input" autocomplete="off" placeholder="Search ...">
                         <span class="input-group-btn">
                             <a data-toggle="modal" data-target="#popEmpDetails" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></a>
                         </span>
@@ -900,5 +900,18 @@
             $("#modalTitle").text("Change Password");
         })
     }
+
+    $(document).ready(function () {
+        $("#txtSearchMenu").on("keyup", function () {
+            if (this.value.length > 0) {
+                $(".menuList li").hide().filter(function () {
+                    return $(this).text().toLowerCase().indexOf($("#txtMenu").val().toLowerCase()) != -1;
+                }).show();
+            }
+            else {
+                $(".menuList li").show();
+            }
+        });
+    });
 </script>
 

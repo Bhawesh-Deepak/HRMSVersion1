@@ -54,6 +54,7 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
             }
             catch (Exception ex)
             {
+                Serilog.Log.Error(ex, ex.Message);
                 return RedirectToAction("Error", "Home");
             }
 
@@ -93,6 +94,7 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
             }
             catch (Exception ex)
             {
+                Serilog.Log.Error(ex, ex.Message);
                 return Json("Something wents wrong please contact admin !!!");
             }
 
