@@ -20,13 +20,15 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
     {
         private const string BASEURL = "http://smsinteract.in/";
         private readonly IGenericRepository<EmployeeDetail, int> _IEmployeeDetailRepository;
+        private readonly IGenericRepository<AdminEmployeeDetail, int> _IAdminEmployeeDetailRepository;
         private readonly IGenericRepository<AuthenticateUser, int> _IAuthenticateRepository;
         private readonly IGenericRepository<Company, int> _ICompanyRepository;
 
-        public AuthenticateController(IGenericRepository<EmployeeDetail, int> employeeDetailRepository,
+        public AuthenticateController(IGenericRepository<EmployeeDetail, int> employeeDetailRepository, IGenericRepository<AdminEmployeeDetail, int> adminemployeeDetailRepository,
             IGenericRepository<AuthenticateUser, int> authenticateRepo, IGenericRepository<Company, int> companyRepository)
         {
             _IEmployeeDetailRepository = employeeDetailRepository;
+            _IAdminEmployeeDetailRepository = adminemployeeDetailRepository;
             _IAuthenticateRepository = authenticateRepo;
             _ICompanyRepository = companyRepository;
         }
@@ -46,23 +48,35 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
 
             if (response.Entities.Any())
             {
-                var employeeDetails = await _IEmployeeDetailRepository.GetAllEntities(x => x.Id == response.Entities.First().EmployeeId);
+               
                 var companyDetail = await _ICompanyRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
 
-                HttpContext.Session.SetObjectAsJson("companyDetails", companyDetail.Entities.First());
-                HttpContext.Session.SetObjectAsJson("UserDetail", employeeDetails.Entities.First());
-                HttpContext.Session.SetString("UserName", employeeDetails.Entities.First().EmployeeName);
-                HttpContext.Session.SetString("EmployeeId", employeeDetails.Entities.First().Id.ToString());
-                HttpContext.Session.SetString("RoleId", response.Entities.First().RoleId.ToString());
-
+               
                 //Dashboard page will open for admin and super admin role only
                 // roleId=1 For SuperAdmin :: roleId=2 for admin
 
-                if (response.Entities.First().RoleId == 1 || response.Entities.First().RoleId == 2)
+                if (response.Entities.First().RoleId == 1)
                 {
+                    var employeeDetails = await _IAdminEmployeeDetailRepository.GetAllEntities(x => x.Id == response.Entities.First().EmployeeId);
+                    HttpContext.Session.SetObjectAsJson("companyDetails", companyDetail.Entities.First());
+                    HttpContext.Session.SetObjectAsJson("UserDetail", employeeDetails.Entities.First());
+                    HttpContext.Session.SetString("UserName", employeeDetails.Entities.First().EmployeeName);
+                    HttpContext.Session.SetString("EmployeeId", employeeDetails.Entities.First().Id.ToString());
+                    HttpContext.Session.SetString("RoleId", response.Entities.First().RoleId.ToString());
+
                     return RedirectToAction("Index", "Dashboard");
                 }
-                return RedirectToAction("Index", "Home");
+                else
+                {
+                    var employeeDetails = await _IEmployeeDetailRepository.GetAllEntities(x => x.Id == response.Entities.First().EmployeeId);
+                    HttpContext.Session.SetObjectAsJson("companyDetails", companyDetail.Entities.First());
+                    HttpContext.Session.SetObjectAsJson("UserDetail", employeeDetails.Entities.First());
+                    HttpContext.Session.SetString("UserName", employeeDetails.Entities.First().EmployeeName);
+                    HttpContext.Session.SetString("EmployeeId", employeeDetails.Entities.First().Id.ToString());
+                    HttpContext.Session.SetString("RoleId", response.Entities.First().RoleId.ToString());
+                    return RedirectToAction("Index", "Home");
+                }
+               
             }
             string message = "Invalid Login credential !!!";
             return RedirectToAction("LoginIndex", "Authenticate", new { message = message });

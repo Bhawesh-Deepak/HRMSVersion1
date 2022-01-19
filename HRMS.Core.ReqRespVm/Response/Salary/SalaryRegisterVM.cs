@@ -18,9 +18,9 @@ namespace HRMS.Core.ReqRespVm.Response.Salary
         public int Id { get; set; }
         public string empCode { get; set; }
         public string employeeName { get; set; }
-        public DateTime dateOfBirth { get; set; }
-        public DateTime joiningDate { get; set; }
-        public DateTime confirmationDate { get; set; }
+        public DateTime ? dateOfBirth { get; set; }
+        public DateTime ? joiningDate { get; set; }
+        public DateTime ? confirmationDate { get; set; }
         public string AadharCardNumber { get; set; }
         public string BiometricCode { get; set; }
         public string BranchOfficeId { get; set; }
@@ -41,7 +41,7 @@ namespace HRMS.Core.ReqRespVm.Response.Salary
         public string Zone { get; set; }
         public string PTStateName { get; set; }
         public string Status_Description { get; set; }
-        public DateTime exitDate { get; set; }
+        public string exitDate { get; set; }
         public decimal WorkingDays { get; set; }
         public decimal ArrearDays { get; set; }
         public decimal LOPDays { get; set; }
