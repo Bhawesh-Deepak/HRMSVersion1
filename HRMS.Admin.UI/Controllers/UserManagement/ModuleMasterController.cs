@@ -12,7 +12,6 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
     public class ModuleMasterController : Controller
     {
         private readonly IGenericRepository<ModuleMaster, int> _IModuleMasterRepository;
-
         public ModuleMasterController(IGenericRepository<ModuleMaster, int> moduleRepo)
         {
             _IModuleMasterRepository = moduleRepo;
