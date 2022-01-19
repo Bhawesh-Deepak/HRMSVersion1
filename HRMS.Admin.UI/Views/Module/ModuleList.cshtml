@@ -7,6 +7,7 @@
         <table id="tblDataList" class="table table-condensed table-striped table-hover table-bordered table-body-nowrap table-head-nowrap dataTable" cellspacing="0" rules="all" border="1" style="border-collapse:collapse;">
             <thead>
                 <tr class="th-primary" role="row">
+                    <th>#</th>
                     <th>Module Name</th>
                     <th>Controller Name</th>
                     <th>Action Name</th>
@@ -15,32 +16,45 @@
                 </tr>
             </thead>
             <tbody>
+                @{
+                    int count = 1;
+                    string trclass = string.Empty;
+                }
                 @foreach (var data in Model)
                 {
-                <tr>
-                    <td>
+                    if (count / 2 == 0)
+                    {
+                        trclass = "even";
+                    }
+                    else
+                    {
+                        trclass = "odd";
+                    }
+                <tr class="@trclass">
+                    <td align="left" style="width:5%;" class="sorting_1">
+                        @count
+                    </td>
+                    <td align="left" style="width:20%;" class="sorting_1">
                         @data.ModuleName
                     </td>
-                    <td>
+                    <td align="left" style="width:20%;" class="sorting_1">
                         @data.ControllerName
                     </td>
-                    <td>
+                    <td align="left" style="width:20%;" class="sorting_1">
                         @data.ActionName
                     </td>
-                    <td>
-                        @data.ModuleIcon
+                    <td align="left" style="width:20%;" class="sorting_1">
                         <span class="@data.ModuleIcon"></span>
                     </td>
-
                     <td align="center" style="width:10%;" class="sorting_1">
-                        <a class="btn btn-outline-success pull-right btn-xs" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'  style='color:#DD4B39'></i>" onclick="UpdateRecord(@data.Id, this)">
-                            <i class="fa fa-edit" style="color:#3C8DBC"></i>
+                        <a title="Edit" class="btn btn-primary btn-xs" onclick="UpdateRecord(@data.Id, this)">
+                            <span class="fa fa-pencil "></span>
                         </a>
-                        <a class="btn btn-outline-danger pull-right btn-xs" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'  style='color:#DD4B39'></i>" onclick="Delete(@data.Id, this)">
-                            <i class="fa fa-trash" style="color:#DD4B39"></i>
-                        </a>
+                        <a title="Delete" class="btn btn-xs btn-danger" onclick="Delete(@data.Id, this)"><i class="fa fa-ban"></i></a>
+
                     </td>
                 </tr>
+                    count++;
                 }
             </tbody>
 
