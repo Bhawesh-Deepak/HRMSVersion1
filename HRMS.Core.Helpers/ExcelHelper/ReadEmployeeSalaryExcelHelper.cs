@@ -29,7 +29,7 @@ namespace HRMS.Core.Helpers.ExcelHelper
                 empModel.Salutation = dataResult.dtResult.Rows[i][0].ToString().GetDefaultDBNull<string>();
                 empModel.EmployeeName = dataResult.dtResult.Rows[i][1].ToString().GetDefaultDBNull<string>();
                 empModel.EmpCode = dataResult.dtResult.Rows[i][2].ToString().GetDefaultDBNull<string>();
-                empModel.JoiningDate = dataResult.dtResult.Rows[i][3].ToString().GetDefaultDBNull<DateTime>();
+                empModel.JoiningDate =Convert.ToDateTime( dataResult.dtResult.Rows[i][3].ToString()).ToString("yyyy-MM-dd").GetDefaultDBNull<DateTime>();
                 empModel.EmployementStatus = dataResult.dtResult.Rows[i][4].ToString().GetDefaultDBNull<string>();
                 empModel.OfficeEmailId = dataResult.dtResult.Rows[i][5].ToString().GetDefaultDBNull<string>();
                 empModel.DepartmentName = dataResult.dtResult.Rows[i][6].ToString().GetDefaultDBNull<string>();

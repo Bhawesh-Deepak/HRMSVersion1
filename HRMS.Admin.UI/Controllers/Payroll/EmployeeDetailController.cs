@@ -107,7 +107,6 @@ namespace HRMS.Admin.UI.Controllers.Payroll
 
             return await Task.Run(() => PartialView(ViewHelper.GetViewPathDetails("EmployeeDetail", "EmployeeFilteredList"), response.ToList()));
         }
-
         public async Task<IActionResult> ExportToExcel()
         {
             var models = HttpContext.Session.GetObjectFromJson<List<EmployeeDetail>>("EmpDetail");
