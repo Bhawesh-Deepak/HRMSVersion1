@@ -23,7 +23,7 @@
                                     <div class="col-sm-2">
 
                                         <label for="">Legal Entity: :</label>
-                                        <select asp-for="@Model.First().LegalEntity" class="form-control input-sm"
+                                        <select  id="LegalEntity" name="LegalEntity" class="form-control input-sm"
                                                 asp-items="@(new SelectList((IEnumerable<HRMS.Core.Entities.Organisation.Subsidiary>)ViewBag.subsidiaryList,"Name","Name"))">
                                             <option value="">--Select--</option>
                                         </select>
@@ -32,7 +32,7 @@
                                     <div class="col-sm-2">
 
                                         <label for="">Department :</label>
-                                        <select asp-for="@Model.First().DepartmentName" class="form-control input-sm"
+                                        <select id="DepartmentName" name="DepartmentName" class="form-control input-sm"
                                                 asp-items="@(new SelectList((IEnumerable<HRMS.Core.Entities.Master.Department>)ViewBag.departmentList,"Name","Name"))">
                                             <option value="">--Select--</option>
                                         </select>
@@ -41,7 +41,7 @@
                                     <div class="col-sm-2">
 
                                         <label for="">Designation:</label>
-                                        <select asp-for="@Model.First().DesignationName" class="form-control input-sm"
+                                        <select id="DesignationName" name="DesignationName" class="form-control input-sm"
                                                 asp-items="@(new SelectList((IEnumerable<HRMS.Core.Entities.Master.Designation>)ViewBag.designationList,"Name","Name"))">
                                             <option value="">--Select--</option>
                                         </select>
@@ -49,7 +49,7 @@
                                     </div>
                                     <div class="col-sm-2">
                                         <label for="">P &amp; L Head :</label>
-                                        <select asp-for="@Model.First().PAndLHeadName" class="form-control input-sm"
+                                        <select id="PAndLHeadName" name="PAndLHeadName" class="form-control input-sm"
                                                 asp-items="@(new SelectList((IEnumerable<HRMS.Core.Entities.Master.PAndLMaster>)ViewBag.pandlList,"Name","Name"))">
                                             <option value="">--Select--</option>
                                         </select>
@@ -64,7 +64,7 @@
 
                                         <label for="exampleInputName2">Location :</label>
 
-                                        <select asp-for="@Model.First().Location" class="form-control input-sm"
+                                        <select id="Location" name="Location" class="form-control input-sm"
                                                 asp-items="@(new SelectList((IEnumerable<HRMS.Core.Entities.Master.Location>)ViewBag.locationList,"Name","Name"))">
                                             <option value="">--Select--</option>
                                         </select>
@@ -139,82 +139,7 @@
                     <div class="col-md-12 col-sm-12">
                         <div class="box box-warning">
                             <div class="box-body">
-                                <div class="row">
-                                    <div class="col-lg-3 col-6">
-                                        <!-- small box -->
-                                        <div class="small-box bg-primary">
-                                            <div class="inner">
-                                                <h3>@Model.Count()</h3>
-
-                                                <p>TOTAL EMPLOYEE</p>
-                                            </div>
-                                            <div class="icon">
-                                                <i class="fa fa-users"></i>
-                                            </div>
-                                            <a asp-action="GetActiveInActiveDetails" asp-controller="EmployeeDetail" asp-route-status="-2"
-                                               data-ajax="true" data-ajax-mode="replace" data-ajax-update="#divEmployeeDetails"
-                                               class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                                        </div>
-                                    </div>
-                                    <!-- ./col -->
-                                    <div class="col-lg-3 col-6">
-                                        <!-- small box -->
-                                        <div class="small-box bg-success">
-                                            <div class="inner">
-                                                <h3>@Model.Where(x => x.IsActive == true).Count()</h3>
-
-                                                <p>
-                                                    ACTIVE EMPLOYEE
-                                                </p>
-                                            </div>
-                                            <div class="icon">
-                                                <i class="fa fa-user-plus"></i>
-                                            </div>
-                                            <a asp-action="GetActiveInActiveDetails" asp-controller="EmployeeDetail" asp-route-status="1"
-                                               data-ajax="true" data-ajax-mode="replace" data-ajax-update="#divEmployeeDetails"
-                                               class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                                        </div>
-                                    </div>
-                                    <!-- ./col -->
-                                    <div class="col-lg-3 col-6">
-                                        <!-- small box -->
-                                        <div class="small-box bg-warning">
-                                            <div class="inner">
-                                                <h3>@Model.Where(x => x.IsActive == false).Count()</h3>
-
-                                                <p>
-                                                    IN-ACTIVE EMPLOYEE
-                                                </p>
-                                            </div>
-                                            <div class="icon">
-                                                <i class="fa fa-user-times "></i>
-                                            </div>
-                                            <a asp-action="GetActiveInActiveDetails" asp-controller="EmployeeDetail" asp-route-status="0"
-                                               data-ajax="true" data-ajax-mode="replace" data-ajax-update="#divEmployeeDetails"
-                                               class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                                        </div>
-                                    </div>
-                                    <!-- ./col -->
-                                    <div class="col-lg-3 col-6">
-                                        <!-- small box -->
-                                        <div class="small-box bg-danger">
-                                            <div class="inner">
-                                                <h3>@Model.Where(x => x.IsDeleted == true).Count()</h3>
-
-                                                <p>
-                                                    FNF INITIATED
-                                                </p>
-                                            </div>
-                                            <div class="icon">
-                                                <i class="fa fa-user-circle-o"></i>
-                                            </div>
-                                            <a asp-action="GetActiveInActiveDetails" asp-controller="EmployeeDetail" asp-route-status="1"
-                                               data-ajax="true" data-ajax-mode="replace" data-ajax-update="#divEmployeeDetails"
-                                               class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                                        </div>
-                                    </div>
-                                    <!-- ./col -->
-                                </div>
+                                @await Component.InvokeAsync("EmployeeCount")
                             </div>
                         </div>
                     </div>
