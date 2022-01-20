@@ -111,6 +111,7 @@
             background-color: #4d4d4d;
         }
     </style>
+
     <link href="~/resources/plugins/jQueryUI/jquery-ui.min.css" rel="stylesheet" />
     <script src="~/resources/plugins/jQueryUI/jquery-ui.min.js"></script>
 
@@ -679,10 +680,7 @@
     <div class="wrapper">
 
         <header class="main-header">
-            <!-- Logo -->
             <a asp-controller="Home" asp-action="Index" class="logo">
-                <!-- mini logo for sidebar mini 50x50 pixels
-                <span class="logo-mini" style="color: #3C8DBC; font-size: 30px;"><i class="fa fa-heartbeat"></i></span> -->
                 <span class="logo-mini">
                     <img src="@companyDetails.Logo">
                 </span>
@@ -731,18 +729,12 @@
                     </ul>
                 </div>
             </nav>
-
-
-
-
         </header>
 
         <aside class="main-sidebar">
 
             <!-- sidebar: style can be found in sidebar.less -->
             <section class="sidebar">
-
-                <!-- Sidebar user panel (optional) -->
                 <!-- search form -->
                 <div class="sidebar-form" style="">
                     <div class="input-group">
@@ -752,8 +744,7 @@
                         </span>
                     </div>
                 </div>
-                <!-- /.search form -->
-                <!-- Sidebar Menu -->
+
                 <div id="sideMenuContainer">
                     <ul class="sidebar-menu">
                         @if (roleId == "1" || roleId == "2" || roleId == "3")
@@ -854,7 +845,7 @@
                     </ul>
                 </div>
             </section>
-            <!-- /.sidebar -->
+
         </aside>
 
 
