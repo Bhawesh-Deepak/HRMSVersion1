@@ -121,15 +121,25 @@
     </div>
 </div>
 <script>
+    //$(document).ready(function () {
+    //    $('#example').DataTable({
+    //        dom: 'Bfrtip',
+    //        buttons: [
+    //            'copyHtml5',
+    //            'excelHtml5',
+    //            'csvHtml5',
+    //            'pdfHtml5'
+    //        ]
+    //    });
+    //});
+
     $(document).ready(function () {
         $('#example').DataTable({
-            dom: 'Bfrtip',
-            buttons: [
-                'copyHtml5',
-                'excelHtml5',
-                'csvHtml5',
-                'pdfHtml5'
-            ]
+            "paging": false,
         });
     });
+
+    function GetData() {
+        alert("Pagin and sorting");
+    }
 </script>

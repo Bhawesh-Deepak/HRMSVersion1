@@ -50,7 +50,7 @@ namespace HRMS.Admin.UI.Controllers.Payroll
 
             ViewBag.HeaderTitle = PageHeader.HeaderSetting["EmployeeDetailIndex"];
 
-            return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeeDetail", "EmployeeDetailIndex"), response.Entities));
+            return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeeDetail", "EmployeeDetailIndex"), response.Entities.Take(100).ToList()));
         }
 
         public async Task<IActionResult> GetFilteredData(string legalEntity, string department,
