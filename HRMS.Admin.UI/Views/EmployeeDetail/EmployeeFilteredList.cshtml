@@ -95,13 +95,12 @@
                                                 </td>
 
                                                 <td align="center" style="width:5%;" class="sorting_1">
-                                                    <a title="Edit" class="btn btn-primary btn-xs" onclick="UpdateRecord(@data.Id, this)">
+                                                    <a title="Edit" class="btn btn-primary btn-xs" 
+                                                       onclick="UpdateRecord(@data.Id, this)">
                                                         <span class="fa fa-pencil "></span>
                                                     </a>
-                                                    <a title="Delete" class="btn btn-xs btn-danger" onclick="Delete(@data.Id, this)"><i class="fa fa-ban"></i></a>
-
-
-
+                                                    <a title="Delete" class="btn btn-xs btn-danger" 
+                                                       onclick="Delete(@data.Id, this)"><i class="fa fa-ban"></i></a>
                                                 </td>
                                             </tr>
                                             count++;
@@ -123,13 +122,7 @@
 <script>
     $(document).ready(function () {
         $('#example').DataTable({
-            dom: 'Bfrtip',
-            buttons: [
-                'copyHtml5',
-                'excelHtml5',
-                'csvHtml5',
-                'pdfHtml5'
-            ]
+            "paging": false,
         });
     });
 </script>

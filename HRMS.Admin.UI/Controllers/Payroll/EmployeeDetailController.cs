@@ -50,7 +50,7 @@ namespace HRMS.Admin.UI.Controllers.Payroll
 
             ViewBag.HeaderTitle = PageHeader.HeaderSetting["EmployeeDetailIndex"];
 
-            return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeeDetail", "EmployeeDetailIndex"), response.Entities));
+            return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeeDetail", "EmployeeDetailIndex"), response.Entities.Take(100).ToList()));
         }
 
         public async Task<IActionResult> GetFilteredData(string legalEntity, string department,
@@ -107,7 +107,6 @@ namespace HRMS.Admin.UI.Controllers.Payroll
 
             return await Task.Run(() => PartialView(ViewHelper.GetViewPathDetails("EmployeeDetail", "EmployeeFilteredList"), response.ToList()));
         }
-
         public async Task<IActionResult> ExportToExcel()
         {
             var models = HttpContext.Session.GetObjectFromJson<List<EmployeeDetail>>("EmpDetail");

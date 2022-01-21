@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace HRMS.Core.Entities.Payroll
 {
-    [Table("EmployeeDetail", Schema ="Payroll")]
-    public class EmployeeDetail:BaseModel<int>
+    [Table("EmployeeDetail", Schema = "Payroll")]
+    public class EmployeeDetail : BaseModel<int>
     {
         public string Salutation { get; set; }
         public string EmployeeName { get; set; }
@@ -35,7 +35,7 @@ namespace HRMS.Core.Entities.Payroll
         public string WorkExprience { get; set; }
         public string EducationalQualification { get; set; }
         public string InstituteName { get; set; }
-        public DateTime ConfirmationDate { get; set; }
+        public DateTime? ConfirmationDate { get; set; }
         public string RecruitmentSource { get; set; }
         public string RecruitmentName { get; set; }
         public string FatherName { get; set; }
@@ -55,7 +55,7 @@ namespace HRMS.Core.Entities.Payroll
         public string WhatsAppNumber { get; set; }
         public string NoticePeriod { get; set; }
         public string SpouceName { get; set; }
-        public DateTime  DateOfMairrage { get; set; }
+        public DateTime? DateOfMairrage { get; set; }
         public string EmergencyNumber { get; set; }
         public string EmergencyRelationWithEmployee { get; set; }
         public string UANNumber { get; set; }

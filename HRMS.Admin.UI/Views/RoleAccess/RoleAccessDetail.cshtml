@@ -70,7 +70,15 @@
                                                 @item.SubModuleName
                                             </td>
                                             <td>
-                                                <input type="number" value="@item.DisplayOrder" name="DisplayOrder" class="form-control" />
+                                                @if (string.IsNullOrEmpty(item.DisplayOrder))
+                                                {
+                                                    <input type="number" value="0" name="DisplayOrder" class="form-control" />
+                                                }
+                                                else
+                                                {
+                                                    <input type="number" value="@item.DisplayOrder" name="DisplayOrder" class="form-control" />
+                                                }
+
                                             </td>
                                             
                                         </tr>
