@@ -1,11 +1,16 @@
 ﻿using ClosedXML.Excel;
 using Fingers10.ExcelExport.ActionResults;
 using HRMS.Admin.UI.Helpers;
+using HRMS.Admin.UI.Models;
 using HRMS.Core.Entities.Common;
 using HRMS.Core.Entities.Master;
 using HRMS.Core.Entities.Organisation;
 using HRMS.Core.Entities.Payroll;
 using HRMS.Core.Helpers.CommonHelper;
+using HRMS.Core.ReqRespVm.RequestVm;
+using HRMS.Core.ReqRespVm.Response.Employee;
+using HRMS.Core.ReqRespVm.SqlParams;
+using HRMS.Services.Implementation.SqlConstant;
 using HRMS.Services.Repository.GenericRepository;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -26,12 +31,13 @@ namespace HRMS.Admin.UI.Controllers.Payroll
         private readonly IGenericRepository<Designation, int> _IDesignationRepository;
         private readonly IGenericRepository<PAndLMaster, int> _IPAndLMasterRepository;
         private readonly IGenericRepository<Location, int> _ILocationRepository;
+        private readonly IDapperRepository<EmployeeDetailParams> _IEmployeeRepository;
         public EmployeeDetailController(IGenericRepository<EmployeeDetail, int> EmployeeDetailRepo,
             IGenericRepository<Subsidiary, int> SubsidiaryRepo,
             IGenericRepository<Department, int> DepartmentRepo,
             IGenericRepository<Designation, int> DesignationRepo,
              IGenericRepository<PAndLMaster, int> PAndLMasterRepo,
-            IGenericRepository<Location, int> LocationRepo)
+            IGenericRepository<Location, int> LocationRepo, IDapperRepository<EmployeeDetailParams> employeeRepository)
         {
             _IEmployeeDetailRepository = EmployeeDetailRepo;
             _ISubsidiaryRepository = SubsidiaryRepo;
@@ -39,59 +45,45 @@ namespace HRMS.Admin.UI.Controllers.Payroll
             _IDesignationRepository = DesignationRepo;
             _IPAndLMasterRepository = PAndLMasterRepo;
             _ILocationRepository = LocationRepo;
+            _IEmployeeRepository = employeeRepository;
         }
         public async Task<IActionResult> Index()
         {
-            var response = await _IEmployeeDetailRepository.GetAllEntities(null);
+            EmployeeDetailParams searchModelEntity = new EmployeeDetailParams();
+            searchModelEntity.PageNo = 1;
+            searchModelEntity.PageSize = 10;
+            searchModelEntity.SortColumn = string.Empty;
+            searchModelEntity.SortOrder = string.Empty;
+            searchModelEntity.IsActive = true;
 
-            HttpContext.Session.SetObjectAsJson("EmpDetail", response.Entities);
+            PagingSortingHelper.PopulateModelForPagging(searchModelEntity, PageSize.Size10, 10, string.Empty,string.Empty);
+            var response = _IEmployeeRepository.GetAll<EmployeeDetailVm>(SqlQuery.GetEmployeeDetails, searchModelEntity);
 
+            PagingSortingHelper.PupulateModelToDisplayPagging(response?.First(), PageSize.Size10, 1, string.Empty, string.Empty);
+
+            response.First().SortBy = "Name";
             await PopulateViewBag();
 
             ViewBag.HeaderTitle = PageHeader.HeaderSetting["EmployeeDetailIndex"];
 
-            return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeeDetail", "EmployeeDetailIndex"), response.Entities.Take(100).ToList()));
+            return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeeDetail", "EmployeeDetailIndex"), response));
         }
 
-        public async Task<IActionResult> GetFilteredData(string legalEntity, string department,
-            string designation, string plName, string doj, string location, string status)
+        public async Task<IActionResult> GetFilteredData(EmployeeDetailParams searchModelEntity, string sortBy, int pageIndex, PageSize pageSize, string sortOrder)
         {
-            var response = await _IEmployeeDetailRepository.GetAllEntities(null);
-            var models = response.Entities;
+            searchModelEntity.PageNo = pageIndex;
+            searchModelEntity.PageSize = (int)pageSize;
+            searchModelEntity.SortColumn = sortBy;
+            searchModelEntity.SortOrder = sortOrder;
+            searchModelEntity.IsActive = true;
 
-            if (!string.IsNullOrEmpty(legalEntity))
-            {
-                models = models.Where(x => x.LegalEntity.ToLower().Trim() == legalEntity.ToLower().Trim()).ToList();
-            }
+            PagingSortingHelper.PopulateModelForPagging(searchModelEntity, pageSize, pageIndex, sortBy, sortOrder);
+            var response = _IEmployeeRepository.GetAll<EmployeeDetailVm>(SqlQuery.GetEmployeeDetails, searchModelEntity);
 
-            if (!string.IsNullOrEmpty(department))
-            {
-                models = models.Where(x => x.DepartmentName.ToLower().Trim() == department.ToLower().Trim()).ToList();
-            }
+            PagingSortingHelper.PupulateModelToDisplayPagging(response?.First(), PageSize.Size10, pageIndex, sortBy, sortOrder);
 
-            if (!string.IsNullOrEmpty(designation))
-            {
-                models = models.Where(x => x.DesignationName.ToLower().Trim() == designation.ToLower().Trim()).ToList();
-            }
-            if (!string.IsNullOrEmpty(plName))
-            {
-                models = models.Where(x => x.PAndLHeadName.ToLower().Trim() == plName.ToLower().Trim()).ToList();
-            }
-            if (!string.IsNullOrEmpty(doj))
-            {
-                models = models.Where(x => x.JoiningDate.Date == Convert.ToDateTime(doj).Date).ToList();
-            }
-            if (!string.IsNullOrEmpty(location))
-            {
-                models = models.Where(x => x.Location.ToLower().Trim() == location.ToLower().Trim()).ToList();
-            }
-            if (!string.IsNullOrEmpty(status))
-            {
-                bool statusValue = status != "0";
-                models = models.Where(x => x.IsActive == Convert.ToBoolean(statusValue)).ToList();
-            }
-            HttpContext.Session.SetObjectAsJson("EmpDetail", models);
-            return await Task.Run(() => PartialView(ViewHelper.GetViewPathDetails("EmployeeDetail", "EmployeeFilteredList"), models));
+            response.First().SortBy = sortBy;
+            return await Task.Run(() => PartialView(ViewHelper.GetViewPathDetails("EmployeeDetail", "EmployeeFilteredList"), response));
         }
 
 

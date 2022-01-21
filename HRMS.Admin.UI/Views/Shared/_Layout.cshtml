@@ -49,6 +49,8 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery-ajax-unobtrusive@3.2.6/dist/jquery.unobtrusive-ajax.min.js"
             integrity="sha256-PAC000yuHt78nszJ2RO0OiDMu/uLzPLRlYTk8J3AO10="
             crossorigin="anonymous"></script>
+
+    <script src="~/js/CustomJqGrid.js"></script>
     <style>
 
         /* * {
@@ -775,17 +777,6 @@
         })
     }
 
-    $(document).ready(function () {
-        $("#txtSearchMenu").on("keyup", function () {
-            if (this.value.length > 0) {
-                $(".menuList li").hide().filter(function () {
-                    return $(this).text().toLowerCase().indexOf($("#txtMenu").val().toLowerCase()) != -1;
-                }).show();
-            }
-            else {
-                $(".menuList li").show();
-            }
-        });
-    });
+   
 </script>
 
