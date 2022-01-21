@@ -7,12 +7,12 @@
         asp-action="UpSertSubModule" asp-controller="SubModule" data-ajax-success="Success">
     <div class="modal-body">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="form-group">
                     <input asp-for="Id" type="hidden" />
                     <input asp-for="CreatedBy" type="hidden" />
                     <input asp-for="CreatedDate" type="hidden" />
-                    <label asp-for="ModuleId">  Module</label>
+                    <label asp-for="ModuleId">  Module Name</label><span style="color:red">  *</span>
                     <select type="text" class="form-control" asp-for="ModuleId" asp-items="@(new SelectList(ViewBag.Module ,"Id","ModuleName"))">
                         <option value="">--Select--</option>
                     </select>
@@ -20,38 +20,42 @@
                 </div>
 
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="form-group">
-                    <label asp-for="SubModuleName">Sub Module  </label>
+                    <label asp-for="SubModuleName">Sub Module Name </label><span style="color:red">  *</span>
                     <input asp-for="SubModuleName" class="form-control" />
                     <span asp-validation-for="SubModuleName" class="text-danger"></span>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label asp-for="ControllerName">Controller</label>
-                    <input asp-for="ControllerName" class="form-control" />
-                    <span asp-validation-for="ControllerName" class="text-danger"></span>
-                </div>
-            </div>
         </div>
-        <div class="row">
-            <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="ControllerName">Controller Name</label><span style="color:red">  *</span>
+                        <input asp-for="ControllerName" class="form-control" />
+                        <span asp-validation-for="ControllerName" class="text-danger"></span>
+                    </div>
+                </div>
+       
+
+            <div class="col-md-6">
                 <div class="form-group">
-                    <label asp-for="ActionName">Action</label>
+                    <label asp-for="ActionName">Action Name</label><span style="color:red">  *</span>
                     <input asp-for="ActionName" class="form-control" />
                     <span asp-validation-for="ActionName" class="text-danger"></span>
                 </div>
             </div>
-
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label asp-for="SubModuleIcon">Icon (fa class)</label>
-                    <input asp-for="SubModuleIcon" class="form-control" />
-                    <span asp-validation-for="SubModuleIcon" class="text-danger"></span>
+           </div>
+         
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="SubModuleIcon">Icon (fa class)</label><span style="color:red">  *</span>
+                        <input asp-for="SubModuleIcon" class="form-control" />
+                        <span asp-validation-for="SubModuleIcon" class="text-danger"></span>
+                    </div>
                 </div>
             </div>
-        </div>
     </div>
 
     <div class="modal-footer">
