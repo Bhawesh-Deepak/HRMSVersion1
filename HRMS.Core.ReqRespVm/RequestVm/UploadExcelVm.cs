@@ -12,6 +12,8 @@ namespace HRMS.Core.ReqRespVm.RequestVm
     {
         [Required(ErrorMessage ="Select Excel File First..")]
         public IFormFile UploadFile { get; set; }
+        [Required(ErrorMessage = "Select Excel File First..")]
+        public IFormFile UploadFile1 { get; set; }
         public int YearId { get; set; }
         public int MonthId { get; set; }
     }
