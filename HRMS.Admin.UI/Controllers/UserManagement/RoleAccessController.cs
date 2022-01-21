@@ -68,7 +68,7 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
                 roleAccessModel.RoleId = RoleId;
                 roleAccessModel.SubModuleId = Convert.ToInt32(subModule[i]);
                 roleAccessModel.ModuleId = Convert.ToInt32(module[i]);
-                roleAccessModel.DisplayOrder = Convert.ToInt32(DisplayOrder[i]);
+                roleAccessModel.DisplayOrder = Convert.ToInt32(DisplayOrder[i]==0?i.ToString(): DisplayOrder[i]);
                 roleAccessModel.IsActive = true;
                 roleAccessModel.IsDeleted = false;
                 roleAccessModel.CreatedBy = 1;

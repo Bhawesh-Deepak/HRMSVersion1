@@ -23,9 +23,18 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
         }
         public async Task<IActionResult> Index()
         {
-            ViewBag.HeaderTitle = PageHeader.HeaderSetting["SubModuleMaster"];
+            try
+            {
+                ViewBag.HeaderTitle = PageHeader.HeaderSetting["SubModuleMaster"];
 
-            return await Task.Run(() => View(ViewHelper.GetViewPathDetails("SubModule", "SubModuleIndex")));
+                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("SubModule", "SubModuleIndex")));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(SubModuleMaster)} action name {nameof(Index)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
@@ -54,7 +63,9 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
             }
             catch (Exception ex)
             {
-                Serilog.Log.Error(ex, ex.Message);
+                string template = $"Controller name {nameof(SubModuleMaster)} action name {nameof(GetSubModuleDetails)} exception is {ex.Message}";
+
+                Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
 
@@ -63,17 +74,26 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
         [HttpGet]
         public async Task<IActionResult> CreateSubModule(int id)
         {
-            await PopulateViewBag();
-            if (id == 0)
+            try
             {
-                return await Task.Run(() => PartialView(ViewHelper.GetViewPathDetails("SubModule", "SubModuleCreate")));
+                await PopulateViewBag();
+                if (id == 0)
+                {
+                    return await Task.Run(() => PartialView(ViewHelper.GetViewPathDetails("SubModule", "SubModuleCreate")));
+                }
+                    var response = await _ISubModuleRepository.GetAllEntities(x => x.Id == id);
+                    if (response.ResponseStatus == Core.Entities.Common.ResponseStatus.Success)
+                {
+                    return PartialView(ViewHelper.GetViewPathDetails("SubModule", "SubModuleCreate"), response.Entities.First());
+                }
+                return RedirectToAction("Error", "Home");
             }
-            var response = await _ISubModuleRepository.GetAllEntities(x => x.Id == id);
-            if (response.ResponseStatus == Core.Entities.Common.ResponseStatus.Success)
+            catch (Exception ex)
             {
-                return PartialView(ViewHelper.GetViewPathDetails("SubModule", "SubModuleCreate"), response.Entities.First());
+                string template = $"Controller name {nameof(SubModuleMaster)} action name {nameof(CreateSubModule)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
-            return RedirectToAction("Error", "Home");
         }
 
         [HttpPost]
@@ -94,26 +114,37 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
             }
             catch (Exception ex)
             {
-                Serilog.Log.Error(ex, ex.Message);
-                return Json("Something wents wrong please contact admin !!!");
+                string template = $"Controller name {nameof(SubModuleMaster)} action name {nameof(UpSertSubModule)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
 
         }
 
         public async Task<IActionResult> DeleteSubModule(int id)
         {
-            var deleteModelResponse = await _ISubModuleRepository.GetAllEntityById(x => x.Id == id);
-            if (deleteModelResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Success)
+            try
             {
-                deleteModelResponse.Entity.IsActive = false;
-                deleteModelResponse.Entity.IsDeleted = true;
+                var deleteModelResponse = await _ISubModuleRepository.GetAllEntityById(x => x.Id == id);
+                if (deleteModelResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Success)
+                {
+                    deleteModelResponse.Entity.IsActive = false;
+                    deleteModelResponse.Entity.IsDeleted = true;
 
-                var deleteResponse = await _ISubModuleRepository.DeleteEntity(deleteModelResponse.Entity);
+                    var deleteResponse = await _ISubModuleRepository.DeleteEntity(deleteModelResponse.Entity);
 
-                return Json(new DBResponseHelper<SubModuleMaster, int>().GetDBResponseHelper(deleteResponse));
-            }
+                    return Json(new DBResponseHelper<SubModuleMaster, int>().GetDBResponseHelper(deleteResponse));
+                }
 
             return Json($"The Role Id {id} you have passed is not valid !!!");
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(SubModuleMaster)} action name {nameof(DeleteSubModule)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
+
         }
 
 

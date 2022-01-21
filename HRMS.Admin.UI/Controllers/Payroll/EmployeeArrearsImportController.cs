@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using HRMS.Core.Entities.Payroll;
 using HRMS.Core.Helpers.CommonHelper;
@@ -23,6 +21,7 @@ namespace HRMS.Admin.UI.Controllers.Payroll
         {
             return View(ViewHelper.GetViewPathDetails("EmployeeArrearsImport", "EmployeeArrearsImportIndex"));
         }
+
         [HttpPost]
         public async Task<IActionResult> UploadArrearsSalary(UploadExcelVm model)
         {
