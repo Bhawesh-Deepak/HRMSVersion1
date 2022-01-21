@@ -1,4 +1,6 @@
 ﻿using HRMS.Admin.UI.Models;
+using HRMS.Core.Entities.Master;
+using HRMS.Services.Repository.GenericRepository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,20 +14,22 @@ namespace HRMS.Admin.UI.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IGenericRepository<AssesmentYear, int> _IAssesmentYearRepository;
+        public HomeController(ILogger<HomeController> logger, IGenericRepository<AssesmentYear, int> assesmentYearRepository )
         {
             _logger = logger;
+            _IAssesmentYearRepository = assesmentYearRepository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            await PopulateViewBag();
             return View();
         }
 
-        public IActionResult Privacy()
+        private async Task PopulateViewBag()
         {
-            return View();
+            ViewBag.AssesmentYear = (await _IAssesmentYearRepository.GetAllEntities(x => x.IsActive == true && x.IsDeleted == false)).Entities;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

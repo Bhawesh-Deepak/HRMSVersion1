@@ -22,18 +22,15 @@ namespace HRMS.Admin.UI.Controllers.Posting
     {
         private readonly IGenericRepository<CtcComponentDetail, int> _ICtcComponentDetailRepository;
         private readonly IGenericRepository<EmployeeSalaryPosted, int> _IEmployeeSalaryPostedRepository;
-        private readonly IHostingEnvironment _IHostingEnviroment;
-        private readonly IDapperRepository<EmployeeSalaryPostingParams> _IFilteredEmployeeRepository;
-
+        private readonly IHostingEnvironment _IHostingEnviroment;         
         public EmployeeSalaryPostingController(IGenericRepository<CtcComponentDetail, int> CtcComponentDetailRepo,
-            IGenericRepository<EmployeeSalaryPosted, int> EmployeeSalaryPostedRepo,
-            IDapperRepository<EmployeeSalaryPostingParams> filteredEmployeeRepository,
+            IGenericRepository<EmployeeSalaryPosted, int> EmployeeSalaryPostedRepo,         
             IHostingEnvironment hostingEnvironment)
         {
             _ICtcComponentDetailRepository = CtcComponentDetailRepo;
             _IHostingEnviroment = hostingEnvironment;
             _IEmployeeSalaryPostedRepository = EmployeeSalaryPostedRepo;
-            _IFilteredEmployeeRepository = filteredEmployeeRepository;
+           
         }
         public IActionResult Index()
         {
@@ -64,6 +61,9 @@ namespace HRMS.Admin.UI.Controllers.Posting
                 Sheets.Cells[cells[cell] + "2"].Value = item.ComponentName.Trim();
                 cell++;
             }
+            Sheets.Cells[cells[cell] + "2"].Value = "LegalEntity";
+            Sheets.Cells[cells[cell+1] + "2"].Value = "Department";
+            Sheets.Cells[cells[cell+2] + "2"].Value = "Designation";
             var stream = new MemoryStream(Eps.GetAsByteArray());
             return File(stream.ToArray(), "application/vnd.ms-excel", sFileName);
         }
@@ -72,19 +72,7 @@ namespace HRMS.Admin.UI.Controllers.Posting
         {
             try
             {
-                var response = new ReadSalaryPostingExcelHelper().GetEmployeeSalaryPostingComponent(model.UploadFile);
-                response.ToList().ForEach(data =>
-                {
-                    var model = new EmployeeSalaryPostingParams()
-                    {
-                        EmpCode=data.EmpCode
-                    };
-                    var response =   Task.Run(() => _IFilteredEmployeeRepository.GetAll<EmployeeInformation>(SqlQuery.EmployeeInformation, model));
-                    data.LegalEntity = response.Result.First().LegalEntity; 
-                    data.Department = response.Result.First().DepartmentName; 
-                    data.DesignationId = response.Result.First().DesignationName;
-                    data.CreatedDate = DateTime.Now;
-                });
+                var response = new ReadSalaryPostingExcelHelper().GetEmployeeSalaryPostingComponent(model.UploadFile);                
                 var dbResponse = await _IEmployeeSalaryPostedRepository.CreateEntities(response.ToArray());
                 return Json("Salary Posting Uploaded Sucessfully");
             }
