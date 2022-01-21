@@ -10,7 +10,7 @@ namespace HRMS.Core.Entities.Payroll
         public int DateYear { get; set; }
         public int DateMonth { get; set; }
         public int TotalDays { get; set; }
-        public int LOPDays { get; set; }
-        public int PresentDays { get; set; }
+        public decimal LOPDays { get; set; }
+        public decimal PresentDays { get; set; }
     }
 }
