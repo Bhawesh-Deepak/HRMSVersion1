@@ -56,7 +56,9 @@
                             @data.Phone
                         </td>
                         <td align="left" style="width:45%;" class="sorting_1">
-                            @data.ResumePath
+                            <a title="Download Fav Icon" class="btn btn-primary btn-xs" href="@data.ResumePath" target="_blank">
+                                <span class="fa fa-download "></span>
+                            </a>
                         </td>
                         <td align="center" style="width:20%;" class="sorting_1">
                             <a title="Edit" class="btn btn-primary btn-xs" onclick="UpdateRecord(@data.Id, this)">

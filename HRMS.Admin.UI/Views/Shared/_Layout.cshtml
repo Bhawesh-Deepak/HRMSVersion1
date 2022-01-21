@@ -21,6 +21,7 @@
     <link rel="shortcut icon" href="~/resources/dist/img/favicon.png" type="image/x-icon" />
     <link rel="shortcut icon" href="@companyDetails.FavIcon" type="image/x-icon" />
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet"> 
     <link href="~/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" />
@@ -59,6 +60,8 @@
             font-family: 'Montserrat', sans-serif !important;
         }*/
 
+       h1, h2, h3, h4, h5, h6, p, a, ul li, th, td{font-family: 'Montserrat', sans-serif !important;}
+        #ui-id-1{width:207px}
         .modal.fade .modal-dialog {
             transform: translate(0);
             margin: 0 0 0 auto;
@@ -114,6 +117,8 @@
         .skin-blue .wrapper, .skin-blue .main-sidebar, .skin-blue .left-side {
             background-color: #4d4d4d;
         }
+        .btn-close{background:#bc693c; border:1px solid #bc693c}
+        .btn-close:hover{background:#ae6137; border:1px solid #ae6137}
     </style>
 
     <link href="~/resources/plugins/jQueryUI/jquery-ui.min.css" rel="stylesheet" />
@@ -735,7 +740,9 @@
             </nav>
         </header>
 
+ 
         @await Component.InvokeAsync("MenuSubMenu")
+ 
  
 
 
@@ -783,3 +790,34 @@
    
 </script>
 
+<script>
+	$( function() {
+	var availableTags = [
+		"ActionScript",
+		"AppleScript",
+		"Asp",
+		"BASIC",
+		"C",
+		"C++",
+		"Clojure",
+		"COBOL",
+		"ColdFusion",
+		"Erlang",
+		"Fortran",
+		"Groovy",
+		"Haskell",
+		"Java",
+		"JavaScript",
+		"Lisp",
+		"Perl",
+		"PHP",
+		"Python",
+		"Ruby",
+		"Scala",
+		"Scheme"
+	];
+	$("#txtSearchMenu").autocomplete({
+		source: availableTags
+	});
+	});
+</script>
