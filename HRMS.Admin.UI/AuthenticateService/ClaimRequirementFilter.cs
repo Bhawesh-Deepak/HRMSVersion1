@@ -27,7 +27,7 @@ namespace HRMS.Admin.UI.AuthenticateService
             {
                 RemoveSessionForNonDispensingPage(url, context);
             }
-            //}
+           
         }
 
         public void RemoveSessionForNonDispensingPage(string url, AuthorizationFilterContext context)
