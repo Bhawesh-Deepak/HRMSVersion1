@@ -21,7 +21,7 @@ namespace HRMS.Admin.UI.Helpers
         {
 
             var totalRecord = modelEntity.TotalRecordCount;
-            string records = "Total Record(s): " + modelEntity.TotalRecordCount;
+            string records = "<b>Total Record(s):</b> " + modelEntity.TotalRecordCount;
             int pageIndex = 1;
             int recordCount;
 

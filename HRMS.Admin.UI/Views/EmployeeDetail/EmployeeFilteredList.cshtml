@@ -72,7 +72,7 @@
                                     <table class="table table-hover table-striped singleSelect" cellspacing="0" cellpadding="0" style="width:100%; min-width: 1000px;">
                                         <thead>
                                             <tr>
-                                                <th style="width: 15%">
+                                                <th style="width: 5%">
                                                     <span>
                                                         <a href="javascript:void(0)" onclick="jqGrigTable.fn_GetSortingItem('EmpCode', '@Model.First().OrderBy', fn_GetDrugSearchUrl())">EmpCode</a>
                                                     </span>
@@ -132,9 +132,10 @@
                                     </table>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-xs-8">
-                                    <ul class="pagination pagination-md marB0">
+                                    <ul class="pagination pagination-md" style="margin-top:20px;">
                                         @if (Model.Any())
                                         {
                                             @Html.Paging((int)Model.First().PageSize, Model.First().PageIndex, 5, Model.First().TotalRecords, @"fn_GetDrugSearchUrl()")
@@ -158,7 +159,7 @@
                         }
 
 
-                    
+
                     </div>
                 </div>
             </div>
