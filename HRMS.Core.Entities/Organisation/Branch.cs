@@ -30,7 +30,8 @@ namespace HRMS.Core.Entities.Organisation
 
         [Display(Prompt = "Email")]
 
-        [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        [RegularExpression(@"([a-zA-Z\d]+[\w\d]*|)[a-zA-Z]+[\w\d.]*", ErrorMessage = "Invalid Email Address")]
+        
         public string Email { get; set; }
         [Display(Prompt = "phone")]
         public string Phone { get; set; }
