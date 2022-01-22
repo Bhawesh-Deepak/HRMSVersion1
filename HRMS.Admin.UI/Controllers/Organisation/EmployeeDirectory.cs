@@ -1,9 +1,13 @@
 ﻿using ClosedXML.Excel;
 using HRMS.Admin.UI.Helpers;
+using HRMS.Admin.UI.Models;
 using HRMS.Core.Entities.Common;
 using HRMS.Core.Entities.Organisation;
 using HRMS.Core.Entities.Payroll;
 using HRMS.Core.Helpers.CommonHelper;
+using HRMS.Core.ReqRespVm.Response.Employee;
+using HRMS.Core.ReqRespVm.SqlParams;
+using HRMS.Services.Implementation.SqlConstant;
 using HRMS.Services.Repository.GenericRepository;
 using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml.Core.ExcelPackage;
@@ -20,27 +24,33 @@ namespace HRMS.Admin.UI.Controllers.Organisation
     {
         private readonly IGenericRepository<EmployeeDetail, int> _IEmployeeDetailRepository;
         private readonly IGenericRepository<Subsidiary, int> _ISubsidiaryRepository;
-        public EmployeeDirectory(IGenericRepository<EmployeeDetail, int> employeeDetailRepository, IGenericRepository<Subsidiary, int> subsidiaryRepository)
+        private readonly IDapperRepository<EmployeeDetailParams> _IEmployeeRepository;
+        public EmployeeDirectory(IGenericRepository<EmployeeDetail, int> employeeDetailRepository,
+            IDapperRepository<EmployeeDetailParams> employeeRepository,IGenericRepository<Subsidiary, int> subsidiaryRepository)
         {
             _IEmployeeDetailRepository = employeeDetailRepository;
             _ISubsidiaryRepository = subsidiaryRepository;
+            _IEmployeeRepository = employeeRepository;
         }
-        private async Task PopulateViewBag()
-        {
-            var response = await _ISubsidiaryRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
-
-            if (response.ResponseStatus == ResponseStatus.Success)
-                ViewBag.SubsidiaryList = response.Entities;
-
-        }
+     
         public async Task<IActionResult> Index()
         {
-            ViewBag.HeaderTitle = PageHeader.HeaderSetting["Employee Directory"];
+           
             try
             {
-                var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+                EmployeeDetailParams searchModelEntity = new EmployeeDetailParams();
+                searchModelEntity.PageNo = 1;
+                searchModelEntity.PageSize = 10;
+                searchModelEntity.SortColumn = string.Empty;
+                searchModelEntity.SortOrder = string.Empty;
+                searchModelEntity.IsActive = true;
+                PagingSortingHelper.PopulateModelForPagging(searchModelEntity, PageSize.Size10, 10, string.Empty, string.Empty);
+                var response = _IEmployeeRepository.GetAll<EmployeeDetailVm>(SqlQuery.GetEmployeeDetails, searchModelEntity);
+                PagingSortingHelper.PupulateModelToDisplayPagging(response?.First(), PageSize.Size10, 1, string.Empty, string.Empty);
+                ViewBag.HeaderTitle = PageHeader.HeaderSetting["Employee Directory"];
+                response.First().SortBy = "Name";
                 await PopulateViewBag();
-                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeeDirectory", "_EmployeeDirectoryIndex"), response.Entities));
+                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeeDirectory", "_EmployeeDirectoryIndex"), response));
 
             }
             catch (Exception ex)
@@ -51,9 +61,33 @@ namespace HRMS.Admin.UI.Controllers.Organisation
             }
 
         }
+        public async Task<IActionResult> GetFilteredData(EmployeeDetailParams searchModelEntity, string sortBy, int pageIndex, PageSize pageSize, string sortOrder)
+        {
+            searchModelEntity.PageNo = pageIndex;
+            searchModelEntity.PageSize = (int)pageSize;
+            searchModelEntity.SortColumn = sortBy;
+            searchModelEntity.SortOrder = sortOrder;
+            searchModelEntity.IsActive = true;
+
+            PagingSortingHelper.PopulateModelForPagging(searchModelEntity, pageSize, pageIndex, sortBy, sortOrder);
+            var response = _IEmployeeRepository.GetAll<EmployeeDetailVm>(SqlQuery.GetEmployeeDetails, searchModelEntity);
+
+            PagingSortingHelper.PupulateModelToDisplayPagging(response?.First(), PageSize.Size10, pageIndex, sortBy, sortOrder);
+
+            response.First().SortBy = sortBy;
+            return await Task.Run(() => PartialView(ViewHelper.GetViewPathDetails("EmployeeDirectory", "EmployeeFilteredList"), response));
+        }
+        private async Task PopulateViewBag()
+        {
+            var response = await _ISubsidiaryRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+
+            if (response.ResponseStatus == ResponseStatus.Success)
+                ViewBag.SubsidiaryList = response.Entities;
+
+        }
         public async Task<IActionResult> GetEmployeeDetails(int Id)
         {
-            var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.Id == Id);
+            var response = await _IEmployeeDetailRepository.GetAllEntityById(x => x.Id == Id);
             return PartialView(ViewHelper.GetViewPathDetails("EmployeeDirectory", "_EmployeeDetails"), response.Entities.FirstOrDefault());
         }
         [HttpGet]

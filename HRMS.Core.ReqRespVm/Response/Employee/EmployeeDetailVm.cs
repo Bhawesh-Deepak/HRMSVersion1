@@ -22,5 +22,8 @@ namespace HRMS.Core.ReqRespVm.Response.Employee
         public int PageSize { get; set; }
         public int PageIndex { get; set; }
         public int TotalRecords { get; set; }
+        public int Id { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }
