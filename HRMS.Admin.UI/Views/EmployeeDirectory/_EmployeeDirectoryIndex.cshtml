@@ -1,8 +1,7 @@
-﻿@model IEnumerable<HRMS.Core.Entities.Payroll.EmployeeDetail>
-<script src="~/resources/dist/js/jquery.dataTables.js" type="text/javascript"></script>
+﻿ <script src="~/resources/dist/js/jquery.dataTables.js" type="text/javascript"></script>
 
 <div class="content-wrapper" style="min-height: 870px;">
-    
+
     <section class="content">
         <div class="row">
             <div class="col-md-8">
@@ -20,104 +19,42 @@
                             </div>
                             <div class="box-body">
                                 <div class="row">
-                                    <form asp-action="EmployeeDirectorySearch" asp-controller="EmployeeDirectory" method="get" novalidate="novalidate">
-                                        <div class="col-sm-3">
-                                            
-                                                <input type="search" class="form-control input-sm" id="empCode" name="empCode" placeholder="empCode">
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <div>
-                                                    <select class="form-control input-sm" asp-for="@Model.First().LegalEntity" asp-items="@(new SelectList(ViewBag.SubsidiaryList ,"Name","Name"))">
-                                                        <option value="">--Select--</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <div>
 
-                                                    <select class="form-comtrol input-sm valid" asp-for="@Model.First().IsActive">
-                                                        <option selected="selected" value="">---Select One---</option>
-                                                        <option value="1">Active</option>
-                                                        <option value="0">INn-Active</option>
-                                                    </select>
+                                    <div class="col-sm-3">
 
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <button type="submit" class="btn btn-info btn-sm" title="Search Employee"><i class="fa fa-search"></i>  </button>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <a asp-action="Index" asp-controller="EmployeeDirectory" class="btn btn-info btn-sm" title="Refresh"><i class="fa fa-refresh"></i>  </a>
-                                            </div>
-</form>
+                                        <input type="search" class="form-control input-sm" id="empCode" name="empCode" placeholder="empCode">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div>
+                                            <select class="form-control input-sm" id="LegalEntity" name="LegalEntity" asp-items="@(new SelectList(ViewBag.SubsidiaryList ,"Name","Name"))">
+                                                <option value="">--Select--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div>
+
+                                            <select class="form-comtrol input-sm valid" id="IsActive" name="IsActive" >
+                                                <option selected="selected" value="">---Select One---</option>
+                                                <option value="1">Active</option>
+                                                <option value="0">INn-Active</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <button type="button" class="btn btn-info btn-sm" id="btn-employeesearch" onclick="FiltereEmployee()" title="Search Employee"><i class="fa fa-search"></i>  </button>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <a asp-action="Index" asp-controller="EmployeeDirectory" class="btn btn-info btn-sm" title="Refresh"><i class="fa fa-refresh"></i>  </a>
+                                    </div>
+
                                 </div>
                                 <hr />
                                 <div class="table-responsive">
-                                    <div class="dataTables_wrapper" role="grid">
-                                        <table class="table table-condensed table-striped table-hover table-bordered table-body-nowrap table-head-nowrap dataTable" cellspacing="0" rules="all" border="1" id="example" style="border-collapse:collapse;" aria-describedby="cp_MainContent_widgetExitEmployee_grdExitEmployees_info">
-                                            <thead>
-                                                <tr class="th-primary" role="row">
-                                                    <th>#</th>
-                                                    <th>Name & Department</th>
-                                                    <th>Designation</th>
-                                                    <th>Location</th>
-                                                    <th>Status</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody role="alert" aria-live="polite" aria-relevant="all">
-                                                @{
-                                                    int count = 1;
-                                                    string trclass = string.Empty;
-                                                }
-                                                @foreach (var data in Model)
-                                                {
-                                                    if (count / 2 == 0)
-                                                    {
-                                                        trclass = "even";
-                                                    }
-                                                    else
-                                                    {
-                                                        trclass = "odd";
-                                                    }
-                                                    <tr class="trclass">
-                                                        <td align="left" class="sorting_1" style="width:5%;cursor:pointer" onclick="employeedetail(@data.Id, this)" title="Click to get Details">
-                                                            @count
-
-                                                        </td>
-                                                        <td align="left" class="sorting_1" style="width:30%;cursor:pointer" onclick="employeedetail(@data.Id, this)" title="Click to get Details">
-                                                            @data.EmployeeName <span style="color:forestgreen">at </span> @data.DepartmentName
-
-                                                        </td>
-                                                        <td align="left" class="sorting_1" style="width:30%;cursor:pointer" onclick="employeedetail(@data.Id);" title="Click to get Details">
-                                                            @data.DesignationName
-                                                        </td>
-                                                        <td align="left" class="sorting_1" style="width:20%;cursor:pointer" onclick="employeedetail(@data.Id);" title="Click to get Details">
-                                                            @data.Location
-                                                        </td>
-                                                        <td align="left" class="sorting_1" style="width:10%;cursor:pointer" onclick="employeedetail(@data.Id);" title="Click to get Details">
-                                                            @if (data.IsActive == true && data.IsDeleted == false)
-                                                            {
-                                                                @: Active
-                                                            }
-
-                                                            else
-                                                            {
-                                                                @:In-Active
-                                                            }
-                                                        </td>
-
-                                                    </tr>
-                                                    count++;
-                                                }
-
-                                            </tbody>
-                                        </table>
-
+                                    <div class="dataTables_wrapper" id="divEmployeeDetails" role="grid">
                                     </div>
-
-
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -132,24 +69,32 @@
     </section>
 </div>
 <script>
-    function employeedetail(id) {
-        $('#divLoader').modal('show');
-        $.get("/EmployeeDirectory/GetEmployeeDetails", { Id: id }, function (data) {
-            $("#div_EmployeeDetail").html(data);
-            $('#divLoader').modal('hide');
+   
+    function FiltereEmployee() {
+        let legalEntity = $("#LegalEntity").val();
+        let empCode = $("#empCode").val();
+        let status = $("#ddlisactive").val();
+        debugger;
+        $.get("/EmployeeDirectory/GetFilteredData", {
+            legalEntity: legalEntity, empCode: empCode,status: status
+        }, function (data) {
+            $("#divEmployeeDetails").html(data);
         });
     }
 
     $(document).ready(function () {
-        var employees = [];
-        $.get("/Common/GetFilteredEmployee", { empCode: '' }, function (data) {
-            employees = data;
-        })
-        debugger;
-        $("#empCode").autocomplete({
-            source: employees
-        })
+        $("#btn-employeesearch").trigger("click");
     })
+    //$(document).ready(function () {
+    //    var employees = [];
+    //    $.get("/Common/GetFilteredEmployee", { empCode: '' }, function (data) {
+    //        employees = data;
+    //    })
+    //    debugger;
+    //    $("#empCode").autocomplete({
+    //        source: employees
+    //    })
+    //})
 
 </script>
 
