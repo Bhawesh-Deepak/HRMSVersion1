@@ -82,6 +82,7 @@ namespace HRMS.Core.Entities.Common
         public virtual DbSet<EmployeeNonCTC> EmployeeNonCTCs { get; set; }
         public virtual DbSet<AdminEmployeeDetail> AdminEmployeeDetails { get; set; }
         public virtual DbSet<EmployeeSalaryPosted> EmployeeSalaryPosteds { get; set; }
+        public virtual DbSet<EmployeeTDSSummery> EmployeeTDSSummerys { get; set; }
 
         #endregion
     }
