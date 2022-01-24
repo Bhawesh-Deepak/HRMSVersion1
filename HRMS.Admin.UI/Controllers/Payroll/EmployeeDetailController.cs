@@ -56,7 +56,7 @@ namespace HRMS.Admin.UI.Controllers.Payroll
             searchModelEntity.SortOrder = string.Empty;
             searchModelEntity.IsActive = true;
 
-            PagingSortingHelper.PopulateModelForPagging(searchModelEntity, PageSize.Size10, 10, string.Empty,string.Empty);
+            PagingSortingHelper.PopulateModelForPagging(searchModelEntity, PageSize.Size10, 10, string.Empty, string.Empty);
             var response = _IEmployeeRepository.GetAll<EmployeeDetailVm>(SqlQuery.GetEmployeeDetails, searchModelEntity);
 
             PagingSortingHelper.PupulateModelToDisplayPagging(response?.First(), PageSize.Size10, 1, string.Empty, string.Empty);
@@ -102,7 +102,7 @@ namespace HRMS.Admin.UI.Controllers.Payroll
         public async Task<IActionResult> ExportToExcel()
         {
             var models = HttpContext.Session.GetObjectFromJson<List<EmployeeDetail>>("EmpDetail");
-            
+
 
             var dataTable = ListToDataTable.GetDataTableFromList<EmployeeDetail>(models.ToList());
 
@@ -114,7 +114,10 @@ namespace HRMS.Admin.UI.Controllers.Payroll
             wb.SaveAs(stream);
             return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
         }
-
+        public async Task<IActionResult> Edit(int Id)
+        {
+            return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeeDetail", "EditEmployeeDetail")));
+        }
         #region PrivateFields
         private async Task PopulateViewBag()
         {

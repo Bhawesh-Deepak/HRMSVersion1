@@ -46,134 +46,125 @@
     }
 
 }
-
-
 <style>
-    #_noofrecords{margin:0 -15px 15px}
-    #example_filter, .mr-3{margin-right:3px}
-    #recordbypage{margin:0 -12px 15px}
-    .pagination .active{background:#3c8dbc; color:#fff}
-    #example_wrapper{overflow-x:auto}
+    .pagination > li > a {
+        background: #fafafa;
+        color: #666;
+        margin: 3px;
+    }
+
+    .pagination > li > a, .pagination > li > span {
+        position: relative;
+        float: left;
+        padding: 1px 7px;
+        margin-left: -1px;
+        line-height: 1.42857143;
+        color: #337ab7;
+        text-decoration: none;
+        background-color: #fff;
+        border: 1px solid #ddd;
+    }
+    .pagination .active {
+        background: #3c8dbc;
+        color: #fff
+    }
 </style>
 
-<div class="">
-
-    <div class="col-md-12">
-        <div class="row">
-            <div class="col-md-12 col-sm-12">
-                <div class="box box-primary">
-                    <div class="box-header with-border">
-                        <div class="box-title">
-                            <i class="fa fa-user-circle-o fa-lg"></i>   List of Employee &nbsp;
-
-                        </div>
-                        <a class="btn btn-primary pull-right btn-xs mr-1" asp-action="ExportToExcel" asp-controller="EmployeeDetail" title="Export All Employee">
-                            <i class="fa fa-download"> &nbsp; Export</i>
-                        </a>
-                    </div>
-                    <div class="box-body">
-                        @if (Model.Any())
-                        {
-                            @Html.HRMSTableHeader(pageHeaderModel)
-                            <div class="table-fixed-header _done">
-                                <div style="" class="scrollDiv" id="tblDrugSearchList">
-                                    <table id="example" class="table table-condensed table-striped table-hover table-bordered" cellspacing="0" rules="all" border="1" style="width:100%; overflow-x:scroll !important">
-                                        <thead>
-                                            <tr class="th-primary" role="row">
-                                                <th style="width:10%">
-                                                    <span>
-                                                        <a style="color:#fff" href="javascript:void(0)" onclick="jqGrigTable.fn_GetSortingItem('EmpCode', '@Model.First().OrderBy', fn_GetDrugSearchUrl())">Emp. Code</a>
-                                                    </span>
-                                                </th>
-                                                <th style="width:15%">
-                                                    <span>
-                                                        <a style="color:#fff" href="javascript:void(0)" onclick="jqGrigTable.fn_GetSortingItem('EmployeeName', '@Model.First().OrderBy', fn_GetDrugSearchUrl())">Employee Name</a>
-                                                    </span>
-                                                </th>
-                                                <th style="width:10%">
-                                                    <span>
-                                                        <a style="color:#fff" href="javascript:void(0)" onclick="jqGrigTable.fn_GetSortingItem('JoiningDate', '@Model.First().OrderBy', fn_GetDrugSearchUrl())">Joining Date</a>
-                                                    </span>
-                                                </th>
-                                                <th style="width:15%">
-                                                    <span>
-                                                        <a style="color:#fff" href="javascript:void(0)" onclick="jqGrigTable.fn_GetSortingItem('DepartmentName', '@Model.First().OrderBy', fn_GetDrugSearchUrl())">Department Name</a>
-                                                    </span>
-                                                </th>
-                                                <th style="width:15%">
-                                                    <span>
-                                                        <a style="color:#fff" href="javascript:void(0)" onclick="jqGrigTable.fn_GetSortingItem('DesignationName', '@Model.First().OrderBy', fn_GetDrugSearchUrl())">Designation Name</a>
-                                                    </span>
-                                                </th>
-                                                <th style="width:10%">
-                                                    <span>
-                                                        <a style="color:#fff" href="javascript:void(0)" onclick="jqGrigTable.fn_GetSortingItem('Location', '@Model.First().OrderBy', fn_GetDrugSearchUrl())">Location</a>
-                                                    </span>
-                                                </th>
-                                                <th style="width:15%">
-                                                    <span>
-                                                        <a style="color:#fff" href="javascript:void(0)" onclick="jqGrigTable.fn_GetSortingItem('LegalEntity', '@Model.First().OrderBy', fn_GetDrugSearchUrl())">Legal Entity</a>
-                                                    </span>
-                                                </th>
-                                                <th style="width:10%">
-                                                    <span>
-                                                        Action
-                                                    </span>
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach (var data in Model)
-                                            {
-                                                <tr>
-                                                    <td>@data.EmpCode</td>
-                                                    <td>@data.EmployeeName</td>
-                                                    <td>@data.JoiningDate</td>
-                                                    <td>@data.DepartmentName</td>
-                                                    <td>@data.DesignationName</td>
-                                                    <td>@data.Location</td>
-                                                    <td>@data.LegalEntity</td>
-                                                    <td></td>
-                                                </tr>
-                                            }
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                               <div class="col-xs-8">
-                                    <ul class="pagination pagination-md" style="margin-top:20px;">
-                                        @if (Model.Any())
-                                        {
-                                            @Html.Paging((int)Model.First().PageSize, Model.First().PageIndex, 5, Model.First().TotalRecords, @"fn_GetDrugSearchUrl()")
-                                        }
-                                    </ul>
-                                </div>
-                                <div class="col-xs-4">
-                                    @*<select class="form-control pull-right" onchange="jqGrigTable.fn_GetTablePageSize(this,fn_GetDrugSearchUrl())" asp-items="@Extensions.GetPageSizeListSelect()" id="pagesizevalue" style="width:70px;"></select>*@
-                                </div>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="col-xs-12">
-                                <div class="pull-left marB10">
-                                    <span class="c-red">
-                                        No Record Found.
-                                    </span>
-                                </div>
-                            </div>
-                        }
-
-
-
-                    </div>
-                </div>
-            </div>
+ @if (Model.Any())
+{
+    @Html.HRMSTableHeader(pageHeaderModel)
+    <div class="table-fixed-header has-v-scroll _done">
+        <div class="scrollDiv" id="tblDrugSearchList" style="max-height:375px; min-height:10px;">
+            <table id="example" class="table table-condensed table-striped table-hover singleSelect table-bordered" cellspacing="0" rules="all" border="1" style="width:100%; overflow-x:scroll !important">
+                <thead>
+                    <tr class="th-primary" role="row">
+                        <th style="width: 10%;white-space: nowrap">
+                            <span>
+                                <a style="color:#fff" href="javascript:void(0)" onclick="jqGrigTable.fn_GetSortingItem('EmpCode', '@Model.First().OrderBy', fn_GetDrugSearchUrl())">Emp. Code</a>
+                            </span>
+                        </th>
+                        <th style="width: 15%;white-space: nowrap">
+                            <span>
+                                <a style="color:#fff" href="javascript:void(0)" onclick="jqGrigTable.fn_GetSortingItem('EmployeeName', '@Model.First().OrderBy', fn_GetDrugSearchUrl())">Employee Name</a>
+                            </span>
+                        </th>
+                        <th style="width: 10%;white-space: nowrap">
+                            <span>
+                                <a style="color:#fff" href="javascript:void(0)" onclick="jqGrigTable.fn_GetSortingItem('JoiningDate', '@Model.First().OrderBy', fn_GetDrugSearchUrl())">Joining Date</a>
+                            </span>
+                        </th>
+                        <th style="width: 15%;white-space: nowrap">
+                            <span>
+                                <a style="color:#fff" href="javascript:void(0)" onclick="jqGrigTable.fn_GetSortingItem('DepartmentName', '@Model.First().OrderBy', fn_GetDrugSearchUrl())">Department Name</a>
+                            </span>
+                        </th>
+                        <th style="width: 15%;white-space: nowrap">
+                            <span>
+                                <a style="color:#fff" href="javascript:void(0)" onclick="jqGrigTable.fn_GetSortingItem('DesignationName', '@Model.First().OrderBy', fn_GetDrugSearchUrl())">Designation Name</a>
+                            </span>
+                        </th>
+                        <th style="width: 10%;white-space: nowrap">
+                            <span>
+                                <a style="color:#fff" href="javascript:void(0)" onclick="jqGrigTable.fn_GetSortingItem('Location', '@Model.First().OrderBy', fn_GetDrugSearchUrl())">Location</a>
+                            </span>
+                        </th>
+                        <th style="width: 15%;white-space: nowrap">
+                            <span>
+                                <a style="color:#fff" href="javascript:void(0)" onclick="jqGrigTable.fn_GetSortingItem('LegalEntity', '@Model.First().OrderBy', fn_GetDrugSearchUrl())">Legal Entity</a>
+                            </span>
+                        </th>
+                        <th style="width: 10%;white-space: nowrap">
+                            <span>
+                                Action
+                            </span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var data in Model)
+                    {
+                        <tr>
+                            <td style="white-space:nowrap"><a asp-action="Edit" asp-controller="EmployeeDetail" asp-route-Id="@data.Id"><i class="fa fa-eye"></i> @data.EmpCode </a></td>
+                            <td style="white-space:nowrap">@data.EmployeeName</td>
+                            <td style="white-space:nowrap">@string.Format("{0:dd/MM/yyyy}", data.JoiningDate)</td>
+                            <td style="white-space:nowrap">@data.DepartmentName</td>
+                            <td style="white-space:nowrap">@data.DesignationName</td>
+                            <td style="white-space:nowrap">@data.Location</td>
+                            <td style="white-space:nowrap">@data.LegalEntity</td>
+                            <td style="white-space:nowrap">
+                                <a title="Edit" class="btn btn-primary btn-xs" asp-action="Edit" asp-controller="EmployeeDetail" asp-route-Id="@data.Id">
+                                    <i class="fa fa-pencil "></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
-</div>
+
+    <div class="row">
+        <div class="col-xs-12 ">
+            <ul class="pagination pagination-md pull-right">
+                @if (Model.Any())
+                {
+                    @Html.Paging((int)Model.First().PageSize, Model.First().PageIndex, 5, Model.First().TotalRecords, @"fn_GetDrugSearchUrl()")
+                }
+            </ul>
+        </div>
+
+    </div>
+}
+else
+{
+    <div class="col-xs-12">
+        <div class="pull-left marB10">
+            <span class="c-red">
+                No Record Found.
+            </span>
+        </div>
+    </div>
+}
 <script>
 
     function fn_GetDrugSearchUrl() {
