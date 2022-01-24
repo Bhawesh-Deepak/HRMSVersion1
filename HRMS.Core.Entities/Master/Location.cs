@@ -12,11 +12,11 @@ namespace HRMS.Core.Entities.Master
     [Table("Location", Schema = "Master")]
     public class Location: BaseModel<int>
     {
-        [Required(ErrorMessage = "Location is required.")]
+        [Required(ErrorMessage = "this field is required.")]
         public int LocationTypeid { get; set; }
 
  
-        [Required(ErrorMessage = "Location name is required.")]
+        [Required(ErrorMessage = "this field is required.")]
         [Display(Prompt = "Location Name")]
         public string Name { get; set; }
     }

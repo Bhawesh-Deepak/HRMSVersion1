@@ -7,8 +7,8 @@ namespace HRMS.Core.Entities.Master
     [Table("Designation", Schema = "Master")]
     public class Designation : BaseModel<int>
     {
-        [Required(ErrorMessage = "Name is required.")]
-        [Display(Prompt = "Name")]
+        [Required(ErrorMessage = "this field is required.")]
+        [Display(Prompt = "Designation")]
         public string Name { get; set; }
 
         [Display(Prompt = "Code")]
@@ -17,7 +17,7 @@ namespace HRMS.Core.Entities.Master
         [Display(Prompt = "Description")]
         public string Description { get; set; }
 
-        [Required(ErrorMessage = "Select Department")]
+        [Required(ErrorMessage = "this field is required.")]
         public int DepartmentId { get; set; }
         [NotMapped]
         public string DepartmentName { get; set; }

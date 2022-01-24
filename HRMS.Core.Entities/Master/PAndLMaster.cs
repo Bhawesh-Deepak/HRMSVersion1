@@ -12,7 +12,7 @@ namespace HRMS.Core.Entities.Master
     [Table("P&LMaster", Schema = "Master")]
     public class PAndLMaster : BaseModel<int>
     {
-        [Required(ErrorMessage = "P and L Name is required.")]
+        [Required(ErrorMessage = "this field is required.")]
         [Display(Prompt = "P and L Name")]
         public string Name { get; set; }
     }
