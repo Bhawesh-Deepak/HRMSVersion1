@@ -60,7 +60,7 @@
             font-family: 'Montserrat', sans-serif !important;
         }*/
 
-       h1, h2, h3, h4, h5, h6, p, a, ul li, th, td{font-family: 'Montserrat', sans-serif !important;}
+       h1, h2, h3, h4, h5, h6, p, a, ul li, th, td, span, div, label, button{font-family: 'Montserrat', sans-serif !important;}
         #ui-id-1{width:207px}
         .modal.fade .modal-dialog {
             transform: translate(0);
@@ -119,6 +119,7 @@
         }
         .btn-close{background:#bc693c; border:1px solid #bc693c}
         .btn-close:hover{background:#ae6137; border:1px solid #ae6137}
+        #txtSearchMenu{height:35px}
     </style>
 
     <link href="~/resources/plugins/jQueryUI/jquery-ui.min.css" rel="stylesheet" />
@@ -701,7 +702,7 @@
             <!-- Header Navbar -->
             <nav class="navbar navbar-static-top" role="navigation">
                 <!-- Sidebar toggle button-->
-                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button" style="font-family:fontAwesome !important">
                     <span class="sr-only">Toggle navigation</span>
                 </a>
                 <!-- Navbar Right Menu -->
@@ -788,36 +789,4 @@
     }
 
    
-</script>
-
-<script>
-	$( function() {
-	var availableTags = [
-		"ActionScript",
-		"AppleScript",
-		"Asp",
-		"BASIC",
-		"C",
-		"C++",
-		"Clojure",
-		"COBOL",
-		"ColdFusion",
-		"Erlang",
-		"Fortran",
-		"Groovy",
-		"Haskell",
-		"Java",
-		"JavaScript",
-		"Lisp",
-		"Perl",
-		"PHP",
-		"Python",
-		"Ruby",
-		"Scala",
-		"Scheme"
-	];
-	$("#txtSearchMenu").autocomplete({
-		source: availableTags
-	});
-	});
 </script>
