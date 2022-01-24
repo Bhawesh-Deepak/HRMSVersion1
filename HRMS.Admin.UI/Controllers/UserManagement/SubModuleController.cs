@@ -55,7 +55,8 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
                                     Controller = sb.ControllerName,
                                     Action = sb.ActionName,
                                     Icon = sb.SubModuleIcon,
-                                    ModuleName = mm.ModuleName
+                                    ModuleName = mm.ModuleName,
+                                    ModuleId=mm.Id
 
                                 }).ToList();
 
@@ -146,7 +147,29 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
             }
 
         }
+        public async Task<IActionResult> GetSubModule(int Id)
+        {
+            var subModuleResponse = await _ISubModuleRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+            var moduleResponse = await _IModuleMasterRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
 
+            var response = (from sb in subModuleResponse.Entities
+                            join mm in moduleResponse.Entities
+                            on sb.ModuleId equals mm.Id
+                            where mm.Id==Id
+                            select new SubModuleVm
+                            {
+                                SubModuleId = sb.Id,
+                                SubModuleName = sb.SubModuleName,
+                                Controller = sb.ControllerName,
+                                Action = sb.ActionName,
+                                Icon = sb.SubModuleIcon,
+                                ModuleName = mm.ModuleName,
+                                ModuleId = mm.Id
+
+                            }).ToList();
+
+            return Json(response);
+        }
 
 
         #region PrivateMethod

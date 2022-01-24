@@ -14,5 +14,6 @@ namespace HRMS.Core.ReqRespVm.Response.UserManagement
         public string Controller { get; set; }
         public string Action { get; set; }
         public string Icon { get; set; }
+        public int ModuleId { get; set; }
     }
 }

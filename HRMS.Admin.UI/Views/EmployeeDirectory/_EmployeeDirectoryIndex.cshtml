@@ -1,5 +1,4 @@
-﻿ <script src="~/resources/dist/js/jquery.dataTables.js" type="text/javascript"></script>
-
+﻿
 <div class="content-wrapper" style="min-height: 870px;">
 
     <section class="content">
@@ -26,21 +25,17 @@
                                     </div>
                                     <div class="col-sm-4">
                                         <div>
-                                            <select class="form-control input-sm" id="LegalEntity" name="LegalEntity" asp-items="@(new SelectList(ViewBag.SubsidiaryList ,"Name","Name"))">
+                                            <select class="form-control input-sm" id="LeagalEntity" name="LeagalEntity" asp-items="@(new SelectList(ViewBag.SubsidiaryList ,"Name","Name"))">
                                                 <option value="">--Select--</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
-                                        <div>
-
-                                            <select class="form-comtrol input-sm valid" id="IsActive" name="IsActive" >
-                                                <option selected="selected" value="">---Select One---</option>
-                                                <option value="1">Active</option>
-                                                <option value="0">INn-Active</option>
-                                            </select>
-
-                                        </div>
+                                        <select class="form-comtrol input-sm" id="IsActive" name="IsActive">
+                                            <option value="">---Select One---</option>
+                                            <option value="1">Active</option>
+                                            <option value="0">In-Active</option>
+                                        </select>
                                     </div>
                                     <div class="col-sm-1">
                                         <button type="button" class="btn btn-info btn-sm" id="btn-employeesearch" onclick="FiltereEmployee()" title="Search Employee"><i class="fa fa-search"></i>  </button>
@@ -69,14 +64,37 @@
     </section>
 </div>
 <script>
-   
+
     function FiltereEmployee() {
-        let legalEntity = $("#LegalEntity").val();
+        let legalEntity = $("#LeagalEntity").val();
         let empCode = $("#empCode").val();
-        let status = $("#ddlisactive").val();
+        let status = $("#IsActive").val();
+        //var EmployeeDetailParams = {
+        //    LeagalEntity: legalEntity,
+        //    empCode: empCode,
+        //    status: status
+        //}
+        //$.ajax({
+        //    type: 'GET',
+        //    url: '/EmployeeDirectory/GetFilteredData',
+        //    data: JSON.stringify(EmployeeDetailParams),
+        //    contentType: 'application/json',
+        //    dataType: 'json',
+        //    success: function (response) {
+        //        $("#divEmployeeDetails").html(data);
+        //    },
+        //    failure: function (response) {
+        //        console.log("Failure");
+        //    },
+        //    error: function (response) {
+        //        console.log("Error:" + response);
+        //    }
+        //});
         debugger;
         $.get("/EmployeeDirectory/GetFilteredData", {
-            legalEntity: legalEntity, empCode: empCode,status: status
+            LeagalEntity: legalEntity,
+            empCode: empCode,
+            status: status
         }, function (data) {
             $("#divEmployeeDetails").html(data);
         });

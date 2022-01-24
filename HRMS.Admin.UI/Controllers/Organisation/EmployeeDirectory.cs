@@ -68,26 +68,23 @@ namespace HRMS.Admin.UI.Controllers.Organisation
             searchModelEntity.SortColumn = sortBy;
             searchModelEntity.SortOrder = sortOrder;
             searchModelEntity.IsActive = true;
-
+              
             PagingSortingHelper.PopulateModelForPagging(searchModelEntity, pageSize, pageIndex, sortBy, sortOrder);
             var response = _IEmployeeRepository.GetAll<EmployeeDetailVm>(SqlQuery.GetEmployeeDetails, searchModelEntity);
-
             PagingSortingHelper.PupulateModelToDisplayPagging(response?.First(), PageSize.Size10, pageIndex, sortBy, sortOrder);
-
             response.First().SortBy = sortBy;
             return await Task.Run(() => PartialView(ViewHelper.GetViewPathDetails("EmployeeDirectory", "EmployeeFilteredList"), response));
         }
         private async Task PopulateViewBag()
         {
             var response = await _ISubsidiaryRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
-
             if (response.ResponseStatus == ResponseStatus.Success)
                 ViewBag.SubsidiaryList = response.Entities;
 
         }
         public async Task<IActionResult> GetEmployeeDetails(int Id)
         {
-            var response = await _IEmployeeDetailRepository.GetAllEntityById(x => x.Id == Id);
+            var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.Id == Id);
             return PartialView(ViewHelper.GetViewPathDetails("EmployeeDirectory", "_EmployeeDetails"), response.Entities.FirstOrDefault());
         }
         [HttpGet]
