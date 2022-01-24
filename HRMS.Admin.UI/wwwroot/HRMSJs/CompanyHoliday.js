@@ -7,7 +7,7 @@ $(document).ready(function () {
 })
 
 function AddHolidays() {
-    NewCustomRecord("/CompanyHolidays/HolidayCreate", "Create Company Holiday")
+    NewCustomRecord("/CompanyHolidays/HolidayCreate", "Create Company Holidays")
 }
 
 function Delete(id, eData) {
