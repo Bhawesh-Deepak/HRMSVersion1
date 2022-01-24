@@ -13,29 +13,31 @@ namespace HRMS.Core.Entities.Organisation
     [Table("Company", Schema = "Organisation")]
     public class Subsidiary : BaseModel<int>
     {
-        [Required(ErrorMessage = "Company Name  is required.")]
+        [Required(ErrorMessage = "this field  is required.")]
         public int OrganisationId { get; set; }
         public int CountryId { get; set; }
         public int StateId { get; set; }
         public int CityId { get; set; }
-        [Required(ErrorMessage = "Subsidiary name is required.")]
-        [Display(Prompt = "Subsidiary name")]
+        [Required(ErrorMessage = "this field is required.")]
+        [Display(Prompt = "Subsidiary Name")]
         public string Name { get; set;  }
-        [Display(Prompt = "Subsidiary code")]
+        [Display(Prompt = "Code")]
         public string Code { get; set; }
-        [Required(ErrorMessage = "Subsidiary logo is required.")]
+        [Required(ErrorMessage = "this field is required.")]
         public string Logo { get; set; }
         public string Address { get; set; }
         public string ZipCode { get; set; }
-        [Display(Prompt = "Subsidiary email")]
 
-        [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        [Display(Prompt = "Email")]
+        [DataType(DataType.EmailAddress)]
+        [RegularExpression(@"[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}", ErrorMessage = "Incorrect Email Format")]
+       
         public string Email { get; set; }
-        [Display(Prompt = "Subsidiary phone")]
+        [Display(Prompt = "Phone")]
         public string Phone { get; set; }
         public string ContactPerson { get; set; }
 
-        [Display(Prompt = "Subsidiary Url")]
+        [Display(Prompt = "Url")]
         public string Url { get; set; }
         public string FavIcon { get; set; }
     }

@@ -7,7 +7,7 @@ $(document).ready(function () {
 })
 
 function AddAssesmentYear() {
-    NewCustomRecord("/AssesmentYear/CreateAssesmentYear", "Create Assesment Year")
+    NewCustomRecord("/AssesmentYear/CreateAssesmentYear", "Create Assessment Year")
 }
 
 function Delete(id, eData) {
@@ -15,5 +15,5 @@ function Delete(id, eData) {
 }
 
 function UpdateRecordAssesmentYear(id) {
-    UpdateCustomRecord(id, "/AssesmentYear/CreateAssesmentYear", "Update Assesment Year");
+    UpdateCustomRecord(id, "/AssesmentYear/CreateAssesmentYear", "Update Assessment Year");
 }

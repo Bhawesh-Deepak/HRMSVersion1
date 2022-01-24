@@ -11,7 +11,7 @@ function AddRecord() {
 }
 
 function Delete(id, eData) {
-    CustomDeleteRecord(id, "/ModuleMaster/GetModuleDetail", "/RoleMaster/DeleteRole", eData);
+    CustomDeleteRecord(id, "/ModuleMaster/GetModuleDetail", "/ModuleMaster/DeleteModule", eData);
 }
 
 function UpdateRecord(id) {

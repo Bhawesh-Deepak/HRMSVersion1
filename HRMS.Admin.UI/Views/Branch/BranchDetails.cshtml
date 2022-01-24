@@ -68,8 +68,10 @@
                         @data.ContactPerson
                     </td>
                     <td align="left" style="width:5%;" class="sorting_1">
-
-                        <a href="@data.Logo" target="_blank"><i class="fa fa-download"></i></a>
+                        <a title="Download Logo" class="btn btn-primary btn-xs" href="@data.Logo" target="_blank">
+                            <span class="fa fa-download "></span>
+                        </a>
+                        
                     </td>
                     <td align="center" style="width:10%;" class="sorting_1">
                         <a title="Edit" class="btn btn-primary btn-xs" onclick="UpdateRecord(@data.BranchId, this)">
