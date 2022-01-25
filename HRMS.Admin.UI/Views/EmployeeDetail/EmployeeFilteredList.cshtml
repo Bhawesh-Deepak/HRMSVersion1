@@ -48,7 +48,7 @@
 }
 <style>
     .pagination > li > a {
-        background: #fafafa;
+        background: #000000;
         color: #666;
         margin: 3px;
     }
@@ -65,7 +65,7 @@
         border: 1px solid #ddd;
     }
     .pagination .active {
-        background: #3c8dbc;
+        background: #000000;
         color: #fff
     }
 </style>
@@ -78,6 +78,7 @@
             <table id="example" class="table table-condensed table-striped table-hover singleSelect table-bordered" cellspacing="0" rules="all" border="1" style="width:100%; overflow-x:scroll !important">
                 <thead>
                     <tr class="th-primary" role="row">
+                        <th style="width: 5%;white-space: nowrap">#</th>
                         <th style="width: 10%;white-space: nowrap">
                             <span>
                                 <a style="color:#fff" href="javascript:void(0)" onclick="jqGrigTable.fn_GetSortingItem('EmpCode', '@Model.First().OrderBy', fn_GetDrugSearchUrl())">Emp. Code</a>
@@ -121,9 +122,13 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @{ 
+                        int count = 1;
+                    }
                     @foreach (var data in Model)
                     {
                         <tr>
+                            <td>@count</td>
                             <td style="white-space:nowrap"><a asp-action="Edit" asp-controller="EmployeeDetail" asp-route-Id="@data.Id"><i class="fa fa-eye"></i> @data.EmpCode </a></td>
                             <td style="white-space:nowrap">@data.EmployeeName</td>
                             <td style="white-space:nowrap">@string.Format("{0:dd/MM/yyyy}", data.JoiningDate)</td>
@@ -137,6 +142,7 @@
                                 </a>
                             </td>
                         </tr>
+                        count++;
                     }
                 </tbody>
             </table>

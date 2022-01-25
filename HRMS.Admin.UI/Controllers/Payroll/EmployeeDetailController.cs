@@ -32,12 +32,28 @@ namespace HRMS.Admin.UI.Controllers.Payroll
         private readonly IGenericRepository<PAndLMaster, int> _IPAndLMasterRepository;
         private readonly IGenericRepository<Location, int> _ILocationRepository;
         private readonly IDapperRepository<EmployeeDetailParams> _IEmployeeRepository;
+        private readonly IDapperRepository<EmployeeSingleDetailParam> _IEmployeeSingleDetailRepository;
+        private readonly IDapperRepository<EmployeeInformationParams> _IEmployeeInformationRepository;
+        private readonly IGenericRepository<Branch, int> _IBranchRepository;
+        private readonly IGenericRepository<EmployeeType, int> _IEmployeeTypeRepository;
+        private readonly IGenericRepository<RegionMaster, int> _IRegionMasterRepository;
+        private readonly IGenericRepository<Shift, int> _IShiftRepository;
+        private readonly IGenericRepository<StateMaster, int> _IStateMasterRepository;
+
         public EmployeeDetailController(IGenericRepository<EmployeeDetail, int> EmployeeDetailRepo,
             IGenericRepository<Subsidiary, int> SubsidiaryRepo,
             IGenericRepository<Department, int> DepartmentRepo,
             IGenericRepository<Designation, int> DesignationRepo,
              IGenericRepository<PAndLMaster, int> PAndLMasterRepo,
-            IGenericRepository<Location, int> LocationRepo, IDapperRepository<EmployeeDetailParams> employeeRepository)
+            IGenericRepository<Location, int> LocationRepo,
+            IDapperRepository<EmployeeSingleDetailParam> EmployeeSingleDetailRepository,
+            IDapperRepository<EmployeeDetailParams> employeeRepository ,
+            IDapperRepository<EmployeeInformationParams> EmployeeInformationRepository,
+            IGenericRepository<Branch, int> BranchRepo,
+            IGenericRepository<EmployeeType, int> EmployeeTypeRepo,
+            IGenericRepository<RegionMaster, int> RegionMasterRepo,
+            IGenericRepository<Shift, int> ShiftRepo,
+            IGenericRepository<StateMaster, int> StateMasterRepo)
         {
             _IEmployeeDetailRepository = EmployeeDetailRepo;
             _ISubsidiaryRepository = SubsidiaryRepo;
@@ -46,6 +62,13 @@ namespace HRMS.Admin.UI.Controllers.Payroll
             _IPAndLMasterRepository = PAndLMasterRepo;
             _ILocationRepository = LocationRepo;
             _IEmployeeRepository = employeeRepository;
+            _IEmployeeSingleDetailRepository = EmployeeSingleDetailRepository;
+            _IBranchRepository = BranchRepo;
+            _IEmployeeTypeRepository = EmployeeTypeRepo;
+            _IRegionMasterRepository = RegionMasterRepo;
+            _IShiftRepository = ShiftRepo;
+            _IEmployeeInformationRepository = EmployeeInformationRepository;
+            _IStateMasterRepository = StateMasterRepo;
         }
         public async Task<IActionResult> Index()
         {
@@ -116,7 +139,14 @@ namespace HRMS.Admin.UI.Controllers.Payroll
         }
         public async Task<IActionResult> Edit(int Id)
         {
-            return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeeDetail", "EditEmployeeDetail")));
+            await PopulateViewBag();
+            var empParams = new EmployeeSingleDetailParam()
+            {
+                Id = Id
+            };
+            var response = _IEmployeeSingleDetailRepository.GetAll<EmployeeDetail>(SqlQuery.GetEmployeeSingleDetails, empParams);
+
+            return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeeDetail", "EditEmployeeDetail"),response.FirstOrDefault()));
         }
         #region PrivateFields
         private async Task PopulateViewBag()
@@ -126,18 +156,35 @@ namespace HRMS.Admin.UI.Controllers.Payroll
             var designationResponse = await _IDesignationRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
             var pandlResponse = await _IPAndLMasterRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
             var locationResponse = await _ILocationRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
-
+            var branchResponse = await _IBranchRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+            var employeetypeResponse = await _IEmployeeTypeRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+            var regionResponse = await _IRegionMasterRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+            var shiftResponse = await _IShiftRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+            var ptstateResponse = await _IShiftRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+            var model = new EmployeeInformationParams(){ };
+            var employeeResponse = await Task.Run(() => _IEmployeeInformationRepository.GetAll<EmployeeInformationVM>(SqlQuery.EmployeeInformation, model));
             if (subsidiaryResponse.ResponseStatus == ResponseStatus.Success &&
                 departmentResponse.ResponseStatus == ResponseStatus.Success &&
                  designationResponse.ResponseStatus == ResponseStatus.Success &&
                   pandlResponse.ResponseStatus == ResponseStatus.Success &&
-                 locationResponse.ResponseStatus == ResponseStatus.Success
+                 locationResponse.ResponseStatus == ResponseStatus.Success&&
+                 branchResponse.ResponseStatus==ResponseStatus.Success&&
+                 employeetypeResponse.ResponseStatus==ResponseStatus.Success&&
+                 regionResponse.ResponseStatus==ResponseStatus.Success&&
+                 shiftResponse.ResponseStatus == ResponseStatus.Success&&
+                 ptstateResponse.ResponseStatus == ResponseStatus.Success 
                 )
                 ViewBag.subsidiaryList = subsidiaryResponse.Entities;
             ViewBag.departmentList = departmentResponse.Entities;
             ViewBag.designationList = designationResponse.Entities;
             ViewBag.pandlList = pandlResponse.Entities;
             ViewBag.locationList = locationResponse.Entities;
+            ViewBag.BranchList = branchResponse.Entities;
+            ViewBag.EmployeeTypeList = employeetypeResponse.Entities;
+            ViewBag.RegionList = regionResponse.Entities;
+            ViewBag.ShiftList = shiftResponse.Entities;
+            ViewBag.EmployeeList = employeeResponse.ToList();
+            ViewBag.PtStateList = ptstateResponse.Entities;
 
         }
 
