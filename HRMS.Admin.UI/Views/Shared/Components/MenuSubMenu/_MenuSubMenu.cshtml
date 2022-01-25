@@ -10,22 +10,23 @@
     var employeeName = HttpContextAccessor.HttpContext.Session.GetString("UserName");
     var roleId = HttpContextAccessor.HttpContext.Session.GetString("RoleId");
 }
-
 <aside class="main-sidebar">
 
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
-        <!-- search form -->
 
+        <!-- Sidebar user panel (optional) -->
+        <!-- search form -->
         <div class="sidebar-form" style="">
-            <div class="input-group">                 
-                <input type="text" id="txtSearchMenu" class="form-control ui-autocomplete-input input-sm"   placeholder="Search ...">
+            <div class="input-group">
+                <input type="text" id="txtSearchMenu" class="form-control ui-autocomplete-input"   placeholder="Search ...">
                 <span class="input-group-btn">
                     <a data-toggle="modal" data-target="#popEmpDetails" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></a>
                 </span>
             </div>
         </div>
-
+        <!-- /.search form -->
+        <!-- Sidebar Menu -->
         <div id="sideMenuContainer">
             <ul class="sidebar-menu menuList">
                 @if (roleId == "1" || roleId == "2" || roleId == "3")
@@ -36,24 +37,27 @@
                 {
                     <li><a asp-controller="Home" asp-action="Index"><i class="fa fa-home"></i> <span>Home</span></a></li>
                 }
-
                 @foreach (var data in Model.GroupBy(x => x.MenuName))
                 {
                     <li class="treeview">
                         <a href="#"><i class="@data.First().MenuIcon"></i> <span>@data.First().MenuName</span><i class="fa fa-angle-left pull-right"></i></a>
-                        @foreach (var item in data)
-                        {
-                            <ul class="treeview-menu">
-                                <li><a asp-action="@item.ActionName" asp-controller="@item.Controller"><i class="@item.SubMenuIcon"></i> <span>@item.SubMenuName</span></a></li>
-                            </ul>
-                        }
+                        <ul class="treeview-menu">
+                            @foreach (var item in data)
+                            {
+                                <li><a asp-action="@item.ActionName" asp-controller="@item.Controller"><i class="@item.SubMenuIcon"></i> <span> @item.SubMenuName</span></a></li>
+                            }
+                        </ul>
                     </li>
                 }
+
+                
             </ul>
         </div>
     </section>
-
+    <!-- /.sidebar -->
 </aside>
+
+ 
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -70,34 +74,34 @@
     });
 </script>
 
-<script>
-	  $( function() {
-		var availableTags = [
-		  "ActionScript",
-		  "AppleScript",
-		  "Asp",
-		  "BASIC",
-		  "C",
-		  "C++",
-		  "Clojure",
-		  "COBOL",
-		  "ColdFusion",
-		  "Erlang",
-		  "Fortran",
-		  "Groovy",
-		  "Haskell",
-		  "Java",
-		  "JavaScript",
-		  "Lisp",
-		  "Perl",
-		  "PHP",
-		  "Python",
-		  "Ruby",
-		  "Scala",
-		  "Scheme"
-		];
-		$("#txtSearchMenu").autocomplete({
-		  source: availableTags
-		});
-	  });
-	</script>
+@*<script>
+      $( function() {
+        var availableTags = [
+          "ActionScript",
+          "AppleScript",
+          "Asp",
+          "BASIC",
+          "C",
+          "C++",
+          "Clojure",
+          "COBOL",
+          "ColdFusion",
+          "Erlang",
+          "Fortran",
+          "Groovy",
+          "Haskell",
+          "Java",
+          "JavaScript",
+          "Lisp",
+          "Perl",
+          "PHP",
+          "Python",
+          "Ruby",
+          "Scala",
+          "Scheme"
+        ];
+        $("#txtSearchMenu").autocomplete({
+          source: availableTags
+        });
+      });
+    </script>*@
