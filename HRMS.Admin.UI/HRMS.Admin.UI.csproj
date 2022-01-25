@@ -35,6 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Controllers\HR\" />
     <Folder Include="wwwroot\PDF\" />
     <Folder Include="wwwroot\resources\login\css\" />
     <Folder Include="wwwroot\resources\login\js\" />
