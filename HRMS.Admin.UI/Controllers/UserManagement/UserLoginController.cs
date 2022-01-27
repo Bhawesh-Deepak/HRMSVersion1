@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 
 namespace HRMS.Admin.UI.Controllers.UserManagement
 {
-    [CustomAuthenticate]
     public class UserLoginController : Controller
     {
         private readonly IGenericRepository<RoleMaster, int> _IRoleMasterRepoository;

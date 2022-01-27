@@ -17,7 +17,7 @@ using HRMS.Admin.UI.AuthenticateService;
 
 namespace HRMS.Admin.UI.Controllers.UserManagement
 {
-    [CustomAuthenticate]
+
     public class AuthenticateController : Controller
     {
         private const string BASEURL = "http://smsinteract.in/";
@@ -42,29 +42,37 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(AuthenticateModel model)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(AuthenticateModel model, string returnurl)
         {
+            if (string.IsNullOrEmpty(model.UserName))
+            {
+                model.UserName = Request.Cookies["UserName"];
+            }
+
             model.Password = PasswordEncryptor.Instance.Encrypt(model.Password, "HRMSPAYROLLPASSWORDKEY");
             var response = await _IAuthenticateRepository.GetAllEntities(x => x.UserName.ToLower().Trim() == model.UserName.Trim().ToLower()
              && x.Password.Trim().ToLower() == model.Password.Trim().ToLower());
 
             if (response.Entities.Any())
             {
-               
+
                 var companyDetail = await _ICompanyRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
 
-               
-                //Dashboard page will open for admin and super admin role only
-                // roleId=1 For SuperAdmin :: roleId=2 for admin
-
+                await SetCookies( model.UserName, "UserName");
                 if (response.Entities.First().RoleId == 1)
                 {
+
                     var employeeDetails = await _IAdminEmployeeDetailRepository.GetAllEntities(x => x.Id == response.Entities.First().EmployeeId);
                     HttpContext.Session.SetObjectAsJson("companyDetails", companyDetail.Entities.First());
                     HttpContext.Session.SetObjectAsJson("UserDetail", employeeDetails.Entities.First());
                     HttpContext.Session.SetString("UserName", employeeDetails.Entities.First().EmployeeName);
                     HttpContext.Session.SetString("EmployeeId", employeeDetails.Entities.First().Id.ToString());
                     HttpContext.Session.SetString("RoleId", response.Entities.First().RoleId.ToString());
+
+                    if (!string.IsNullOrEmpty(returnurl)) {
+                        return Redirect(returnurl);
+                    }
 
                     return RedirectToAction("Index", "Dashboard");
                 }
@@ -76,12 +84,32 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
                     HttpContext.Session.SetString("UserName", employeeDetails.Entities.First().EmployeeName);
                     HttpContext.Session.SetString("EmployeeId", employeeDetails.Entities.First().Id.ToString());
                     HttpContext.Session.SetString("RoleId", response.Entities.First().RoleId.ToString());
+
+                    if (!string.IsNullOrEmpty(returnurl))
+                    {
+                        return Redirect(returnurl);
+                    }
+
                     return RedirectToAction("Index", "Home");
                 }
-               
+
             }
             string message = "Invalid Login credential !!!";
             return RedirectToAction("LoginIndex", "Authenticate", new { message = message });
+        }
+
+        public async Task<IActionResult> GetLoginPopUp(string returnUrl)
+        {
+            try
+            {
+                ViewData["ReturnUrl"] = returnUrl;
+                return await Task.Run(() => PartialView("~/Views/Authenticate/_LoginPopUp.cshtml"));
+            }
+            catch (Exception ex)
+            {
+                Serilog.Log.Error(ex.Message, ex);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
@@ -216,6 +244,23 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
 
         }
 
+
+        private async Task SetCookies(string value, string key)
+        {
+            try
+            {
+                await Task.Run(() =>
+                {
+                    var options = new CookieOptions { Expires = DateTime.Now.AddHours(36) };
+                    Response.Cookies.Append(key, value, options);
+
+                });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
         #endregion
     }
 }

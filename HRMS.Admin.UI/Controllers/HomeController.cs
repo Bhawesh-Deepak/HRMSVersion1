@@ -1,4 +1,5 @@
-﻿using HRMS.Admin.UI.Models;
+﻿using HRMS.Admin.UI.AuthenticateService;
+using HRMS.Admin.UI.Models;
 using HRMS.Core.Entities.Master;
 using HRMS.Services.Repository.GenericRepository;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace HRMS.Admin.UI.Controllers
 {
+    [CustomAuthenticate]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

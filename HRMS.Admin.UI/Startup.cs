@@ -28,14 +28,14 @@ namespace HRMS.Admin.UI
             services.AddControllersWithViews();
             services.AddService();
             services.AddHttpContextAccessor();
-            services.AddSession(option => { option.IdleTimeout = TimeSpan.FromMinutes(20); });
+            services.AddSession(option => { option.IdleTimeout = TimeSpan.FromSeconds(10); });
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
             services.ConfigureApplicationCookie(option =>
             {
                 option.LoginPath = "/Authenticate/Login";
                 option.SlidingExpiration = true;
-                option.Cookie.Expiration = TimeSpan.FromMinutes(20);
+                option.Cookie.Expiration = TimeSpan.FromHours(20);
             });
         }
 
