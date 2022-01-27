@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using HRMS.Admin.UI.AuthenticateService;
 using HRMS.Core.Entities.Payroll;
 using HRMS.Core.Helpers.CommonHelper;
 using HRMS.Core.Helpers.ExcelHelper;
@@ -16,6 +17,7 @@ using OfficeOpenXml;
 
 namespace HRMS.Admin.UI.Controllers.Payroll
 {
+    [CustomAuthenticate]
     public class EmployeeIncrementController : Controller
     {
 

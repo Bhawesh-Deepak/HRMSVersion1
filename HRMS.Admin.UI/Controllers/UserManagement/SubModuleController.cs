@@ -1,4 +1,5 @@
-﻿using HRMS.Admin.UI.Helpers;
+﻿using HRMS.Admin.UI.AuthenticateService;
+using HRMS.Admin.UI.Helpers;
 using HRMS.Core.Entities.UserManagement;
 using HRMS.Core.Helpers.CommonHelper;
 using HRMS.Core.ReqRespVm.Response.UserManagement;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace HRMS.Admin.UI.Controllers.UserManagement
 {
+    [CustomAuthenticate]
     public class SubModuleController : Controller
     {
         private readonly IGenericRepository<ModuleMaster, int> _IModuleMasterRepository;

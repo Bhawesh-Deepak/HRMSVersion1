@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using HRMS.Admin.UI.AuthenticateService;
 using HRMS.Core.Entities.Payroll;
 using HRMS.Core.Helpers.CommonHelper;
 using HRMS.Core.Helpers.ExcelHelper;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HRMS.Admin.UI.Controllers.Payroll
 {
+    [CustomAuthenticate]
     public class EmployeeArrearsImportController : Controller
     {
         private readonly IGenericRepository<EmployeeArrears, int> _IEmployeeArrearsRepository;

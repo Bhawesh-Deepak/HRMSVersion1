@@ -1,4 +1,5 @@
 ﻿using ClosedXML.Excel;
+using HRMS.Admin.UI.AuthenticateService;
 using HRMS.Admin.UI.Helpers;
 using HRMS.Admin.UI.Models;
 using HRMS.Core.Entities.Common;
@@ -20,6 +21,7 @@ using System.Threading.Tasks;
 
 namespace HRMS.Admin.UI.Controllers.Organisation
 {
+    [CustomAuthenticate]
     public class EmployeeDirectory : Controller
     {
         private readonly IGenericRepository<EmployeeDetail, int> _IEmployeeDetailRepository;

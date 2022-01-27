@@ -1,4 +1,5 @@
-﻿using HRMS.Core.Entities.Payroll;
+﻿using HRMS.Admin.UI.AuthenticateService;
+using HRMS.Core.Entities.Payroll;
 using HRMS.Core.ReqRespVm.Response.Employee;
 using HRMS.Core.ReqRespVm.SqlParams;
 using HRMS.Services.Implementation.SqlConstant;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace HRMS.Admin.UI.Controllers.ViewComponents
 {
+    [CustomAuthenticate]
     public class EmployeeCountViewComponent: ViewComponent
     {
         private readonly IDapperRepository<EmployeeCountParms> _IEmployeeCountParmsRepository;

@@ -13,9 +13,11 @@ using HRMS.Admin.UI.Helpers;
 using Microsoft.AspNetCore.Http;
 using HRMS.Core.Entities.Organisation;
 using System.Net.Http;
+using HRMS.Admin.UI.AuthenticateService;
 
 namespace HRMS.Admin.UI.Controllers.UserManagement
 {
+    [CustomAuthenticate]
     public class AuthenticateController : Controller
     {
         private const string BASEURL = "http://smsinteract.in/";

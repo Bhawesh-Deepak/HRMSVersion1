@@ -11,9 +11,11 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using HRMS.Core.Entities.Organisation;
+using HRMS.Admin.UI.AuthenticateService;
 
 namespace HRMS.Admin.UI.Controllers.Master
 {
+    [CustomAuthenticate]
     public class AnnouncementAndUpdateController : Controller
     {
         private readonly IGenericRepository<AnnouncementAndUpdate, int> _IAnnoucementandupdateRepository;

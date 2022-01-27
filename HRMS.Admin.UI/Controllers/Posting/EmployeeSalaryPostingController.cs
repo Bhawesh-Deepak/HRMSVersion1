@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using HRMS.Admin.UI.AuthenticateService;
 using HRMS.Core.Entities.Payroll;
 using HRMS.Core.Entities.Posting;
 using HRMS.Core.Helpers.CommonHelper;
@@ -18,6 +19,7 @@ using OfficeOpenXml;
 
 namespace HRMS.Admin.UI.Controllers.Posting
 {
+    [CustomAuthenticate]
     public class EmployeeSalaryPostingController : Controller
     {
         private readonly IGenericRepository<CtcComponentDetail, int> _ICtcComponentDetailRepository;

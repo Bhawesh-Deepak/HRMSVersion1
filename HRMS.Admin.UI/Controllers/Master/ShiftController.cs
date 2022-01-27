@@ -1,4 +1,5 @@
-﻿using HRMS.Admin.UI.Helpers;
+﻿using HRMS.Admin.UI.AuthenticateService;
+using HRMS.Admin.UI.Helpers;
 using HRMS.Core.Entities.Common;
 using HRMS.Core.Entities.Master;
 using HRMS.Core.Helpers.CommonCRUDHelper;
@@ -14,12 +15,10 @@ using System.Threading.Tasks;
 
 namespace HRMS.Admin.UI.Controllers.Master
 {
+    [CustomAuthenticate]
     public class ShiftController : Controller
     {
         private readonly IGenericRepository<Shift, int> _IShiftRepository;
-
-
-
         public ShiftController(IGenericRepository<Shift, int> ShiftRepo)
         {
             _IShiftRepository = ShiftRepo;

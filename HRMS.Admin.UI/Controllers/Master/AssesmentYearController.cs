@@ -1,4 +1,5 @@
-﻿using HRMS.Admin.UI.Helpers;
+﻿using HRMS.Admin.UI.AuthenticateService;
+using HRMS.Admin.UI.Helpers;
 using HRMS.Core.Entities.Master;
 using HRMS.Core.Helpers.CommonCRUDHelper;
 using HRMS.Core.Helpers.CommonHelper;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace HRMS.Admin.UI.Controllers.Master
 {
+    [CustomAuthenticate]
     public class AssesmentYearController : Controller
     {
         private readonly IGenericRepository<AssesmentYear, int> _IAssesmentYearRepository;

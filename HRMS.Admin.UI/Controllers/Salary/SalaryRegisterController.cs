@@ -1,4 +1,5 @@
-﻿using HRMS.Admin.UI.Helpers;
+﻿using HRMS.Admin.UI.AuthenticateService;
+using HRMS.Admin.UI.Helpers;
 using HRMS.Core.Entities.Master;
 using HRMS.Core.Helpers.CommonCRUDHelper;
 using HRMS.Core.Helpers.CommonHelper;
@@ -20,6 +21,7 @@ using System.Linq;
 using System.Threading.Tasks;
 namespace HRMS.Admin.UI.Controllers.Salary
 {
+    [CustomAuthenticate]
     public class SalaryRegisterController : Controller
     {
         private readonly IDapperRepository<SalaryRegisterParams> _ISalaryRegisterParamsRepository;

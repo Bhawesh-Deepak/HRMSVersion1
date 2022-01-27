@@ -1,4 +1,5 @@
-﻿using HRMS.Admin.UI.Helpers;
+﻿using HRMS.Admin.UI.AuthenticateService;
+using HRMS.Admin.UI.Helpers;
 using HRMS.Core.Entities.Master;
 using HRMS.Core.Helpers.CommonHelper;
 using HRMS.Services.Repository.GenericRepository;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace HRMS.Admin.UI.Controllers.Master
 {
+    [CustomAuthenticate]
     public class RoleMasterController : Controller
     {
         private readonly IGenericRepository<RoleMaster, int> _IRoleMasterRepository;

@@ -1,4 +1,5 @@
-﻿using HRMS.Admin.UI.Helpers;
+﻿using HRMS.Admin.UI.AuthenticateService;
+using HRMS.Admin.UI.Helpers;
 using HRMS.Core.Entities.Payroll;
 using HRMS.Core.Entities.UserManagement;
 using HRMS.Core.Helpers.CommonHelper;
@@ -18,6 +19,7 @@ using System.Threading.Tasks;
 
 namespace HRMS.Admin.UI.Controllers.Payroll
 {
+    [CustomAuthenticate]
     public class EmployeeSalaryController : Controller
     {
         private readonly IGenericRepository<EmployeeDetail, int> _IEmployeeDetailRepository;

@@ -1,4 +1,5 @@
-﻿using HRMS.Admin.UI.Helpers;
+﻿using HRMS.Admin.UI.AuthenticateService;
+using HRMS.Admin.UI.Helpers;
 using HRMS.Core.Helpers.CommonHelper;
 using HRMS.Core.ReqRespVm.Response.Posting;
 using HRMS.Services.Implementation.SqlConstant;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace HRMS.Admin.UI.Controllers.Posting
 {
+    [CustomAuthenticate]
     public class ReferDetailController : Controller
     {
         private readonly IDapperRepository<object> _IDapperRepository;

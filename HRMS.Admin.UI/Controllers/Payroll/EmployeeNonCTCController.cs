@@ -1,4 +1,5 @@
-﻿using HRMS.Core.Entities.Payroll;
+﻿using HRMS.Admin.UI.AuthenticateService;
+using HRMS.Core.Entities.Payroll;
 using HRMS.Core.Helpers.CommonHelper;
 using HRMS.Core.Helpers.ExcelHelper;
 using HRMS.Core.ReqRespVm.RequestVm;
@@ -14,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace HRMS.Admin.UI.Controllers.Payroll
 {
+    [CustomAuthenticate]
     public class EmployeeNonCTCController : Controller
     {
         private readonly IGenericRepository<EmployeeNonCTC, int> _IEmployeeNonCTCRepository;

@@ -1,4 +1,5 @@
-﻿using HRMS.Admin.UI.Helpers;
+﻿using HRMS.Admin.UI.AuthenticateService;
+using HRMS.Admin.UI.Helpers;
 using HRMS.Core.Entities.Master;
 using HRMS.Core.Helpers.CommonHelper;
 using HRMS.Services.Repository.GenericRepository;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace HRMS.Admin.UI.Controllers.Organisation
 {
+    [CustomAuthenticate]
     public class DepartmentDirectory : Controller
     {
         private readonly IGenericRepository<Department, int> _IDepartmentRepository;

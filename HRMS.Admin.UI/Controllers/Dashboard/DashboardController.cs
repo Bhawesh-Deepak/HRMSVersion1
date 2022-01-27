@@ -1,4 +1,5 @@
-﻿using HRMS.Core.Entities.Organisation;
+﻿using HRMS.Admin.UI.AuthenticateService;
+using HRMS.Core.Entities.Organisation;
 using HRMS.Core.Helpers.CommonHelper;
 using HRMS.Core.ReqRespVm.Response.Organisation;
 using HRMS.Services.Repository.GenericRepository;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace HRMS.Admin.UI.Controllers.Dashboard
 {
+    [CustomAuthenticate]
     public class DashboardController : Controller
     {
         private readonly IGenericRepository<Subsidiary, int> _ISubsidiaryRepository;

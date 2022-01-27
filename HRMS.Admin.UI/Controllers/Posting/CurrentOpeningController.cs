@@ -1,4 +1,5 @@
-﻿using HRMS.Admin.UI.Helpers;
+﻿using HRMS.Admin.UI.AuthenticateService;
+using HRMS.Admin.UI.Helpers;
 using HRMS.Core.Entities.Common;
 using HRMS.Core.Entities.Posting;
 using HRMS.Core.Helpers.CommonCRUDHelper;
@@ -15,6 +16,7 @@ using System.Threading.Tasks;
 
 namespace HRMS.Admin.UI.Controllers.Posting
 {
+    [CustomAuthenticate]
     public class CurrentOpeningController : Controller
     {
         private readonly IGenericRepository<CurrentOpening, int> _ICurrentOpeningRepository;

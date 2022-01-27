@@ -1,4 +1,5 @@
-﻿using HRMS.Core.Entities.Payroll;
+﻿using HRMS.Admin.UI.AuthenticateService;
+using HRMS.Core.Entities.Payroll;
 using HRMS.Core.Helpers.CommonHelper;
 using HRMS.Services.Repository.GenericRepository;
 using Microsoft.AspNetCore.Http;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace HRMS.Admin.UI.Controllers.UserManagement
 {
+    [CustomAuthenticate]
     public class Profile : Controller
     {
         private readonly IGenericRepository<EmployeeDetail, int> _IEmployeeDetailRepository;

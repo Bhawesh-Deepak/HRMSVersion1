@@ -11,9 +11,11 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using HRMS.Admin.UI.AuthenticateService;
 
 namespace HRMS.Admin.UI.Controllers.Master
 {
+    [CustomAuthenticate]
     public class EmployeeAssetsController : Controller
     {
         private readonly IGenericRepository<EmployeeAssets, int> _IEmployeeAssetsRepository;

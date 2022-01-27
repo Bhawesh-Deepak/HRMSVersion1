@@ -1,4 +1,5 @@
-﻿using HRMS.Core.ReqRespVm.Response.Common;
+﻿using HRMS.Admin.UI.AuthenticateService;
+using HRMS.Core.ReqRespVm.Response.Common;
 using HRMS.Core.ReqRespVm.SqlParams;
 using HRMS.Services.Implementation.SqlConstant;
 using HRMS.Services.Repository.GenericRepository;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace HRMS.Admin.UI.Controllers.Common
 {
+    [CustomAuthenticate]
     public class CommonController : Controller
     {
         private readonly IDapperRepository<FilteredEmployeeParams> _IFilteredEmployeeRepository;

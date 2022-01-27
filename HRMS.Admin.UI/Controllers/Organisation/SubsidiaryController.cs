@@ -1,4 +1,5 @@
-﻿using HRMS.Admin.UI.Helpers;
+﻿using HRMS.Admin.UI.AuthenticateService;
+using HRMS.Admin.UI.Helpers;
 using HRMS.Core.Entities.Organisation;
 using HRMS.Core.Helpers.BlobHelper;
 using HRMS.Core.Helpers.CommonCRUDHelper;
@@ -15,6 +16,7 @@ using System.Threading.Tasks;
 
 namespace HRMS.Admin.UI.Controllers.Organisation
 {
+    [CustomAuthenticate]
     public class SubsidiaryController : Controller
     {
         private readonly IGenericRepository<Company, int> _ICompanyRepository;

@@ -1,5 +1,6 @@
 ﻿using ClosedXML.Excel;
 using Fingers10.ExcelExport.ActionResults;
+using HRMS.Admin.UI.AuthenticateService;
 using HRMS.Admin.UI.Helpers;
 using HRMS.Admin.UI.Models;
 using HRMS.Core.Entities.Common;
@@ -23,6 +24,7 @@ using System.Threading.Tasks;
 
 namespace HRMS.Admin.UI.Controllers.Payroll
 {
+    [CustomAuthenticate]
     public class EmployeeDetailController : Controller
     {
         private readonly IGenericRepository<EmployeeDetail, int> _IEmployeeDetailRepository;
