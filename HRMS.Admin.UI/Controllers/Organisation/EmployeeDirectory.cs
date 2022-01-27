@@ -27,17 +27,20 @@ namespace HRMS.Admin.UI.Controllers.Organisation
         private readonly IGenericRepository<EmployeeDetail, int> _IEmployeeDetailRepository;
         private readonly IGenericRepository<Subsidiary, int> _ISubsidiaryRepository;
         private readonly IDapperRepository<EmployeeDetailParams> _IEmployeeRepository;
+        private readonly IDapperRepository<EmployeeSingleDetailParam> _IEmployeeSingleDetailRepository;
         public EmployeeDirectory(IGenericRepository<EmployeeDetail, int> employeeDetailRepository,
-            IDapperRepository<EmployeeDetailParams> employeeRepository,IGenericRepository<Subsidiary, int> subsidiaryRepository)
+            IDapperRepository<EmployeeDetailParams> employeeRepository
+            , IDapperRepository<EmployeeSingleDetailParam> EmployeeSingleDetailRepository, IGenericRepository<Subsidiary, int> subsidiaryRepository)
         {
             _IEmployeeDetailRepository = employeeDetailRepository;
             _ISubsidiaryRepository = subsidiaryRepository;
             _IEmployeeRepository = employeeRepository;
+            _IEmployeeSingleDetailRepository = EmployeeSingleDetailRepository;
         }
-     
+
         public async Task<IActionResult> Index()
         {
-           
+
             try
             {
                 EmployeeDetailParams searchModelEntity = new EmployeeDetailParams();
@@ -70,7 +73,7 @@ namespace HRMS.Admin.UI.Controllers.Organisation
             searchModelEntity.SortColumn = sortBy;
             searchModelEntity.SortOrder = sortOrder;
             searchModelEntity.IsActive = true;
-              
+
             PagingSortingHelper.PopulateModelForPagging(searchModelEntity, pageSize, pageIndex, sortBy, sortOrder);
             var response = _IEmployeeRepository.GetAll<EmployeeDetailVm>(SqlQuery.GetEmployeeDetails, searchModelEntity);
             PagingSortingHelper.PupulateModelToDisplayPagging(response?.First(), PageSize.Size10, pageIndex, sortBy, sortOrder);
@@ -86,8 +89,13 @@ namespace HRMS.Admin.UI.Controllers.Organisation
         }
         public async Task<IActionResult> GetEmployeeDetails(int Id)
         {
-            var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.Id == Id);
-            return PartialView(ViewHelper.GetViewPathDetails("EmployeeDirectory", "_EmployeeDetails"), response.Entities.FirstOrDefault());
+            var empParams = new EmployeeSingleDetailParam()
+            {
+                Id = Id
+            };
+            var response = _IEmployeeSingleDetailRepository.GetAll<EmployeeDetail>(SqlQuery.GetEmployeeSingleDetails, empParams);
+
+            return PartialView(ViewHelper.GetViewPathDetails("EmployeeDirectory", "_EmployeeDetails"), response.FirstOrDefault());
         }
         [HttpGet]
         public async Task<IActionResult> EmployeeDirectorySearch(string empCode, string LegalEntity, string IsActive)
@@ -120,7 +128,7 @@ namespace HRMS.Admin.UI.Controllers.Organisation
         }
         public async Task<IActionResult> ExportEmployee()
         {
-             
+
             var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
             DataTable dt = new DataTable("Employee");
             dt.Columns.AddRange(new DataColumn[10] {
