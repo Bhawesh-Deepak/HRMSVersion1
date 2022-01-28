@@ -47,14 +47,14 @@ namespace HRMS.Admin.UI.Controllers.Reporting
             var response = (await Task.Run(() => _ISalaryRegisterParamsRepository.GetAll<IncentivePaidRegisterVM>(SqlQuery.GetIncentivePaidRegister, request))).ToList();
 
 
-            string sWebRootFolder = _IHostingEnviroment.WebRootPath;
-            string sFileName = @"IncentivePaidRegister.xlsx";
-            string URL = string.Format("{0}://{1}/{2}", Request.Scheme, Request.Host, sFileName);
+            var sWebRootFolder = _IHostingEnviroment.WebRootPath;
+            var sFileName = @"IncentivePaidRegister.xlsx";
+            var URL = string.Format("{0}://{1}/{2}", Request.Scheme, Request.Host, sFileName);
             FileInfo file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
             if (file.Exists)
             {
                 file.Delete();
-                file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
+                file = new FileInfo(fileName: Path.Combine(sWebRootFolder, sFileName));
             }
             ExcelPackage Eps = new ExcelPackage();
             ExcelWorksheet Sheets = Eps.Workbook.Worksheets.Add("Incentive");
