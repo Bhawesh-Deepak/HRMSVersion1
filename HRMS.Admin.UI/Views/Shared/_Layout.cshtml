@@ -55,7 +55,7 @@
     <script src="~/js/CustomJqGrid.js"></script>
     <style>
 
-        
+        .content{min-height:0}
 
        h1, h2, h3, h4, h5, h6, p, a, ul li, th, td, span, div, label, button{font-family: 'Montserrat', sans-serif !important;}
          #ui-id-1{width:207px}
@@ -117,10 +117,14 @@
         .btn-close{background:#bc693c; border:1px solid #bc693c}
         .btn-close:hover{background:#ae6137; border:1px solid #ae6137}
         #txtSearchMenu{height:35px}
-        .tabs{margin:auto; width:100%; max-width:162px; padding:6px 0; border:1px solid #ccc; border-radius:20px; margin-top:20px}
+        #txtSearchMenu-2{height:30px}
+        #search-btn-2{padding:3px 10px}
+        .tabs{margin:auto; width:100%; max-width:156px; padding:6px 0; border:1px solid #ccc; border-radius:20px; margin-top:20px}
         .tabs li{display:inline}
         .tabs li a{padding:7px; width:50%; text-align:center}
         .tabs li.active a{background:#ff9b44; color:#fff; border-radius:20px}
+        #myChart-2, #myChart-3, #myChart-4, #myChart-5{height:300px !important}
+        #myChart-2, #myChart-3{max-width:600px !important; margin:auto}
     </style>
 
     <link href="~/resources/plugins/jQueryUI/jquery-ui.min.css" rel="stylesheet" />
@@ -707,6 +711,16 @@
                 <!-- Navbar Right Menu -->
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
+                        <li>
+                            <div class="sidebar-form" style="max-width:208px; height:30px">
+                                <div class="input-group">
+                                    <input type="text" id="txtSearchMenu-2" class="form-control ui-autocomplete-input" placeholder="Search ...">
+                                    <span class="input-group-btn">
+                                        <a data-toggle="modal" data-target="#popEmpDetails" id="search-btn-2" class="btn btn-flat"><i class="fa fa-search"></i></a>
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <img src="~/resources/dist/img/emp.png" class="user-image" alt="User Image">
