@@ -9,7 +9,7 @@
 
 
 <div class="content-wrapper" style="min-height: 870px;">
-     
+    @Html.BuildBreadcrumbNavigation()
     <section class="content">
         <div class="row">
             <div class="col-md-6">
@@ -39,7 +39,7 @@
                                                             {
                                                                 <li role="treeitem" aria-selected="false" aria-level="2" aria-labelledby="post1_anchor" aria-expanded="true" id="post1" class="jstree-node jstree-open" aria-busy="false">
                                                                     <i class="jstree-icon jstree-ocl" role="presentation"></i>
-                                                                    <a class="jstree-anchor" href="jvaccript:void(0)"  tabindex="-1" id="post1_anchor">
+                                                                    <a class="jstree-anchor" href="jvaccript:void(0)" tabindex="-1" id="post1_anchor">
                                                                         <i class="jstree-icon jstree-themeicon fa fa-eye fa-lg jstree-themeicon-custom" role="presentation">
                                                                         </i>@item.Name
                                                                     </a>
@@ -60,7 +60,7 @@
                     </div>
                 </div>
             </div>
-             
+
         </div>
 
     </section>
