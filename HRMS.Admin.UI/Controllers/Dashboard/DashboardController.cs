@@ -3,6 +3,7 @@ using HRMS.Core.Entities.Organisation;
 using HRMS.Core.Helpers.CommonHelper;
 using HRMS.Core.ReqRespVm.Response.Organisation;
 using HRMS.Services.Repository.GenericRepository;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -34,13 +35,25 @@ namespace HRMS.Admin.UI.Controllers.Dashboard
                                 Id = subsidiary.Id,
                                 CompanyName = company.Name,
                                 CompanyLogo = company.Logo,
-                                CompanyCode=company.Code,
+                                CompanyCode = company.Code,
                                 Name = subsidiary.Name,
                                 Code = subsidiary.Code,
                                 Logo = subsidiary.Logo
                             }).ToList();
 
             return await Task.Run(() => View(ViewHelper.GetViewPathDetails("Dashboard", "Dashboard"), response));
+        }
+
+        public async Task<IActionResult> SetSessionValue(int id)
+        {
+            await Task.Run(() =>
+            {
+                HttpContext.Session.SetString("SubsidryId", id.ToString());
+                var options = new CookieOptions { Expires = DateTime.Now.AddHours(36) };
+                Response.Cookies.Append("Id",id.ToString(), options);
+            });
+
+            return Json(true);
         }
     }
 }

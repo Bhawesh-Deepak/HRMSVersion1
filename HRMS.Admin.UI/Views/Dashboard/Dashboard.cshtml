@@ -65,18 +65,18 @@
             <span><img src="~/LoginJsCss/images/logo.png" style="width:20%" alt="" class="img-fluid"></span>
             <a asp-action="Logout" asp-controller="Authenticate" class="btn btn-success add"><i class="fa fa-power-off"></i> Log Out</a>
         </div>
-        <div class="d-flex justify-content-between mb-2">
+        @*<div class="d-flex justify-content-between mb-2">
             <div class="row" style="padding-left: 37%;">
                 <div class="col-md-5">
                     <div class="card p-2 py-3 text-center">
-                        <div class="img mb-2 divSelect"> <img src="@Model.First().Logo" width="80" class="rounded-circle"> </div>
-                        <h5 class="mb-0">@Model.First().Code</h5> <small>@Model.First().Name</small>
+                        <div class="img mb-2 divSelect"> <img src="~/LoginJsCss/images/logo.png" width="100px;"> </div>
+                        <h5 class="mb-0">KUDOTECH</h5> <small>KUDOTECH HRMS</small>
                     </div>
                 </div>
 
 
             </div>
-        </div>
+        </div>*@
         <div class="row g-2">
             @foreach (var item in Model)
             {
@@ -111,22 +111,25 @@
         });
         function selectfunction(Id, event) {
             $('input[name^="hdnDivLoop"]').each(function () {
+                SetSessionValue(id);
                 var ids = Id;
                 var loopid = $(this).val().substr(5);
                 if (Id == loopid) {
                     $("#divId" + loopid).addClass("addborder");
                     $('#btnContinue').removeAttr("disabled");
-                    $('#btnSkip').attr("disabled", true);
                     $('#hdnsubsidiaryId').val(loopid);
-                    //  $('#hdnsubsidiaryName').val(event);
                 }
                 else {
-
                     $("#divId" + loopid).removeClass("addborder");
-
                 }
             });
 
+        }
+
+        function SetSessionValue(id) {
+            $.get("/Dashboard/SetSessionValue", {id:id}, function (data) {
+                alert(data);
+            })
         }
     </script>
 </body>

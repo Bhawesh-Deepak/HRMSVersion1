@@ -28,7 +28,7 @@ namespace HRMS.Admin.UI
             services.AddControllersWithViews();
             services.AddService();
             services.AddHttpContextAccessor();
-            services.AddSession(option => { option.IdleTimeout = TimeSpan.FromSeconds(10); });
+            services.AddSession(option => { option.IdleTimeout = TimeSpan.FromMinutes(60); });
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
             services.ConfigureApplicationCookie(option =>
@@ -69,3 +69,5 @@ namespace HRMS.Admin.UI
         }
     }
 }
+
+
