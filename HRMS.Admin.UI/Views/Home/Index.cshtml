@@ -11,6 +11,7 @@
     .btn-primary:hover{color:#fff}
     .owl-nav{display:none}
     .owl-dots{margin-top:30px}
+    .box.box-primary{border-top-color:transparent}
 </style>
 
 <div class="content-wrapper" style="min-height: 870px;">
@@ -38,15 +39,15 @@
                     </div>
                     <div class="box-body">
                         <div class="profile-nav nav-tabs-custom customNavigation">
-                            <span class="fa fa-bars"></span>
-                            <ul class="nav nav-tabs">
+                            <a id="bar"><i class="fa fa-bars"></i></a>
+                            <ul id="nav-t" class="nav nav-tabs">
                                 <li class="active"><a href="#Monthly_Attendance_Graph" data-toggle="tab">Monthly Attendance Graph</a></li>
                                 <li><a href="#Monthly_Gross_Salary_Incentive" data-toggle="tab">Monthly Gross Salary & Incentive</a></li>
                                 <li><a href="#Number_of_Employees_to_whom_Salary_Paid " data-toggle="tab">Number of Employees to whom Salary Paid </a></li>
                                 <li><a href="#Number_of_Employees_to_whom_Incentive_Paid" data-toggle="tab">Number of Employees to whom Incentive Paid</a></li>
 
                             </ul>
-                            <div class="tab-content">
+                            <div class="tab-content" style="overflow-x:auto">
                                 <div class="pro-overview tab-pane active" id="Monthly_Attendance_Graph">
                                     <div class="row" style="margin-top:0;">
                                         <div class="col-md-12 col-sm-12">
@@ -172,24 +173,21 @@
         <div class="row" style="margin-top:0;">
             <div class="col-md-12 col-sm-12">
                 <div class="box box-primary">
-                    <div class="box-header with-border">
+                    <div class="box-header with-border" style="background:#455d8d; color:#fff">
                         <div class="box-title">
                             <i class="fa fa-birthday-cake"></i> Birthday and Work Anniversary
                         </div>
-                    </div>
-                     
-                    <div class="box-body">
- 
+                    </div>                     
+                    <div class="box-body" style="background:url('/images/birthday.jpg'); padding:30px 30px 20px"> 
 	                     <div class="profile-nav nav-tabs-custom customNavigation">
-                            <span class="fa fa-bars"></span>
                             <ul class="tabs">
-                                <li class="active"><a href="#tab-1" data-toggle="tab">Birthdays</a></li>
+                                <li class="active"><a href="#tab-1" data-toggle="tab">Birthday</a></li>
                                 <li><a href="#tab-2" data-toggle="tab">Anniversary</a></li> 
                             </ul>
                             <div class="tab-content">
                                 <div class="pro-overview tab-pane active" id="tab-1">
                                     <div class="row" style="margin-top:0;">
-                                        <div class="col-md-12 col-sm-12">                                            
+                                        <div class="col-md-12 col-sm-12">  
                                             <div class="owl-carousel owl-theme" id="owl-carousel-1">
 					                            <div class="item">
 						                            <div class="border"> 
@@ -361,6 +359,13 @@
 			}
 		}
 		});
+</script>
+
+<script>
+    $("#bar").click(function(){
+      $("#nav-t").slideDown();
+      $("#nav-t").fadeOut(3000);
+    });
 </script>
 
 <environment include="Development">
