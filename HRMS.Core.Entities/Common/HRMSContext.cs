@@ -4,6 +4,7 @@ using HRMS.Core.Entities.Organisation;
 using HRMS.Core.Entities.Payroll;
 using HRMS.Core.Entities.Posting;
 using HRMS.Core.Entities.UserManagement;
+using HRMS.Core.Entities.HR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -83,6 +84,8 @@ namespace HRMS.Core.Entities.Common
         public virtual DbSet<AdminEmployeeDetail> AdminEmployeeDetails { get; set; }
         public virtual DbSet<EmployeeSalaryPosted> EmployeeSalaryPosteds { get; set; }
         public virtual DbSet<EmployeeTDSSummery> EmployeeTDSSummerys { get; set; }
+
+        public virtual DbSet<PaidRegister> PaidRegisters { get; set; }
 
         #endregion
     }
