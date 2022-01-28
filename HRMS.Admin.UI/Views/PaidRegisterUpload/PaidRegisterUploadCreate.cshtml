@@ -1,0 +1,74 @@
+﻿@model HRMS.Core.Entities.HR.PaidRegister
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<style>
+</style>
+<form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+      asp-action="UpsertPaidRegister" asp-controller="PaidRegisterUpload" data-ajax-success="Success">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input asp-for="Id" type="hidden" />
+                        <input asp-for="CreatedBy" type="hidden" />
+                        <input asp-for="CreatedDate" type="hidden" />
+                        <label asp-for="DateMonth">Month</label><span style="color:red">  *</span>
+                                                                <select class="form-control" asp-for="DateMonth">
+                                                                    
+                                                                    <option value="1">January</option>
+                                                                    <option value="2">February</option>
+                                                                    <option value="3">March</option>
+                                                                    <option value="4">April</option>
+                                                                    <option value="5">May</option>
+                                                                    <option value="6">June</option>
+                                                                    <option value="7">July</option>
+                                                                    <option value="8">August</option>
+                                                                    <option value="9">September</option>
+                                                                    <option value="10">October</option>
+                                                                    <option value="11">November</option>
+                                                                    <option value="12">December</option>
+                                                                </select>
+                        <span asp-validation-for="DateMonth" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+
+                        <label asp-for="DateYear">Year</label><span style="color:red">  *</span>
+                        <input  class="form-control" asp-for="DateYear" />
+                        <span asp-validation-for="DateYear" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+
+
+
+
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="UploadFilePath">Upload File Path</label>
+                        <input asp-for="UploadFilePath" class="form-control" type="file" />
+                        <span asp-validation-for="UploadFilePath" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+
+
+        <button type="button" class="btn btn-primary btn-close" onclick="HidePopUp();">Close</button>
+        <input type="submit" class="btn btn-primary  " value="Save" />
+    </div>
+</form>
