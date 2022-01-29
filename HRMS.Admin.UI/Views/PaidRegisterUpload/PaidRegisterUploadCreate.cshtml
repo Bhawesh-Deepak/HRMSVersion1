@@ -17,7 +17,7 @@
                         <input asp-for="CreatedDate" type="hidden" />
                         <label asp-for="DateMonth">Month</label><span style="color:red">  *</span>
                                                                 <select class="form-control" asp-for="DateMonth">
-                                                                    
+                                                                    <option value="0">Select</option>
                                                                     <option value="1">January</option>
                                                                     <option value="2">February</option>
                                                                     <option value="3">March</option>
@@ -56,9 +56,10 @@
             <div class="col-md-12">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label asp-for="UploadFilePath">Upload File Path</label>
-                        <input asp-for="UploadFilePath" class="form-control" type="file" />
+                        <label asp-for="UploadFilePath">Browse File</label>
+                        <input asp-for="UploadFilePath" class="form-control" type="file" onchange="checkfile(this);"/>
                         <span asp-validation-for="UploadFilePath" class="text-danger"></span>
+                        <span id="span_excelValidate" style="color:red"></span>
                     </div>
                 </div>
             </div>

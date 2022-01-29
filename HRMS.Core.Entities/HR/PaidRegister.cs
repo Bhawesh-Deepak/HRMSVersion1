@@ -17,8 +17,10 @@ namespace HRMS.Core.Entities.HR
         public int DateMonth{ get; set; }
 
         [Required(ErrorMessage = "this field is required.")]
+        [RegularExpression(@"^(\d{4})$", ErrorMessage = "Enter a valid 4 digit Year")]
         [Display(Prompt = "Year")]
         public int DateYear{ get; set; }
+        [Required(ErrorMessage = "this field is required.")]
         public string UploadFilePath{ get; set; }
     }
 }
