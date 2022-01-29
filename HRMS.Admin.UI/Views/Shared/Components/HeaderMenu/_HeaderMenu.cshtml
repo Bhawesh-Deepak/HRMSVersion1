@@ -1,0 +1,115 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor;
+@using HRMS.Admin.UI.Helpers;
+@using HRMS.Core.Entities.Organisation;
+@using HRMS.Core.Entities.Payroll;
+@{
+    var companyDetails = HttpContextAccessor.HttpContext.Session.GetObjectFromJson<Company>("companyDetails");
+    var todayDate = DateTime.Now.ToLongDateString();
+    var employeeName = HttpContextAccessor.HttpContext.Session.GetString("UserName");
+    var roleId = HttpContextAccessor.HttpContext.Session.GetString("RoleId");
+}
+
+
+<header class="main-header">
+    <a asp-controller="Home" asp-action="Index" class="logo">
+        <span class="logo-mini">
+            <img src="@companyDetails.Logo">
+        </span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg">
+            <img src="@companyDetails.Logo">
+        </span>
+    </a>
+    <!-- Header Navbar -->
+    <nav class="navbar navbar-static-top" role="navigation">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+        </a>
+        <!-- Navbar Right Menu -->
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <li>
+                    <div class="sidebar-form" style="max-width:200px;">
+                        <div class="input-group">
+                            <input type="text" id="txtEMployee" class="form-control xs" autocomplete="off" placeholder="Search Employee ...">
+                            <span class="input-group-btn">
+                                <a data-toggle="modal" data-target="#popEmpDetails" id="search-btn-2" class="btn btn-flat"><i class="fa fa-search"></i></a>
+                            </span>
+                        </div>
+                    </div>
+                </li>
+                <li class="dropdown user user-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <img src="~/resources/dist/img/emp.png" class="user-image" alt="User Image">
+                        <span class="hidden-xs margin-r-5">@employeeName</span>
+
+                        <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+
+                        <li class="user-header">
+                            <img src="~/resources/dist/img/emp.png" width="160" height="160" class="img-circle" alt="User Image">
+                            <p>
+                                @employeeName
+                                <small>@todayDate</small>
+                            </p>
+                        </li>
+                        <li class="user-footer">
+                            <div class="pull-left" style="">
+                                <a asp-action="Index" asp-controller="Profile" class="btn bg-black btn-flat"><i class="fa fa-users"></i> My Profile</a>
+
+                            </div>
+                            <div class="pull-right">
+                                <a asp-action="Logout" asp-controller="Authenticate" class="btn bg-red btn-flat"><i class="fa fa-power-off"></i> Sign out</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+
+<script>
+    $(function () {
+
+        $("#txtEMployee").autocomplete({
+            source: function (request, response) {
+                debugger;
+                $.ajax({
+                    url: '/Home/wsGetEmployeeDetails/',
+                    data: "{ 'prefix': '" + request.term + "'}",
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.EmployeeName,
+                                value: item.EmployeeName,
+                                employeeid: item.EmployeeId
+                            };
+                        }))
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            },
+            select: function (e, i) {
+
+                $('#Employee-Contact').modal({ backdrop: 'static' });
+                $.get("/MenuSubMenu/EmployeeInformation", { EmployeeID: i.item.employeeid }, function (ChangePassword) {
+                    $("#autoemployee").html(ChangePassword);
+                });
+            },
+            minLength: 1
+        });
+    });
+</script>
