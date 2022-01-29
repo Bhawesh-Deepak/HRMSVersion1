@@ -111,8 +111,6 @@
         });
         function selectfunction(Id, event) {
             $('input[name^="hdnDivLoop"]').each(function () {
-                SetSessionValue(id);
-                var ids = Id;
                 var loopid = $(this).val().substr(5);
                 if (Id == loopid) {
                     $("#divId" + loopid).addClass("addborder");
@@ -123,12 +121,12 @@
                     $("#divId" + loopid).removeClass("addborder");
                 }
             });
-
+            SetSessionValue(Id);
         }
 
         function SetSessionValue(id) {
             $.get("/Dashboard/SetSessionValue", {id:id}, function (data) {
-                alert(data);
+                
             })
         }
     </script>
