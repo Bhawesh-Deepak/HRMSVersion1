@@ -7,7 +7,7 @@ $(document).ready(function () {
 })
 
 function AddRecord() {
-    NewCustomRecord("/PaidRegisterUpload/CreatePaidUploadRegister", "Create Paid Register Upload")
+    NewCustomRecord("/PaidRegisterUpload/CreatePaidUploadRegister", "Create Paid Register")
 }
 
 function Delete(id, eData) {
@@ -15,5 +15,5 @@ function Delete(id, eData) {
 }
 
 function UpdateRecord(id) {
-    UpdateCustomRecord(id, "/PaidRegisterUpload/CreatePaidUploadRegister", "Update Paid Register Upload");
+    UpdateCustomRecord(id, "/PaidRegisterUpload/CreatePaidUploadRegister", "Update Paid Register");
 }
