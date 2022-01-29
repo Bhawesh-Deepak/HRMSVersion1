@@ -15,6 +15,7 @@ namespace HRMS.Core.ReqRespVm.RequestVm
         [Required(ErrorMessage = "this field is required..")]
         public int DateYear { get; set; }
         public string EmployeeCode { get; set; }
+        public string Name { get; set; }
         public IFormFile UploadFile { get; set; }
     }
 }

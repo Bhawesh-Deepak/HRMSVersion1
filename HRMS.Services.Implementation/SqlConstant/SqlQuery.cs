@@ -21,5 +21,7 @@ namespace HRMS.Services.Implementation.SqlConstant
         public const string GetIncentivePaidRegister = @"[Reporting].[usp_IncentivePaidRegister]";
         public const string GetECRReport = @"[Reporting].[usp_ECRReport]";
         public const string GetPaySlip = @"[Reporting].[usp_GetEmployeePaySlip]";
+        public const string GetPTaxReport = @"[Reporting].[usp_GetProfessionTaxReport]";
+        public const string GetLWFReport = @"[Reporting].[usp_GetLWFReport]";
     }
 }
