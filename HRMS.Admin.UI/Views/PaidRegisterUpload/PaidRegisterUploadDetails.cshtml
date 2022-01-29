@@ -37,7 +37,11 @@
                         @count
                     </td>
                     <td align="left" style="width:40%;" class="sorting_1">
-                        @data.DateMonth
+                        @{
+                            System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                            string strMonthName = mfi.GetMonthName(@data.DateMonth).ToString();
+                        }
+                       @strMonthName
                     </td>
                     <td align="left" style="width:40%;" class="sorting_1">
                         @data.DateYear

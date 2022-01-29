@@ -4,40 +4,34 @@
 <div class="content-wrapper" style="min-height: 870px;">
 
     <section class="content">
-        <div>
-            <div>
 
-                <div>
 
-                    <div class="row">
+        <div class="row">
 
-                        <div class="col-md-12">
-                            <div class="row" style="margin-top:0;">
-                                <div class="col-md-12 col-sm-12">
-                                    <div class="box box-primary">
-                                        <div class="box-header with-border">
-                                            <div class="box-title">
-                                                <h3 class="box-title pull-left">List of Paid Register </h3>
+            <div class="col-md-12">
+                <div class="row" style="margin-top:0;">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <h3 class="box-title pull-left">List of Paid Register </h3>
 
-                                            </div>
-                                            <a class="btn btn-primary pull-right btn-xs" onclick="AddRecord()" title="Add New Paid Register">
-                                                <i class="fa fa-plus"> &nbsp; Add</i>
-                                            </a>
-                                        </div>
-                                        <div class="box-body">
-                                            <div id="divHRMS">
-                                            </div>
-                                        </div>
-                                    </div>
+                                </div>
+                                <a class="btn btn-primary pull-right btn-xs" onclick="AddRecord()" title="Add New Paid Register">
+                                    <i class="fa fa-plus"> &nbsp; Add</i>
+                                </a>
+                            </div>
+                            <div class="box-body">
+                                <div id="divHRMS">
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
-
         </div>
+
+
     </section>
 </div>
 
@@ -61,13 +55,13 @@
             $('#span_excelValidate').text("Invalid file selected, valid files are of " + validExts.toString() + " types.");
             return false;
         }
-        else  {
-           
+        else {
+
             $('#span_excelValidate').hide('slow');
             return true;
         }
-            
-        
-       
+
+
+
     }
 </script>
