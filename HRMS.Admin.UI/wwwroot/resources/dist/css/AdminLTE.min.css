@@ -1832,7 +1832,7 @@ a {
 
 .box-header > .fa, .box-header > .glyphicon, .box-header > .ion, .box-header .box-title {
     display: inline-block;
-    font-size: 18px;
+    font-size: 15px;
     margin: 0;
     line-height: 1
 }

@@ -1,6 +1,8 @@
 ﻿using HRMS.Admin.UI.AuthenticateService;
 using HRMS.Admin.UI.Models;
 using HRMS.Core.Entities.Master;
+using HRMS.Core.Entities.Payroll;
+using HRMS.Core.Helpers.CommonHelper;
 using HRMS.Services.Repository.GenericRepository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -17,16 +19,49 @@ namespace HRMS.Admin.UI.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IGenericRepository<AssesmentYear, int> _IAssesmentYearRepository;
-        public HomeController(ILogger<HomeController> logger, IGenericRepository<AssesmentYear, int> assesmentYearRepository )
+        private readonly IGenericRepository<EmployeeDetail, int> _IEmployeeDetailRepository;
+        public HomeController(ILogger<HomeController> logger, IGenericRepository<AssesmentYear, int> assesmentYearRepository,
+            IGenericRepository<EmployeeDetail, int> employeedetailRepository)
         {
             _logger = logger;
             _IAssesmentYearRepository = assesmentYearRepository;
+            _IEmployeeDetailRepository = employeedetailRepository;
         }
 
         public async Task<IActionResult> Index()
         {
             await PopulateViewBag();
             return View();
+        }
+        public async Task<IActionResult> GetBirthDayAnniversary(int Id)
+        {
+            try
+            {
+
+                if (Id == 1)
+                {
+                    var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted &&
+                    x.DateOfBirth.Value.Day == DateTime.Now.Day && x.DateOfBirth.Value.Month == DateTime.Now.Month);
+                    return PartialView(ViewHelper.GetViewPathDetails("Home", "_BirthDayAndAnniversary"), response.Entities);
+                }
+                else
+                {
+                    var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted &&
+                     x.JoiningDate.Day == DateTime.Now.Day && x.JoiningDate.Month == DateTime.Now.Month);
+                    return PartialView(ViewHelper.GetViewPathDetails("Home", "_BirthDayAndAnniversary"), response.Entities);
+                }
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(HomeController)} action name {nameof(GetBirthDayAnniversary)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
+        }
+        [HttpPost]
+        public IActionResult  wsGetEmployeeDetails(string prefix)
+        {
+            return Json(1);
         }
 
         private async Task PopulateViewBag()
