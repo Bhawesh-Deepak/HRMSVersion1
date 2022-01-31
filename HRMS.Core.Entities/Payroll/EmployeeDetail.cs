@@ -85,5 +85,7 @@ namespace HRMS.Core.Entities.Payroll
         public string ProfilePic { get; set; }
         public string PTStateName { get; set; }
         public int IsPFEligible { get; set; }
+        public bool IsFNFinitiated { get; set; }
+        public bool IsSabbatical { get; set; }
     }
 }
