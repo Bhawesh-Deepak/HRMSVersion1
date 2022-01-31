@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 namespace HRMS.Admin.UI.Controllers.Dashboard
 {
     [CustomAuthenticate]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class DashboardController : Controller
     {
         private readonly IGenericRepository<Subsidiary, int> _ISubsidiaryRepository;

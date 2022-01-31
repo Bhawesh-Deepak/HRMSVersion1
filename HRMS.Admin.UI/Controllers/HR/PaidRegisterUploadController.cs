@@ -15,6 +15,7 @@ using HRMS.Core.Helpers.BlobHelper;
 
 namespace HRMS.Admin.UI.Controllers.HR
 {
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class PaidRegisterUploadController : Controller
     {
         private readonly IGenericRepository<PaidRegister, int> _IPaidRegisterUploadRepository;

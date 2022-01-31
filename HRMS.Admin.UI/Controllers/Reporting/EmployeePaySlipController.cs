@@ -38,10 +38,13 @@ namespace HRMS.Admin.UI.Controllers.Reporting
         public async Task<IActionResult> DownloadPaySlip(EmployeeSalaryRegisterVM model)
         {
             string empresponse = null;
+
             if (model.UploadFile != null && model.EmployeeCode == null)
                 empresponse = new ReadEmployeeCode().GetSalaryRegisterEmpCodeDetails(model.UploadFile);
+
             else if (model.UploadFile == null && model.EmployeeCode != null)
                 empresponse = model.EmployeeCode;
+
             var payslipparams = new EmployeePaySlipParams()
             {
                 DateMonth = model.DateMonth,

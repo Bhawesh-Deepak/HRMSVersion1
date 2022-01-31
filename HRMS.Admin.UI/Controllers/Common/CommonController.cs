@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 namespace HRMS.Admin.UI.Controllers.Common
 {
     [CustomAuthenticate]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class CommonController : Controller
     {
         private readonly IDapperRepository<FilteredEmployeeParams> _IFilteredEmployeeRepository;
