@@ -25,6 +25,6 @@ namespace HRMS.Core.Entities.Master
         [Display(Prompt = "End Month")]
         public int EndMonth { get; set; }
         public string Name { get; set; }
-
+        public bool isCurrentFinancialYear { get; set; }
     }
 }
