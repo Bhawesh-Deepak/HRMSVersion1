@@ -1,4 +1,5 @@
-﻿using HRMS.Admin.UI.Helpers;
+﻿using HRMS.Admin.UI.AuthenticateService;
+using HRMS.Admin.UI.Helpers;
 using HRMS.Core.Entities.Common;
 using HRMS.Core.Entities.Master;
 using HRMS.Core.Helpers.CommonHelper;
@@ -20,6 +21,8 @@ using System.Threading.Tasks;
 
 namespace HRMS.Admin.UI.Controllers.Reporting
 {
+    [CustomAuthenticate]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class ECRController : Controller
     {
         private readonly IHostingEnvironment _IHostingEnviroment;

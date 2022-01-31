@@ -23,6 +23,7 @@ using System.Threading.Tasks;
 namespace HRMS.Admin.UI.Controllers.Salary
 {
     [CustomAuthenticate]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class SalaryRegisterController : Controller
     {
         private readonly IDapperRepository<SalaryRegisterParams> _ISalaryRegisterParamsRepository;

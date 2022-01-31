@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 namespace HRMS.Admin.UI.Controllers.UserManagement
 {
     [CustomAuthenticate]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class SubModuleController : Controller
     {
         private readonly IGenericRepository<ModuleMaster, int> _IModuleMasterRepository;

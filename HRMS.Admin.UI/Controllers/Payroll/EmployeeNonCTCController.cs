@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 namespace HRMS.Admin.UI.Controllers.Payroll
 {
     [CustomAuthenticate]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class EmployeeNonCTCController : Controller
     {
         private readonly IGenericRepository<EmployeeNonCTC, int> _IEmployeeNonCTCRepository;

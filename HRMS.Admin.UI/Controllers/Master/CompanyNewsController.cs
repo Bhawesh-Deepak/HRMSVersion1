@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 namespace HRMS.Admin.UI.Controllers.Master
 {
     [CustomAuthenticate]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class CompanyNewsController : Controller
     {
         private readonly IGenericRepository<CompanyNews, int> _ICompanyNewsRepository;

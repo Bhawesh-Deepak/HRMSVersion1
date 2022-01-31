@@ -12,9 +12,13 @@ using HRMS.Core.Helpers.CommonCRUDHelper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using HRMS.Core.Helpers.BlobHelper;
+using HRMS.Admin.UI.AuthenticateService;
 
 namespace HRMS.Admin.UI.Controllers.HR
 {
+ 
+    [CustomAuthenticate]
+ 
     [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class PaidRegisterUploadController : Controller
     {

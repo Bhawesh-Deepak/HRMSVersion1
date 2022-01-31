@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 namespace HRMS.Admin.UI.Controllers.Master
 {
     [CustomAuthenticate]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class EmployeetypeController : Controller
     {
         private readonly IGenericRepository<EmployeeType, int> _IEmployeeTypeRepository;

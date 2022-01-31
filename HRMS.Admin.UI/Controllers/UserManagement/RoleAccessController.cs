@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 namespace HRMS.Admin.UI.Controllers.UserManagement
 {
     [CustomAuthenticate]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class RoleAccessController : Controller
     {
         private readonly IGenericRepository<RoleMaster, int> _IRoleMasterRepository;

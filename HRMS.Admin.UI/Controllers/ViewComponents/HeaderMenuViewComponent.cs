@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace HRMS.Admin.UI.Controllers.ViewComponents
 {
     [CustomAuthenticate]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class HeaderMenuViewComponent : ViewComponent
     {
         public async Task<IViewComponentResult> InvokeAsync()
