@@ -7,6 +7,7 @@ using HRMS.Core.ReqRespVm.Response.Reporting;
 using HRMS.Core.ReqRespVm.SqlParams;
 using HRMS.Services.Implementation.SqlConstant;
 using HRMS.Services.Repository.GenericRepository;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -68,8 +69,8 @@ namespace HRMS.Admin.UI.Controllers
         public async Task<IActionResult> GetAttendanceGraph(int FinancialYear)
         {
             if (FinancialYear == 0)
-                FinancialYear = _IAssesmentYearRepository.GetAllEntities(x=>x.isCurrentFinancialYear==true).Id;
-            else FinancialYear = 3;
+                FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
+             
             var attendanceParams = new AttendanceGraphParams()
             {
                 FinancialYear = FinancialYear
