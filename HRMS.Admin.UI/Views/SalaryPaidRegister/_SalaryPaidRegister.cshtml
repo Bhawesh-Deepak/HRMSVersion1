@@ -12,22 +12,17 @@
                         <div class="box box-primary">
                             <div class="box-header with-border">
                                 <div class="box-title">
-                                    <i class="fa fa-cloud-download fa-lg"></i> &nbsp; Export Salary Paid Register
+                                    <i class="fa fa-cloud-download fa-lg"></i> &nbsp; Download Salary Paid Register
                                 </div>
                             </div>
                             <div class="box-body">
                                 <form id="form" method="post"
                                       enctype="multipart/form-data"
-                                      asp-action="ExportSalaryRegister" asp-controller="SalaryRegister">
+                                      asp-action="DownloadSalaryPaidRegister" asp-controller="SalaryPaidRegister">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="row">
-                                                <div class="col-md-3">
-                                                    <div class="form-group">
-                                                        <label asp-for="UploadFile"> Employee :</label>
-                                                        <input type="file" class="form-control input-sm" asp-for="UploadFile" placeholder="Enter Month" />
-                                                    </div>
-                                                </div>
+                                                 
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label asp-for="DateMonth"> Month :</label><em class="text-danger">*</em>
@@ -40,7 +35,9 @@
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label asp-for="DateYear">Year :</label><em class="text-danger">*</em>
-                                                        <input asp-for="DateYear" class="form-control input-sm" maxlength="4" minlength="4" type="number" placeholder="Enter Year" />
+                                                        <select class="form-control input-sm" asp-for="DateYear" asp-items="@(new SelectList(ViewBag.AssesmentYearList ,"StartYear","StartYear"))">
+                                                            <option value="">----Select One----</option>
+                                                        </select>
                                                         <span asp-validation-for="DateYear" class="text-danger"></span>
                                                     </div>
                                                 </div>
