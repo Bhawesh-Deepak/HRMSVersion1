@@ -61,7 +61,7 @@ namespace HRMS.Admin.UI.Controllers.Reporting
             }
             else
             {
-                var empresponse = new ReadEmployeeCode().GetSalaryRegisterEmpCodeDetails(model.UploadFilePath);
+                var empresponse = new ReadEmployeeCode().GetSalaryRegisterEmpCodeDetails(model.UploadFile);
                 var request = new SalaryRegisterByEmployeeCodeParams()
                 {
                     DateMonth = model.DateMonth,
