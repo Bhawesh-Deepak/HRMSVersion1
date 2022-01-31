@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Http;
 using HRMS.Core.Entities.Organisation;
 using System.Net.Http;
 using HRMS.Admin.UI.AuthenticateService;
+using HRMS.Core.Entities.Master;
 
 namespace HRMS.Admin.UI.Controllers.UserManagement
 {
@@ -25,14 +26,17 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
         private readonly IGenericRepository<AdminEmployeeDetail, int> _IAdminEmployeeDetailRepository;
         private readonly IGenericRepository<AuthenticateUser, int> _IAuthenticateRepository;
         private readonly IGenericRepository<Company, int> _ICompanyRepository;
+        private readonly IGenericRepository<AssesmentYear, int> _IAssesmentYearRepository;
 
         public AuthenticateController(IGenericRepository<EmployeeDetail, int> employeeDetailRepository, IGenericRepository<AdminEmployeeDetail, int> adminemployeeDetailRepository,
-            IGenericRepository<AuthenticateUser, int> authenticateRepo, IGenericRepository<Company, int> companyRepository)
+            IGenericRepository<AuthenticateUser, int> authenticateRepo, IGenericRepository<Company, int> companyRepository,
+            IGenericRepository<AssesmentYear, int> assesmentyearRepository)
         {
             _IEmployeeDetailRepository = employeeDetailRepository;
             _IAdminEmployeeDetailRepository = adminemployeeDetailRepository;
             _IAuthenticateRepository = authenticateRepo;
             _ICompanyRepository = companyRepository;
+            _IAssesmentYearRepository = assesmentyearRepository;
         }
 
         public async Task<IActionResult> LoginIndex(string message)
@@ -58,8 +62,8 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
             {
 
                 var companyDetail = await _ICompanyRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
-
-                await SetCookies( model.UserName, "UserName");
+                var assesmentYear = await _IAssesmentYearRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted && x.isCurrentFinancialYear);
+                await SetCookies(model.UserName, "UserName");
                 if (response.Entities.First().RoleId == 1)
                 {
 
@@ -69,8 +73,11 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
                     HttpContext.Session.SetString("UserName", employeeDetails.Entities.First().EmployeeName);
                     HttpContext.Session.SetString("EmployeeId", employeeDetails.Entities.First().Id.ToString());
                     HttpContext.Session.SetString("RoleId", response.Entities.First().RoleId.ToString());
+                    HttpContext.Session.SetString("financialYearId", assesmentYear.Entities.First().Id.ToString());
+                    HttpContext.Session.SetString("financialYear", assesmentYear.Entities.First().Name.ToString());
 
-                    if (!string.IsNullOrEmpty(returnurl)) {
+                    if (!string.IsNullOrEmpty(returnurl))
+                    {
                         return Redirect(returnurl);
                     }
 
@@ -84,7 +91,8 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
                     HttpContext.Session.SetString("UserName", employeeDetails.Entities.First().EmployeeName);
                     HttpContext.Session.SetString("EmployeeId", employeeDetails.Entities.First().Id.ToString());
                     HttpContext.Session.SetString("RoleId", response.Entities.First().RoleId.ToString());
-
+                    HttpContext.Session.SetString("financialYearId", assesmentYear.Entities.First().Id.ToString());
+                    HttpContext.Session.SetString("financialYear", assesmentYear.Entities.First().Name.ToString());
                     if (!string.IsNullOrEmpty(returnurl))
                     {
                         return Redirect(returnurl);
