@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+ 
 
 namespace HRMS.Core.Entities.HR
 {
@@ -23,8 +23,8 @@ namespace HRMS.Core.Entities.HR
         public int DateYear{ get; set; }
         [Required(ErrorMessage = "this field is required.")]
         public string UploadFilePath{ get; set; }
-        public int ComponentType { get; set; }
+        
 
-        public IFormFile UploadFile { get; set; }
+        
     }
 }
