@@ -1,4 +1,5 @@
 ﻿using HRMS.Core.Entities.Common;
+using HRMS.Core.Entities.Master;
 using HRMS.Core.Helpers.CommonHelper;
 using HRMS.Core.Helpers.ExcelHelper;
 using HRMS.Core.ReqRespVm.RequestVm;
@@ -21,14 +22,17 @@ namespace HRMS.Admin.UI.Controllers.Reporting
         private readonly IHostingEnvironment _IHostingEnviroment;
         private readonly IDapperRepository<EmployeeInformationParams> _IEmployeeInformationRepository;
         private readonly IDapperRepository<EmployeePaySlipParams> _IEmployeePaySlipRepository;
+        private readonly IGenericRepository<AssesmentYear, int> _IAssesmentYearRepository;
         public EmployeePaySlipController(IHostingEnvironment hostingEnvironment,
-            IDapperRepository<EmployeeInformationParams> employeeinformationRepository,
+            IDapperRepository<EmployeeInformationParams> employeeinformationRepository, IGenericRepository<AssesmentYear, int> assesmentyearRepo,
             IDapperRepository<EmployeePaySlipParams> employeepayslipRepository)
         {
             _IHostingEnviroment = hostingEnvironment;
             _IEmployeeInformationRepository = employeeinformationRepository;
             _IEmployeePaySlipRepository = employeepayslipRepository;
+            _IAssesmentYearRepository = assesmentyearRepo;
         }
+       
         public async Task<IActionResult> Index()
         {
             await PopulateViewBag();
@@ -63,6 +67,10 @@ namespace HRMS.Admin.UI.Controllers.Reporting
             var model = new EmployeeInformationParams() { };
             var employeeResponse = await Task.Run(() => _IEmployeeInformationRepository.GetAll<EmployeeInformationVM>(SqlQuery.EmployeeInformation, model));
             ViewBag.EmployeeList = employeeResponse.ToList();
+            var assesmentyearResponse = await _IAssesmentYearRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+            if (assesmentyearResponse.ResponseStatus == ResponseStatus.Success)
+                ViewBag.AssesmentYearList = assesmentyearResponse.Entities;
+
         }
 
         #endregion

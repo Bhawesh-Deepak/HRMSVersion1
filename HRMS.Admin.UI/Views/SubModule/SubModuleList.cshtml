@@ -21,7 +21,7 @@
                     int count = 1;
                     string trclass = string.Empty;
                 }
-                @foreach (var data in Model.GroupBy(x => x.ModuleId))
+                @foreach (var data in Model)
                 {
                     if (count / 2 == 0)
                     {
@@ -34,24 +34,24 @@
                     <tr class="@trclass">
 
                         <td align="left" style="width:20%;" class="sorting_1">
-                            <a href="javascript:void(0)" onclick="GetSubModule(@data.First().ModuleId)"><i class="fa fa-plus-square fa-lg"></i>   @data.First().ModuleName</a>
+                            <a href="javascript:void(0)" onclick="GetSubModule(@data.ModuleId)"><i class="fa fa-plus-square fa-lg"></i>   @data.ModuleName</a>
 
                         </td>
                         <td align="left" style="width:20%;" class="sorting_1">
-                            @data.First().SubModuleName
+                            @data.SubModuleName
                         </td>
                         <td align="left" style="width:20%;" class="sorting_1">
-                            @data.First().Controller
+                            @data.Controller
                         </td>
-                        <td align="left" style="width:20%;" class="sorting_1">@data.First().Action</td>
+                        <td align="left" style="width:20%;" class="sorting_1">@data.Action</td>
                         <td align="left" style="width:20%;" class="sorting_1">
-                            <span class="@data.First().Icon"></span>
+                            <span class="@data.Icon"></span>
                         </td>
                         <td align="center" style="width:10%;" class="sorting_1">
-                            <a title="Edit" class="btn btn-primary btn-xs" onclick="UpdateRecord(@data.First().SubModuleId, this)">
+                            <a title="Edit" class="btn btn-primary btn-xs" onclick="UpdateRecord(@data.SubModuleId, this)">
                                 <span class="fa fa-pencil "></span>
                             </a>
-                            <a title="Delete" class="btn btn-xs btn-danger" onclick="Delete(@data.First().SubModuleId, this)"><i class="fa fa-ban"></i></a>
+                            <a title="Delete" class="btn btn-xs btn-danger" onclick="Delete(@data.SubModuleId, this)"><i class="fa fa-ban"></i></a>
 
                         </td>
                     </tr>
@@ -63,27 +63,27 @@
 </div>
 
 <script>
-    function GetSubModule(ModuleId) {
-        $.get("/SubModule/GetSubModule", {
-            Id: ModuleId
-        }, function (data) {
-            var row = '';
-            for (var i = 0; i < data.length; i++) {
-                debugger;
-                row += "<tr>" +
-                    "<td>" + data[i].moduleName + "</td>" +
-                    "<td>" + data[i].subModuleName + "</td>" +
-                    "<td>" + data[i].controller + "</td>" +
-                    "<td>" + data[i].action + "</td>" +
-                    "<td> <span class=" + data[i].icon + "></span></td>" +
-                    "<td> </td>" +
-                    "</tr >";
-            }
-            var i = 0;
-            $('#tblDataList > tbody > tr:eq(' + i + ')').after(row);
+    //function GetSubModule(ModuleId) {
+    //    $.get("/SubModule/GetSubModule", {
+    //        Id: ModuleId
+    //    }, function (data) {
+    //        var row = '';
+    //        for (var i = 0; i < data.length; i++) {
+    //            debugger;
+    //            row += "<tr>" +
+    //                "<td>" + data[i].moduleName + "</td>" +
+    //                "<td>" + data[i].subModuleName + "</td>" +
+    //                "<td>" + data[i].controller + "</td>" +
+    //                "<td>" + data[i].action + "</td>" +
+    //                "<td> <span class=" + data[i].icon + "></span></td>" +
+    //                "<td> </td>" +
+    //                "</tr >";
+    //        }
+    //        var i = 0;
+    //        $('#tblDataList > tbody > tr:eq(' + i + ')').after(row);
 
-        });
-    }
+    //    });
+    //}
 
 
     $('#tblDataList').dataTable({

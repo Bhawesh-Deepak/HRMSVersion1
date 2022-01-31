@@ -1,4 +1,6 @@
-﻿using HRMS.Core.Helpers.CommonHelper;
+﻿using HRMS.Core.Entities.Common;
+using HRMS.Core.Entities.Master;
+using HRMS.Core.Helpers.CommonHelper;
 using HRMS.Core.Helpers.ExcelHelper;
 using HRMS.Core.ReqRespVm.RequestVm;
 using HRMS.Core.ReqRespVm.Response.Reporting;
@@ -22,13 +24,18 @@ namespace HRMS.Admin.UI.Controllers.Reporting
     {
         private readonly IDapperRepository<SalaryRegisterByEmployeeCodeParams> _ISalaryRegisterParamsRepository;
         private readonly IHostingEnvironment _IHostingEnviroment;
-        public IncentivePaidRegisterController(IHostingEnvironment hostingEnvironment, IDapperRepository<SalaryRegisterByEmployeeCodeParams> SalaryRegisterParamsRepository)
+        private readonly IGenericRepository<AssesmentYear, int> _IAssesmentYearRepository;
+        public IncentivePaidRegisterController(IHostingEnvironment hostingEnvironment,
+            IGenericRepository<AssesmentYear, int> assesmentyearRepo, 
+            IDapperRepository<SalaryRegisterByEmployeeCodeParams> SalaryRegisterParamsRepository)
         {
             _ISalaryRegisterParamsRepository = SalaryRegisterParamsRepository;
             _IHostingEnviroment = hostingEnvironment;
+            _IAssesmentYearRepository = assesmentyearRepo;
         }
         public async Task<IActionResult> Index()
         {
+            await PopulateViewBag();
             return await Task.Run(() => View(ViewHelper.GetViewPathDetails("IncentivePaidRegister", "_IncentivePaidRegister")));
         }
         [HttpPost]
@@ -81,5 +88,16 @@ namespace HRMS.Admin.UI.Controllers.Reporting
             return File(stream.ToArray(), "application/vnd.ms-excel", sFileName);
 
         }
+        #region PrivateFields
+        private async Task PopulateViewBag()
+        {
+            
+            var assesmentyearResponse = await _IAssesmentYearRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+            if (assesmentyearResponse.ResponseStatus == ResponseStatus.Success)
+                ViewBag.AssesmentYearList = assesmentyearResponse.Entities;
+
+        }
+
+        #endregion
     }
 }

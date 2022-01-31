@@ -70,12 +70,10 @@ namespace HRMS.Admin.UI.Controllers
         {
             if (FinancialYear == 0)
                 FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
-             
             var attendanceParams = new AttendanceGraphParams()
             {
                 FinancialYear = FinancialYear
             };
-
             var response = await Task.Run(() => _IAttendanceGraphRepository.GetAll<AttendanceGraphVM>(SqlQuery.GetAttendanceGraph, attendanceParams));
             return Json(response);
         }

@@ -1,4 +1,6 @@
 ﻿using HRMS.Admin.UI.Helpers;
+using HRMS.Core.Entities.Common;
+using HRMS.Core.Entities.Master;
 using HRMS.Core.Helpers.CommonHelper;
 using HRMS.Core.Helpers.ExcelHelper;
 using HRMS.Core.ReqRespVm.RequestVm;
@@ -22,14 +24,17 @@ namespace HRMS.Admin.UI.Controllers.Reporting
     {
         private readonly IHostingEnvironment _IHostingEnviroment;
         private readonly IDapperRepository<ECRParams> _IECRRepository;
-        public ECRController(IHostingEnvironment hostingEnvironment, IDapperRepository<ECRParams> ecrRepository)
+        private readonly IGenericRepository<AssesmentYear, int> _IAssesmentYearRepository;
+        public ECRController(IHostingEnvironment hostingEnvironment, IGenericRepository<AssesmentYear, int> assesmentyearRepo, IDapperRepository<ECRParams> ecrRepository)
         {
             _IHostingEnviroment = hostingEnvironment;
             _IECRRepository = ecrRepository;
+            _IAssesmentYearRepository = assesmentyearRepo;
 
         }
         public async Task<IActionResult> Index()
         {
+            await PopulateViewBag();
             return await Task.Run(() => View(ViewHelper.GetViewPathDetails("Reports", "_ECRReportDetail")));
         }
 
@@ -55,10 +60,10 @@ namespace HRMS.Admin.UI.Controllers.Reporting
 
             ExcelPackage Eps = new ExcelPackage();
             ExcelWorksheet Sheets = Eps.Workbook.Worksheets.Add("ECRReport");
-           
-            Sheets.Cells["A1:E1"].Style.Fill.PatternType = ExcelFillStyle.Solid;
-            Sheets.Cells["A1:E1"].Style.Fill.BackgroundColor.SetColor(Color.Gray);
-            Eps.Encryption.Password = "sqy" + model.DateMonth + "" + model.DateYear;
+
+            Sheets.Cells["A1:K1"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+            Sheets.Cells["A1:K1"].Style.Fill.BackgroundColor.SetColor(Color.Gray);
+           // Eps.Encryption.Password = "sqy" + model.DateMonth + "" + model.DateYear;
             Sheets.Cells["A1"].Value = "UAN";
             Sheets.Cells["B1"].Value = "Member_Name";
             Sheets.Cells["C1"].Value = "GROSS_WAGES";
@@ -80,14 +85,21 @@ namespace HRMS.Admin.UI.Controllers.Reporting
                 Sheets.Cells[string.Format("E{0}", row)].Value = data.EPSWages;
                 Sheets.Cells[string.Format("F{0}", row)].Value = data.EDLIWages;
                 Sheets.Cells[string.Format("G{0}", row)].Value = data.EPFCONTRIREMITTED;
-                Sheets.Cells[string.Format("H{0}", row)].Value = (data.EPSWages * Convert.ToDecimal((8.33 / 100))).ToString();
-                Sheets.Cells[string.Format("I{0}", row)].Value = (data.EPFCONTRIREMITTED - (data.EPSWages * Convert.ToDecimal((8.33 / 100)))).ToString();
-                Sheets.Cells[string.Format("J{0}", row)].Value = "0";
+                Sheets.Cells[string.Format("H{0}", row)].Value = string.Format("{0:0.00}", (data.EPSWages * Convert.ToDecimal((8.33 / 100))));
+                Sheets.Cells[string.Format("I{0}", row)].Value = string.Format("{0:0.00}", (data.EPFCONTRIREMITTED - (data.EPSWages * Convert.ToDecimal((8.33 / 100)))));
+                Sheets.Cells[string.Format("J{0}", row)].Value = data.NCPDays;
                 Sheets.Cells[string.Format("K{0}", row)].Value = "0";
                 row++;
             }
             var stream = new MemoryStream(Eps.GetAsByteArray());
             return File(stream.ToArray(), "application/vnd.ms-excel", "ECRReport.xlsx");
+        }
+        private async Task PopulateViewBag()
+        {
+            var assesmentyearResponse = await _IAssesmentYearRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+            if (assesmentyearResponse.ResponseStatus == ResponseStatus.Success)
+                ViewBag.AssesmentYearList = assesmentyearResponse.Entities;
+
         }
     }
 }
