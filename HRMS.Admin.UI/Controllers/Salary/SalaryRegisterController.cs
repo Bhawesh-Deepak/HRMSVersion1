@@ -1,5 +1,6 @@
 ﻿using HRMS.Admin.UI.AuthenticateService;
 using HRMS.Admin.UI.Helpers;
+using HRMS.Core.Entities.Common;
 using HRMS.Core.Entities.Master;
 using HRMS.Core.Helpers.CommonCRUDHelper;
 using HRMS.Core.Helpers.CommonHelper;
@@ -27,17 +28,20 @@ namespace HRMS.Admin.UI.Controllers.Salary
         private readonly IDapperRepository<SalaryRegisterParams> _ISalaryRegisterParamsRepository;
         private readonly IDapperRepository<SalaryRegisterByEmployeeCodeParams> _ISalaryRegisterByEmployeeCodeParamsRepository;
         private readonly IHostingEnvironment _IHostingEnviroment;
-        public SalaryRegisterController(IDapperRepository<SalaryRegisterParams> SalaryRegisterParamsRepository,
+        private readonly IGenericRepository<AssesmentYear, int> _IAssesmentYearRepository;
+        public SalaryRegisterController(IDapperRepository<SalaryRegisterParams> SalaryRegisterParamsRepository, IGenericRepository<AssesmentYear, int> assesmentyearRepo,
             IDapperRepository<SalaryRegisterByEmployeeCodeParams> SalaryRegisterByEmployeeCodeParamsRepository, IHostingEnvironment hostingEnvironment)
         {
             _IHostingEnviroment = hostingEnvironment;
             _ISalaryRegisterParamsRepository = SalaryRegisterParamsRepository;
             _ISalaryRegisterByEmployeeCodeParamsRepository = SalaryRegisterByEmployeeCodeParamsRepository;
+            _IAssesmentYearRepository = assesmentyearRepo;
         }
         public async Task<IActionResult> Index()
         {
             try
             {
+                await PopulateViewBag();
                 return await Task.Run(() => View(ViewHelper.GetViewPathDetails("SalaryRegister", "_SalaryRegister")));
             }
             catch (Exception ex)
@@ -215,6 +219,13 @@ namespace HRMS.Admin.UI.Controllers.Salary
                 return File(stream.ToArray(), "application/vnd.ms-excel", sFileName);
 
             
+        }
+        private async Task PopulateViewBag()
+        {
+            var assesmentyearResponse = await _IAssesmentYearRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+            if (assesmentyearResponse.ResponseStatus == ResponseStatus.Success)
+                ViewBag.AssesmentYearList = assesmentyearResponse.Entities;
+
         }
     }
 }
