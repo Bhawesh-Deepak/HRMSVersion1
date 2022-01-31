@@ -1,5 +1,5 @@
-﻿ 
-    var blue = "#348fe2",
+﻿
+var blue = "#348fe2",
     blueLight = "#5da5e8",
     blueDark = "#1993E4",
     aqua = "#49b6d6",
@@ -17,7 +17,7 @@
     purpleLight = "#8e96c5",
     purpleDark = "#5b6392",
     red = "#ff5b57";
-    var white = "rgba(255,255,255,1.0)",
+var white = "rgba(255,255,255,1.0)",
     fillBlack = "rgba(45, 53, 60, 0.6)",
     fillBlackLight = "rgba(45, 53, 60, 0.2)",
     strokeBlack = "rgba(45, 53, 60, 0.8)",
@@ -43,92 +43,92 @@
     strokePurple = "rgba(114, 124, 182, 0.8)",
     highlightFillPurple = "rgba(114, 124, 182, 0.8)",
     highlightStrokePurple = "rgba(114, 124, 182, 1)",
-        randomScalingFactor = function () { return Math.round(100 * Math.random()) };
-    $(document).ready(function () {
-        BindMonthlyAttendanceGraph();
-        MonthlyGrossSalaryIncentive();
-        NoofEmployeeSalaryPaid();
-        NoofEmployeeIncentivePaid();
-    });
-    $("#AssesmentYear1").change(function () {
-        BindMonthlyAttendanceGraph($("#AssesmentYear1").val());
-    });
-    $("#AssesmentYear2").change(function () {
-        MonthlyGrossSalaryIncentive($("#AssesmentYear2").val());
-    });
-    $("#AssesmentYear3").change(function () {
-        NoofEmployeeSalaryPaid($("#AssesmentYear3").val());
-    });
-    $("#AssesmentYear4").change(function () {
-        NoofEmployeeIncentivePaid($("#AssesmentYear4").val());
-    });
-    function BindMonthlyAttendanceGraph(event) {
-        debugger;
-        var ctx = document.getElementById("myChart-4").getContext("2d");
-        var data = {
+    randomScalingFactor = function () { return Math.round(100 * Math.random()) };
+$(document).ready(function () {
+    BindMonthlyAttendanceGraph();
+    MonthlyGrossSalaryIncentive();
+    NoofEmployeeSalaryPaid();
+    NoofEmployeeIncentivePaid();
+});
+$("#AssesmentYear1").change(function () {
+    BindMonthlyAttendanceGraph($("#AssesmentYear1").val());
+});
+$("#AssesmentYear2").change(function () {
+    MonthlyGrossSalaryIncentive($("#AssesmentYear2").val());
+});
+$("#AssesmentYear3").change(function () {
+    NoofEmployeeSalaryPaid($("#AssesmentYear3").val());
+});
+$("#AssesmentYear4").change(function () {
+    NoofEmployeeIncentivePaid($("#AssesmentYear4").val());
+});
+function BindMonthlyAttendanceGraph(event) {
+    debugger;
+    var ctx = document.getElementById("myChart-4").getContext("2d");
+    var data = {
         labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar"],
-            datasets: [{
-        label: "Total Present",
-                backgroundColor: fillBlue,
-                data: [50000, 72000, 40000, 20000, 30000, 45000, 52000, 66000, 41000, 23000, 34000, 47000]
-            }, {
-        label: "Total Absent",
-                backgroundColor: strokePurple,
-                data: [5000, 7000, 4000, 2000, 3000, 4500, 5000, 7000, 4000, 2000, 3000, 4500]
-            }, {
-        label: "Total Employees",
-                backgroundColor: orangeLight,
-                data: [54000, 71000, 44000, 23000, 37000, 45400, 56000, 67000, 42000, 23000, 38000, 49000]
-            }]
-        };
-        var myBarChart = new Chart(ctx, {
+        datasets: [{
+            label: "Total Present",
+            backgroundColor: fillBlue,
+            data: [85966, 84572, 94347, 113794, 128530, 126383, 139812, 120122, 120791, 0, 0, 0]
+        }, {
+            label: "Total Absent",
+            backgroundColor: strokePurple,
+            data: [17814, 13415, 8847, 8391, 3980, 7587, 16314, 8122, 12295, 0, 0, 0]
+        }, {
+            label: "Total Employees",
+            backgroundColor: orangeLight,
+            data: [3721, 3242, 4015, 4435, 4956, 4759, 6251, 4649, 4529, 0, 0, 0]
+        }]
+    };
+    var myBarChart = new Chart(ctx, {
         type: 'bar',
-            data: data,
-            options: {
-        barValueSpacing: 10,
-                scales: {
-        yAxes: [{
-        ticks: {
-        min: 0,
-                        }
-                    }]
-                }
+        data: data,
+        options: {
+            barValueSpacing: 10,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        min: 0,
+                    }
+                }]
             }
-        });
-    }
-    function MonthlyGrossSalaryIncentive(event) {
-        var ctx = document.getElementById("myChart-5").getContext("2d");
-        var data = {
+        }
+    });
+}
+function MonthlyGrossSalaryIncentive(event) {
+    var ctx = document.getElementById("myChart-5").getContext("2d");
+    var data = {
         labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar"],
-            datasets: [{
-        label: "Gross Salary",
-                backgroundColor: "#99ccff",
-                data: [50000, 71000, 40000, 20000, 30000, 45000, 52000, 66000, 41000, 23000, 34000, 47000]
-            }, {
-        label: "Performance Incentives",
-                backgroundColor: "#b3d9ff",
-                data: [5000, 7000, 4000, 2000, 3000, 4500, 5000, 7000, 4000, 2000, 3000, 4500]
-            }]
-        };
+        datasets: [{
+            label: "Gross Salary",
+            backgroundColor: "#99ccff",
+            data: [116500018, 112429557, 110892602, 126680702, 132873168, 143819752, 155044084, 149415537, 162666193, 0, 0, 0]
+        }, {
+            label: "Performance Incentives",
+            backgroundColor: "#b3d9ff",
+            data: [18905792, 16779774, 10015738, 131619881, 8895766, 9628087, 11027584, 14080574, 13698153, 0, 0, 0]
+        }]
+    };
 
-        var myBarChart = new Chart(ctx, {
+    var myBarChart = new Chart(ctx, {
         type: 'bar',
-            data: data,
-            options: {
-        barValueSpacing: 10,
-                scales: {
-        yAxes: [{
-        ticks: {
-        min: 0,
-                        }
-                    }]
-                }
+        data: data,
+        options: {
+            barValueSpacing: 10,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        min: 0,
+                    }
+                }]
             }
-        });
-    }
-    function NoofEmployeeSalaryPaid(event) {
+        }
+    });
+}
+function NoofEmployeeSalaryPaid(event) {
     var xValues = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    var yValues = [0, 5000, 8000, 10000, 4000, 3600, 4400, 5700, 0, 1400, 1700, 3300];
+    var yValues = [0, 0, 0, 3720, 3212, 4014, 4431, 4955, 4758, 4998, 4694, 4528];
     var barColors = [
         "#b91d47",
         "#EEE9E9",
@@ -146,53 +146,52 @@
     new Chart("myChart-2", {
         type: "doughnut",
         data: {
-        labels: xValues,
+            labels: xValues,
             datasets: [{
-        backgroundColor: barColors,
+                backgroundColor: barColors,
                 data: yValues
             }]
         },
         options: {
-        title: {
-        display: false,
+            title: {
+                display: false,
                 text: "World Wide Wine Production 2018"
             }
         }
     });
-    }
-    function NoofEmployeeIncentivePaid(event) {
-        var xValues = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        var yValues = [0, 5000, 8000, 10000, 4000, 3600, 4400, 5700, 0, 1400, 1700, 3300];
-        var barColors = [
-            "#b91d47",
-            "#EEE9E9",
-            "#E2CFCF",
-            "#EABCBC",
-            "#F08080",
-            "#E8BDBA",
-            "#E7DDDC",
-            "#FFE7E4",
-            "#F9EDEC",
-            "#C66957",
-            "#DBD0CC",
-            "#FFD3B5"
-        ];
-        new Chart("myChart-3", {
+}
+function NoofEmployeeIncentivePaid(event) {
+    var xValues = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    var yValues = [0, 0, 0, 778, 519, 555, 580, 518, 610, 661, 532, 719];
+    var barColors = [
+        "#b91d47",
+        "#EEE9E9",
+        "#E2CFCF",
+        "#EABCBC",
+        "#F08080",
+        "#E8BDBA",
+        "#E7DDDC",
+        "#FFE7E4",
+        "#F9EDEC",
+        "#C66957",
+        "#DBD0CC",
+        "#FFD3B5"
+    ];
+    new Chart("myChart-3", {
         type: "doughnut",
-            data: {
-        labels: xValues,
-                datasets: [{
-        backgroundColor: barColors,
-                    data: yValues
-                }]
-            },
-            options: {
-        title: {
-        display: false,
-                    text: "World Wide Wine Production 2018"
-                }
+        data: {
+            labels: xValues,
+            datasets: [{
+                backgroundColor: barColors,
+                data: yValues
+            }]
+        },
+        options: {
+            title: {
+                display: false,
+                text: "World Wide Wine Production 2018"
             }
-        });
-    }
+        }
+    });
+}
 
- 

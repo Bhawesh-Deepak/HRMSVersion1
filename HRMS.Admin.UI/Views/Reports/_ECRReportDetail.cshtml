@@ -39,7 +39,9 @@
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label asp-for="DateYear">Year :</label><em class="text-danger">*</em>
-                                                        <input asp-for="DateYear" class="form-control input-sm" maxlength="4" minlength="4" type="number" placeholder="Enter Year" />
+                                                        <select class="form-control input-sm" asp-for="DateYear" asp-items="@(new SelectList(ViewBag.AssesmentYearList ,"StartYear","StartYear"))">
+                                                            <option value="">----Select One----</option>
+                                                        </select>
                                                         <span asp-validation-for="DateYear" class="text-danger"></span>
                                                     </div>
                                                 </div>
