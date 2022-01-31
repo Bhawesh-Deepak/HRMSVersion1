@@ -3,7 +3,11 @@ using HRMS.Admin.UI.Models;
 using HRMS.Core.Entities.Master;
 using HRMS.Core.Entities.Payroll;
 using HRMS.Core.Helpers.CommonHelper;
+using HRMS.Core.ReqRespVm.Response.Reporting;
+using HRMS.Core.ReqRespVm.SqlParams;
+using HRMS.Services.Implementation.SqlConstant;
 using HRMS.Services.Repository.GenericRepository;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -20,12 +24,15 @@ namespace HRMS.Admin.UI.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IGenericRepository<AssesmentYear, int> _IAssesmentYearRepository;
         private readonly IGenericRepository<EmployeeDetail, int> _IEmployeeDetailRepository;
+        private readonly IDapperRepository<AttendanceGraphParams> _IAttendanceGraphRepository;
         public HomeController(ILogger<HomeController> logger, IGenericRepository<AssesmentYear, int> assesmentYearRepository,
-            IGenericRepository<EmployeeDetail, int> employeedetailRepository)
+            IGenericRepository<EmployeeDetail, int> employeedetailRepository,
+            IDapperRepository<AttendanceGraphParams> attendancegraphRepository)
         {
             _logger = logger;
             _IAssesmentYearRepository = assesmentYearRepository;
             _IEmployeeDetailRepository = employeedetailRepository;
+            _IAttendanceGraphRepository = attendancegraphRepository;
         }
 
         public async Task<IActionResult> Index()
@@ -58,10 +65,19 @@ namespace HRMS.Admin.UI.Controllers
                 return RedirectToAction("Error", "Home");
             }
         }
-        [HttpPost]
-        public IActionResult  wsGetEmployeeDetails(string prefix)
+        [HttpGet]
+        public async Task<IActionResult> GetAttendanceGraph(int FinancialYear)
         {
-            return Json(1);
+            if (FinancialYear == 0)
+                FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
+             
+            var attendanceParams = new AttendanceGraphParams()
+            {
+                FinancialYear = FinancialYear
+            };
+
+            var response = await Task.Run(() => _IAttendanceGraphRepository.GetAll<AttendanceGraphVM>(SqlQuery.GetAttendanceGraph, attendanceParams));
+            return Json(response);
         }
 
         private async Task PopulateViewBag()
