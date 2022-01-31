@@ -61,9 +61,9 @@ namespace HRMS.Admin.UI.Controllers.Reporting
             ExcelPackage Eps = new ExcelPackage();
             ExcelWorksheet Sheets = Eps.Workbook.Worksheets.Add("ECRReport");
 
-            Sheets.Cells["A1:E1"].Style.Fill.PatternType = ExcelFillStyle.Solid;
-            Sheets.Cells["A1:E1"].Style.Fill.BackgroundColor.SetColor(Color.Gray);
-            Eps.Encryption.Password = "sqy" + model.DateMonth + "" + model.DateYear;
+            Sheets.Cells["A1:K1"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+            Sheets.Cells["A1:K1"].Style.Fill.BackgroundColor.SetColor(Color.Gray);
+           // Eps.Encryption.Password = "sqy" + model.DateMonth + "" + model.DateYear;
             Sheets.Cells["A1"].Value = "UAN";
             Sheets.Cells["B1"].Value = "Member_Name";
             Sheets.Cells["C1"].Value = "GROSS_WAGES";
