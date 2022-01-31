@@ -16,6 +16,7 @@ using HRMS.Admin.UI.AuthenticateService;
 namespace HRMS.Admin.UI.Controllers.Master
 {
     [CustomAuthenticate]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class EmployeeAssetsController : Controller
     {
         private readonly IGenericRepository<EmployeeAssets, int> _IEmployeeAssetsRepository;

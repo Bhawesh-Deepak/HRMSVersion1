@@ -22,6 +22,7 @@ using System.Threading.Tasks;
 namespace HRMS.Admin.UI.Controllers.Organisation
 {
     [CustomAuthenticate]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class EmployeeDirectory : Controller
     {
         private readonly IGenericRepository<EmployeeDetail, int> _IEmployeeDetailRepository;

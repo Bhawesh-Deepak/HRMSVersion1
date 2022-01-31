@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 namespace HRMS.Admin.UI.Controllers.Payroll
 {
     [CustomAuthenticate]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class InternalTransferController : Controller
     {
         private readonly IGenericRepository<EmployeeDetail, int> _IEmployeeDetailRepository;

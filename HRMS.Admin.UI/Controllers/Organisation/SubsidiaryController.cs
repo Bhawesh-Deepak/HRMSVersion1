@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 namespace HRMS.Admin.UI.Controllers.Organisation
 {
     [CustomAuthenticate]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class SubsidiaryController : Controller
     {
         private readonly IGenericRepository<Company, int> _ICompanyRepository;

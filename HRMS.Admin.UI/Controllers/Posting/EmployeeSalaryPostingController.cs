@@ -20,6 +20,7 @@ using OfficeOpenXml;
 namespace HRMS.Admin.UI.Controllers.Posting
 {
     [CustomAuthenticate]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class EmployeeSalaryPostingController : Controller
     {
         private readonly IGenericRepository<CtcComponentDetail, int> _ICtcComponentDetailRepository;

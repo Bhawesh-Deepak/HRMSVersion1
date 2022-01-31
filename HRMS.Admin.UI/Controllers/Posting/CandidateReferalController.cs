@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 namespace HRMS.Admin.UI.Controllers.Posting
 {
     [CustomAuthenticate]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class CandidateReferalController : Controller
     {
         private readonly IGenericRepository<CurrentOpening, int> _ICurrentOpeningRepository;

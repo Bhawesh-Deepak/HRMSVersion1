@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 namespace HRMS.Admin.UI.Controllers.Master
 {
     [CustomAuthenticate]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class RoleMasterController : Controller
     {
         private readonly IGenericRepository<RoleMaster, int> _IRoleMasterRepository;

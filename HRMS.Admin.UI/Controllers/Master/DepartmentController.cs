@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 namespace HRMS.Admin.UI.Controllers.Master
 {
     [CustomAuthenticate]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class DepartmentController : Controller
     {
         private readonly IGenericRepository<Department, int> _IDepartmentRepository;
