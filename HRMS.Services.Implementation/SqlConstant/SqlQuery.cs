@@ -25,5 +25,6 @@ namespace HRMS.Services.Implementation.SqlConstant
         public const string GetLWFReport = @"[Reporting].[usp_GetLWFReport]";
         public const string GetAttendanceGraph= @"[Reporting].[usp_GetAttendanceGraph]";
         public const string GetESICReport = @"[Reporting].[usp_ESICReport]";
+        public const string GetemployeeAutoComplete = @"[Payroll].[usp_getEmployeeAutoComplete]";
     }
 }
