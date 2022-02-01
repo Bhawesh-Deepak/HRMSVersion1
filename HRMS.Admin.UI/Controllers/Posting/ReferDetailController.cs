@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 namespace HRMS.Admin.UI.Controllers.Posting
 {
     [CustomAuthenticate]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class ReferDetailController : Controller
     {
         private readonly IDapperRepository<object> _IDapperRepository;

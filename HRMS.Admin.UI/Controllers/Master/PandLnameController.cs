@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 namespace HRMS.Admin.UI.Controllers.Master
 {
     [CustomAuthenticate]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class PandLnameController : Controller
     {
         private readonly IGenericRepository<PAndLMaster, int> _IPandLnameRepository;

@@ -20,6 +20,7 @@ using System.Threading.Tasks;
 namespace HRMS.Admin.UI.Controllers.Master
 {
     [CustomAuthenticate]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class CompanyPolicyController : Controller
     {
         private readonly IGenericRepository<CompanyPolicy, int> _ICompanyPolicyRepository;

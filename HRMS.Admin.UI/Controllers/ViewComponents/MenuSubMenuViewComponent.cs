@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 namespace HRMS.Admin.UI.Controllers.ViewComponents
 {
     [CustomAuthenticate]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class MenuSubMenuViewComponent : ViewComponent
     {
         private readonly IGenericRepository<ModuleMaster, int> _IModuleRepository;

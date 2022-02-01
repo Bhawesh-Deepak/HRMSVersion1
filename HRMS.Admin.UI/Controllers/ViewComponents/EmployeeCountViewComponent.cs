@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 namespace HRMS.Admin.UI.Controllers.ViewComponents
 {
     [CustomAuthenticate]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class EmployeeCountViewComponent: ViewComponent
     {
         private readonly IDapperRepository<EmployeeCountParms> _IEmployeeCountParmsRepository;

@@ -17,6 +17,7 @@ namespace HRMS.Admin.UI.Controllers.Organisation
 {
 
     [CustomAuthenticate]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class CompanyController : Controller
     {
         private readonly IGenericRepository<Company, int> _ICompanyRepository;

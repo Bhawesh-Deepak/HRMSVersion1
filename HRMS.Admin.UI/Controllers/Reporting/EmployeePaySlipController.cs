@@ -14,30 +14,35 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HRMS.Admin.UI.AuthenticateService;
+using Rotativa.AspNetCore;
 
 namespace HRMS.Admin.UI.Controllers.Reporting
 {
+    [CustomAuthenticate]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class EmployeePaySlipController : Controller
     {
         private readonly IHostingEnvironment _IHostingEnviroment;
-        private readonly IDapperRepository<EmployeeInformationParams> _IEmployeeInformationRepository;
+        
         private readonly IDapperRepository<EmployeePaySlipParams> _IEmployeePaySlipRepository;
         private readonly IGenericRepository<AssesmentYear, int> _IAssesmentYearRepository;
         public EmployeePaySlipController(IHostingEnvironment hostingEnvironment,
-            IDapperRepository<EmployeeInformationParams> employeeinformationRepository, IGenericRepository<AssesmentYear, int> assesmentyearRepo,
+            IGenericRepository<AssesmentYear, int> assesmentyearRepo,
             IDapperRepository<EmployeePaySlipParams> employeepayslipRepository)
         {
             _IHostingEnviroment = hostingEnvironment;
-            _IEmployeeInformationRepository = employeeinformationRepository;
+           
             _IEmployeePaySlipRepository = employeepayslipRepository;
             _IAssesmentYearRepository = assesmentyearRepo;
         }
-       
+
         public async Task<IActionResult> Index()
         {
             await PopulateViewBag();
             return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeePaySlip", "_EmployeePaySlip")));
         }
+      
         [HttpPost]
         public async Task<IActionResult> DownloadPaySlip(EmployeeSalaryRegisterVM model)
         {
@@ -56,17 +61,23 @@ namespace HRMS.Admin.UI.Controllers.Reporting
                 EmployeeCode = empresponse
 
             };
-
+            System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+            string strMonthName = mfi.GetMonthName(model.DateMonth).ToString();
             var response = await Task.Run(() => _IEmployeePaySlipRepository.GetAll<EmployeePaySlipVM>(SqlQuery.GetPaySlip, payslipparams));
+            var responsepdf = new ViewAsPdf(ViewHelper.GetViewPathDetails("EmployeePaySlip", "_PaySlip"), response)
+            {
+                FileName = strMonthName + "_" + model.DateYear + "_PaySlip.pdf",
 
-            return PartialView(ViewHelper.GetViewPathDetails("EmployeePaySlip", "_PaySlip"), response);
+            };
+            return responsepdf;
+
+            //   return PartialView(ViewHelper.GetViewPathDetails("EmployeePaySlip", "_PaySlip"), response);
         }
         #region PrivateFields
         private async Task PopulateViewBag()
         {
-            var model = new EmployeeInformationParams() { };
-            var employeeResponse = await Task.Run(() => _IEmployeeInformationRepository.GetAll<EmployeeInformationVM>(SqlQuery.EmployeeInformation, model));
-            ViewBag.EmployeeList = employeeResponse.ToList();
+
+
             var assesmentyearResponse = await _IAssesmentYearRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
             if (assesmentyearResponse.ResponseStatus == ResponseStatus.Success)
                 ViewBag.AssesmentYearList = assesmentyearResponse.Entities;

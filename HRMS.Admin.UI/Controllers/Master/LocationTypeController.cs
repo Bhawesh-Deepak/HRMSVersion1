@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 namespace HRMS.Admin.UI.Controllers.Master
 {
     [CustomAuthenticate]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class LocationTypeController : Controller
     {
         private readonly IGenericRepository<LocationType, int> _ILocationTypeRepository;

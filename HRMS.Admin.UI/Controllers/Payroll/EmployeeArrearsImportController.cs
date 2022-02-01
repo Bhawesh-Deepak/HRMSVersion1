@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HRMS.Admin.UI.Controllers.Payroll
 {
     [CustomAuthenticate]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class EmployeeArrearsImportController : Controller
     {
         private readonly IGenericRepository<EmployeeArrears, int> _IEmployeeArrearsRepository;
