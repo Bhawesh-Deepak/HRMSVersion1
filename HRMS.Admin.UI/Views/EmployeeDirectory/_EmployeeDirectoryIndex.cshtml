@@ -69,32 +69,10 @@
         let legalEntity = $("#LeagalEntity").val();
         let empCode = $("#empCode").val();
         let status = $("#IsActive").val();
-        //var EmployeeDetailParams = {
-        //    LeagalEntity: legalEntity,
-        //    empCode: empCode,
-        //    status: status
-        //}
-        //$.ajax({
-        //    type: 'GET',
-        //    url: '/EmployeeDirectory/GetFilteredData',
-        //    data: JSON.stringify(EmployeeDetailParams),
-        //    contentType: 'application/json',
-        //    dataType: 'json',
-        //    success: function (response) {
-        //        $("#divEmployeeDetails").html(data);
-        //    },
-        //    failure: function (response) {
-        //        console.log("Failure");
-        //    },
-        //    error: function (response) {
-        //        console.log("Error:" + response);
-        //    }
-        //});
-        debugger;
-        $.get("/EmployeeDirectory/GetFilteredData", {
-            LeagalEntity: legalEntity,
-            empCode: empCode,
-            status: status
+         $.get("/EmployeeDirectory/GetFilteredData", {
+             LeagalEntity: legalEntity,
+             EmpCode: empCode,
+             IsActive: status
         }, function (data) {
             $("#divEmployeeDetails").html(data);
         });
@@ -103,16 +81,6 @@
     $(document).ready(function () {
         $("#btn-employeesearch").trigger("click");
     })
-    //$(document).ready(function () {
-    //    var employees = [];
-    //    $.get("/Common/GetFilteredEmployee", { empCode: '' }, function (data) {
-    //        employees = data;
-    //    })
-    //    debugger;
-    //    $("#empCode").autocomplete({
-    //        source: employees
-    //    })
-    //})
-
+  
 </script>
 

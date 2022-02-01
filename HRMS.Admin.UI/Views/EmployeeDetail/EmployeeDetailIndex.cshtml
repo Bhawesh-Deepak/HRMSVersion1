@@ -1,8 +1,4 @@
-﻿<style>
-    label {
-        font-weight: 200;
-    }
-</style>
+﻿ 
 <div class="content-wrapper" style="min-height: 870px;">
     @Html.BuildBreadcrumbNavigation()
     <section class="content">
@@ -193,11 +189,12 @@
         let doj = $("#txtdoj").val();
         let location = $("#Location").val();
         let status = $("#ddlisactive").val();
+        let EmpCode = $("#textEmpCode").val();
         debugger;
         $.get("/EmployeeDetail/GetFilteredData", {
-            legalEntity: legalEntity, department: department,
-            designation: designation, plName: pandlName,
-            doj: doj, location: location, status: status
+            LeagalEntity: legalEntity, DepartmentName: department,
+            DesignationName: designation, PAndLHeadName: pandlName,
+            JoiningDate: doj, Location: location, IsActive: status, EmpCode: EmpCode
         }, function (data) {
             $("#divEmployeeDetails").html(data);
         });
