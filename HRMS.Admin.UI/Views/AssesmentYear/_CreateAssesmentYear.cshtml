@@ -14,8 +14,9 @@
                             <input asp-for="Id" type="hidden" />
                             <input asp-for="CreatedBy" type="hidden" />
                             <input asp-for="CreatedDate" type="hidden" />
+                            <input asp-for="FinancialYear" type="hidden" />
                             <label asp-for="StartYear">Start Year</label><span style="color:red">  *</span>
-                            <input  class="form-control" asp-for="StartYear" type="number"/>
+                            <input class="form-control" asp-for="StartYear" type="number" />
                             <span asp-validation-for="StartYear" class="text-danger"></span>
                         </div>
 

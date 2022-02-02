@@ -111,8 +111,9 @@ namespace HRMS.Admin.UI.Controllers.Master
             model.DocumentUrl= await new BlobHelper().UploadImageToFolder(DocumentUrl, _IHostingEnviroment);
             if (model.Id == 0)
             {
-                var response = await _ICompanyPolicyRepository.CreateEntity(model);
-                return Json(response.Message);
+                    model.FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
+                    var response = await _ICompanyPolicyRepository.CreateEntity(model);
+                    return Json(response.Message);
             }
             else
             {

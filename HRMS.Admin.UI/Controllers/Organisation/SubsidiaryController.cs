@@ -115,6 +115,7 @@ namespace HRMS.Admin.UI.Controllers.Organisation
 
                 if (model.Id == 0)
                 {
+                    model.FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
                     var createModel = CrudHelper.CreateHelper<Subsidiary>(model);
                     createModel.Logo = uploadLogoPath;
                     createModel.FavIcon = favIconPath;

@@ -82,6 +82,7 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
             {
                 if (model.Id == 0)
                 {
+
                     model.CreatedDate = DateTime.Now;
                     var response = await _IModuleMasterRepository.CreateEntity(model);
                     return Json(new DBResponseHelper<ModuleMaster, int>().GetDBResponseHelper(response).message);

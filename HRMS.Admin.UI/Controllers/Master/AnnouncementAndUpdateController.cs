@@ -12,6 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using HRMS.Core.Entities.Organisation;
 using HRMS.Admin.UI.AuthenticateService;
+using Microsoft.AspNetCore.Http;
 
 namespace HRMS.Admin.UI.Controllers.Master
 {
@@ -109,6 +110,7 @@ namespace HRMS.Admin.UI.Controllers.Master
             {
                 if (model.Id == 0)
                 {
+                    model.FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
                     var response = await _IAnnoucementandupdateRepository.CreateEntity(model);
                     return Json(response.Message);
                 }

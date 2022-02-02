@@ -15,6 +15,7 @@
                         <input asp-for="Id" type="hidden" />
                         <input asp-for="CreatedBy" type="hidden" />
                         <input asp-for="CreatedDate" type="hidden" />
+                        <input asp-for="FinancialYear" type="hidden" />
                         <label asp-for="DateMonth">Month :</label><span style="color:red">  *</span>
                         <select class="form-control input-sm" asp-for="DateMonth" asp-items="@(Enumerable.Range(1, 12).Select(x => new SelectListItem { Value = x.ToString(), Text = System.Globalization.CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(x) }))">
                             <option value="">----Select One----</option>

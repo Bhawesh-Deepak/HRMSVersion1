@@ -6,6 +6,7 @@ using HRMS.Core.Helpers.CommonCRUDHelper;
 using HRMS.Core.Helpers.CommonHelper;
 using HRMS.Core.ReqRespVm.Response.Master;
 using HRMS.Services.Repository.GenericRepository;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -106,8 +107,9 @@ namespace HRMS.Admin.UI.Controllers.Master
             {
             if (model.Id == 0)
             {
-                var response = await _IDesignationRepository.CreateEntity(model);
-                return Json(response.Message);
+                    model.FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
+                    var response = await _IDesignationRepository.CreateEntity(model);
+                    return Json(response.Message);
             }
             else
             {
