@@ -1,4 +1,6 @@
-﻿using HRMS.Core.Entities.HR;
+﻿using HRMS.Core.Entities.Common;
+using HRMS.Core.Entities.HR;
+using HRMS.Core.Entities.Master;
 using HRMS.Core.Helpers.CommonHelper;
 using HRMS.Core.Helpers.ExcelHelper;
 using HRMS.Core.ReqRespVm.SqlParams;
@@ -21,11 +23,16 @@ namespace HRMS.Admin.UI.Controllers.Reporting
     {
         
         private readonly IHostingEnvironment _IHostingEnviroment;
-
-        public SalaryPaidRegisterController(IHostingEnvironment hostingEnvironment)
+        private readonly IGenericRepository<PaidRegister, int> _IPaidRegisterRepository;
+        private readonly IGenericRepository<AssesmentYear, int> _IAssesmentYearRepository;
+        public SalaryPaidRegisterController(IHostingEnvironment hostingEnvironment,
+            IGenericRepository<AssesmentYear, int> assesmentyearRepo, 
+            IGenericRepository<PaidRegister, int> paidregisterRepository)
         {
             
-            _IHostingEnviroment = hostingEnvironment; 
+            _IHostingEnviroment = hostingEnvironment;
+            _IPaidRegisterRepository = paidregisterRepository;
+            _IAssesmentYearRepository = assesmentyearRepo;
         }
         public async Task<IActionResult> Index()
         {
@@ -43,7 +50,7 @@ namespace HRMS.Admin.UI.Controllers.Reporting
 
 
         [HttpPost]
-        public async Task<IActionResult> ExportSalaryRegister(PaidRegister model)
+        public async Task<IActionResult> DownloadSalaryPaidRegister(PaidRegister model)
         {
  
             try
@@ -65,7 +72,7 @@ namespace HRMS.Admin.UI.Controllers.Reporting
                 return RedirectToAction("Error", "Home");
             }
 
-            // return await Task.Run(() => View(ViewHelper.GetViewPathDetails("SalaryPaidRegister", "_SalaryPaidRegister")));
+             
         }
         private async Task PopulateViewBag()
         {

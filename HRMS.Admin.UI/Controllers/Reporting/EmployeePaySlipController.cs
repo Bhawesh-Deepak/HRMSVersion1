@@ -24,7 +24,6 @@ namespace HRMS.Admin.UI.Controllers.Reporting
     public class EmployeePaySlipController : Controller
     {
         private readonly IHostingEnvironment _IHostingEnviroment;
-        
         private readonly IDapperRepository<EmployeePaySlipParams> _IEmployeePaySlipRepository;
         private readonly IGenericRepository<AssesmentYear, int> _IAssesmentYearRepository;
         public EmployeePaySlipController(IHostingEnvironment hostingEnvironment,
@@ -32,7 +31,6 @@ namespace HRMS.Admin.UI.Controllers.Reporting
             IDapperRepository<EmployeePaySlipParams> employeepayslipRepository)
         {
             _IHostingEnviroment = hostingEnvironment;
-           
             _IEmployeePaySlipRepository = employeepayslipRepository;
             _IAssesmentYearRepository = assesmentyearRepo;
         }
@@ -51,44 +49,45 @@ namespace HRMS.Admin.UI.Controllers.Reporting
                 return RedirectToAction("Error", "Home");
             }
         }
-      
+
         [HttpPost]
         public async Task<IActionResult> DownloadPaySlip(EmployeeSalaryRegisterVM model)
         {
             try
             {
                 string empresponse = null;
-            if (model.UploadFile != null && model.EmployeeCode == null)
-                empresponse = new ReadEmployeeCode().GetSalaryRegisterEmpCodeDetails(model.UploadFile);
+                if (model.UploadFile != null && model.EmployeeCode == null)
+                    empresponse = new ReadEmployeeCode().GetSalaryRegisterEmpCodeDetails(model.UploadFile);
+                else if (model.UploadFile == null && model.EmployeeCode != null)
+                    empresponse = model.EmployeeCode;
 
-            else if (model.UploadFile == null && model.EmployeeCode != null)
-                empresponse = model.EmployeeCode;
-
-            var payslipparams = new EmployeePaySlipParams()
+                var payslipparams = new EmployeePaySlipParams()
+                {
+                    DateMonth = model.DateMonth,
+                    DateYear = model.DateYear,
+                    EmployeeCode = empresponse
+                };
+                System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                string strMonthName = mfi.GetMonthName(model.DateMonth).ToString();
+                var response = await Task.Run(() => _IEmployeePaySlipRepository.GetAll<EmployeePaySlipVM>(SqlQuery.GetPaySlip, payslipparams));
+                var responsepdf = new ViewAsPdf(ViewHelper.GetViewPathDetails("EmployeePaySlip", "_PaySlip"), response)
+                {
+                    FileName = strMonthName + "_" + model.DateYear + "_PaySlip.pdf",
+                };
+                return responsepdf;
+            }
+            catch (Exception ex)
             {
-                DateMonth = model.DateMonth,
-                DateYear = model.DateYear,
-                EmployeeCode = empresponse
+                string template = $"Controller name {nameof(EmployeePaySlipController)} action name {nameof(DownloadPaySlip)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
 
-            };
-            System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
-            string strMonthName = mfi.GetMonthName(model.DateMonth).ToString();
-            var response = await Task.Run(() => _IEmployeePaySlipRepository.GetAll<EmployeePaySlipVM>(SqlQuery.GetPaySlip, payslipparams));
-            var responsepdf = new ViewAsPdf(ViewHelper.GetViewPathDetails("EmployeePaySlip", "_PaySlip"), response)
-            {
-                FileName = strMonthName + "_" + model.DateYear + "_PaySlip.pdf",
 
- 
-            };
-            return responsepdf;
-
-            
         }
         #region PrivateFields
         private async Task PopulateViewBag()
         {
-
-
             var assesmentyearResponse = await _IAssesmentYearRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
             if (assesmentyearResponse.ResponseStatus == ResponseStatus.Success)
                 ViewBag.AssesmentYearList = assesmentyearResponse.Entities;
