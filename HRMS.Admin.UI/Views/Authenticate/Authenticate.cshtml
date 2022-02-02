@@ -97,14 +97,16 @@
                                 </div>
                                 @if (!string.IsNullOrEmpty(ViewBag.Message))
                                 {
-                                <p style="color:red">@ViewBag.Message</p>
+                                    <p style="color:red">@ViewBag.Message</p>
                                 }
-                                <button type="submit" class="db-btn login-btn sub-btn" id="btnLogin">Login
+                                <button type="submit" class="db-btn login-btn sub-btn" id="btnLogin">
+                                    Login
                                 </button>
                                 @*<div class="db-btn login-btn sub-btn" style="margin-top:5px" id="btnCustomSSO">
-                                        <span>SSO Login</span>
-                                </div>*@
+                    <span>SSO Login</span>
+            </div>*@
                             </div>
+                        </form>
                             <div id="generate-otp" class="input-group">                               
                                 <div class="login-input-item">
                                     <input type="text" id="UserName" name="UserName" required />
@@ -132,7 +134,7 @@
                                 <button type="submit" class="db-btn login-btn sub-btn btnLogin-2">Login
                                 </button>
                             </div>
-                        </form>
+                      
                         @*<div class="btn-group punch">
                                 <div class="db-btn PunchBtn PunchButton" data-status="PUNCHIN">
                                     <span>punch in</span>
