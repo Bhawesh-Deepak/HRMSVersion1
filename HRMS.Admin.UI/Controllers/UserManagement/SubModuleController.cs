@@ -152,7 +152,9 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
         }
         public async Task<IActionResult> GetSubModule(int Id)
         {
-            var subModuleResponse = await _ISubModuleRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+            try
+            {
+                var subModuleResponse = await _ISubModuleRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
             var moduleResponse = await _IModuleMasterRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
 
             var response = (from sb in subModuleResponse.Entities
@@ -172,6 +174,13 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
                             }).ToList();
 
             return Json(response);
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(SubModuleMaster)} action name {nameof(GetSubModule)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
 

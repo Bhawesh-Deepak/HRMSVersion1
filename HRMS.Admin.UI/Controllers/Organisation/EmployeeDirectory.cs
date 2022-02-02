@@ -61,7 +61,7 @@ namespace HRMS.Admin.UI.Controllers.Organisation
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(EmployeeDirectory)} action name {nameof(Index)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(EmployeeDirectory)} action name {nameof(Index)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -69,17 +69,26 @@ namespace HRMS.Admin.UI.Controllers.Organisation
         }
         public async Task<IActionResult> GetFilteredData(EmployeeDetailParams searchModelEntity, string sortBy, int pageIndex, PageSize pageSize, string sortOrder)
         {
-            searchModelEntity.PageNo = pageIndex;
-            searchModelEntity.PageSize = (int)pageSize;
-            searchModelEntity.SortColumn = sortBy;
-            searchModelEntity.SortOrder = sortOrder;
-            searchModelEntity.IsActive = true;
+            try
+            {
+                searchModelEntity.PageNo = pageIndex;
+                searchModelEntity.PageSize = (int)pageSize;
+                searchModelEntity.SortColumn = sortBy;
+                searchModelEntity.SortOrder = sortOrder;
+                searchModelEntity.IsActive = true;
 
-            PagingSortingHelper.PopulateModelForPagging(searchModelEntity, pageSize, pageIndex, sortBy, sortOrder);
-            var response = _IEmployeeRepository.GetAll<EmployeeDetailVm>(SqlQuery.GetEmployeeDetails, searchModelEntity);
-            PagingSortingHelper.PupulateModelToDisplayPagging(response?.First(), PageSize.Size10, pageIndex, sortBy, sortOrder);
-            response.First().SortBy = sortBy;
-            return await Task.Run(() => PartialView(ViewHelper.GetViewPathDetails("EmployeeDirectory", "EmployeeFilteredList"), response));
+                PagingSortingHelper.PopulateModelForPagging(searchModelEntity, pageSize, pageIndex, sortBy, sortOrder);
+                var response = _IEmployeeRepository.GetAll<EmployeeDetailVm>(SqlQuery.GetEmployeeDetails, searchModelEntity);
+                PagingSortingHelper.PupulateModelToDisplayPagging(response?.First(), PageSize.Size10, pageIndex, sortBy, sortOrder);
+                response.First().SortBy = sortBy;
+                return await Task.Run(() => PartialView(ViewHelper.GetViewPathDetails("EmployeeDirectory", "EmployeeFilteredList"), response));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(EmployeeDirectory)} action name {nameof(GetFilteredData)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
         private async Task PopulateViewBag()
         {
@@ -90,49 +99,68 @@ namespace HRMS.Admin.UI.Controllers.Organisation
         }
         public async Task<IActionResult> GetEmployeeDetails(int Id)
         {
-            var empParams = new EmployeeSingleDetailParam()
+            try
             {
-                Id = Id
-            };
-            var response = _IEmployeeSingleDetailRepository.GetAll<EmployeeDetail>(SqlQuery.GetEmployeeSingleDetails, empParams);
+                var empParams = new EmployeeSingleDetailParam()
+                {
+                    Id = Id
+                };
+                var response = _IEmployeeSingleDetailRepository.GetAll<EmployeeDetail>(SqlQuery.GetEmployeeSingleDetails, empParams);
 
-            return PartialView(ViewHelper.GetViewPathDetails("EmployeeDirectory", "_EmployeeDetails"), response.FirstOrDefault());
+                return PartialView(ViewHelper.GetViewPathDetails("EmployeeDirectory", "_EmployeeDetails"), response.FirstOrDefault());
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(EmployeeDirectory)} action name {nameof(GetEmployeeDetails)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
         [HttpGet]
         public async Task<IActionResult> EmployeeDirectorySearch(string empCode, string LegalEntity, string IsActive)
         {
-            await PopulateViewBag();
-            if (empCode != null && LegalEntity == null && IsActive == null)
+            try
             {
-                var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.EmpCode.Trim().ToLower() == empCode.Trim().ToLower());
-                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeeDirectory", "_EmployeeDirectoryIndex"), response.Entities));
-            }
-            else if (empCode == null && LegalEntity != null && IsActive == null)
-            {
-                var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.EmpCode.Trim().ToLower() == empCode.Trim().ToLower());
-                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeeDirectory", "_EmployeeDirectoryIndex"), response.Entities));
-            }
-            else if (empCode == null && LegalEntity == null && IsActive != null)
-            {
-                bool status = false;
-                if (IsActive == "1")
+                await PopulateViewBag();
+                if (empCode != null && LegalEntity == null && IsActive == null)
+                {
+                    var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.EmpCode.Trim().ToLower() == empCode.Trim().ToLower());
+                    return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeeDirectory", "_EmployeeDirectoryIndex"), response.Entities));
+                }
+                else if (empCode == null && LegalEntity != null && IsActive == null)
+                {
+                    var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.EmpCode.Trim().ToLower() == empCode.Trim().ToLower());
+                    return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeeDirectory", "_EmployeeDirectoryIndex"), response.Entities));
+                }
+                else if (empCode == null && LegalEntity == null && IsActive != null)
+                {
+                    bool status = false;
+                    if (IsActive == "1")
                     status = true;
-                else status = false;
-                var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.IsActive == status);
-                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeeDirectory", "_EmployeeDirectoryIndex"), response.Entities));
+                    else status = false;
+                    var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.IsActive == status);
+                    return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeeDirectory", "_EmployeeDirectoryIndex"), response.Entities));
+                }
+                else
+                {
+                    var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.IsActive == true);
+                    return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeeDirectory", "_EmployeeDirectoryIndex"), response.Entities));
+                }
             }
-            else
+            catch (Exception ex)
             {
-                var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.IsActive == true);
-                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeeDirectory", "_EmployeeDirectoryIndex"), response.Entities));
+                string template = $"Controller name {nameof(EmployeeDirectory)} action name {nameof(EmployeeDirectorySearch)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
         }
         public async Task<IActionResult> ExportEmployee()
         {
-
-            var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
-            DataTable dt = new DataTable("Employee");
-            dt.Columns.AddRange(new DataColumn[10] {
+            try
+            {
+                var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+                DataTable dt = new DataTable("Employee");
+                dt.Columns.AddRange(new DataColumn[10] {
                     new DataColumn("Employee Name"),
                     new DataColumn("Emp Code"),
                     new DataColumn("Joining Date"),
@@ -143,11 +171,11 @@ namespace HRMS.Admin.UI.Controllers.Organisation
                     new DataColumn("Supervisor Code"),
                     new DataColumn("PAN Number"),
                     new DataColumn("Aadhar Number"),
-            });
+                });
 
-            foreach (var data in response.Entities)
-            {
-                dt.Rows.Add(
+                foreach (var data in response.Entities)
+                {
+                  dt.Rows.Add(
                     data.EmployeeName,
                     data.EmpCode,
                     data.JoiningDate.ToString("dd/MM/yyyy"),
@@ -156,7 +184,7 @@ namespace HRMS.Admin.UI.Controllers.Organisation
                     data.DesignationName,
                     data.Location,
                     data.SuperVisorCode, data.PanCardNumber, data.AadharCardNumber);
-            }
+                }
 
             using XLWorkbook wb = new XLWorkbook();
             wb.Worksheets.Add(dt);
@@ -164,6 +192,13 @@ namespace HRMS.Admin.UI.Controllers.Organisation
             wb.SaveAs(stream);
             return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                 "EemployeeDetail.xlsx");
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(EmployeeDirectory)} action name {nameof(ExportEmployee)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
     }
 }

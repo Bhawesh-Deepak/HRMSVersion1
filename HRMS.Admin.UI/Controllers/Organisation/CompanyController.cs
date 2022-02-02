@@ -37,7 +37,7 @@ namespace HRMS.Admin.UI.Controllers.Organisation
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(Company)} action name {nameof(Index)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(Company)} action name {nameof(Index)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -73,7 +73,7 @@ namespace HRMS.Admin.UI.Controllers.Organisation
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(Company)} action name {nameof(CreateCompany)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(Company)} action name {nameof(CreateCompany)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }

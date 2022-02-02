@@ -23,17 +23,26 @@ namespace HRMS.Admin.UI.Controllers.Common
         }
         public async Task<IActionResult> GetFilteredEmployee(string name, string empCode, string department, string designation)
         {
-            var model = new FilteredEmployeeParams()
+            try
             {
-                Name = name,
-                empCode = empCode,
-                designation = designation,
-                department = department
-            };
+                var model = new FilteredEmployeeParams()
+                {
+                    Name = name,
+                    empCode = empCode,
+                    designation = designation,
+                    department = department
+                };
 
-            var response = await Task.Run(() => _IFilteredEmployeeRepository.GetAll<FilteredEmployee>(SqlQuery.GetFileteredEmployee, model));
+                var response = await Task.Run(() => _IFilteredEmployeeRepository.GetAll<FilteredEmployee>(SqlQuery.GetFileteredEmployee, model));
 
-            return Json(response);
+                return Json(response);
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(CommonController)} action name {nameof(GetFilteredEmployee)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
     }
 }

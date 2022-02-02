@@ -66,7 +66,7 @@ namespace HRMS.Admin.UI.Controllers.Organisation
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(CompanyDirectory)} action name {nameof(Index)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(CompanyDirectory)} action name {nameof(Index)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -98,7 +98,7 @@ namespace HRMS.Admin.UI.Controllers.Organisation
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(CompanyDirectory)} action name {nameof(GetBranchList)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(CompanyDirectory)} action name {nameof(GetBranchList)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -106,9 +106,11 @@ namespace HRMS.Admin.UI.Controllers.Organisation
         }
         public async Task<IActionResult> DownloadEmployee(string LegalEntity)
         {
-            var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.LegalEntity.Trim().ToLower() == LegalEntity.Trim().ToLower());
-            DataTable dt = new DataTable("Employee");
-            dt.Columns.AddRange(new DataColumn[72] {
+            try
+            {
+                var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.LegalEntity.Trim().ToLower() == LegalEntity.Trim().ToLower());
+                DataTable dt = new DataTable("Employee");
+                dt.Columns.AddRange(new DataColumn[72] {
                     new DataColumn("Salutation"),
                     new DataColumn("EmployeeName"),
                     new DataColumn("EmpCode"),
@@ -274,12 +276,21 @@ namespace HRMS.Admin.UI.Controllers.Organisation
             wb.SaveAs(stream);
             return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                 "EemployeeDetail.xlsx");
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(CompanyDirectory)} action name {nameof(DownloadEmployee)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
         public async Task<IActionResult> DownloadEmployeeByBranch(string BranchName)
         {
-            var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.BranchOfficeId.Trim().ToLower() == BranchName.Trim().ToLower());
-            DataTable dt = new DataTable("Employee");
-            dt.Columns.AddRange(new DataColumn[72] {
+            try
+            {
+                var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.BranchOfficeId.Trim().ToLower() == BranchName.Trim().ToLower());
+                DataTable dt = new DataTable("Employee");
+                dt.Columns.AddRange(new DataColumn[72] {
                     new DataColumn("Salutation"),
                     new DataColumn("EmployeeName"),
                     new DataColumn("EmpCode"),
@@ -445,6 +456,13 @@ namespace HRMS.Admin.UI.Controllers.Organisation
             wb.SaveAs(stream);
             return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                 "EemployeeDetail.xlsx");
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(CompanyDirectory)} action name {nameof(DownloadEmployeeByBranch)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
     }
 }

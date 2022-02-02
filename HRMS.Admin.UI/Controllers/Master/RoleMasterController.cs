@@ -30,7 +30,7 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(RoleMaster)} action name {nameof(GetRoleDetail)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(RoleMaster)} action name {nameof(Index)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -46,7 +46,7 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(RoleMaster)} action name {nameof(GetRoleDetail)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(RoleMaster)} action name {nameof(GetRoleDetail)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -71,7 +71,7 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(RoleMaster)} action name {nameof(CreateRole)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(RoleMaster)} action name {nameof(CreateRole)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -93,7 +93,7 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(RoleMaster)} action name {nameof(UpsertRole)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(RoleMaster)} action name {nameof(UpsertRole)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -116,7 +116,7 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(RoleMaster)} action name {nameof(DeleteRole)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(RoleMaster)} action name {nameof(DeleteRole)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }

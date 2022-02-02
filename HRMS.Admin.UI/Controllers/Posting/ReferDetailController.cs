@@ -24,18 +24,35 @@ namespace HRMS.Admin.UI.Controllers.Posting
         }
         public async Task<IActionResult> Index()
         {
-            ViewBag.HeaderTitle = PageHeader.HeaderSetting["CandidateReferal"];
+            try
+            {
+                ViewBag.HeaderTitle = PageHeader.HeaderSetting["CandidateReferal"];
 
-            return await Task.Run(() => View(ViewHelper.GetViewPathDetails("ReferalDetail", "ReferalIndex")));
-
+               return await Task.Run(() => View(ViewHelper.GetViewPathDetails("ReferalDetail", "ReferalIndex")));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(ReferDetailController)} action name {nameof(Index)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
 
         }
 
         [HttpGet]
         public async Task<IActionResult> GetReferCandidateDetails() 
         {
-            var response = await Task.Run(() => _IDapperRepository.GetAll<ReferCandidateDetailVm>(SqlQuery.GetReferedCandidate, null));
-            return PartialView(ViewHelper.GetViewPathDetails("ReferalDetail", "ReferalDetails"), response);
+            try
+            {
+                var response = await Task.Run(() => _IDapperRepository.GetAll<ReferCandidateDetailVm>(SqlQuery.GetReferedCandidate, null));
+                return PartialView(ViewHelper.GetViewPathDetails("ReferalDetail", "ReferalDetails"), response);
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(ReferDetailController)} action name {nameof(GetReferCandidateDetails)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
     }
 }

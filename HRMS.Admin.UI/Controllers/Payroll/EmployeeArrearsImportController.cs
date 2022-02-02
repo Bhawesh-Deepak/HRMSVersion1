@@ -22,7 +22,16 @@ namespace HRMS.Admin.UI.Controllers.Payroll
         }
         public IActionResult Index()
         {
-            return View(ViewHelper.GetViewPathDetails("EmployeeArrearsImport", "EmployeeArrearsImportIndex"));
+            try
+            {
+                return View(ViewHelper.GetViewPathDetails("EmployeeArrearsImport", "EmployeeArrearsImportIndex"));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(EmployeeArrearsImportController)} action name {nameof(Index)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
@@ -36,8 +45,9 @@ namespace HRMS.Admin.UI.Controllers.Payroll
             }
             catch (Exception ex)
             {
-                Serilog.Log.Information(ex.InnerException.ToString(), ex);
-                return Json("Unable to upload the Excel File, Something wents wrong please contact admin !");
+                string template = $"Controller name {nameof(EmployeeArrearsImportController)} action name {nameof(UploadArrearsSalary)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
         }
     }

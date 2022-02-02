@@ -33,55 +33,109 @@ namespace HRMS.Admin.UI.Controllers.Posting
 
         public async Task<IActionResult> Index()
         {
-            ViewBag.HeaderTitle = PageHeader.HeaderSetting["CandidateReferal"];
+            try
+            {
+                ViewBag.HeaderTitle = PageHeader.HeaderSetting["CandidateReferal"];
 
             return await Task.Run(() => View(ViewHelper.GetViewPathDetails("CandidateReferal", "CandidateReferalIndex")));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(CandidateReferalController)} action name {nameof(Index)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> CreateReferal(int id)
         {
-            var model = new ReferCandidate();
-            model.OpeningId = id;
-            return PartialView(ViewHelper.GetViewPathDetails("CandidateReferal", "CandidateReferalCreate"), model);
+            try
+            {
+                var model = new ReferCandidate();
+                model.OpeningId = id;
+                return PartialView(ViewHelper.GetViewPathDetails("CandidateReferal", "CandidateReferalCreate"), model);
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(CandidateReferalController)} action name {nameof(CreateReferal)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> GetCurrentOpeningDetails()
         {
-            var openingDetails = await _ICurrentOpeningRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+            try
+            {
+                var openingDetails = await _ICurrentOpeningRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
 
-            return PartialView(ViewHelper.GetViewPathDetails("CandidateReferal", "CandidateReferalDetail"), openingDetails.Entities);
+                return PartialView(ViewHelper.GetViewPathDetails("CandidateReferal", "CandidateReferalDetail"), openingDetails.Entities);
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(CandidateReferalController)} action name {nameof(GetCurrentOpeningDetails)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
 
         }
 
         [HttpPost]
         public async Task<IActionResult> ReferalCandidate(ReferCandidate model, IFormFile Resume)
         {
-            model.ResumePath = Resume == null ? model.ResumePath : await UploadPDFFile(Resume);
+            try
+            {
+                model.ResumePath = Resume == null ? model.ResumePath : await UploadPDFFile(Resume);
 
-            var response = model.Id == 0 ? await CreateReferCandidate(model) : await UpdateReferCandidate(model);
+                var response = model.Id == 0 ? await CreateReferCandidate(model) : await UpdateReferCandidate(model);
 
-            return Json(response);
+                return Json(response);
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(CandidateReferalController)} action name {nameof(ReferalCandidate)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> GetCandidateRefer(int openingId)
         {
-            var models = await GetCandidateReferDetails(openingId);
-            return PartialView(ViewHelper.GetViewPathDetails("CandidateReferal", "RefereCandidateDetail"), models);
+            try
+            {
+                var models = await GetCandidateReferDetails(openingId);
+                return PartialView(ViewHelper.GetViewPathDetails("CandidateReferal", "RefereCandidateDetail"), models);
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(CandidateReferalController)} action name {nameof(GetCandidateRefer)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
 
         [HttpGet]
         public async Task<IActionResult> DeleteCandidate(int id)
         {
-            var model = await _IReferCandidateRepository.GetAllEntityById(x => x.Id == id);
+            try
+            {
+                var model = await _IReferCandidateRepository.GetAllEntityById(x => x.Id == id);
 
-            var deleteModel = CrudHelper.DeleteHelper(model.Entity, Convert.ToInt32(HttpContext.Session.GetString("EmployeeId")));
+                var deleteModel = CrudHelper.DeleteHelper(model.Entity, Convert.ToInt32(HttpContext.Session.GetString("EmployeeId")));
 
-            var deleteResponse = await _IReferCandidateRepository.DeleteEntity(deleteModel);
+                var deleteResponse = await _IReferCandidateRepository.DeleteEntity(deleteModel);
 
-            return Json(deleteResponse.Message);
+                return Json(deleteResponse.Message);
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(CandidateReferalController)} action name {nameof(DeleteCandidate)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         #region PrivateMethods

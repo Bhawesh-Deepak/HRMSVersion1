@@ -38,8 +38,17 @@ namespace HRMS.Admin.UI.Controllers
 
         public async Task<IActionResult> Index()
         {
-            await PopulateViewBag();
-            return View();
+            try
+            {
+                await PopulateViewBag();
+                return View();
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(HomeController)} action name {nameof(Index)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
         public async Task<IActionResult> GetBirthDayAnniversary(int Id)
         {
@@ -69,14 +78,23 @@ namespace HRMS.Admin.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAttendanceGraph(int FinancialYear)
         {
-            if (FinancialYear == 0)
-                FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
-            var attendanceParams = new AttendanceGraphParams()
+            try
             {
-                FinancialYear = FinancialYear
-            };
-            var response = await Task.Run(() => _IAttendanceGraphRepository.GetAll<AttendanceGraphVM>(SqlQuery.GetAttendanceGraph, attendanceParams));
-            return Json(response);
+                if (FinancialYear == 0)
+                FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
+                var attendanceParams = new AttendanceGraphParams()
+                {
+                    FinancialYear = FinancialYear
+                };
+                var response = await Task.Run(() => _IAttendanceGraphRepository.GetAll<AttendanceGraphVM>(SqlQuery.GetAttendanceGraph, attendanceParams));
+                return Json(response);
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(HomeController)} action name {nameof(GetAttendanceGraph)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         private async Task PopulateViewBag()

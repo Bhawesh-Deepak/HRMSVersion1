@@ -55,7 +55,9 @@ namespace HRMS.Admin.UI.Controllers.Reporting
         [HttpPost]
         public async Task<IActionResult> DownloadSalaryPaidRegister(EmployeeSalaryRegisterVM model)
         {
-            var response = await _IPaidRegisterRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted && x.DateMonth == model.DateMonth && x.DateYear == model.DateYear);
+            try
+            {
+                var response = await _IPaidRegisterRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted && x.DateMonth == model.DateMonth && x.DateYear == model.DateYear);
 
             var net = new System.Net.WebClient();
              
@@ -64,6 +66,13 @@ namespace HRMS.Admin.UI.Controllers.Reporting
             var contentType = "APPLICATION/octet-stream";
             var fileName = "SalaryPaidRegister_"+model.DateMonth+"_"+model.DateYear+ ".xlsx";
             return File(content, contentType, fileName);
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(SalaryPaidRegisterController)} action name {nameof(DownloadSalaryPaidRegister)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
 
             // return await Task.Run(() => View(ViewHelper.GetViewPathDetails("SalaryPaidRegister", "_SalaryPaidRegister")));
         }

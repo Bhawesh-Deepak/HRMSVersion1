@@ -41,69 +41,87 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
 
         public async Task<IActionResult> LoginIndex(string message)
         {
-            ViewBag.Message = message;
-            return await Task.Run(() => View(ViewHelper.GetViewPathDetails("Authenticate", "Authenticate")));
+            try
+            {
+                ViewBag.Message = message;
+                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("Authenticate", "Authenticate")));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(AuthenticateController)} action name {nameof(LoginIndex)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(AuthenticateModel model, string returnurl)
         {
-            if (string.IsNullOrEmpty(model.UserName))
+            try
             {
-                model.UserName = Request.Cookies["UserName"];
-            }
-
-            model.Password = PasswordEncryptor.Instance.Encrypt(model.Password, "HRMSPAYROLLPASSWORDKEY");
-            var response = await _IAuthenticateRepository.GetAllEntities(x => x.UserName.ToLower().Trim() == model.UserName.Trim().ToLower()
-             && x.Password.Trim().ToLower() == model.Password.Trim().ToLower());
-
-            if (response.Entities.Any())
-            {
-
-                var companyDetail = await _ICompanyRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
-                var assesmentYear = await _IAssesmentYearRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted && x.isCurrentFinancialYear);
-                await SetCookies(model.UserName, "UserName");
-                if (response.Entities.First().RoleId == 1)
+                if (string.IsNullOrEmpty(model.UserName))
                 {
-
-                    var employeeDetails = await _IAdminEmployeeDetailRepository.GetAllEntities(x => x.Id == response.Entities.First().EmployeeId);
-                    HttpContext.Session.SetObjectAsJson("companyDetails", companyDetail.Entities.First());
-                    HttpContext.Session.SetObjectAsJson("UserDetail", employeeDetails.Entities.First());
-                    HttpContext.Session.SetString("UserName", employeeDetails.Entities.First().EmployeeName);
-                    HttpContext.Session.SetString("EmployeeId", employeeDetails.Entities.First().Id.ToString());
-                    HttpContext.Session.SetString("RoleId", response.Entities.First().RoleId.ToString());
-                    HttpContext.Session.SetString("financialYearId", assesmentYear.Entities.First().Id.ToString());
-                    HttpContext.Session.SetString("financialYear", assesmentYear.Entities.First().Name.ToString());
-
-                    if (!string.IsNullOrEmpty(returnurl))
-                    {
-                        return Redirect(returnurl);
-                    }
-
-                    return RedirectToAction("Index", "Dashboard");
-                }
-                else
-                {
-                    var employeeDetails = await _IEmployeeDetailRepository.GetAllEntities(x => x.Id == response.Entities.First().EmployeeId);
-                    HttpContext.Session.SetObjectAsJson("companyDetails", companyDetail.Entities.First());
-                    HttpContext.Session.SetObjectAsJson("UserDetail", employeeDetails.Entities.First());
-                    HttpContext.Session.SetString("UserName", employeeDetails.Entities.First().EmployeeName);
-                    HttpContext.Session.SetString("EmployeeId", employeeDetails.Entities.First().Id.ToString());
-                    HttpContext.Session.SetString("RoleId", response.Entities.First().RoleId.ToString());
-                    HttpContext.Session.SetString("financialYearId", assesmentYear.Entities.First().Id.ToString());
-                    HttpContext.Session.SetString("financialYear", assesmentYear.Entities.First().Name.ToString());
-                    if (!string.IsNullOrEmpty(returnurl))
-                    {
-                        return Redirect(returnurl);
-                    }
-
-                    return RedirectToAction("Index", "Home");
+                    model.UserName = Request.Cookies["UserName"];
                 }
 
+                model.Password = PasswordEncryptor.Instance.Encrypt(model.Password, "HRMSPAYROLLPASSWORDKEY");
+                var response = await _IAuthenticateRepository.GetAllEntities(x => x.UserName.ToLower().Trim() == model.UserName.Trim().ToLower()
+                && x.Password.Trim().ToLower() == model.Password.Trim().ToLower());
+
+                if (response.Entities.Any())
+                {
+
+                    var companyDetail = await _ICompanyRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+                    var assesmentYear = await _IAssesmentYearRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted && x.isCurrentFinancialYear);
+                    await SetCookies(model.UserName, "UserName");
+                    if (response.Entities.First().RoleId == 1)
+                    {
+
+                        var employeeDetails = await _IAdminEmployeeDetailRepository.GetAllEntities(x => x.Id == response.Entities.First().EmployeeId);
+                        HttpContext.Session.SetObjectAsJson("companyDetails", companyDetail.Entities.First());
+                        HttpContext.Session.SetObjectAsJson("UserDetail", employeeDetails.Entities.First());
+                        HttpContext.Session.SetString("UserName", employeeDetails.Entities.First().EmployeeName);
+                        HttpContext.Session.SetString("EmployeeId", employeeDetails.Entities.First().Id.ToString());
+                        HttpContext.Session.SetString("RoleId", response.Entities.First().RoleId.ToString());
+                        HttpContext.Session.SetString("financialYearId", assesmentYear.Entities.First().Id.ToString());
+                        HttpContext.Session.SetString("financialYear", assesmentYear.Entities.First().Name.ToString());
+
+                        if (!string.IsNullOrEmpty(returnurl))
+                        {
+                            return Redirect(returnurl);
+                        }
+
+                           return RedirectToAction("Index", "Dashboard");
+                    }
+                    else
+                    {
+                        var employeeDetails = await _IEmployeeDetailRepository.GetAllEntities(x => x.Id == response.Entities.First().EmployeeId);
+                        HttpContext.Session.SetObjectAsJson("companyDetails", companyDetail.Entities.First());
+                        HttpContext.Session.SetObjectAsJson("UserDetail", employeeDetails.Entities.First());
+                        HttpContext.Session.SetString("UserName", employeeDetails.Entities.First().EmployeeName);
+                        HttpContext.Session.SetString("EmployeeId", employeeDetails.Entities.First().Id.ToString());
+                        HttpContext.Session.SetString("RoleId", response.Entities.First().RoleId.ToString());
+                        HttpContext.Session.SetString("financialYearId", assesmentYear.Entities.First().Id.ToString());
+                        HttpContext.Session.SetString("financialYear", assesmentYear.Entities.First().Name.ToString());
+                        if (!string.IsNullOrEmpty(returnurl))
+                        {
+                            return Redirect(returnurl);
+                        }
+
+                        return RedirectToAction("Index", "Home");
+                    }
+
+                }
+                string message = "Invalid Login credential !!!";
+                return RedirectToAction("LoginIndex", "Authenticate", new { message = message });
             }
-            string message = "Invalid Login credential !!!";
-            return RedirectToAction("LoginIndex", "Authenticate", new { message = message });
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(AuthenticateController)} action name {nameof(Login)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> GetLoginPopUp(string returnUrl)
@@ -115,7 +133,8 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
             }
             catch (Exception ex)
             {
-                Serilog.Log.Error(ex.Message, ex);
+                string template = $"Controller name {nameof(AuthenticateController)} action name {nameof(GetLoginPopUp)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
         }
@@ -123,15 +142,32 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
         [HttpGet]
         public async Task<IActionResult> Logout()
         {
-            await Task.Run(() => HttpContext.Session.Clear());
-            return RedirectToAction("LoginIndex", "Authenticate");
+            try
+            {
+                await Task.Run(() => HttpContext.Session.Clear());
+                return RedirectToAction("LoginIndex", "Authenticate");
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(AuthenticateController)} action name {nameof(Logout)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> ChangePassword()
         {
-
-            return await Task.Run(() => PartialView("~/Views/Authenticate/ChangePassword.cshtml"));
+            try
+            {
+                return await Task.Run(() => PartialView("~/Views/Authenticate/ChangePassword.cshtml"));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(AuthenticateController)} action name {nameof(ChangePassword)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
@@ -157,7 +193,7 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(AuthenticateController)} action name {nameof(ChangePassword)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(AuthenticateController)} action name {nameof(ChangePasswordPost)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -193,8 +229,9 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
             }
             catch (Exception ex)
             {
-                Serilog.Log.Error(ex, ex.Message);
-                return Json(false);
+                string template = $"Controller name {nameof(AuthenticateController)} action name {nameof(ForgetPassword)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
         }
 

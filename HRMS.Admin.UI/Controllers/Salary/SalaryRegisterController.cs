@@ -55,7 +55,8 @@ namespace HRMS.Admin.UI.Controllers.Salary
         [HttpPost]
         public async Task<IActionResult> ExportSalaryRegister(EmployeeSalaryRegisterVM model)
         {
-           
+            try
+            {
                 List<SalaryRegisterVM> response = null;
                 if (model.UploadFile == null)
                 {
@@ -218,8 +219,15 @@ namespace HRMS.Admin.UI.Controllers.Salary
                 }
                 var stream = new MemoryStream(Eps.GetAsByteArray());
                 return File(stream.ToArray(), "application/vnd.ms-excel", sFileName);
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(SalaryRegisterController)} action name {nameof(ExportSalaryRegister)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
 
-            
+
         }
         private async Task PopulateViewBag()
         {

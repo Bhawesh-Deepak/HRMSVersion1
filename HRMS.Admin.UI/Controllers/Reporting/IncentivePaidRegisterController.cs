@@ -38,23 +38,34 @@ namespace HRMS.Admin.UI.Controllers.Reporting
         }
         public async Task<IActionResult> Index()
         {
-            await PopulateViewBag();
-            return await Task.Run(() => View(ViewHelper.GetViewPathDetails("IncentivePaidRegister", "_IncentivePaidRegister")));
+            try
+            {
+                await PopulateViewBag();
+                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("IncentivePaidRegister", "_IncentivePaidRegister")));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(IncentivePaidRegisterController)} action name {nameof(Index)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
         [HttpPost]
         public async Task<IActionResult> ExportIncentivePaidRegister(EmployeeSalaryRegisterVM model)
         {
-            string empresponse = null;
-            if (model.UploadFile != null)
+            try
+            {
+                string empresponse = null;
+                if (model.UploadFile != null)
                 empresponse = new ReadEmployeeCode().GetSalaryRegisterEmpCodeDetails(model.UploadFile);
 
-            var request = new SalaryRegisterByEmployeeCodeParams()
-            {
-                DateMonth = model.DateMonth,
-                DateYear = model.DateYear,
-                EmployeeCode = empresponse
-            };
-            var response = (await Task.Run(() => _ISalaryRegisterParamsRepository.GetAll<IncentivePaidRegisterVM>(SqlQuery.GetIncentivePaidRegister, request))).ToList();
+                var request = new SalaryRegisterByEmployeeCodeParams()
+                {
+                    DateMonth = model.DateMonth,
+                    DateYear = model.DateYear,
+                    EmployeeCode = empresponse
+                };
+                var response = (await Task.Run(() => _ISalaryRegisterParamsRepository.GetAll<IncentivePaidRegisterVM>(SqlQuery.GetIncentivePaidRegister, request))).ToList();
 
 
             var sWebRootFolder = _IHostingEnviroment.WebRootPath;
@@ -89,6 +100,13 @@ namespace HRMS.Admin.UI.Controllers.Reporting
             }
             var stream = new MemoryStream(Eps.GetAsByteArray());
             return File(stream.ToArray(), "application/vnd.ms-excel", sFileName);
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(IncentivePaidRegisterController)} action name {nameof(ExportIncentivePaidRegister)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
 
         }
         #region PrivateFields
