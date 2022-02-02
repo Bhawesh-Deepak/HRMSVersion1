@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace HRMS.Admin.UI
 {
@@ -50,6 +51,7 @@ namespace HRMS.Admin.UI
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            Rotativa.AspNetCore.RotativaConfiguration.Setup(env.WebRootPath, "Rotativa");
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -60,6 +62,7 @@ namespace HRMS.Admin.UI
 
             app.UseAuthorization();
 
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

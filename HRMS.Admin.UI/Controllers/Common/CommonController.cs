@@ -1,5 +1,6 @@
 ﻿using HRMS.Admin.UI.AuthenticateService;
 using HRMS.Core.ReqRespVm.Response.Common;
+using HRMS.Core.ReqRespVm.Response.Employee;
 using HRMS.Core.ReqRespVm.SqlParams;
 using HRMS.Services.Implementation.SqlConstant;
 using HRMS.Services.Repository.GenericRepository;
@@ -16,10 +17,11 @@ namespace HRMS.Admin.UI.Controllers.Common
     public class CommonController : Controller
     {
         private readonly IDapperRepository<FilteredEmployeeParams> _IFilteredEmployeeRepository;
-
-        public CommonController(IDapperRepository<FilteredEmployeeParams> filteredEmployeeRepository)
+        private readonly IDapperRepository<EmployeeAutoCompleteParams> _IEmployeeInformationRepository;
+        public CommonController(IDapperRepository<FilteredEmployeeParams> filteredEmployeeRepository, IDapperRepository<EmployeeAutoCompleteParams> employeeinformationRepository)
         {
             _IFilteredEmployeeRepository = filteredEmployeeRepository;
+            _IEmployeeInformationRepository = employeeinformationRepository;
         }
         public async Task<IActionResult> GetFilteredEmployee(string name, string empCode, string department, string designation)
         {
@@ -43,6 +45,17 @@ namespace HRMS.Admin.UI.Controllers.Common
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
+        }
+        [HttpPost]
+        public async Task<IActionResult> getEmployeeAutoComplete(string term)
+        {
+            var requestmodel = new EmployeeAutoCompleteParams()
+            {
+                prefix = term,
+            };
+            var employeeResponse = await Task.Run(() => _IEmployeeInformationRepository.GetAll<EmployeeAutoCompleteVM>(SqlQuery.GetemployeeAutoComplete, requestmodel));
+
+            return Json(employeeResponse);
         }
     }
 }

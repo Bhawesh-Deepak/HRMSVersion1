@@ -1,9 +1,6 @@
-﻿using HRMS.Core.Entities.Common;
-using HRMS.Core.Entities.HR;
-using HRMS.Core.Entities.Master;
+﻿using HRMS.Core.Entities.HR;
 using HRMS.Core.Helpers.CommonHelper;
 using HRMS.Core.Helpers.ExcelHelper;
-using HRMS.Core.ReqRespVm.RequestVm;
 using HRMS.Core.ReqRespVm.SqlParams;
 using HRMS.Services.Implementation.SqlConstant;
 using HRMS.Services.Repository.GenericRepository;
@@ -17,30 +14,23 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using HRMS.Admin.UI.AuthenticateService;
 
 namespace HRMS.Admin.UI.Controllers.Reporting
 {
-    [CustomAuthenticate]
-    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class SalaryPaidRegisterController : Controller
     {
-
+        
         private readonly IHostingEnvironment _IHostingEnviroment;
-        private readonly IGenericRepository<AssesmentYear, int> _IAssesmentYearRepository;
-        private readonly IGenericRepository<PaidRegister, int> _IPaidRegisterRepository;
-        public SalaryPaidRegisterController(IHostingEnvironment hostingEnvironment, IGenericRepository<AssesmentYear, int> assesmentyearRepo,
-            IGenericRepository<PaidRegister, int> paidregisterRepo)
+
+        public SalaryPaidRegisterController(IHostingEnvironment hostingEnvironment)
         {
-            _IAssesmentYearRepository = assesmentyearRepo;
-            _IHostingEnviroment = hostingEnvironment;
-            _IPaidRegisterRepository = paidregisterRepo;
+            
+            _IHostingEnviroment = hostingEnvironment; 
         }
         public async Task<IActionResult> Index()
         {
             try
             {
-                await PopulateViewBag();
                 return await Task.Run(() => View(ViewHelper.GetViewPathDetails("SalaryPaidRegister", "_SalaryPaidRegister")));
             }
             catch (Exception ex)
@@ -53,8 +43,9 @@ namespace HRMS.Admin.UI.Controllers.Reporting
 
 
         [HttpPost]
-        public async Task<IActionResult> DownloadSalaryPaidRegister(EmployeeSalaryRegisterVM model)
+        public async Task<IActionResult> ExportSalaryRegister(PaidRegister model)
         {
+ 
             try
             {
                 var response = await _IPaidRegisterRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted && x.DateMonth == model.DateMonth && x.DateYear == model.DateYear);
@@ -82,6 +73,7 @@ namespace HRMS.Admin.UI.Controllers.Reporting
             if (assesmentyearResponse.ResponseStatus == ResponseStatus.Success)
                 ViewBag.AssesmentYearList = assesmentyearResponse.Entities;
 
+ 
         }
     }
 }

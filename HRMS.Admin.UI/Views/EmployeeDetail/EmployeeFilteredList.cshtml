@@ -64,14 +64,31 @@
         background-color: #fff;
         border: 1px solid #ddd;
     }
+
     .pagination .active {
         background: #000000;
         color: #fff
     }
 </style>
 
- @if (Model.Any())
+@if (Model.Any())
 {
+   
+<div class="row">
+    <div class="col-md-2">
+        
+        <input type="text" class="form-control input-sm" placeholder="Emp Code" id="textEmpCode" name="textEmpCode" />
+    </div>
+    <div class="col-sm-1">
+
+         
+        <button type="button" onclick="FiltereEmployee()" class="btn btn-primary   btn-sm" id="btn-employeesearch">
+            <i class="fa fa-search"></i>
+        </button>
+
+    </div>
+</div>
+    <br />
     @Html.HRMSTableHeader(pageHeaderModel)
     <div class="table-fixed-header has-v-scroll _done">
         <div class="scrollDiv" id="tblDrugSearchList" style="max-height:375px; min-height:10px;">
@@ -122,7 +139,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @{ 
+                    @{
                         int count = 1;
                     }
                     @foreach (var data in Model)
