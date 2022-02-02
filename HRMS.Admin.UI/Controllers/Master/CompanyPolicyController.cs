@@ -44,7 +44,7 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(CompanyPolicy)} action name {nameof(Index)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(CompanyPolicy)} action name {nameof(Index)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -74,7 +74,7 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(CompanyPolicy)} action name {nameof(GetCompanyPolicyList)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(CompanyPolicy)} action name {nameof(GetCompanyPolicyList)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -97,7 +97,7 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(CompanyPolicy)} action name {nameof(CreateCompanyPolicy)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(CompanyPolicy)} action name {nameof(CreateCompanyPolicy)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -122,7 +122,7 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(CompanyPolicy)} action name {nameof(UpsertCompanyPolicy)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(CompanyPolicy)} action name {nameof(UpsertCompanyPolicy)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -144,7 +144,7 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(CompanyPolicy)} action name {nameof(DeleteCompanyPolicy)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(CompanyPolicy)} action name {nameof(DeleteCompanyPolicy)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }

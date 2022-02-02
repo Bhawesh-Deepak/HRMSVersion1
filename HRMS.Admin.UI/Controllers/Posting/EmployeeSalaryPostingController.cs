@@ -38,70 +38,97 @@ namespace HRMS.Admin.UI.Controllers.Posting
         }
         public IActionResult Index()
         {
-            return View(ViewHelper.GetViewPathDetails("EmployeeSalaryPosting", "_EmployeeSalaryPosting"));
+            try
+            {
+                return View(ViewHelper.GetViewPathDetails("EmployeeSalaryPosting", "_EmployeeSalaryPosting"));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(EmployeeSalaryPostingController)} action name {nameof(Index)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
         public async Task<IActionResult> DownloadExcelFormat()
         {
-            string sWebRootFolder = _IHostingEnviroment.WebRootPath;
-            string sFileName = @"EmployeeSalaryPosting.xlsx";
-            string URL = string.Format("{0}://{1}/{2}", Request.Scheme, Request.Host, sFileName);
-            FileInfo file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
-            if (file.Exists)
+            try
             {
-                file.Delete();
-                file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
+                string sWebRootFolder = _IHostingEnviroment.WebRootPath;
+                string sFileName = @"EmployeeSalaryPosting.xlsx";
+                string URL = string.Format("{0}://{1}/{2}", Request.Scheme, Request.Host, sFileName);
+                FileInfo file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
+                if (file.Exists)
+                {
+                    file.Delete();
+                    file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
+                }
+                var response = await _ICtcComponentDetailRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+                string[] cells = { "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "AA", "AB", "AC", "AD", "AE", "AF", "AG", "AH", "AI", "AJ", "AK", "AL", "AM", "AN", "AO", "AP", "AQ", "AR", "AS", "AT", "AU", "AV", "AW", "AX", "AY", "AZ", "BA", "BB", "BC", "BD", "BE", "BF", "BG", "BH", "BI", "BJ", "BK", "BL", "BM", "BN", "BO", "BP", "BQ", "BR", "BS", "BT", "BU", "BV", "BW", "BX", "BY", "BZ" };
+                ExcelPackage Eps = new ExcelPackage();
+                ExcelWorksheet Sheets = Eps.Workbook.Worksheets.Add("Salary");
+                Sheets.Cells["A2"].Value = "DateMonth";
+                Sheets.Cells["B2"].Value = "DateYear";
+                Sheets.Cells["C2"].Value = "EmpCode";
+                int cell = 0;
+                foreach (var item in response.Entities)
+                {
+                    Sheets.Cells[cells[cell] + "1"].Value = item.Id;
+                    Sheets.Cells[cells[cell] + "2"].Value = item.ComponentName.Trim();
+                    cell++;
+                }
+                Sheets.Cells[cells[cell] + "2"].Value = "LegalEntity";
+                Sheets.Cells[cells[cell + 1] + "2"].Value = "Department";
+                Sheets.Cells[cells[cell + 2] + "2"].Value = "Designation";
+                var stream = new MemoryStream(Eps.GetAsByteArray());
+                return File(stream.ToArray(), "application/vnd.ms-excel", sFileName);
             }
-            var response = await _ICtcComponentDetailRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
-            string[] cells = { "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "AA", "AB", "AC", "AD", "AE", "AF", "AG", "AH", "AI", "AJ", "AK", "AL", "AM", "AN", "AO", "AP", "AQ", "AR", "AS", "AT", "AU", "AV", "AW", "AX", "AY", "AZ", "BA", "BB", "BC", "BD", "BE", "BF", "BG", "BH", "BI", "BJ", "BK", "BL", "BM", "BN", "BO", "BP", "BQ", "BR", "BS", "BT", "BU", "BV", "BW", "BX", "BY", "BZ" };
-            ExcelPackage Eps = new ExcelPackage();
-            ExcelWorksheet Sheets = Eps.Workbook.Worksheets.Add("Salary");
-            Sheets.Cells["A2"].Value = "DateMonth";
-            Sheets.Cells["B2"].Value = "DateYear";
-            Sheets.Cells["C2"].Value = "EmpCode";
-            int cell = 0;
-            foreach (var item in response.Entities)
+            catch (Exception ex)
             {
-                Sheets.Cells[cells[cell] + "1"].Value = item.Id;
-                Sheets.Cells[cells[cell] + "2"].Value = item.ComponentName.Trim();
-                cell++;
+                string template = $"Controller name {nameof(EmployeeSalaryPostingController)} action name {nameof(DownloadExcelFormat)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
-            Sheets.Cells[cells[cell] + "2"].Value = "LegalEntity";
-            Sheets.Cells[cells[cell + 1] + "2"].Value = "Department";
-            Sheets.Cells[cells[cell + 2] + "2"].Value = "Designation";
-            var stream = new MemoryStream(Eps.GetAsByteArray());
-            return File(stream.ToArray(), "application/vnd.ms-excel", sFileName);
         }
         public async Task<IActionResult> UploadSalaryPostingBackData()
         {
-            string sWebRootFolder = _IHostingEnviroment.WebRootPath;
-            string sFileName = @"EmployeeSalaryPostingBackData.xlsx";
-            string URL = string.Format("{0}://{1}/{2}", Request.Scheme, Request.Host, sFileName);
-            FileInfo file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
-            if (file.Exists)
+            try
             {
-                file.Delete();
-                file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
+                string sWebRootFolder = _IHostingEnviroment.WebRootPath;
+                string sFileName = @"EmployeeSalaryPostingBackData.xlsx";
+                string URL = string.Format("{0}://{1}/{2}", Request.Scheme, Request.Host, sFileName);
+                FileInfo file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
+                if (file.Exists)
+                {
+                    file.Delete();
+                    file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
+                }
+                var response = await _ICtcComponentDetailRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+                string[] cells = { "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "AA", "AB", "AC", "AD", "AE", "AF", "AG", "AH", "AI", "AJ", "AK", "AL", "AM", "AN", "AO", "AP", "AQ", "AR", "AS", "AT", "AU", "AV", "AW", "AX", "AY", "AZ", "BA", "BB", "BC", "BD", "BE", "BF", "BG", "BH", "BI", "BJ", "BK", "BL", "BM", "BN", "BO", "BP", "BQ", "BR", "BS", "BT", "BU", "BV", "BW", "BX", "BY", "BZ" };
+                ExcelPackage Eps = new ExcelPackage();
+                ExcelWorksheet Sheets = Eps.Workbook.Worksheets.Add("Salary");
+                Sheets.Cells["A2"].Value = "DateMonth";
+                Sheets.Cells["B2"].Value = "DateYear";
+                Sheets.Cells["C2"].Value = "EmpCode";
+                int cell = 0;
+                foreach (var item in response.Entities)
+                {
+                    Sheets.Cells[cells[cell] + "1"].Value = item.Id;
+                    Sheets.Cells[cells[cell] + "2"].Value = item.ComponentName.Trim();
+                    cell++;
+                }
+                Sheets.Cells[cells[cell] + "2"].Value = "LegalEntity";
+                Sheets.Cells[cells[cell + 1] + "2"].Value = "Department";
+                Sheets.Cells[cells[cell + 2] + "2"].Value = "Designation";
+                Sheets.Cells[cells[cell + 3] + "2"].Value = "Financial Year";
+                var stream = new MemoryStream(Eps.GetAsByteArray());
+                return File(stream.ToArray(), "application/vnd.ms-excel", sFileName);
             }
-            var response = await _ICtcComponentDetailRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
-            string[] cells = { "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "AA", "AB", "AC", "AD", "AE", "AF", "AG", "AH", "AI", "AJ", "AK", "AL", "AM", "AN", "AO", "AP", "AQ", "AR", "AS", "AT", "AU", "AV", "AW", "AX", "AY", "AZ", "BA", "BB", "BC", "BD", "BE", "BF", "BG", "BH", "BI", "BJ", "BK", "BL", "BM", "BN", "BO", "BP", "BQ", "BR", "BS", "BT", "BU", "BV", "BW", "BX", "BY", "BZ" };
-            ExcelPackage Eps = new ExcelPackage();
-            ExcelWorksheet Sheets = Eps.Workbook.Worksheets.Add("Salary");
-            Sheets.Cells["A2"].Value = "DateMonth";
-            Sheets.Cells["B2"].Value = "DateYear";
-            Sheets.Cells["C2"].Value = "EmpCode";
-            int cell = 0;
-            foreach (var item in response.Entities)
+            catch (Exception ex)
             {
-                Sheets.Cells[cells[cell] + "1"].Value = item.Id;
-                Sheets.Cells[cells[cell] + "2"].Value = item.ComponentName.Trim();
-                cell++;
+                string template = $"Controller name {nameof(EmployeeSalaryPostingController)} action name {nameof(UploadSalaryPostingBackData)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
-            Sheets.Cells[cells[cell] + "2"].Value = "LegalEntity";
-            Sheets.Cells[cells[cell + 1] + "2"].Value = "Department";
-            Sheets.Cells[cells[cell + 2] + "2"].Value = "Designation";
-            Sheets.Cells[cells[cell + 3] + "2"].Value = "Financial Year";
-            var stream = new MemoryStream(Eps.GetAsByteArray());
-            return File(stream.ToArray(), "application/vnd.ms-excel", sFileName);
         }
         [HttpPost]
         public async Task<IActionResult> UploadSalaryPosting(UploadExcelVm model)
@@ -138,8 +165,9 @@ namespace HRMS.Admin.UI.Controllers.Posting
             }
             catch (Exception ex)
             {
-                string message = ex.Message;
-                return Json("");
+                string template = $"Controller name {nameof(EmployeeSalaryPostingController)} action name {nameof(UploadSalaryPosting)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
 
         }
@@ -178,8 +206,9 @@ namespace HRMS.Admin.UI.Controllers.Posting
             }
             catch (Exception ex)
             {
-                string message = ex.Message;
-                return Json("");
+                string template = $"Controller name {nameof(EmployeeSalaryPostingController)} action name {nameof(UploadSalaryPostingBackData)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
 
         }

@@ -37,53 +37,71 @@ namespace HRMS.Admin.UI.Controllers.Reporting
         }
         public async Task<IActionResult> Index()
         {
-            await PopulateViewBag();
-            return await Task.Run(() => View(ViewHelper.GetViewPathDetails("LWFReport", "_LWFReportIndex")));
+            try
+            {
+                await PopulateViewBag();
+                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("LWFReport", "_LWFReportIndex")));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(LWFReportController)} action name {nameof(Index)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
         [HttpPost]
         public async Task<IActionResult> DownloadLWFReport(EmployeeSalaryRegisterVM model)
         {
-            System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
-            string strMonthName = mfi.GetMonthName(model.DateMonth).ToString();
+            try
+            {
+                System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                string strMonthName = mfi.GetMonthName(model.DateMonth).ToString();
 
-            var request = new LWFReportParams()
-            {
-                DateMonth = model.DateMonth,
-                DateYear = model.DateYear,
-                PTStateName = model.Name
-            };
-            var response = (await Task.Run(() => _ILWFReportRepository.GetAll<LWFReportVM>(SqlQuery.GetLWFReport, request))).ToList();
-            var sWebRootFolder = _IHostingEnviroment.WebRootPath;
-            var sFileName = @"LWFReport.xlsx";
-            var URL = string.Format("{0}://{1}/{2}", Request.Scheme, Request.Host, sFileName);
-            FileInfo file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
-            if (file.Exists)
-            {
-                file.Delete();
-                file = new FileInfo(fileName: Path.Combine(sWebRootFolder, sFileName));
+                var request = new LWFReportParams()
+                {
+                    DateMonth = model.DateMonth,
+                    DateYear = model.DateYear,
+                    PTStateName = model.Name
+                };
+                var response = (await Task.Run(() => _ILWFReportRepository.GetAll<LWFReportVM>(SqlQuery.GetLWFReport, request))).ToList();
+                var sWebRootFolder = _IHostingEnviroment.WebRootPath;
+                var sFileName = @"LWFReport.xlsx";
+                var URL = string.Format("{0}://{1}/{2}", Request.Scheme, Request.Host, sFileName);
+                FileInfo file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
+                if (file.Exists)
+                {
+                    file.Delete();
+                    file = new FileInfo(fileName: Path.Combine(sWebRootFolder, sFileName));
+                }
+                ExcelPackage Eps = new ExcelPackage();
+                ExcelWorksheet Sheets = Eps.Workbook.Worksheets.Add("LWF");
+                Sheets.Cells["A1:D1"].Merge = true;
+                using (ExcelRange Rng = Sheets.Cells["A1:D1"])
+                {
+                    Rng.Value = "LWF Report for the Month of  " + strMonthName + "  " + model.DateYear;
+                }
+                Sheets.Cells["A2"].Value = "Employee Code";
+                Sheets.Cells["B2"].Value = "Employee Name";
+                Sheets.Cells["C2"].Value = "P T State";
+                Sheets.Cells["D2"].Value = "LWF ";
+                int row = 3;
+                foreach (var data in response)
+                {
+                    Sheets.Cells[string.Format("A{0}", row)].Value = data.EmpCode;
+                    Sheets.Cells[string.Format("B{0}", row)].Value = data.EmployeeName;
+                    Sheets.Cells[string.Format("C{0}", row)].Value = data.PTStateName;
+                    Sheets.Cells[string.Format("D{0}", row)].Value = data.SalaryAmount;
+                    row++;
+                }
+                var stream = new MemoryStream(Eps.GetAsByteArray());
+                return File(stream.ToArray(), "application/vnd.ms-excel", sFileName);
             }
-            ExcelPackage Eps = new ExcelPackage();
-            ExcelWorksheet Sheets = Eps.Workbook.Worksheets.Add("LWF");
-            Sheets.Cells["A1:D1"].Merge = true;
-            using (ExcelRange Rng = Sheets.Cells["A1:D1"])
+            catch (Exception ex)
             {
-                Rng.Value = "LWF Report for the Month of  " + strMonthName + "  " + model.DateYear;
+                string template = $"Controller name {nameof(LWFReportController)} action name {nameof(DownloadLWFReport)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
-            Sheets.Cells["A2"].Value = "Employee Code";
-            Sheets.Cells["B2"].Value = "Employee Name";
-            Sheets.Cells["C2"].Value = "P T State";
-            Sheets.Cells["D2"].Value = "LWF ";
-            int row = 3;
-            foreach (var data in response)
-            {
-                Sheets.Cells[string.Format("A{0}", row)].Value = data.EmpCode;
-                Sheets.Cells[string.Format("B{0}", row)].Value = data.EmployeeName;
-                Sheets.Cells[string.Format("C{0}", row)].Value = data.PTStateName;
-                Sheets.Cells[string.Format("D{0}", row)].Value = data.SalaryAmount;
-                row++;
-            }
-            var stream = new MemoryStream(Eps.GetAsByteArray());
-            return File(stream.ToArray(), "application/vnd.ms-excel", sFileName);
 
         }
         private async Task PopulateViewBag()

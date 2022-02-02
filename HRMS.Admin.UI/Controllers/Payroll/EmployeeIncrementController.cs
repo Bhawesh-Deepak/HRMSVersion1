@@ -41,35 +41,53 @@ namespace HRMS.Admin.UI.Controllers.Payroll
         }
         public IActionResult Index()
         {
-            return View(ViewHelper.GetViewPathDetails("EmployeeIncrement", "_IncrementImport"));
+            try
+            {
+                return View(ViewHelper.GetViewPathDetails("EmployeeIncrement", "_IncrementImport"));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(EmployeeIncrementController)} action name {nameof(Index)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
         public async Task<IActionResult> DownloadExcelFormat()
         {
-            string sWebRootFolder = _IHostingEnviroment.WebRootPath;
-            string sFileName = @"EmployeeIncrement.xlsx";
-            string URL = string.Format("{0}://{1}/{2}", Request.Scheme, Request.Host, sFileName);
-            FileInfo file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
-            if (file.Exists)
+            try
             {
-                file.Delete();
-                file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
-            }
-            var response = await _ICtcComponentDetailRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted && x.ComponentValueType == 1);
-            string[] cells = { "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "AA", "AB", "AC", "AD", "AE", "AF", "AG" };
-            ExcelPackage Eps = new ExcelPackage();
-            ExcelWorksheet Sheets = Eps.Workbook.Worksheets.Add("Increment");
+                string sWebRootFolder = _IHostingEnviroment.WebRootPath;
+                string sFileName = @"EmployeeIncrement.xlsx";
+                string URL = string.Format("{0}://{1}/{2}", Request.Scheme, Request.Host, sFileName);
+                FileInfo file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
+                if (file.Exists)
+                {
+                    file.Delete();
+                    file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
+                }
+                var response = await _ICtcComponentDetailRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted && x.ComponentValueType == 1);
+                string[] cells = { "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "AA", "AB", "AC", "AD", "AE", "AF", "AG" };
+                ExcelPackage Eps = new ExcelPackage();
+                ExcelWorksheet Sheets = Eps.Workbook.Worksheets.Add("Increment");
 
-            Sheets.Cells["A1"].Value = "EmpCode";
-            Sheets.Cells["B1"].Value = "Effective Date";
-            Sheets.Cells["C1"].Value = "CTC";
-            int cell = 0;
-            foreach (var item in response.Entities)
-            {
-                Sheets.Cells[cells[cell] + "1"].Value = item.ComponentName.Trim();
-                cell++;
+                Sheets.Cells["A1"].Value = "EmpCode";
+                Sheets.Cells["B1"].Value = "Effective Date";
+                Sheets.Cells["C1"].Value = "CTC";
+                int cell = 0;
+                foreach (var item in response.Entities)
+                {
+                    Sheets.Cells[cells[cell] + "1"].Value = item.ComponentName.Trim();
+                    cell++;
+                }
+                var stream = new MemoryStream(Eps.GetAsByteArray());
+                return File(stream.ToArray(), "application/vnd.ms-excel", sFileName);
             }
-            var stream = new MemoryStream(Eps.GetAsByteArray());
-            return File(stream.ToArray(), "application/vnd.ms-excel", sFileName);
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(EmployeeIncrementController)} action name {nameof(DownloadExcelFormat)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
         [HttpPost]
         public async Task<IActionResult> UploadIncrement(UploadExcelVm model)
@@ -99,7 +117,7 @@ namespace HRMS.Admin.UI.Controllers.Payroll
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(EmployeeIncrementController)} action name {nameof(UploadIncrement)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(EmployeeIncrementController)} action name {nameof(UploadIncrement)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }

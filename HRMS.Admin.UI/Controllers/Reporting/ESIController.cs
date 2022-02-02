@@ -39,13 +39,24 @@ namespace HRMS.Admin.UI.Controllers.Reporting
         }
         public async Task<IActionResult> Index()
         {
-            await PopulateViewBag();
-            return await Task.Run(() => View(ViewHelper.GetViewPathDetails("ESIReports", "_ESIReportIndex")));
+            try
+            {
+                await PopulateViewBag();
+                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("ESIReports", "_ESIReportIndex")));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(ESIController)} action name {nameof(Index)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
         [HttpPost]
         public async Task<IActionResult> ExportESICReportDetails(EmployeeSalaryRegisterVM model)
         {
-            string empresponse = null;
+            try
+            {
+                string empresponse = null;
 
             if (model.UploadFile != null)
                 empresponse = new ReadEmployeeCode().GetSalaryRegisterEmpCodeDetails(model.UploadFile);
@@ -90,6 +101,13 @@ namespace HRMS.Admin.UI.Controllers.Reporting
             }
             var stream = new MemoryStream(Eps.GetAsByteArray());
             return File(stream.ToArray(), "application/vnd.ms-excel", "ESICReport.xlsx");
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(ESIController)} action name {nameof(ExportESICReportDetails)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
         private async Task PopulateViewBag()
         {

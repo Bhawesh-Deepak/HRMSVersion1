@@ -39,52 +39,71 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
             {
-                Serilog.Log.Error(ex, $"controller name  is {nameof(EmployeeAttendanceController)} action name {nameof(UploadAttendance)}");
-                return Json("Something wents wrong, Please contact admin !!!");
+                string template = $"Controller name {nameof(EmployeeAttendanceController)} action name {nameof(Index)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
         }
         public async Task<IActionResult> DownloadExcelFormat()
         {
-            string sWebRootFolder = _IHostingEnviroment.WebRootPath;
-            string sFileName = @"Month_Attendance.xlsx";
-            string URL = string.Format("{0}://{1}/{2}", Request.Scheme, Request.Host, sFileName);
-            FileInfo file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
-            if (file.Exists)
+            try
             {
-                file.Delete();
-                file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
-            }
-            ExcelPackage Eps = new ExcelPackage();
-            ExcelWorksheet Sheets = Eps.Workbook.Worksheets.Add("Attendance");
-            Sheets.Cells["A1"].Value = "DateMonth";
-            Sheets.Cells["B1"].Value = "DateYear";
-            Sheets.Cells["C1"].Value = "EmpCode";
-            Sheets.Cells["D1"].Value = "LopDays";
+                string sWebRootFolder = _IHostingEnviroment.WebRootPath;
+                string sFileName = @"Month_Attendance.xlsx";
+                string URL = string.Format("{0}://{1}/{2}", Request.Scheme, Request.Host, sFileName);
+                FileInfo file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
+                if (file.Exists)
+                {
+                    file.Delete();
+                    file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
+                }
+                ExcelPackage Eps = new ExcelPackage();
+                ExcelWorksheet Sheets = Eps.Workbook.Worksheets.Add("Attendance");
+                Sheets.Cells["A1"].Value = "DateMonth";
+                Sheets.Cells["B1"].Value = "DateYear";
+                Sheets.Cells["C1"].Value = "EmpCode";
+                Sheets.Cells["D1"].Value = "LopDays";
 
-            var stream = new MemoryStream(Eps.GetAsByteArray());
-            return File(stream.ToArray(), "application/vnd.ms-excel", sFileName);
+                var stream = new MemoryStream(Eps.GetAsByteArray());
+                return File(stream.ToArray(), "application/vnd.ms-excel", sFileName);
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(EmployeeAttendanceController)} action name {nameof(DownloadExcelFormat)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
         public async Task<IActionResult> DownloadExcelFormatBackData()
         {
-            string sWebRootFolder = _IHostingEnviroment.WebRootPath;
-            string sFileName = @"Month_AttendanceBackData.xlsx";
-            string URL = string.Format("{0}://{1}/{2}", Request.Scheme, Request.Host, sFileName);
-            FileInfo file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
-            if (file.Exists)
+            try
             {
-                file.Delete();
-                file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
+                string sWebRootFolder = _IHostingEnviroment.WebRootPath;
+                string sFileName = @"Month_AttendanceBackData.xlsx";
+                string URL = string.Format("{0}://{1}/{2}", Request.Scheme, Request.Host, sFileName);
+                FileInfo file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
+                if (file.Exists)
+                {
+                    file.Delete();
+                    file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
+                }
+                ExcelPackage Eps = new ExcelPackage();
+                ExcelWorksheet Sheets = Eps.Workbook.Worksheets.Add("Attendance");
+                Sheets.Cells["A1"].Value = "DateMonth";
+                Sheets.Cells["B1"].Value = "DateYear";
+                Sheets.Cells["C1"].Value = "EmpCode";
+                Sheets.Cells["D1"].Value = "LopDays";
+                Sheets.Cells["E1"].Value = "PresentDays";
+                Sheets.Cells["F1"].Value = "FinancialYear";
+                var stream = new MemoryStream(Eps.GetAsByteArray());
+                return File(stream.ToArray(), "application/vnd.ms-excel", sFileName);
             }
-            ExcelPackage Eps = new ExcelPackage();
-            ExcelWorksheet Sheets = Eps.Workbook.Worksheets.Add("Attendance");
-            Sheets.Cells["A1"].Value = "DateMonth";
-            Sheets.Cells["B1"].Value = "DateYear";
-            Sheets.Cells["C1"].Value = "EmpCode";
-            Sheets.Cells["D1"].Value = "LopDays";
-            Sheets.Cells["E1"].Value = "PresentDays";
-            Sheets.Cells["F1"].Value = "FinancialYear";
-            var stream = new MemoryStream(Eps.GetAsByteArray());
-            return File(stream.ToArray(), "application/vnd.ms-excel", sFileName);
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(EmployeeAttendanceController)} action name {nameof(DownloadExcelFormatBackData)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
         [HttpPost]
         public async Task<IActionResult> UploadAttendance(UploadExcelVm model)
@@ -111,8 +130,9 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
             {
-                Serilog.Log.Error(ex, $"controller name  is {nameof(EmployeeAttendanceController)} action name {nameof(UploadAttendance)}");
-                return Json("Something wents wrong, Please contact admin !!!");
+                string template = $"Controller name {nameof(EmployeeAttendanceController)} action name {nameof(UploadAttendance)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
 
         }
@@ -127,8 +147,9 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
             {
-                Serilog.Log.Error(ex, $"controller name  is {nameof(EmployeeAttendanceController)} action name {nameof(UploadAttendance)}");
-                return Json("Something wents wrong, Please contact admin !!!");
+                string template = $"Controller name {nameof(EmployeeAttendanceController)} action name {nameof(UploadAttendanceBackData)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
 
         }

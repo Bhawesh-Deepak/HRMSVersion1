@@ -45,7 +45,35 @@ namespace HRMS.Admin.UI.Controllers.Reporting
         [HttpPost]
         public async Task<IActionResult> ExportSalaryRegister(PaidRegister model)
         {
-            return await Task.Run(() => View(ViewHelper.GetViewPathDetails("SalaryPaidRegister", "_SalaryPaidRegister")));
+ 
+            try
+            {
+                var response = await _IPaidRegisterRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted && x.DateMonth == model.DateMonth && x.DateYear == model.DateYear);
+
+            var net = new System.Net.WebClient();
+             
+            var data = net.DownloadData(_IHostingEnviroment.WebRootPath + response.Entities.FirstOrDefault().UploadFilePath);
+            var content = new System.IO.MemoryStream(data);
+            var contentType = "APPLICATION/octet-stream";
+            var fileName = "SalaryPaidRegister_"+model.DateMonth+"_"+model.DateYear+ ".xlsx";
+            return File(content, contentType, fileName);
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(SalaryPaidRegisterController)} action name {nameof(DownloadSalaryPaidRegister)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
+
+            // return await Task.Run(() => View(ViewHelper.GetViewPathDetails("SalaryPaidRegister", "_SalaryPaidRegister")));
+        }
+        private async Task PopulateViewBag()
+        {
+            var assesmentyearResponse = await _IAssesmentYearRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+            if (assesmentyearResponse.ResponseStatus == ResponseStatus.Success)
+                ViewBag.AssesmentYearList = assesmentyearResponse.Entities;
+
+ 
         }
     }
 }

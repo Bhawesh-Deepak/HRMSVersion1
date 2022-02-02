@@ -36,7 +36,7 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(LocationType)} action name {nameof(Index)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(LocationType)} action name {nameof(Index)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -54,7 +54,7 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(LocationType)} action name {nameof(GetLocationTypeList)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(LocationType)} action name {nameof(GetLocationTypeList)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -76,7 +76,7 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(LocationType)} action name {nameof(CreateLocationType)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(LocationType)} action name {nameof(CreateLocationType)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -100,7 +100,7 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(LocationType)} action name {nameof(UpsertLocationType)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(LocationType)} action name {nameof(UpsertLocationType)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -121,7 +121,7 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(LocationType)} action name {nameof(DeleteLocationType)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(LocationType)} action name {nameof(DeleteLocationType)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }

@@ -75,81 +75,122 @@ namespace HRMS.Admin.UI.Controllers.Payroll
         }
         public async Task<IActionResult> Index()
         {
-            EmployeeDetailParams searchModelEntity = new EmployeeDetailParams();
-            searchModelEntity.PageNo = 1;
-            searchModelEntity.PageSize = 10;
-            searchModelEntity.SortColumn = string.Empty;
-            searchModelEntity.SortOrder = string.Empty;
-            searchModelEntity.IsActive = true;
+            try
+            {
+                EmployeeDetailParams searchModelEntity = new EmployeeDetailParams();
+                searchModelEntity.PageNo = 1;
+                searchModelEntity.PageSize = 10;
+                searchModelEntity.SortColumn = string.Empty;
+                searchModelEntity.SortOrder = string.Empty;
+                searchModelEntity.IsActive = true;
 
-            PagingSortingHelper.PopulateModelForPagging(searchModelEntity, PageSize.Size10, 10, string.Empty, string.Empty);
-            var response = _IEmployeeRepository.GetAll<EmployeeDetailVm>(SqlQuery.GetEmployeeDetails, searchModelEntity);
+                PagingSortingHelper.PopulateModelForPagging(searchModelEntity, PageSize.Size10, 10, string.Empty, string.Empty);
+                var response = _IEmployeeRepository.GetAll<EmployeeDetailVm>(SqlQuery.GetEmployeeDetails, searchModelEntity);
 
-            PagingSortingHelper.PupulateModelToDisplayPagging(response?.First(), PageSize.Size10, 1, string.Empty, string.Empty);
+                PagingSortingHelper.PupulateModelToDisplayPagging(response?.First(), PageSize.Size10, 1, string.Empty, string.Empty);
 
-            response.First().SortBy = "Name";
-            await PopulateViewBag();
+                response.First().SortBy = "Name";
+                await PopulateViewBag();
 
-            ViewBag.HeaderTitle = PageHeader.HeaderSetting["EmployeeDetailIndex"];
+                ViewBag.HeaderTitle = PageHeader.HeaderSetting["EmployeeDetailIndex"];
 
-            return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeeDetail", "EmployeeDetailIndex"), response));
+                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeeDetail", "EmployeeDetailIndex"), response));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(EmployeeDetailController)} action name {nameof(Index)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> GetFilteredData(EmployeeDetailParams searchModelEntity, string sortBy, int pageIndex, PageSize pageSize, string sortOrder)
         {
-            searchModelEntity.PageNo = pageIndex;
-            searchModelEntity.PageSize = (int)pageSize;
-            searchModelEntity.SortColumn = sortBy;
-            searchModelEntity.SortOrder = sortOrder;
-            searchModelEntity.IsActive = true;
+            try
+            {
+                searchModelEntity.PageNo = pageIndex;
+                searchModelEntity.PageSize = (int)pageSize;
+                searchModelEntity.SortColumn = sortBy;
+                searchModelEntity.SortOrder = sortOrder;
+                searchModelEntity.IsActive = true;
 
-            PagingSortingHelper.PopulateModelForPagging(searchModelEntity, pageSize, pageIndex, sortBy, sortOrder);
-            var response = _IEmployeeRepository.GetAll<EmployeeDetailVm>(SqlQuery.GetEmployeeDetails, searchModelEntity);
+                PagingSortingHelper.PopulateModelForPagging(searchModelEntity, pageSize, pageIndex, sortBy, sortOrder);
+                var response = _IEmployeeRepository.GetAll<EmployeeDetailVm>(SqlQuery.GetEmployeeDetails, searchModelEntity);
 
-            PagingSortingHelper.PupulateModelToDisplayPagging(response?.First(), PageSize.Size10, pageIndex, sortBy, sortOrder);
+                PagingSortingHelper.PupulateModelToDisplayPagging(response?.First(), PageSize.Size10, pageIndex, sortBy, sortOrder);
 
-            response.First().SortBy = sortBy;
-            return await Task.Run(() => PartialView(ViewHelper.GetViewPathDetails("EmployeeDetail", "EmployeeFilteredList"), response));
+                response.First().SortBy = sortBy;
+                return await Task.Run(() => PartialView(ViewHelper.GetViewPathDetails("EmployeeDetail", "EmployeeFilteredList"), response));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(EmployeeDetailController)} action name {nameof(GetFilteredData)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
 
         public async Task<IActionResult> GetActiveInActiveDetails(int status)
         {
-            var response = (await _IEmployeeDetailRepository.GetAllEntities(null)).Entities;
+            try
+            {
+                var response = (await _IEmployeeDetailRepository.GetAllEntities(null)).Entities;
 
-            bool statusValue = status != 0;
+                bool statusValue = status != 0;
 
-            response = response.Where(x => x.IsActive == Convert.ToBoolean(statusValue)).ToList();
+                response = response.Where(x => x.IsActive == Convert.ToBoolean(statusValue)).ToList();
 
-            HttpContext.Session.SetObjectAsJson("EmpDetail", response.ToList());
+                HttpContext.Session.SetObjectAsJson("EmpDetail", response.ToList());
 
-            return await Task.Run(() => PartialView(ViewHelper.GetViewPathDetails("EmployeeDetail", "EmployeeFilteredList"), response.ToList()));
+                return await Task.Run(() => PartialView(ViewHelper.GetViewPathDetails("EmployeeDetail", "EmployeeFilteredList"), response.ToList()));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(EmployeeDetailController)} action name {nameof(GetActiveInActiveDetails)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
         public async Task<IActionResult> ExportToExcel()
         {
-            var models = HttpContext.Session.GetObjectFromJson<List<EmployeeDetail>>("EmpDetail");
-
-
-            var dataTable = ListToDataTable.GetDataTableFromList<EmployeeDetail>(models.ToList());
-
-            string fileName = "Employee Directory.xlsx";
-
-            using XLWorkbook wb = new XLWorkbook();
-            wb.Worksheets.Add(dataTable);
-            using MemoryStream stream = new MemoryStream();
-            wb.SaveAs(stream);
-            return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+            try
+            {
+                var models = HttpContext.Session.GetObjectFromJson<List<EmployeeDetail>>("EmpDetail");
+                var dataTable = ListToDataTable.GetDataTableFromList<EmployeeDetail>(models.ToList());
+                string fileName = "Employee Directory.xlsx";
+                using XLWorkbook wb = new XLWorkbook();
+                wb.Worksheets.Add(dataTable);
+                using MemoryStream stream = new MemoryStream();
+                wb.SaveAs(stream);
+                return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(EmployeeDetailController)} action name {nameof(ExportToExcel)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
         public async Task<IActionResult> Edit(int Id)
         {
-            await PopulateViewBag();
-            var empParams = new EmployeeSingleDetailParam()
+            try
             {
-                Id = Id
-            };
-            var response = _IEmployeeSingleDetailRepository.GetAll<EmployeeDetail>(SqlQuery.GetEmployeeSingleDetails, empParams);
+                await PopulateViewBag();
+                var empParams = new EmployeeSingleDetailParam()
+                {
+                    Id = Id
+                };
+                var response = _IEmployeeSingleDetailRepository.GetAll<EmployeeDetail>(SqlQuery.GetEmployeeSingleDetails, empParams);
 
-            return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeeDetail", "EditEmployeeDetail"),response.FirstOrDefault()));
+                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeeDetail", "EditEmployeeDetail"),response.FirstOrDefault()));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(EmployeeDetailController)} action name {nameof(Edit)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
         #region PrivateFields
         private async Task PopulateViewBag()

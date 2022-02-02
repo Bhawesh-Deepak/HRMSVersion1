@@ -40,7 +40,7 @@ namespace HRMS.Admin.UI.Controllers.Payroll
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(InternalTransferController)} action name {nameof(Index)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(InternalTransferController)} action name {nameof(Index)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -55,7 +55,7 @@ namespace HRMS.Admin.UI.Controllers.Payroll
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(InternalTransferController)} action name {nameof(GetEmployeeDetail)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(InternalTransferController)} action name {nameof(GetEmployeeDetail)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -91,7 +91,7 @@ namespace HRMS.Admin.UI.Controllers.Payroll
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(InternalTransferController)} action name {nameof(UpdateInternalTransfer)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(InternalTransferController)} action name {nameof(UpdateInternalTransfer)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }

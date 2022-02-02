@@ -26,35 +26,53 @@ namespace HRMS.Admin.UI.Controllers.Dashboard
         }
         public async Task<IActionResult> Index()
         {
-            var subsidiarymodel = await _ISubsidiaryRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
-            var companymodel = await _ICompanyRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
-            var response = (from subsidiary in subsidiarymodel.Entities
-                            join company in companymodel.Entities
-                            on subsidiary.OrganisationId equals company.Id
-                            select new SubsidiaryVM
-                            {
-                                Id = subsidiary.Id,
-                                CompanyName = company.Name,
-                                CompanyLogo = company.Logo,
-                                CompanyCode = company.Code,
-                                Name = subsidiary.Name,
-                                Code = subsidiary.Code,
-                                Logo = subsidiary.Logo
-                            }).ToList();
+            try
+            {
+                var subsidiarymodel = await _ISubsidiaryRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+                var companymodel = await _ICompanyRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+                var response = (from subsidiary in subsidiarymodel.Entities
+                                join company in companymodel.Entities
+                                on subsidiary.OrganisationId equals company.Id
+                                select new SubsidiaryVM
+                                {
+                                    Id = subsidiary.Id,
+                                    CompanyName = company.Name,
+                                    CompanyLogo = company.Logo,
+                                    CompanyCode = company.Code,
+                                    Name = subsidiary.Name,
+                                    Code = subsidiary.Code,
+                                    Logo = subsidiary.Logo
+                                }).ToList();
 
-            return await Task.Run(() => View(ViewHelper.GetViewPathDetails("Dashboard", "Dashboard"), response));
+                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("Dashboard", "Dashboard"), response));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(DashboardController)} action name {nameof(Index)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> SetSessionValue(int id)
         {
-            await Task.Run(() =>
+            try
             {
-                HttpContext.Session.SetString("SubsidryId", id.ToString());
-                var options = new CookieOptions { Expires = DateTime.Now.AddHours(36) };
-                Response.Cookies.Append("Id",id.ToString(), options);
-            });
+                await Task.Run(() =>
+                {
+                    HttpContext.Session.SetString("SubsidryId", id.ToString());
+                    var options = new CookieOptions { Expires = DateTime.Now.AddHours(36) };
+                    Response.Cookies.Append("Id", id.ToString(), options);
+                });
 
-            return Json(true);
+                return Json(true);
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(DashboardController)} action name {nameof(SetSessionValue)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
     }
 }

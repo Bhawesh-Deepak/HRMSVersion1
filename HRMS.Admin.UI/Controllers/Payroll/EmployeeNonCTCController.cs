@@ -31,35 +31,53 @@ namespace HRMS.Admin.UI.Controllers.Payroll
         }
         public IActionResult Index()
         {
-            return View(ViewHelper.GetViewPathDetails("NonCTC", "NonCTCCreate"));
+            try
+            {
+                return View(ViewHelper.GetViewPathDetails("NonCTC", "NonCTCCreate"));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(EmployeeNonCTCController)} action name {nameof(Index)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> DownloadExcelFormat()
         {
-            string sWebRootFolder = _IHostingEnviroment.WebRootPath;
-            string sFileName = @"EmployeeNonCTC.xlsx";
-            string URL = string.Format("{0}://{1}/{2}", Request.Scheme, Request.Host, sFileName);
-            FileInfo file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
-            if (file.Exists)
+            try
             {
-                file.Delete();
-                file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
+                string sWebRootFolder = _IHostingEnviroment.WebRootPath;
+                string sFileName = @"EmployeeNonCTC.xlsx";
+                string URL = string.Format("{0}://{1}/{2}", Request.Scheme, Request.Host, sFileName);
+                FileInfo file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
+                if (file.Exists)
+                {
+                    file.Delete();
+                    file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
+                }
+                var response = await _ICtcComponentDetailRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted && x.ComponentValueType == 3);
+                string[] cells = { "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "AA", "AB", "AC", "AD", "AE", "AF", "AG" };
+                ExcelPackage Eps = new ExcelPackage();
+                ExcelWorksheet Sheets = Eps.Workbook.Worksheets.Add("non-ctc");
+                Sheets.Cells["A1"].Value = "Month";
+                Sheets.Cells["B1"].Value = "Year";
+                Sheets.Cells["C1"].Value = "EmpCode";
+                int cell = 0;
+                foreach (var item in response.Entities)
+                {
+                    Sheets.Cells[cells[cell] + "1"].Value = item.ComponentName.Trim();
+                    cell++;
+                }
+                var stream = new MemoryStream(Eps.GetAsByteArray());
+                return File(stream.ToArray(), "application/vnd.ms-excel", sFileName);
             }
-            var response = await _ICtcComponentDetailRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted && x.ComponentValueType == 3);
-            string[] cells = { "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "AA", "AB", "AC", "AD", "AE", "AF", "AG" };
-            ExcelPackage Eps = new ExcelPackage();
-            ExcelWorksheet Sheets = Eps.Workbook.Worksheets.Add("non-ctc");
-            Sheets.Cells["A1"].Value = "Month";
-            Sheets.Cells["B1"].Value = "Year";
-            Sheets.Cells["C1"].Value = "EmpCode";
-            int cell = 0;
-            foreach (var item in response.Entities)
+            catch (Exception ex)
             {
-                Sheets.Cells[cells[cell] + "1"].Value = item.ComponentName.Trim();
-                cell++;
+                string template = $"Controller name {nameof(EmployeeNonCTCController)} action name {nameof(DownloadExcelFormat)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
-            var stream = new MemoryStream(Eps.GetAsByteArray());
-            return File(stream.ToArray(), "application/vnd.ms-excel", sFileName);
         }
 
         [HttpPost]
@@ -78,7 +96,9 @@ namespace HRMS.Admin.UI.Controllers.Payroll
             }
             catch (Exception ex)
             {
-                string message = ex.Message;
+                string template = $"Controller name {nameof(EmployeeNonCTCController)} action name {nameof(UploadNonCTCComponent)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
             return Json("");
         }

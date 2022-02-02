@@ -39,15 +39,25 @@ namespace HRMS.Admin.UI.Controllers.Reporting
 
         public async Task<IActionResult> Index()
         {
-            await PopulateViewBag();
-            return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeePaySlip", "_EmployeePaySlip")));
+            try
+            {
+                await PopulateViewBag();
+                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeePaySlip", "_EmployeePaySlip")));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(EmployeePaySlipController)} action name {nameof(Index)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
       
         [HttpPost]
         public async Task<IActionResult> DownloadPaySlip(EmployeeSalaryRegisterVM model)
         {
-            string empresponse = null;
-
+            try
+            {
+                string empresponse = null;
             if (model.UploadFile != null && model.EmployeeCode == null)
                 empresponse = new ReadEmployeeCode().GetSalaryRegisterEmpCodeDetails(model.UploadFile);
 
@@ -68,10 +78,11 @@ namespace HRMS.Admin.UI.Controllers.Reporting
             {
                 FileName = strMonthName + "_" + model.DateYear + "_PaySlip.pdf",
 
+ 
             };
             return responsepdf;
 
-            //   return PartialView(ViewHelper.GetViewPathDetails("EmployeePaySlip", "_PaySlip"), response);
+            
         }
         #region PrivateFields
         private async Task PopulateViewBag()

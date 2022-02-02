@@ -39,7 +39,7 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(AnnouncementAndUpdate)} action name {nameof(Index)} exception is {ex.Message}";
+                string template = $"Controller name {nameof(AnnouncementAndUpdateController)} action name {nameof(Index)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -71,7 +71,7 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(AnnouncementAndUpdate)} action name {nameof(GetAnnounceandupdateList)} exception is {ex.Message}";
+                string template = $"Controller name {nameof(AnnouncementAndUpdateController)} action name {nameof(GetAnnounceandupdateList)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -96,7 +96,7 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(AnnouncementAndUpdate)} action name {nameof(AnnounceandupdateCreate)} exception is {ex.Message}";
+                string template = $"Controller name {nameof(AnnouncementAndUpdateController)} action name {nameof(AnnounceandupdateCreate)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -120,7 +120,7 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(AnnouncementAndUpdate)} action name {nameof(UpsertAnnouncementandupdate)} exception is {ex.Message}";
+                string template = $"Controller name {nameof(AnnouncementAndUpdateController)} action name {nameof(UpsertAnnouncementandupdate)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -141,7 +141,7 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
            {
-                string template = $"Controller name {nameof(AnnouncementAndUpdate)} action name {nameof(DeleteAnnouncementandupdate)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(AnnouncementAndUpdateController)} action name {nameof(DeleteAnnouncementandupdate)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }

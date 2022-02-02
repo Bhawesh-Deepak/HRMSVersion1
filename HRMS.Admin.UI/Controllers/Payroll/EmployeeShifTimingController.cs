@@ -29,12 +29,12 @@ namespace HRMS.Admin.UI.Controllers.Payroll
             try
             {
                 await PopulateViewBag();
-            ViewBag.HeaderTitle = PageHeader.HeaderSetting["EmployeeShifTimingIndex"];
-            return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeeShifTiming", "EmployeeShifTimingIndex")));
+                ViewBag.HeaderTitle = PageHeader.HeaderSetting["EmployeeShifTimingIndex"];
+                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeeShifTiming", "EmployeeShifTimingIndex")));
              }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(EmployeeShifTimingController)} action name {nameof(Index)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(EmployeeShifTimingController)} action name {nameof(Index)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -44,12 +44,12 @@ namespace HRMS.Admin.UI.Controllers.Payroll
             try
             {
                 await PopulateShiftViewBag();
-            var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.Id == Id);
-            return PartialView(ViewHelper.GetViewPathDetails("EmployeeShifTiming", "EmployeeDetail"), response.Entities.First());
+                var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.Id == Id);
+                return PartialView(ViewHelper.GetViewPathDetails("EmployeeShifTiming", "EmployeeDetail"), response.Entities.First());
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(EmployeeShifTimingController)} action name {nameof(GetEmployeeDetail)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(EmployeeShifTimingController)} action name {nameof(GetEmployeeDetail)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -81,7 +81,7 @@ namespace HRMS.Admin.UI.Controllers.Payroll
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(EmployeeShifTimingController)} action name {nameof(UpdateShiftTiming)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(EmployeeShifTimingController)} action name {nameof(UpdateShiftTiming)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }

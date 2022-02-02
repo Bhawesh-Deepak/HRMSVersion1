@@ -32,33 +32,69 @@ namespace HRMS.Admin.UI.Controllers.Posting
 
         public async Task<IActionResult> Index()
         {
-            ViewBag.HeaderTitle = PageHeader.HeaderSetting["CurrentOpeningIndex"];
+            try
+            {
+                ViewBag.HeaderTitle = PageHeader.HeaderSetting["CurrentOpeningIndex"];
 
-            return await Task.Run(() => View(ViewHelper.GetViewPathDetails("CurrentOpening", "CurrentOpeningIndex")));
+                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("CurrentOpening", "CurrentOpeningIndex")));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(CurrentOpeningController)} action name {nameof(Index)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> GetOpeningDetails()
         {
-            var response = await _ICurrentOpeningRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
-            return PartialView(ViewHelper.GetViewPathDetails("CurrentOpening", "CurrentOpeningDetails"), response.Entities);
+            try
+            {
+                var response = await _ICurrentOpeningRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+                return PartialView(ViewHelper.GetViewPathDetails("CurrentOpening", "CurrentOpeningDetails"), response.Entities);
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(CurrentOpeningController)} action name {nameof(GetOpeningDetails)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> CreateOpening(int id)
         {
-            var response = await _ICurrentOpeningRepository.GetAllEntityById(x => x.Id == id);
-            return PartialView(ViewHelper.GetViewPathDetails("CurrentOpening", "CurrentOpeningCreate"), response.Entity);
+            try
+            {
+                var response = await _ICurrentOpeningRepository.GetAllEntityById(x => x.Id == id);
+                return PartialView(ViewHelper.GetViewPathDetails("CurrentOpening", "CurrentOpeningCreate"), response.Entity);
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(CurrentOpeningController)} action name {nameof(CreateOpening)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> UpSertOpening(CurrentOpening model, IFormFile PdfFile)
         {
-            model.DescriptionPath = PdfFile == null ? model.DescriptionPath : await UploadPDFFile(PdfFile);
+            try
+            {
+                model.DescriptionPath = PdfFile == null ? model.DescriptionPath : await UploadPDFFile(PdfFile);
 
-            var response = model.Id == 0 ? await CreateOpeningDb(model) : await UpdateOpeningDb(model);
+                var response = model.Id == 0 ? await CreateOpeningDb(model) : await UpdateOpeningDb(model);
 
-            return Json(response);
+                return Json(response);
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(CurrentOpeningController)} action name {nameof(UpSertOpening)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> DeleteOpening(int id)
@@ -80,8 +116,9 @@ namespace HRMS.Admin.UI.Controllers.Posting
             }
             catch (Exception ex)
             {
-                Serilog.Log.Error(ex, $"COntroller name is {nameof(CurrentOpeningController)} action name {nameof(DeleteOpening)}");
-                return Json("Something wents wrong, Please contact admin team.");
+                string template = $"Controller name {nameof(CurrentOpeningController)} action name {nameof(DeleteOpening)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
         }
 
