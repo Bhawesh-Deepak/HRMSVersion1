@@ -114,7 +114,7 @@ namespace HRMS.Admin.UI.Controllers.Master
                     var response = await _IAnnoucementandupdateRepository.CreateEntity(model);
                     return Json(response.Message);
                 }
-                else
+                else 
                 {
                     var response = await _IAnnoucementandupdateRepository.UpdateEntity(model);
                     return Json(response.Message);
