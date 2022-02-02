@@ -14,7 +14,7 @@ namespace HRMS.Core.Entities.Common
     /// <summary>
     /// This is the context class which is used to connect to database
     /// </summary>
-    public class HRMSContext: DbContext
+    public class HRMSContext : DbContext
     {
         private readonly string _connectionString;
 
@@ -23,7 +23,7 @@ namespace HRMS.Core.Entities.Common
             _connectionString = configuration.GetSection("ConnectionStrings:DefaultConnection").Value;
         }
 
-        public HRMSContext(IConfiguration configuration,string dbName)
+        public HRMSContext(IConfiguration configuration, string dbName)
         {
             _connectionString = configuration.GetSection($"ConnectionStrings:{dbName}").Value;
         }
@@ -60,7 +60,7 @@ namespace HRMS.Core.Entities.Common
         public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<Subsidiary> Subsidiarys { get; set; }
         public virtual DbSet<CompanyHolidays> CompanyHolidays { get; set; }
-        public virtual DbSet<StateMaster> StateMasters  { get; set; }
+        public virtual DbSet<StateMaster> StateMasters { get; set; }
         public virtual DbSet<EmployeeType> EmployeeTypes { get; set; }
         public virtual DbSet<LocationType> LocationTypes { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
@@ -86,7 +86,7 @@ namespace HRMS.Core.Entities.Common
         public virtual DbSet<EmployeeTDSSummery> EmployeeTDSSummerys { get; set; }
         public virtual DbSet<PaidRegister> PaidRegisters { get; set; }
         public virtual DbSet<LeaveType> LeaveTypes { get; set; }
-
+        public virtual DbSet<LeaveAllocation> LeaveAllocations { get; set; }
         #endregion
     }
 }
