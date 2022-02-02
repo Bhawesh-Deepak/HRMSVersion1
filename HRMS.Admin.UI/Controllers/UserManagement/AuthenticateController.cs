@@ -86,7 +86,7 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
                         HttpContext.Session.SetString("RoleId", response.Entities.First().RoleId.ToString());
                         HttpContext.Session.SetString("financialYearId", assesmentYear.Entities.First().Id.ToString());
                         HttpContext.Session.SetString("financialYear", assesmentYear.Entities.First().Name.ToString());
-
+                        HttpContext.Session.SetString("EmpCode", employeeDetails.Entities.First().EmpCode.ToString());
                         if (!string.IsNullOrEmpty(returnurl))
                         {
                             return Redirect(returnurl);
@@ -104,6 +104,7 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
                         HttpContext.Session.SetString("RoleId", response.Entities.First().RoleId.ToString());
                         HttpContext.Session.SetString("financialYearId", assesmentYear.Entities.First().Id.ToString());
                         HttpContext.Session.SetString("financialYear", assesmentYear.Entities.First().Name.ToString());
+                        HttpContext.Session.SetString("EmpCode", employeeDetails.Entities.First().EmpCode.ToString());
                         if (!string.IsNullOrEmpty(returnurl))
                         {
                             return Redirect(returnurl);

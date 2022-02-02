@@ -87,6 +87,8 @@ namespace HRMS.Core.Entities.Common
         public virtual DbSet<PaidRegister> PaidRegisters { get; set; }
         public virtual DbSet<LeaveType> LeaveTypes { get; set; }
         public virtual DbSet<LeaveAllocation> LeaveAllocations { get; set; }
+
+        public virtual DbSet<EmployeeReimbursement> EmployeeReimbursements { get; set; }
         #endregion
     }
 }
