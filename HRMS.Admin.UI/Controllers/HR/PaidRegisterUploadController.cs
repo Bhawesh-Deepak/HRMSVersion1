@@ -16,7 +16,9 @@ using HRMS.Admin.UI.AuthenticateService;
 
 namespace HRMS.Admin.UI.Controllers.HR
 {
+ 
     [CustomAuthenticate]
+ 
     [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class PaidRegisterUploadController : Controller
     {
