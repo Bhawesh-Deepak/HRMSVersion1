@@ -22,6 +22,7 @@ namespace HRMS.Core.Entities.Master
         [Display(Prompt = "Announcement")]
         public string Announcement { get; set; }
 
+
         [Required(ErrorMessage = "this field is required")]
         public DateTime AnnouncementDate { get; set; }
         [Required(ErrorMessage = "this field is required")]
