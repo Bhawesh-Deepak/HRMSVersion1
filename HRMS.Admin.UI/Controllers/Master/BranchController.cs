@@ -114,7 +114,8 @@ namespace HRMS.Admin.UI.Controllers.Master
             model.Logo = await new BlobHelper().UploadImageToFolder(Logo, _IHostingEnviroment);
             if (model.Id == 0)
             {
-                var response = await _IBranchRepository.CreateEntity(model);
+                    model.FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
+                    var response = await _IBranchRepository.CreateEntity(model);
                 return Json(response.Message);
             }
             else

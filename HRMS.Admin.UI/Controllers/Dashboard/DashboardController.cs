@@ -65,6 +65,7 @@ namespace HRMS.Admin.UI.Controllers.Dashboard
                     Response.Cookies.Append("Id", id.ToString(), options);
                 });
 
+
                 return Json(true);
             }
             catch (Exception ex)

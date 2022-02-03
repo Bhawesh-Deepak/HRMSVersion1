@@ -83,6 +83,7 @@ namespace HRMS.Admin.UI.Controllers.Posting
         {
             try
             {
+                model.FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
                 model.DescriptionPath = PdfFile == null ? model.DescriptionPath : await UploadPDFFile(PdfFile);
 
                 var response = model.Id == 0 ? await CreateOpeningDb(model) : await UpdateOpeningDb(model);

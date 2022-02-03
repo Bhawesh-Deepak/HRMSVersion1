@@ -3,6 +3,7 @@ using HRMS.Admin.UI.Helpers;
 using HRMS.Core.Entities.Master;
 using HRMS.Core.Helpers.CommonHelper;
 using HRMS.Services.Repository.GenericRepository;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
@@ -85,6 +86,7 @@ namespace HRMS.Admin.UI.Controllers.Master
                 model.CreatedDate = DateTime.Now;
                 if (model.Id == 0)
                 {
+                    model.FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
                     var response = await _IRoleMasterRepository.CreateEntity(model);
                     return Json(new DBResponseHelper<RoleMaster, int>().GetDBResponseHelper(response).message);
                 }

@@ -94,6 +94,7 @@ namespace HRMS.Admin.UI.Controllers.HR
                 model.UploadFilePath = await new BlobHelper().UploadImageToFolder(UploadFilePath, _IHostingEnviroment);
                 if (model.Id == 0)
                 {
+                    model.FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
                     var response = await _IPaidRegisterUploadRepository.CreateEntity(model);
                     return Json(response.Message);
                 }
