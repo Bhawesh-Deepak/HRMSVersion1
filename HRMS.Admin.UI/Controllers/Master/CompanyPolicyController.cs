@@ -108,18 +108,28 @@ namespace HRMS.Admin.UI.Controllers.Master
         {
             try
             {
-            model.DocumentUrl= await new BlobHelper().UploadImageToFolder(DocumentUrl, _IHostingEnviroment);
-            if (model.Id == 0)
-            {
-                    model.FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
-                    var response = await _ICompanyPolicyRepository.CreateEntity(model);
+                model.DocumentUrl = await new BlobHelper().UploadImageToFolder(DocumentUrl, _IHostingEnviroment);
+                List<int> DepartmentList = new List<int>();
+                DepartmentList.AddRange(DepartmentId);
+                Core.ReqRespVm.Response.GenericResponse<CompanyPolicy, int> response = null;
+                if (model.Id == 0)
+                {
+
+                    foreach (var depid in DepartmentList)
+                    {
+                        model.FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
+                        model.Id = 0;
+                        model.DepartmentId = depid;
+                        response = await _ICompanyPolicyRepository.CreateEntity(model);
+
+                    }
                     return Json(response.Message);
-            }
-            else
-            {
-                var response = await _ICompanyPolicyRepository.UpdateEntity(model);
-                return Json(response.Message);
-            }
+                }
+                else
+                {
+                    response = await _ICompanyPolicyRepository.UpdateEntity(model);
+                    return Json(response.Message);
+                }
             }
             catch (Exception ex)
             {
