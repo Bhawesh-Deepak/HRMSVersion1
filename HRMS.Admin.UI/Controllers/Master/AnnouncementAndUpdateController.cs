@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using HRMS.Core.Entities.Organisation;
 using HRMS.Admin.UI.AuthenticateService;
 using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 
 namespace HRMS.Admin.UI.Controllers.Master
 {
@@ -104,17 +105,32 @@ namespace HRMS.Admin.UI.Controllers.Master
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpsertAnnouncementandupdate(AnnouncementAndUpdate model)
+        public async Task<IActionResult> UpsertAnnouncementandupdate(AnnouncementAndUpdate model, List<int> DepartmentId)
         {
             try
             {
+                List<AnnouncementAndUpdate> annandupd = new List<AnnouncementAndUpdate>();
                 if (model.Id == 0)
                 {
-                    model.FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
-                    var response = await _IAnnoucementandupdateRepository.CreateEntity(model);
+                    foreach (var data in DepartmentId)
+                    {
+                        annandupd.Add(new AnnouncementAndUpdate()
+                        {
+                            FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId")),
+                            DepartmentId = data,
+                            Announcement = model.Announcement,
+                            BranchId = model.BranchId,
+                            AnnouncementDate = model.AnnouncementDate,
+                            ApplicableDate = model.ApplicableDate,
+                            CreatedBy = Convert.ToInt32(HttpContext.Session.GetString("empId")),
+                            CreatedDate = DateTime.Now,
+                        });
+                    }
+
+                    var response = await _IAnnoucementandupdateRepository.CreateEntities(annandupd.ToArray());
                     return Json(response.Message);
                 }
-                else 
+                else
                 {
                     var response = await _IAnnoucementandupdateRepository.UpdateEntity(model);
                     return Json(response.Message);

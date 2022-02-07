@@ -12,11 +12,11 @@ namespace HRMS.Core.Entities.LeadManagement
     [Table("LeadType", Schema = "LeadManagement")]
     public class LeadType:BaseModel<int>
     {
-        [Required(ErrorMessage = "this field is required.")]
+        [Required(ErrorMessage = "This field is required.")]
         public string Name { get; set; }
-        [Required(ErrorMessage = "this field is required.")]
+        [Required(ErrorMessage = "This field is required.")]
         public string Code { get; set; }
-        [Required(ErrorMessage = "this field is required.")]
+        [Required(ErrorMessage = "This field is required.")]
         public string Description { get; set; }
     }
 }

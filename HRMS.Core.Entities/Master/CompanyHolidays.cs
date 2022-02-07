@@ -16,10 +16,10 @@ namespace HRMS.Core.Entities.Master
        
         public int StateId { get; set; }
         
-        [Required(ErrorMessage = "this field is required")]
+        [Required(ErrorMessage = "This field is required.")]
         [Display(Prompt = "Holiday Name")]
         public string Name { get; set; }
-        [Required(ErrorMessage = "this field is required")]
+        [Required(ErrorMessage = "This field is required.")]
         [DataType(DataType.Date)]
         public DateTime HolidayDate { get; set; }
     }

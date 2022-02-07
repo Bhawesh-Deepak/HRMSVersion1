@@ -12,10 +12,10 @@ namespace HRMS.Core.Entities.Master
     [Table("LeaveType", Schema = "Master")]
     public class LeaveType : BaseModel<int>
     {
-        [Required(ErrorMessage = "this field is required")]
+        [Required(ErrorMessage = "This field is required.")]
         [Display(Prompt = "Laeve Type")]
         public string Name { get; set; }
-        [Required(ErrorMessage = "this field is required")]
+        [Required(ErrorMessage = "This field is required.")]
         [Display(Prompt = "Leave Code")]
         public string Code { get; set; }
     }

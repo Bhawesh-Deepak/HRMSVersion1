@@ -12,7 +12,7 @@ namespace HRMS.Core.Entities.Master
     [Table("Region", Schema = "Master")]
     public class RegionMaster: BaseModel<int>
     {
-        [Required(ErrorMessage = "this field is required.")]
+        [Required(ErrorMessage = "This field is required.")]
         [Display(Prompt = "Region")]
         public string Name { get; set; }
     }

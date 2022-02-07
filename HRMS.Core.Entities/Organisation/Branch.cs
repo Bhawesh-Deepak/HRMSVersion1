@@ -12,10 +12,10 @@ namespace HRMS.Core.Entities.Organisation
     [Table("Branch", Schema = "Organisation")]
     public class Branch : BaseModel<int>
     {
-        [Required(ErrorMessage = "this field is required.")]
+        [Required(ErrorMessage = "This field is required.")]
         public int CompanyId { get; set; }
 
-        [Required(ErrorMessage = "this field is required.")]
+        [Required(ErrorMessage = "This field is required.")]
         [Display(Prompt = "Branch Name")]
         public string Name { get; set; }
         [Display(Prompt = "code")]

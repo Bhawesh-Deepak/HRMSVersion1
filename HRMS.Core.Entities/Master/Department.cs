@@ -7,7 +7,7 @@ namespace HRMS.Core.Entities.Master
     [Table("Department", Schema = "Master")]
     public class Department: BaseModel<int>
     {
-        [Required(ErrorMessage ="this field is required.")]
+        [Required(ErrorMessage ="This field is required.")]
         [Display(Prompt ="Department Name")]
         public string Name { get; set; }
 

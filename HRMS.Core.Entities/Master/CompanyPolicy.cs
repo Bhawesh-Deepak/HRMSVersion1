@@ -12,14 +12,14 @@ namespace HRMS.Core.Entities.Master
     [Table("CompanyPolicy", Schema = "Master")]
     public class CompanyPolicy : BaseModel<int>
     {
-        [Required(ErrorMessage = "this field is required.")]
+        [Required(ErrorMessage = "This field is required.")]
         public int DepartmentId { get; set; }
 
 
-        [Required(ErrorMessage = "this field is required.")]
+        [Required(ErrorMessage = "This field is required.")]
         [Display(Prompt = "policy Name")]
         public string Name { get; set; }
-        [Required(ErrorMessage = "this field is required.")]
+        [Required(ErrorMessage = "This field is required.")]
         [DataType(DataType.Date)]
         public DateTime CalenderDate { get; set; }
 

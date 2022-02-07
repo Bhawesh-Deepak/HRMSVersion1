@@ -13,17 +13,17 @@ namespace HRMS.Core.Entities.Organisation
     [Table("Company", Schema = "Organisation")]
     public class Subsidiary : BaseModel<int>
     {
-        [Required(ErrorMessage = "this field  is required.")]
+        [Required(ErrorMessage = "This field  is required.")]
         public int OrganisationId { get; set; }
         public int CountryId { get; set; }
         public int StateId { get; set; }
         public int CityId { get; set; }
-        [Required(ErrorMessage = "this field is required.")]
+        [Required(ErrorMessage = "This field is required.")]
         [Display(Prompt = "Subsidiary Name")]
         public string Name { get; set;  }
         [Display(Prompt = "Code")]
         public string Code { get; set; }
-        [Required(ErrorMessage = "this field is required.")]
+        [Required(ErrorMessage = "This field is required.")]
         public string Logo { get; set; }
         public string Address { get; set; }
         public string ZipCode { get; set; }
