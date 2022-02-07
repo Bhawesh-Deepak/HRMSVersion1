@@ -81,11 +81,11 @@
                             <div id="login">
                                 <div class="input-group emp-code">
                                     <input type="text" id="UserName" name="UserName" required />
-                                    <label for="txtEmpCode">employee code</label>
+                                    <label for="UserName">employee code</label>
                                 </div>
                                 <div class="input-group pas-code">
                                     <input type="password" id="Password" name="Password" maxlength="24" required />
-                                    <label for="txtPassword">Password</label>
+                                    <label for="Password">Password</label>
                                 </div>
                                 <div class="input-group login-input-list">
                                     <div class="login-input-item re-me" id="chkRemember">
@@ -102,47 +102,41 @@
                                 <button type="submit" class="db-btn login-btn sub-btn" id="btnLogin">
                                     Login
                                 </button>
-                                @*<div class="db-btn login-btn sub-btn" style="margin-top:5px" id="btnCustomSSO">
-                    <span>SSO Login</span>
-            </div>*@
+                                 
                             </div>
                         </form>
                             <div id="generate-otp" class="input-group">                               
                                 <div class="login-input-item">
-                                    <input type="text" id="UserName" name="UserName" required />
+                                    <input type="text" id="txtEmpCode" name="txtEmpCode" required />
                                     <label for="txtEmpCode">employee code</label>
                                     <p style="color:red">OTP sent on registered number.</p>
-                                    <button type="submit" class="db-btn sub-btn" id="btnotp">Send OTP</button>
-                                     <button type="submit" class="db-btn login-btn sub-btn btnLogin-2">Login
+                                    <button type="button" class="db-btn sub-btn" id="btnotp">Send OTP</button>
+                                     <button type="button" class="db-btn login-btn sub-btn btnLogin-2">Login
                                 </button>
                                 </div>
                             </div>
-                            <div id="new-password" class="input-group">                               
-                                <div class="input-group emp-code">
-                                    <input type="text" id="UserName" name="UserName" required />
-                                    <label for="txtEmpCode">employee code</label>
-                                </div>
-                                <div class="input-group password">
-                                    <input type="password" id="NewPassword" name="Password" maxlength="24" required />
-                                    <label for="txtPassword">New Password</label>
-                                </div>
-                                <div class="input-group pas-code confirm-password">
-                                    <input type="password" id="ConfirmPassword" name="Password" maxlength="24" required />
-                                    <label for="txtPassword">Confirm Password</label>
-                                </div>
-                                <button type="submit" class="db-btn sub-btn" id="btnsub">Submit</button>
-                                <button type="submit" class="db-btn login-btn sub-btn btnLogin-2">Login
-                                </button>
+                            <div id="new-password" class="input-group">  
+                                
+                                    <div class="input-group emp-code">
+                                        <input type="text" id="UserName" name="UserName" required />
+                                        <label for="txtEmpCode">employee code</label>
+                                    </div>
+                                    <div class="input-group password">
+                                        <input type="password" id="NewPassword" name="Password" maxlength="24" required />
+                                        <label for="txtPassword">New Password</label>
+                                    </div>
+                                    <div class="input-group pas-code confirm-password">
+                                        <input type="password" id="ConfirmPassword" name="Password" maxlength="24" required />
+                                        <label for="txtPassword">Confirm Password</label>
+                                    </div>
+                                    <button type="submit" class="db-btn sub-btn" id="btnsub">Submit</button>
+                                    <button type="submit" class="db-btn login-btn sub-btn btnLogin-2">
+                                        Login
+                                    </button>
+                                 
                             </div>
                       
-                        @*<div class="btn-group punch">
-                                <div class="db-btn PunchBtn PunchButton" data-status="PUNCHIN">
-                                    <span>punch in</span>
-                                </div>
-                                <div class="db-btn PunchBtn PunchButton" data-status="PUNCHOUT">
-                                    <span>punch out</span>
-                                </div>
-                            </div>*@
+                        
                     </div>
                 </div>
 
@@ -169,122 +163,6 @@
 
 </body>
 </html>
-@*<!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <title>Dashboard || Login</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="shortcut icon" href="~/favicon.ico">
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-        <link rel="stylesheet" href="~/LoginJsCss/css/style.css">
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
-        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
-        <script src="~/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-        <style>
-            *{font-family:'Montserrat', sans-serif !important;}
-            h2{font-size:16px}
-            .form-control:focus-within {
-                box-shadow: 0 0 5px red !important
-            }
-            .btn{padding:0.20rem 0.75rem}
-        </style>
-    </head>
-    <body class="bg-login" style="background:url(../LoginJsCss/images/bg-login-2.jpg) no-repeat; background-size:content">
-
-        <section class="login" >
-            <div class="position-absolute bg-white h-100 p-md-5">
-                <div class="text-center mt-5">
-                    <img src="~/LoginJsCss/images/logo.png" alt="" class="img-fluid">
-                </div>
-                <h2 class="text-center my-5 font-weight-bold">Login</h2>
-                @if (!string.IsNullOrEmpty(ViewBag.Message))
-                {
-                    <div class="col-md-12 px-4 d-none" id="d-1">
-                        <div class="alert alert-danger alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert">&times;</button>
-                            <p>@ViewBag.Message</p>
-                        </div>
-                    </div>
-                }
-                <div id="LoginView">
-                    <form class="col-md-12 px-5" asp-action="Login" asp-controller="Authenticate">
-
-                        <div class="form-group">
-                            <input type="text" asp-for="UserName" class="form-control" placeholder="Employee Code">
-                        </div>
-                        <div class="form-group">
-                            <input type="password" asp-for="Password" class="form-control" placeholder="Password">
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-12 text-right">
-                                <a href="#" onclick="ForgetPassword()">Forget Password</a>
-                            </div>
-                        </div>
-                        <div class="form-group text-center">
-                            <button type="submit" class="btn btn-primary btn-block" id="d-2">Login</button>
-                        </div>
-                    </form>
-                </div>
-                <div id="ForgetPasswordView" class="px-5" style="display:none">
-                    <div class="form-group">
-                        <input type="text" id="txtEmpCode" class="form-control" placeholder="Employee Code">
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group col-md-12">
-                            <a  href="#" onclick="Login()">Login</a>
-                        </div>
-                    </div>
-                    <div class="form-group text-center">
-                        <button type="button" onclick="SendOtp()" class="btn btn-primary btn-block" id="d-2">Send OTP</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </body>
-    </html>
-
-    <script type="text/javascript">
-        function ForgetPassword()
-        {
-            debugger;
-            $("#ForgetPasswordView").removeAttr("style");
-            $("#LoginView").attr("style", "display:none");
-        }
-
-        function Login()
-        {
-            $("#ForgetPasswordView").attr("style", "display:none");
-            $("#LoginView").removeAttr("style");
-        }
-
-        function SendOtp() {
-            var empCode = $("#txtEmpCode").val();
-
-            let forgetPasswordUrl = "/Authenticate/ForgetPassword"
-
-            $.get(forgetPasswordUrl, { empCode: empCode }, function (data) {
-                if (data) {
-                    alert("OTP has been sent, Please check and login")
-                } else {
-                    alert("Something wents wrong, Please contact admin");
-                }
-            })
-        }
-
-
-    </script>
-
-    <script>
-        $("#d-2").click(function () {
-            $("#d-1").removeClass("d-none");;
-        });
-    </script>*@
 
     <script>
         $("#btnForgot").click(function(){
@@ -292,9 +170,22 @@
           $("#generate-otp").show();
         }); 
 
-        $("#btnotp").click(function(){
-          $("#generate-otp, #login").hide();
-          $("#new-password").show();
+        $("#btnotp").click(function () {
+            var empCode = $("#txtEmpCode").val();
+
+            let forgetPasswordUrl = "/Authenticate/ForgetPassword"
+
+            $.get(forgetPasswordUrl, { empCode: empCode }, function (data) {
+                if (data) {
+                    alert("OTP has been sent, Please check and login")
+                    $("#generate-otp, #login").hide();
+                    $("#new-password").show();
+                   
+                } else {
+                    alert("Something wents wrong, Please contact admin");
+                }
+            })
+        
         }); 
 
         $(".btnLogin-2").click(function(){

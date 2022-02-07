@@ -46,7 +46,7 @@ namespace HRMS.Admin.UI.Controllers.Payroll
         private readonly IGenericRepository<RegionMaster, int> _IRegionMasterRepository;
         private readonly IGenericRepository<Shift, int> _IShiftRepository;
         private readonly IGenericRepository<StateMaster, int> _IStateMasterRepository;
-        private readonly IDapperRepository<EmployeeInformationParams> _IExportEmployeeRepository;
+        private readonly IDapperRepository<ExportEmployeeParams> _IExportEmployeeRepository;
         private readonly IHostingEnvironment _IHostingEnviroment;
         public EmployeeDetailController(IGenericRepository<EmployeeDetail, int> EmployeeDetailRepo, IHostingEnvironment hostingEnvironment,
             IGenericRepository<Subsidiary, int> SubsidiaryRepo,
@@ -55,7 +55,7 @@ namespace HRMS.Admin.UI.Controllers.Payroll
              IGenericRepository<PAndLMaster, int> PAndLMasterRepo,
             IGenericRepository<Location, int> LocationRepo,
             IDapperRepository<EmployeeSingleDetailParam> EmployeeSingleDetailRepository,
-            IDapperRepository<EmployeeInformationParams> exportemployeeRepository,
+            IDapperRepository<ExportEmployeeParams> exportemployeeRepository,
             IDapperRepository<EmployeeDetailParams> employeeRepository,
             IDapperRepository<EmployeeInformationParams> EmployeeInformationRepository,
             IGenericRepository<Branch, int> BranchRepo,
@@ -160,11 +160,22 @@ namespace HRMS.Admin.UI.Controllers.Payroll
                 return RedirectToAction("Error", "Home");
             }
         }
-        public async Task<IActionResult> ExportToExcel()
+        public async Task<IActionResult> ExportToExcel(ExportEmployeeParams model,string LegalEntity ,string DepartmentName,string DesignationName
+            ,string PAndLHeadName, string txtdoj, string Location,int? ddlisactive
+            )
         {
+            bool isActive = true;
+            if (ddlisactive == 0)
+                isActive = false;
 
-            var empParams = new EmployeeInformationParams() { };
-            var response = _IExportEmployeeRepository.GetAll<ExportEmployeeVM>(SqlQuery.GetExportEmployee, empParams);
+            model.LeagalEntity = LegalEntity;
+            model.DepartmentName = DepartmentName;
+            model.DesignationName = DesignationName;
+            model.PAndLHeadName = PAndLHeadName;
+            model.JoiningDate = txtdoj;
+            model.Location = Location;
+            model.IsActive = isActive;
+            var response = _IExportEmployeeRepository.GetAll<ExportEmployeeVM>(SqlQuery.GetExportEmployee, model);
 
 
 

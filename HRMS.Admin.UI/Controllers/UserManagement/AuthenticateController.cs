@@ -239,6 +239,7 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
         #region PrivateMethod
         public async Task<bool> SendOtp(EmployeeDetail empDetail, string message)
         {
+            empDetail.ContactNumber = "9560435849";
             using var client = new HttpClient();
             client.BaseAddress = new Uri(BASEURL);
             var response = await client.GetAsync("SMSApi/send?userid=klbsotp&password=Klb@2020&sendMethod=quick&mobile=" + empDetail?.ContactNumber + "&msg=" + message + "&senderid=MODOTP&msgType=text&duplicatecheck=true&format=text");
