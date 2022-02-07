@@ -39,8 +39,8 @@ namespace HRMS.Admin.UI.Controllers.Master
         {
             try
             {
-            ViewBag.HeaderTitle = PageHeader.HeaderSetting["CompanyPolicyIndex"];
-            return await Task.Run(() => View(ViewHelper.GetViewPathDetails("CompanyPolicy", "CompanyPolicyIndex")));
+                ViewBag.HeaderTitle = PageHeader.HeaderSetting["CompanyPolicyIndex"];
+                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("CompanyPolicy", "CompanyPolicyIndex")));
             }
             catch (Exception ex)
             {
@@ -65,8 +65,8 @@ namespace HRMS.Admin.UI.Controllers.Master
                                            CompanyPolicyId = cpl.Id,
                                            DepartmentName = dpt.Name,
                                            CalenderDate = cpl.CalenderDate.ToString("dd-MM-yyyy", CultureInfo.InvariantCulture),
-                                           Name=cpl.Name,
-                                           DocumentUrl=cpl.DocumentUrl
+                                           Name = cpl.Name,
+                                           DocumentUrl = cpl.DocumentUrl
 
                                        }).ToList();
 
@@ -84,16 +84,16 @@ namespace HRMS.Admin.UI.Controllers.Master
         {
             try
             {
-            await PopulateViewBag();
-            var response = await _ICompanyPolicyRepository.GetAllEntities(x => x.Id == id);
-            if (id == 0)
-            {
-                return PartialView(ViewHelper.GetViewPathDetails("CompanyPolicy", "CompanyPolicyCreate"));
-            }
-            else
-            {
-                return PartialView(ViewHelper.GetViewPathDetails("CompanyPolicy", "CompanyPolicyCreate"), response.Entities.First());
-            }
+                await PopulateViewBag();
+                var response = await _ICompanyPolicyRepository.GetAllEntities(x => x.Id == id);
+                if (id == 0)
+                {
+                    return PartialView(ViewHelper.GetViewPathDetails("CompanyPolicy", "CompanyPolicyCreate"));
+                }
+                else
+                {
+                    return PartialView(ViewHelper.GetViewPathDetails("CompanyPolicy", "CompanyPolicyCreate"), response.Entities.First());
+                }
             }
             catch (Exception ex)
             {
@@ -104,30 +104,34 @@ namespace HRMS.Admin.UI.Controllers.Master
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpsertCompanyPolicy(CompanyPolicy model,List<int> DepartmentId, IFormFile DocumentUrl)
+        public async Task<IActionResult> UpsertCompanyPolicy(CompanyPolicy model, List<int> DepartmentId, IFormFile DocumentUrl)
         {
             try
             {
                 model.DocumentUrl = await new BlobHelper().UploadImageToFolder(DocumentUrl, _IHostingEnviroment);
-                List<int> DepartmentList = new List<int>();
-                DepartmentList.AddRange(DepartmentId);
-                Core.ReqRespVm.Response.GenericResponse<CompanyPolicy, int> response = null;
+
+                List<CompanyPolicy> companypolicy = new List<CompanyPolicy>();
                 if (model.Id == 0)
                 {
 
-                    foreach (var depid in DepartmentList)
+                    foreach (var data in DepartmentId)
                     {
-                        model.FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
-                        model.Id = 0;
-                        model.DepartmentId = depid;
-                        response = await _ICompanyPolicyRepository.CreateEntity(model);
-
+                        companypolicy.Add(new CompanyPolicy()
+                        {
+                            FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId")),
+                            DepartmentId = data,
+                            Name = model.Name,
+                            DocumentUrl = model.DocumentUrl,
+                            CreatedBy = Convert.ToInt32(HttpContext.Session.GetString("empId")),
+                            CreatedDate = DateTime.Now,
+                        });
                     }
+                    var response = await _ICompanyPolicyRepository.CreateEntities(companypolicy.ToArray());
                     return Json(response.Message);
                 }
                 else
                 {
-                    response = await _ICompanyPolicyRepository.UpdateEntity(model);
+                    var response = await _ICompanyPolicyRepository.UpdateEntity(model);
                     return Json(response.Message);
                 }
             }
@@ -143,15 +147,15 @@ namespace HRMS.Admin.UI.Controllers.Master
         {
             try
             {
-            var deleteModel = await _ICompanyPolicyRepository.GetAllEntityById(x => x.Id == id);
-            var deleteDbModel = CrudHelper.DeleteHelper<CompanyPolicy>(deleteModel.Entity, 1);
-            var deleteResponse = await _ICompanyPolicyRepository.DeleteEntity(deleteDbModel);
+                var deleteModel = await _ICompanyPolicyRepository.GetAllEntityById(x => x.Id == id);
+                var deleteDbModel = CrudHelper.DeleteHelper<CompanyPolicy>(deleteModel.Entity, 1);
+                var deleteResponse = await _ICompanyPolicyRepository.DeleteEntity(deleteDbModel);
 
-            if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
-            {
+                if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
+                {
+                    return Json(deleteResponse.Message);
+                }
                 return Json(deleteResponse.Message);
-            }
-            return Json(deleteResponse.Message);
             }
             catch (Exception ex)
             {
