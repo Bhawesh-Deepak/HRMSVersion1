@@ -12,20 +12,20 @@ namespace HRMS.Core.Entities.Master
     [Table("AnnouncementAndUpdate", Schema = "Master")]
     public class AnnouncementAndUpdate : BaseModel<int>
     {
-        [Required(ErrorMessage = "this field is required")]
+        [Required(ErrorMessage = "This field is required.")]
         public int BranchId { get; set; }
 
-        [Required(ErrorMessage = "this field is required")]
+        [Required(ErrorMessage = "This field is required.")]
         public int DepartmentId { get; set; }
 
-        [Required(ErrorMessage = "this field is required")]
+        [Required(ErrorMessage = "This field is required.")]
         [Display(Prompt = "Announcement")]
         public string Announcement { get; set; }
 
 
-        [Required(ErrorMessage = "this field is required")]
+        [Required(ErrorMessage = "This field is required.")]
         public DateTime AnnouncementDate { get; set; }
-        [Required(ErrorMessage = "this field is required")]
+        [Required(ErrorMessage = "This field is required.")]
         public DateTime ApplicableDate { get; set; }
 
        

@@ -12,16 +12,16 @@ namespace HRMS.Core.Entities.Master
     [Table("AssesmentYear", Schema = "Master")]
     public class AssesmentYear : BaseModel<int>
     {
-        [Required(ErrorMessage = "this field is required.")]
+        [Required(ErrorMessage = "This field is required.")]
         [Display(Prompt = "Start Year")]
         public int StartYear { get; set; }
-        [Required(ErrorMessage = "this field is required.")]
+        [Required(ErrorMessage = "This field is required.")]
         [Display(Prompt = "Start Month")]
         public int StartMonth { get; set; }
-        [Required(ErrorMessage = "this field is required.")]
+        [Required(ErrorMessage = "This field is required.")]
         [Display(Prompt = "End Year")]
         public int EndYear { get; set; }
-        [Required(ErrorMessage = "this field is required.")]
+        [Required(ErrorMessage = "This field is required.")]
         [Display(Prompt = "End Month")]
         public int EndMonth { get; set; }
         public string Name { get; set; }

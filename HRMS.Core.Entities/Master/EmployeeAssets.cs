@@ -12,13 +12,13 @@ namespace HRMS.Core.Entities.Master
     [Table("EmployeeAssets", Schema = "Master")]
     public class EmployeeAssets : BaseModel<int>
     {
-        [Required(ErrorMessage = "this field is required.")]
+        [Required(ErrorMessage = "This field is required.")]
         public int AssetsCategoryId { get; set; }
 
-        [Required(ErrorMessage = "this field is required.")]
+        [Required(ErrorMessage = "This field is required.")]
         public int EmployeeId { get; set; }
 
-        [Required(ErrorMessage = "this field is required.")]
+        [Required(ErrorMessage = "This field is required.")]
         public int BranchId { get; set; }
 
        
@@ -46,7 +46,7 @@ namespace HRMS.Core.Entities.Master
         [Display(Prompt = "Category")]
         public string Category { get; set; }
 
-        [Required(ErrorMessage = "this field is required.")]
+        [Required(ErrorMessage = "This field is required.")]
         [Display(Prompt = "Employee Assets Name")]
         public string Name { get; set; }
 

@@ -11,7 +11,7 @@ namespace HRMS.Core.Entities.Master
     [Table("EmployeeType", Schema = "Master")]
     public class EmployeeType : BaseModel<int>
     {
-        [Required(ErrorMessage = "this field is required.")]
+        [Required(ErrorMessage = "This field is required.")]
         [Display(Prompt = "Employee Type ")]
         public string Name { get; set; }
     }
