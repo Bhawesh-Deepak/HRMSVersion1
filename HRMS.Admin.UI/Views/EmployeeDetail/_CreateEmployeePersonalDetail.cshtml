@@ -1,0 +1,308 @@
+﻿@model HRMS.Core.Entities.Payroll.EmployeeDetail
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+      data-ajax-complete="AjaxComplete" enctype="multipart/form-data" class="form-group"
+      asp-action="UpsertEmployee" asp-controller="EmployeeDetail" data-ajax-success="SuccessEmp">
+
+
+    <input asp-for="Id" type="hidden" />
+    <input asp-for="CreatedBy" type="hidden" />
+    <input asp-for="CreatedDate" type="hidden" />
+    <input asp-for="FinancialYear" type="hidden" />
+    <input asp-for="Steps" type="hidden" value="2" />
+    <div class="row">
+        
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="FatherName">Father Name :</label><span style="color:red">  *</span>
+                <input type="text" asp-for="FatherName" placeholder="Enter Father Name" class="form-control" />
+                <span asp-validation-for="FatherName" class="text-danger"></span>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="PersonalEmailId">Personal Email ID :</label>
+                <input type="text" asp-for="PersonalEmailId" placeholder="Enter Personal Email Id" class="form-control" />
+                <span asp-validation-for="PersonalEmailId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="OfficeEmailId">Office Email ID  :</label><span style="color:red">  *</span>
+                <input type="text" asp-for="OfficeEmailId" placeholder="Enter Office Email Id" class="form-control" />
+                <span asp-validation-for="OfficeEmailId" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="DateOfBirth">Date Of Birth  :</label><span style="color:red">  *</span>
+                <input type="date" asp-for="DateOfBirth" placeholder="Enter Date Of Birth" class="form-control" />
+                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="MaritalStatus">Marital Status :</label>
+                <select class="form-control" asp-for="MaritalStatus">
+                    <option value="">--Select--</option>
+                    <option value="Married">Married</option>
+                    <option value="UnMarried">UnMarried</option>
+                    <option value="Divorced">Divorced</option>
+                </select>
+                <span asp-validation-for="MaritalStatus" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="DateOfMairrage">Date of Marriage  :</label><span style="color:red">  *</span>
+                <input type="date" asp-for="DateOfMairrage" placeholder="Enter Date Of Mairrage" class="form-control" />
+                <span asp-validation-for="DateOfMairrage" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="ContactNumber">Mobile Number  :</label><span style="color:red">  *</span>
+                <input type="text" asp-for="ContactNumber" placeholder="Enter Mobile Number" class="form-control" />
+                <span asp-validation-for="ContactNumber" class="text-danger"></span>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="LandLineNumber">Land Line Number :</label>
+                <input type="text" asp-for="LandLineNumber" placeholder="Enter Land Line Number" class="form-control" />
+                <span asp-validation-for="LandLineNumber" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="AlternateMobileNumber">Alternate Mobile Number :</label><span style="color:red">  *</span>
+                <input type="text" asp-for="AlternateMobileNumber" placeholder="Enter Alternate Mobile Number" class="form-control" />
+                <span asp-validation-for="AlternateMobileNumber" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="WhatsAppNumber">Whatsapp Number :</label><span style="color:red">  *</span>
+                <input type="text" asp-for="WhatsAppNumber" placeholder="Enter WhatsApp Number" class="form-control" />
+                <span asp-validation-for="WhatsAppNumber" class="text-danger"></span>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="EmergencyNumber">Emergency Number :</label>
+                <input type="text" asp-for="EmergencyNumber" placeholder="Enter Emergency Number" class="form-control" />
+                <span asp-validation-for="EmergencyNumber" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="EmergencyRelationWithEmployee">Emg Relation With Employee :</label><span style="color:red">  *</span>
+                <input type="text" asp-for="EmergencyRelationWithEmployee" placeholder="Enter Emergency Relation With Employee" class="form-control" />
+                <span asp-validation-for="EmergencyRelationWithEmployee" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="BloodGroup">Blood Group  :</label><span style="color:red">  *</span>
+                <input type="text" asp-for="BloodGroup" placeholder="Enter Blood Group" class="form-control" />
+                <span asp-validation-for="BloodGroup" class="text-danger"></span>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="BiometricCode">Biometric Code :</label>
+                <input type="text" asp-for="BiometricCode" placeholder="Enter Biometric Code" class="form-control" />
+                <span asp-validation-for="BiometricCode" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="AadharCardNumber">Aadhar Number :</label><span style="color:red">  *</span>
+                <input type="text" asp-for="AadharCardNumber" placeholder="Enter Aadhar Card Number" class="form-control" />
+                <span asp-validation-for="AadharCardNumber" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Gender">Gender :</label><span style="color:red">  *</span>
+                <select class="form-control" asp-for="Gender">
+                    <option value="">--Select--</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+
+                </select>
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="JoiningDate">Joining Date:</label>
+                <input type="date" asp-for="JoiningDate" placeholder="Enter Joining Date" class="form-control" />
+                <span asp-validation-for="JoiningDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="WorkExprience">Work Experience :</label><span style="color:red">  *</span>
+                <input type="number" asp-for="WorkExprience" placeholder="Enter Work Exprience" class="form-control" />
+                <span asp-validation-for="WorkExprience" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="SpouceName">Spouse Name  :</label><span style="color:red">  *</span>
+                <input type="text" asp-for="SpouceName" placeholder="Enter Spouce Name" class="form-control" />
+                <span asp-validation-for="SpouceName" class="text-danger"></span>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="PermanentAddress">Permanent Address :</label>
+                <input type="text" asp-for="PermanentAddress" placeholder="Enter Permanent Address" class="form-control" />
+                <span asp-validation-for="PermanentAddress" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="CurrentAddress">Current Address:</label><span style="color:red">  *</span>
+                <input type="text" asp-for="CurrentAddress" placeholder="Enter Current Address" class="form-control" />
+                <span asp-validation-for="CurrentAddress" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="PanCardNumber">PAN Number:</label><span style="color:red">  *</span>
+                <input type="text" asp-for="PanCardNumber" placeholder="Enter Pan Card Number" class="form-control" />
+                <span asp-validation-for="PanCardNumber" class="text-danger"></span>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="PassportNumber">Passport Number :</label>
+                <input type="text" asp-for="PassportNumber" placeholder="Enter Passport Number" class="form-control" />
+                <span asp-validation-for="PassportNumber" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="NoticePeriod">Notice Period:</label><span style="color:red">  *</span>
+                <input type="number" asp-for="NoticePeriod" placeholder="Enter Notice Period" class="form-control" />
+                <span asp-validation-for="NoticePeriod" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Nationality">Nationality:</label><span style="color:red">  *</span>
+                <input type="text" asp-for="Nationality" placeholder="Enter Nationality" class="form-control" />
+                <span asp-validation-for="Nationality" class="text-danger"></span>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="ConfirmationDate">Confirmation Date:</label>
+                <input type="date" asp-for="ConfirmationDate" placeholder="Enter Confirmation Date" class="form-control" />
+                <span asp-validation-for="ConfirmationDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="PIP">PIP :</label><span style="color:red">  *</span>
+                <input type="number" asp-for="PIP" placeholder="Enter PIP" class="form-control" />
+                <span asp-validation-for="PIP" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="PIPStartDate">PIP Start Date :</label><span style="color:red">  *</span>
+                <input type="date" asp-for="PIPStartDate" placeholder="Enter PIP Start Date" class="form-control" />
+                <span asp-validation-for="PIPStartDate" class="text-danger"></span>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="PIPEndDate">PIP End Date:</label>
+                <input type="date" asp-for="PIPEndDate" placeholder="Enter PIP End Date" class="form-control" />
+                <span asp-validation-for="PIPEndDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="RecruitmentSource">Recruitment Source :</label><span style="color:red">  *</span>
+                <input type="text" asp-for="RecruitmentSource" placeholder="Enter Recruitment Source" class="form-control" />
+                <span asp-validation-for="RecruitmentSource" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="RecruitmentName">Recruiter Name :</label><span style="color:red">  *</span>
+                <input type="text" asp-for="RecruitmentName" placeholder="Enter Recruiter Name" class="form-control" />
+                <span asp-validation-for="RecruitmentName" class="text-danger"></span>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="PreviousOrganisation">Previous Organisation:</label>
+                <input type="text" asp-for="PreviousOrganisation" placeholder="Enter Previous Organisation" class="form-control" />
+                <span asp-validation-for="PreviousOrganisation" class="text-danger"></span>
+            </div>
+        </div>
+
+
+    </div>
+    <button type="submit" class="btn btn-primary">Next</button>
+</form>

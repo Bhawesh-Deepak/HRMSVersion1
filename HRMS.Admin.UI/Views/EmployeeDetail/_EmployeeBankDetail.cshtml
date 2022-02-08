@@ -1,0 +1,87 @@
+﻿@model HRMS.Core.Entities.Payroll.EmployeeDetail
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+      data-ajax-complete="AjaxComplete" enctype="multipart/form-data" class="form-group"
+      asp-action="UpsertEmployee" asp-controller="EmployeeDetail" data-ajax-success="SuccessEmp">
+
+
+    <input asp-for="Id" type="hidden" />
+    <input asp-for="CreatedBy" type="hidden" />
+    <input asp-for="CreatedDate" type="hidden" />
+    <input asp-for="FinancialYear" type="hidden" />
+    <input asp-for="Steps" type="hidden" value="4" />
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="UANNumber">UAN NO:</label><span style="color:red">  *</span>
+                <input type="text" asp-for="UANNumber" placeholder="Enter UAN NO" class="form-control" />
+                <span asp-validation-for="UANNumber" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="ESICNew">ESIC New :</label><span style="color:red">  *</span>
+                <input type="text" asp-for="ESICNew" placeholder="Enter ESIC New" class="form-control" />
+                <span asp-validation-for="ESICNew" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="ESICPreviousNumber">ESIC Old:</label><span style="color:red">  *</span>
+                <input type="text" asp-for="ESICPreviousNumber" placeholder="Enter ESIC Old" class="form-control" />
+                <span asp-validation-for="ESICPreviousNumber" class="text-danger"></span>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="PAndFBankAccountNumberx">PF Account Number:</label><span style="color:red">  *</span>
+                <input type="text" asp-for="PAndFBankAccountNumberx" placeholder="Enter PF Account No" class="form-control" />
+                <span asp-validation-for="PAndFBankAccountNumberx" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="BankName">Bank Name  :</label><span style="color:red">  *</span>
+                <input type="text" asp-for="BankName" placeholder="Enter Bank Name" class="form-control" />
+                <span asp-validation-for="BankName" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="BankAccountNumber">Account Number::</label><span style="color:red">  *</span>
+                <input type="text" asp-for="BankAccountNumber" placeholder="Enter Bank Account Number" class="form-control" />
+                <span asp-validation-for="BankAccountNumber" class="text-danger"></span>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="IFSCCode">IFSC Code:</label><span style="color:red">  *</span>
+                <input type="text" asp-for="IFSCCode" placeholder="Enter IFSC Code" class="form-control" />
+                <span asp-validation-for="IFSCCode" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="BankAccountName">Name on Bank Account:</label><span style="color:red">  *</span>
+                <input type="text" asp-for="BankAccountName" placeholder="Enter Bank Name" class="form-control" />
+                <span asp-validation-for="BankAccountName" class="text-danger"></span>
+            </div>
+
+        </div>
+
+    </div>
+    <button type="submit" class="btn btn-primary">Finish</button>
+</form>
