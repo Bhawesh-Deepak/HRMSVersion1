@@ -11,9 +11,9 @@ namespace HRMS.Core.ReqRespVm.RequestVm
 {
     public class EmployeeSalaryRegisterVM
     {
-        [Required(ErrorMessage = "this field is required..")]
+        [Required(ErrorMessage = "This field is required.")]
         public int DateMonth { get; set; }
-        [Required(ErrorMessage = "this field is required..")]
+        [Required(ErrorMessage = "This field is required.")]
         public int DateYear { get; set; }
         public string EmployeeCode { get; set; }
         public string Name { get; set; }

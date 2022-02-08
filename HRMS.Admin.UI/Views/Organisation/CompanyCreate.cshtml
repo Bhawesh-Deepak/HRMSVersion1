@@ -3,6 +3,7 @@
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
 
 <div class="content-wrapper" style="min-height: 870px;">
+    @Html.BuildBreadcrumbNavigation()
     <section class="content-header">
         <ol class="breadcrumb">
             <li>Home</li>
@@ -24,7 +25,7 @@
                                             </div>
                                         </div>
                                         <div class="box-body">
-                                            <form id="form" method="post" data-ajax="true" data-ajax-method="post" 
+                                            <form id="form" method="post" data-ajax="true" data-ajax-method="post"
                                                   data-ajax-begin="AjaxOnBegin"
                                                   data-ajax-complete="AjaxComplete"
                                                   asp-action="CreateCompany" asp-controller="Company"
