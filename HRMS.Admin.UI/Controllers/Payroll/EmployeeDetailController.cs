@@ -14,6 +14,7 @@ using HRMS.Core.ReqRespVm.SqlParams;
 using HRMS.Services.Implementation.SqlConstant;
 using HRMS.Services.Repository.GenericRepository;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
@@ -160,8 +161,8 @@ namespace HRMS.Admin.UI.Controllers.Payroll
                 return RedirectToAction("Error", "Home");
             }
         }
-        public async Task<IActionResult> ExportToExcel(ExportEmployeeParams model,string LegalEntity ,string DepartmentName,string DesignationName
-            ,string PAndLHeadName, string txtdoj, string Location,int? ddlisactive
+        public async Task<IActionResult> ExportToExcel(ExportEmployeeParams model, string LegalEntity, string DepartmentName, string DesignationName
+            , string PAndLHeadName, string txtdoj, string Location, int? ddlisactive
             )
         {
             bool isActive = true;
@@ -408,6 +409,171 @@ namespace HRMS.Admin.UI.Controllers.Payroll
             //    return RedirectToAction("Error", "Home");
             //}
         }
+        public async Task<IActionResult> Create()
+        {
+            try
+            {
+                await PopulateViewBag();
+                //var empParams = new EmployeeSingleDetailParam()
+                //{
+                //    Id = Id
+                //};
+                //var response = _IEmployeeSingleDetailRepository.GetAll<EmployeeDetail>(SqlQuery.GetEmployeeSingleDetails, empParams);
+
+                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("EmployeeDetail", "_CreateEmployeeDetail")));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(EmployeeDetailController)} action name {nameof(Edit)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> UpsertEmployee(EmployeeDetail model)
+        {
+            try
+            {
+                var sucessMessage = new EmployeeSucessMessage();
+                if (model.Id == 0)
+                {
+                    model.FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
+                    var response = await _IEmployeeDetailRepository.CreateEntity(model);
+                    sucessMessage.Steps = model.Steps;
+                    sucessMessage.Message = response.Message;
+                    sucessMessage.EmpCode = model.EmpCode;
+                    return Json(sucessMessage);
+                }
+                else
+                {
+                    var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.Id == model.Id);
+                    var updateResponse = response.Entities.FirstOrDefault();
+                    if (model.Steps == 2)
+                    {
+                        updateResponse.FatherName = model.FatherName;
+                        updateResponse.PersonalEmailId = model.PersonalEmailId;
+                        updateResponse.OfficeEmailId = model.OfficeEmailId;
+                        updateResponse.DateOfBirth = model.DateOfBirth;
+                        updateResponse.MaritalStatus = model.MaritalStatus;
+                        updateResponse.DateOfMairrage = model.DateOfMairrage;
+                        updateResponse.ContactNumber = model.ContactNumber;
+                        updateResponse.LandLineNumber = model.LandLineNumber;
+                        updateResponse.AlternateMobileNumber = model.AlternateMobileNumber;
+                        updateResponse.WhatsAppNumber = model.WhatsAppNumber;
+                        updateResponse.EmergencyNumber = model.EmergencyNumber;
+                        updateResponse.EmergencyRelationWithEmployee = model.EmergencyRelationWithEmployee;
+                        updateResponse.BloodGroup = model.BloodGroup;
+                        updateResponse.BiometricCode = model.BiometricCode;
+                        updateResponse.AadharCardNumber = model.AadharCardNumber;
+                        updateResponse.Gender = model.Gender;
+                        updateResponse.JoiningDate = model.JoiningDate;
+                        updateResponse.WorkExprience = model.WorkExprience;
+                        updateResponse.SpouceName = model.SpouceName;
+                        updateResponse.PermanentAddress = model.PermanentAddress;
+                        updateResponse.CurrentAddress = model.CurrentAddress;
+                        updateResponse.PanCardNumber = model.PanCardNumber;
+                        updateResponse.PassportNumber = model.PassportNumber;
+                        updateResponse.NoticePeriod = model.NoticePeriod;
+                        updateResponse.Nationality = model.Nationality;
+                        updateResponse.ConfirmationDate = model.ConfirmationDate;
+                        updateResponse.PIP = model.PIP;
+                        updateResponse.PIPStartDate = model.PIPStartDate;
+                        updateResponse.PIPEndDate = model.PIPEndDate;
+                        updateResponse.RecruitmentSource = model.RecruitmentSource;
+                        updateResponse.RecruitmentName = model.RecruitmentName;
+                        updateResponse.PreviousOrganisation = model.PreviousOrganisation;
+
+                    }
+                    else if (model.Steps == 3)
+                    {
+                        updateResponse.EducationalQualification = model.EducationalQualification;
+                        updateResponse.InstituteName = model.InstituteName;
+
+                    }
+                    else if (model.Steps == 4)
+                    {
+                        updateResponse.UANNumber = model.UANNumber;
+                        updateResponse.ESICNew = model.ESICNew;
+                        updateResponse.ESICPreviousNumber = model.ESICPreviousNumber;
+                        updateResponse.PAndFBankAccountNumberx = model.PAndFBankAccountNumberx;
+                        updateResponse.BankName = model.BankName;
+                        updateResponse.BankAccountNumber = model.BankAccountNumber;
+                        updateResponse.IFSCCode = model.IFSCCode;
+                        updateResponse.BankAccountName = model.BankAccountName;
+
+                    }
+                    var updateresponseStatus = await _IEmployeeDetailRepository.UpdateEntity(updateResponse);
+                    sucessMessage.Steps = model.Steps;
+                    sucessMessage.Message = updateresponseStatus.Message;
+                    sucessMessage.EmpCode = model.EmpCode;
+                    sucessMessage.Id = model.Id;
+                    return Json(sucessMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(EmployeeDetailController)} action name {nameof(UpsertEmployee)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
+        }
+        public async Task<IActionResult> CreateBusinessScenario()
+        {
+            try
+            {
+                await PopulateViewBag();
+                return PartialView(ViewHelper.GetViewPathDetails("EmployeeDetail", "_CreateBusinessScenario"));
+
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(EmployeeDetailController)} action name {nameof(CreateBusinessScenario)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
+        }
+        public async Task<IActionResult> CreateEmployeeDetail(string EmpCode)
+        {
+            try
+            {
+                var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.EmpCode == EmpCode);
+                return PartialView(ViewHelper.GetViewPathDetails("EmployeeDetail", "_CreateEmployeePersonalDetail"), response.Entities.First());
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(EmployeeDetailController)} action name {nameof(CreateEmployeeDetail)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
+        }
+        public async Task<IActionResult> CreateEmployeeEducationalQualification(int Id)
+        {
+            try
+            {
+                var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.Id == Id);
+                return PartialView(ViewHelper.GetViewPathDetails("EmployeeDetail", "_EmployeeEducationalQualification"), response.Entities.First());
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(EmployeeDetailController)} action name {nameof(CreateEmployeeEducationalQualification)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
+        }
+        public async Task<IActionResult> CreateEmployeeBankDetail(int Id)
+        {
+            try
+            {
+                var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.Id == Id);
+                return PartialView(ViewHelper.GetViewPathDetails("EmployeeDetail", "_EmployeeBankDetail"), response.Entities.First());
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(EmployeeDetailController)} action name {nameof(CreateEmployeeBankDetail)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
+        }
         public async Task<IActionResult> Edit(int Id)
         {
             try
@@ -440,7 +606,7 @@ namespace HRMS.Admin.UI.Controllers.Payroll
             var employeetypeResponse = await _IEmployeeTypeRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
             var regionResponse = await _IRegionMasterRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
             var shiftResponse = await _IShiftRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
-            var ptstateResponse = await _IShiftRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+            var ptstateResponse = await _IStateMasterRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
             var model = new EmployeeInformationParams() { };
             var employeeResponse = await Task.Run(() => _IEmployeeInformationRepository.GetAll<EmployeeInformationVM>(SqlQuery.EmployeeInformation, model));
             if (subsidiaryResponse.ResponseStatus == ResponseStatus.Success &&

@@ -1,0 +1,284 @@
+﻿@model HRMS.Core.Entities.Payroll.EmployeeDetail
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+<form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+      data-ajax-complete="AjaxComplete" enctype="multipart/form-data" class="form-group"
+      asp-action="UpsertEmployee" asp-controller="EmployeeDetail" data-ajax-success="SuccessEmp">
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="EmpCode">Employee Code  :</label><span style="color:red">  *</span>
+                <input type="text" asp-for="EmpCode" placeholder="Enter Emp Code" class="form-control" />
+                <span asp-validation-for="EmpCode" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Salutation">Salutation:</label>
+                <select class="form-control" asp-for="Salutation">
+                    <option value="">-Select-</option>
+                    <option value="Mr.">Mr.</option>
+                    <option value="Ms.">Ms.</option>
+                    <option value="Mrs.">Mrs.</option>
+                </select>
+                <span asp-validation-for="Salutation" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="EmployeeName">Employee Name :</label><span style="color:red">  *</span>
+                <input type="text" asp-for="EmployeeName" placeholder="Enter Employee Name" class="form-control" />
+                <span asp-validation-for="EmployeeName" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="LegalEntity">Legal Entity:</label>
+                <select class="form-control" asp-for="LegalEntity" asp-items="@(new SelectList(ViewBag.subsidiaryList ,"Name","Name"))">
+                    <option value="">--Select--</option>
+                </select>
+                <span asp-validation-for="LegalEntity" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <input asp-for="Id" type="hidden" />
+                <input asp-for="CreatedBy" type="hidden" />
+                <input asp-for="CreatedDate" type="hidden" />
+                <input asp-for="FinancialYear" type="hidden" />
+                <input asp-for="Steps" type="hidden"  value="1"/>
+                <label asp-for="BranchOfficeId">Branch Office :</label><span style="color:red">  *</span>
+                <select class="form-control" asp-for="BranchOfficeId" asp-items="@(new SelectList(ViewBag.BranchList ,"Name","Name"))">
+                    <option value="">--Select--</option>
+                </select>
+                <span asp-validation-for="BranchOfficeId" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="DepartmentName">Department  :</label><span style="color:red">  *</span>
+                <select class="form-control" asp-for="DepartmentName" asp-items="@(new SelectList(ViewBag.departmentList ,"Name","Name"))">
+                    <option value="">--Select--</option>
+                </select>
+                <span asp-validation-for="DepartmentName" class="text-danger"></span>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="DesignationName">Designation:</label>
+                <select class="form-control" asp-for="DesignationName" asp-items="@(new SelectList(ViewBag.designationList ,"Name","Name"))">
+                    <option value="">--Select--</option>
+                </select>
+                <span asp-validation-for="DesignationName" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="EmployementStatus">Employee Type :</label><span style="color:red">  *</span>
+                <select class="form-control" asp-for="EmployementStatus" asp-items="@(new SelectList(ViewBag.EmployeeTypeList ,"Name","Name"))">
+                    <option value="">--Select--</option>
+                </select>
+                <span asp-validation-for="EmployementStatus" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Location">Location   :</label><span style="color:red">  *</span>
+                <select class="form-control" asp-for="Location" asp-items="@(new SelectList(ViewBag.locationList ,"Name","Name"))">
+                    <option value="">--Select--</option>
+                </select>
+                <span asp-validation-for="Location " class="text-danger"></span>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="PAndLHeadName">Pnl Head:                                                                               :</label>
+                <select class="form-control" asp-for="PAndLHeadName" asp-items="@(new SelectList(ViewBag.pandlList ,"Name","Name"))">
+                    <option value="">--Select--</option>
+                </select>
+                <span asp-validation-for="PAndLHeadName" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Region">Region  :</label><span style="color:red">  *</span>
+                <select class="form-control" asp-for="Region" asp-items="@(new SelectList(ViewBag.RegionList ,"Name","Name"))">
+                    <option value="">--Select--</option>
+                </select>
+                <span asp-validation-for="Region" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="ShiftTiming">Shift    :</label><span style="color:red">  *</span>
+                <select class="form-control" asp-for="ShiftTiming" asp-items="@(new SelectList(ViewBag.ShiftList ,"Name","Name"))">
+                    <option value="">--Select--</option>
+                </select>
+                <span asp-validation-for="ShiftTiming " class="text-danger"></span>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="LeaveSupervisor">
+                    Leave Supervisor:
+
+                </label>
+                <select class="form-control" asp-for="LeaveSupervisor" asp-items="@(new SelectList(ViewBag.EmployeeList ,"EmpCode","EmployeeName"))">
+                    <option value="">--Select--</option>
+                </select>
+                <span asp-validation-for="LeaveSupervisor" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="LeaveApprover1">
+                    Leave Approver 1:
+
+                </label><span style="color:red">  *</span>
+                <select class="form-control" asp-for="LeaveApprover1" asp-items="@(new SelectList(ViewBag.EmployeeList ,"EmpCode","EmployeeName"))">
+                    <option value="">--Select--</option>
+                </select>
+                <span asp-validation-for="LeaveApprover1" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="LeaveApprover2">Leave Approver 2    :</label><span style="color:red">  *</span>
+                <select class="form-control" asp-for="LeaveApprover2" asp-items="@(new SelectList(ViewBag.EmployeeList ,"EmpCode","EmployeeName"))">
+                    <option value="">--Select--</option>
+                </select>
+                <span asp-validation-for="LeaveApprover2 " class="text-danger"></span>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="SuperVisorCode">
+                    Super Visor Code:
+
+                </label>
+                <select class="form-control" asp-for="SuperVisorCode" asp-items="@(new SelectList(ViewBag.EmployeeList ,"EmpCode","EmployeeName"))">
+                    <option value="">--Select--</option>
+                </select>
+                <span asp-validation-for="SuperVisorCode" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="PTStateName">
+                    P T State  Name:
+
+                </label><span style="color:red">  *</span>
+                <select class="form-control" asp-for="PTStateName" asp-items="@(new SelectList(ViewBag.PtStateList ,"Name","Name"))">
+                    <option value="">--Select--</option>
+                </select>
+                <span asp-validation-for="PTStateName" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="ConfirmationStatus">
+                    Confirmation Status :
+                </label><span style="color:red">  *</span>
+                <select class="form-control" asp-for="LeaveApprover2">
+                    <option value="">--Select--</option>
+                    <option value="Confirmed">Confirmed</option>
+                    <option value="Not Confirmed">Not Confirmed</option>
+                </select>
+                <span asp-validation-for="ConfirmationStatus " class="text-danger"></span>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Induction">
+                    Induction :
+
+                </label>
+                <select class="form-control" asp-for="Induction">
+                    <option value="">--Select--</option>
+                    <option value="1">Yes</option>
+                    <option value="0">NO</option>
+                </select>
+                <span asp-validation-for="Induction" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="IsPFEligible">
+                    PF Eligible:
+
+
+                </label><span style="color:red">  *</span>
+                <select class="form-control" asp-for="IsPFEligible">
+                    <option value="">--Select--</option>
+                    <option value="1">Yes</option>
+                    <option value="0">NO</option>
+                </select>
+                <span asp-validation-for="IsPFEligible" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="IsESICEligible">
+                    Esic Eligible:
+                </label><span style="color:red">  *</span>
+                <select class="form-control" asp-for="IsESICEligible">
+                    <option value="">--Select--</option>
+                    <option value="1">Yes</option>
+                    <option value="0">NO</option>
+                </select>
+                <span asp-validation-for="IsESICEligible " class="text-danger"></span>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Level">
+                    Employee Lavel :
+
+                </label>
+                <input type="text" class="form-control" placeholder="Level" asp-for="Level" />
+                <span asp-validation-for="Level" class="text-danger"></span>
+            </div>
+
+        </div>
+
+
+    </div>
+    <button type="submit" class="btn btn-primary">Next</button>
+</form>
