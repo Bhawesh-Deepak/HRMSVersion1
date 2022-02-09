@@ -20,7 +20,7 @@
 
                                             <label for="">Legal Entity: :</label>
                                             <select id="LegalEntity" name="LegalEntity" class="form-control input-sm"
-                                                    asp-items="@(new SelectList((IEnumerable<HRMS.Core.Entities.Organisation.Subsidiary>)ViewBag.subsidiaryList,"Name","Name"))">
+                                                    asp-items="@(new SelectList((IEnumerable<HRMS.Core.Entities.Organisation.LegalEntity>)ViewBag.subsidiaryList,"Name","Name"))">
                                                 <option value="">--Select--</option>
                                             </select>
 

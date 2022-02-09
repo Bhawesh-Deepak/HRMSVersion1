@@ -1,9 +1,9 @@
-﻿@model HRMS.Core.Entities.Organisation.Subsidiary
+﻿@model HRMS.Core.Entities.Organisation.LegalEntity
 <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
 <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
       data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
-      asp-action="UpSertSubsidiary" asp-controller="Subsidiary" data-ajax-success="Success">
+      asp-action="UpSertSubsidiary" asp-controller="LegalEntity" data-ajax-success="Success">
     <div class="modal-body">
         <div class="row">
             <div class="col-md-6">
@@ -24,7 +24,7 @@
                     <input asp-for="CreatedBy" type="hidden" />
                     <input asp-for="CreatedDate" type="hidden" />
                     <input asp-for="FinancialYear" type="hidden" />
-                    <label asp-for="Name">Subsidiary Name</label><span style="color:red">  *</span>
+                    <label asp-for="Name">Legal Entity</label><span style="color:red">  *</span>
                     <input type="text" class="form-control" asp-for="Name" />
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
@@ -33,33 +33,34 @@
 
         </div>
         <div class="row">
+
             <div class="col-md-6">
                 <div class="form-group">
-                    <label asp-for="Email">Email</label>
+                    <label asp-for="Code">Code</label><span style="color:red">  *</span>
+                    <input asp-for="Code" class="form-control" />
+                    <span asp-validation-for="Code" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Address">Registered Office Address</label><span style="color:red">  *</span>
+                    <input asp-for="Address" class="form-control" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+            </div>
+           
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Email">Email Id</label><span style="color:red">  *</span>
                     <input asp-for="Email" class="form-control" />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label asp-for="Code">Code</label>
-                    <input asp-for="Code" class="form-control" />
-                    <span asp-validation-for="Code" class="text-danger"></span>
-                </div>
-            </div>
-
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label asp-for="Url">Url</label>
-                    <input asp-for="Url" class="form-control" />
-                    <span asp-validation-for="Url" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label asp-for="Phone">Phone</label>
+                    <label asp-for="Phone">Phone</label><span style="color:red">  *</span>
                     <input asp-for="Phone" class="form-control" />
                     <span asp-validation-for="Phone" class="text-danger"></span>
                 </div>
@@ -68,13 +69,7 @@
 
         </div>
         <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label asp-for="FavIcon">Fav Icon</label>
-                    <input asp-for="FavIcon" type="file" class="form-control" />
-                    <span asp-validation-for="FavIcon" class="text-danger"></span>
-                </div>
-            </div>
+
             <div class="col-md-6">
                 <div class="form-group">
                     <label asp-for="Logo">Logo</label><span style="color:red">  *</span>
@@ -82,8 +77,15 @@
                     <span asp-validation-for="Logo" class="text-danger"></span>
                 </div>
             </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="FavIcon">Fav Icon</label><span style="color:red">  *</span>
+                    <input asp-for="FavIcon" type="file" class="form-control" />
+                    <span asp-validation-for="FavIcon" class="text-danger"></span>
+                </div>
+            </div>
         </div>
-         
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-primary btn-close" onclick="HidePopUp();">Close</button>

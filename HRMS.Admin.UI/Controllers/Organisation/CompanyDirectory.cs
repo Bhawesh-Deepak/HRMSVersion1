@@ -21,10 +21,10 @@ namespace HRMS.Admin.UI.Controllers.Organisation
     public class CompanyDirectory : Controller
     {
         private readonly IGenericRepository<Company, int> _ICompanyRepository;
-        private readonly IGenericRepository<Subsidiary, int> _ISubsidiaryRepository;
+        private readonly IGenericRepository<LegalEntity, int> _ISubsidiaryRepository;
         private readonly IGenericRepository<Branch, int> _IBranchRepository;
         private readonly IGenericRepository<EmployeeDetail, int> _IEmployeeDetailRepository;
-        public CompanyDirectory(IGenericRepository<Company, int> companyRepository, IGenericRepository<Subsidiary, int> SubsidiaryRepository,
+        public CompanyDirectory(IGenericRepository<Company, int> companyRepository, IGenericRepository<LegalEntity, int> SubsidiaryRepository,
              IGenericRepository<Branch, int> BranchRepository,
              IGenericRepository<EmployeeDetail, int> EmployeeDetailRepository)
         {
@@ -38,7 +38,7 @@ namespace HRMS.Admin.UI.Controllers.Organisation
             ViewBag.HeaderTitle = PageHeader.HeaderSetting["Company Directory"];
             try
             {
-                var Subsidryresponse = new DBResponseHelper<Subsidiary, int>()
+                var Subsidryresponse = new DBResponseHelper<LegalEntity, int>()
                     .GetDBResponseHelper(await _ISubsidiaryRepository
                     .GetAllEntities(x => x.IsActive && !x.IsDeleted));
 
@@ -49,14 +49,14 @@ namespace HRMS.Admin.UI.Controllers.Organisation
                 var response = from subsidry in Subsidryresponse.Item2.Entities
                                join company in Companyresponse.Item2.Entities
                                on subsidry.OrganisationId equals company.Id
-                               select new SubsidiaryVM
+                               select new LegalEntityVM
                                {
                                    Id = subsidry.Id,
                                    CompanyName = company.Name,
                                    Name = subsidry.Name,
                                    Code = subsidry.Code,
                                    Email = subsidry.Email,
-                                   Url = subsidry.Url,
+                                   Address = subsidry.Address,
                                    FavIcon = subsidry.FavIcon,
                                    Logo = subsidry.Logo
                                };

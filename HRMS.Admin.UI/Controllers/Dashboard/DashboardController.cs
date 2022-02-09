@@ -16,10 +16,10 @@ namespace HRMS.Admin.UI.Controllers.Dashboard
     [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class DashboardController : Controller
     {
-        private readonly IGenericRepository<Subsidiary, int> _ISubsidiaryRepository;
+        private readonly IGenericRepository<LegalEntity, int> _ISubsidiaryRepository;
         private readonly IGenericRepository<Company, int> _ICompanyRepository;
 
-        public DashboardController(IGenericRepository<Subsidiary, int> subsidryRepository, IGenericRepository<Company, int> companyRepository)
+        public DashboardController(IGenericRepository<LegalEntity, int> subsidryRepository, IGenericRepository<Company, int> companyRepository)
         {
             _ISubsidiaryRepository = subsidryRepository;
             _ICompanyRepository = companyRepository;
@@ -33,7 +33,7 @@ namespace HRMS.Admin.UI.Controllers.Dashboard
                 var response = (from subsidiary in subsidiarymodel.Entities
                                 join company in companymodel.Entities
                                 on subsidiary.OrganisationId equals company.Id
-                                select new SubsidiaryVM
+                                select new LegalEntityVM
                                 {
                                     Id = subsidiary.Id,
                                     CompanyName = company.Name,

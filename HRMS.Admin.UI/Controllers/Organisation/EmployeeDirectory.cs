@@ -26,12 +26,12 @@ namespace HRMS.Admin.UI.Controllers.Organisation
     public class EmployeeDirectory : Controller
     {
         private readonly IGenericRepository<EmployeeDetail, int> _IEmployeeDetailRepository;
-        private readonly IGenericRepository<Subsidiary, int> _ISubsidiaryRepository;
+        private readonly IGenericRepository<LegalEntity, int> _ISubsidiaryRepository;
         private readonly IDapperRepository<EmployeeDetailParams> _IEmployeeRepository;
         private readonly IDapperRepository<EmployeeSingleDetailParam> _IEmployeeSingleDetailRepository;
         public EmployeeDirectory(IGenericRepository<EmployeeDetail, int> employeeDetailRepository,
             IDapperRepository<EmployeeDetailParams> employeeRepository
-            , IDapperRepository<EmployeeSingleDetailParam> EmployeeSingleDetailRepository, IGenericRepository<Subsidiary, int> subsidiaryRepository)
+            , IDapperRepository<EmployeeSingleDetailParam> EmployeeSingleDetailRepository, IGenericRepository<LegalEntity, int> subsidiaryRepository)
         {
             _IEmployeeDetailRepository = employeeDetailRepository;
             _ISubsidiaryRepository = subsidiaryRepository;

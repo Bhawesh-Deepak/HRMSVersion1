@@ -17,7 +17,7 @@ namespace HRMS.Core.Entities.Common
         public bool IsActive { get; set; } = true;
         public bool IsDeleted { get; set; } = false;
         public int CreatedBy { get; set; }
-        public DateTime? CreatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; } = DateTime.Now;
         public int UpdatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public int FinancialYear { get; set; }

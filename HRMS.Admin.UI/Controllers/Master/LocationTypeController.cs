@@ -21,9 +21,6 @@ namespace HRMS.Admin.UI.Controllers.Master
     public class LocationTypeController : Controller
     {
         private readonly IGenericRepository<LocationType, int> _ILocationTypeRepository;
-
-
-
         public LocationTypeController(IGenericRepository<LocationType, int> LocationTypeRepo)
         {
             _ILocationTypeRepository = LocationTypeRepo;
@@ -65,13 +62,14 @@ namespace HRMS.Admin.UI.Controllers.Master
         {
             try
             {
-                var response = await _ILocationTypeRepository.GetAllEntities(x => x.Id == id);
+               
                 if (id == 0)
                 {
                     return PartialView(ViewHelper.GetViewPathDetails("LocationType", "LocationTypeCreate"));
                 }
                 else
                 {
+                    var response = await _ILocationTypeRepository.GetAllEntities(x => x.Id == id);
                     return PartialView(ViewHelper.GetViewPathDetails("LocationType", "LocationTypeCreate"), response.Entities.First());
                 }
             }
@@ -91,11 +89,15 @@ namespace HRMS.Admin.UI.Controllers.Master
                 if (model.Id == 0)
                 {
                     model.FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
+                    model.CreatedBy= Convert.ToInt32(HttpContext.Session.GetString("EmployeeId"));
+                    model.CreatedDate = DateTime.Now;
                     var response = await _ILocationTypeRepository.CreateEntity(model);
                     return Json(response.Message);
                 }
                 else
                 {
+                    model.UpdatedBy = Convert.ToInt32(HttpContext.Session.GetString("EmployeeId"));
+                    model.UpdatedDate = DateTime.Now;
                     var response = await _ILocationTypeRepository.UpdateEntity(model);
                     return Json(response.Message);
                 }

@@ -65,13 +65,14 @@ namespace HRMS.Admin.UI.Controllers.Master
         {
             try
             {
-                var response = await _IRegionRepository.GetAllEntities(x => x.Id == id);
+               
                 if (id == 0)
                 {
                     return PartialView(ViewHelper.GetViewPathDetails("Region", "RegionCreate"));
                 }
                 else
                 {
+                    var response = await _IRegionRepository.GetAllEntities(x => x.Id == id);
                     return PartialView(ViewHelper.GetViewPathDetails("Region", "RegionCreate"), response.Entities.First());
                 }
             }
@@ -91,11 +92,15 @@ namespace HRMS.Admin.UI.Controllers.Master
                 if (model.Id == 0)
                  {
                     model.FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
+                    model.CreatedBy= Convert.ToInt32(HttpContext.Session.GetString("EmployeeId"));
+                    model.CreatedDate = DateTime.Now;
                     var response = await _IRegionRepository.CreateEntity(model);
                     return Json(response.Message);
                 }
                 else
                 {
+                    model.UpdatedBy = Convert.ToInt32(HttpContext.Session.GetString("EmployeeId"));
+                    model.UpdatedDate = DateTime.Now;
                     var response = await _IRegionRepository.UpdateEntity(model);
                     return Json(response.Message);
                 }

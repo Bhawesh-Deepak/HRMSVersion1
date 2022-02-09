@@ -79,13 +79,14 @@ namespace HRMS.Admin.UI.Controllers.Master
             try
             {
                 await PopulateViewBag();
-                var response = await _ILocationRepository.GetAllEntities(x => x.Id == id);
+               
                 if(id == 0)
                 {
                     return PartialView(ViewHelper.GetViewPathDetails("Location", "LocationCreate"));
                 }
                 else
                 {
+                    var response = await _ILocationRepository.GetAllEntities(x => x.Id == id);
                     return PartialView(ViewHelper.GetViewPathDetails("Location", "LocationCreate"), response.Entities.First());
                 }
             }
@@ -105,11 +106,15 @@ namespace HRMS.Admin.UI.Controllers.Master
                 if (model.Id == 0)
                 {
                     model.FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
+                    model.CreatedDate = DateTime.Now;
+                    model.CreatedBy= Convert.ToInt32(HttpContext.Session.GetString("EmployeeId"));
                     var response = await _ILocationRepository.CreateEntity(model);
                     return Json(response.Message);
                 }
                 else
                 {
+                    model.UpdatedDate = DateTime.Now;
+                    model.UpdatedBy = Convert.ToInt32(HttpContext.Session.GetString("EmployeeId"));
                     var response = await _ILocationRepository.UpdateEntity(model);
                     return Json(response.Message);
                 }
