@@ -32,7 +32,7 @@
                         <input asp-for="CreatedBy" type="hidden" />
                         <input asp-for="CreatedDate" type="hidden" />
                         <input asp-for="FinancialYear" type="hidden" />
-                        <label asp-for="Title">Job Title</label>
+                        <label asp-for="Title">Job Title</label><span style="color:red">  *</span>
                         <input type="text" class="form-control" asp-for="Title" />
                         <span asp-validation-for="Title" class="text-danger"></span>
                     </div>
@@ -40,28 +40,28 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label asp-for="RequiredExprience">Required Exprience</label>
+                        <label asp-for="RequiredExprience">Required Exprience</label><span style="color:red">  *</span>
                         <input asp-for="RequiredExprience" class="form-control" />
                         <span asp-validation-for="RequiredExprience" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label asp-for="KeySkills">Key Skills</label>
+                        <label asp-for="KeySkills">Key Skills</label><span style="color:red">  *</span>
                         <input asp-for="KeySkills" class="form-control" />
                         <span asp-validation-for="KeySkills" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label asp-for="Vacancy">Vacancies</label>
+                        <label asp-for="Vacancy">Vacancies</label><span style="color:red">  *</span>
                         <input asp-for="Vacancy" class="form-control" />
                         <span asp-validation-for="Vacancy" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label asp-for="LastApplyDate">Last Apply Date</label>
+                        <label asp-for="LastApplyDate">Last Apply Date</label><span style="color:red">  *</span>
                         <input asp-for="LastApplyDate" class="form-control" />
                         <span asp-validation-for="LastApplyDate" class="text-danger"></span>
                     </div>
@@ -69,7 +69,7 @@
 
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label asp-for="Location">Job Location</label>
+                        <label asp-for="Location">Job Location</label><span style="color:red">  *</span>
                         <input asp-for="Location" class="form-control" />
                         <span asp-validation-for="Location" class="text-danger"></span>
                     </div>
