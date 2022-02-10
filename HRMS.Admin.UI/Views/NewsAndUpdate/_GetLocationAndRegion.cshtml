@@ -1,0 +1,34 @@
+﻿@model HRMS.Core.Entities.Organisation.Branch
+
+    <div class="row">
+
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="LocationTypeId">Location Type </label><span style="color:red">  *</span>
+                <select class="form-control" asp-for="LocationTypeId" asp-items="@(new SelectList(ViewBag.LocationTypeList ,"Id","Name"))">
+                    <option value="">--Select--</option>
+                </select>
+
+               
+            </div>
+        </div>
+
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="RegionId">Region </label><span style="color:red">  *</span>
+                <select class="form-control" asp-for="RegionId" asp-items="@(new SelectList(ViewBag.RegionList ,"Id","Name"))">
+                    <option value="">--Select--</option>
+                </select>
+
+                
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+

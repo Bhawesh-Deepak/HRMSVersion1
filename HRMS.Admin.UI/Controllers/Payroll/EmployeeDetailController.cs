@@ -34,7 +34,7 @@ namespace HRMS.Admin.UI.Controllers.Payroll
     public class EmployeeDetailController : Controller
     {
         private readonly IGenericRepository<EmployeeDetail, int> _IEmployeeDetailRepository;
-        private readonly IGenericRepository<Subsidiary, int> _ISubsidiaryRepository;
+        private readonly IGenericRepository<LegalEntity, int> _ISubsidiaryRepository;
         private readonly IGenericRepository<Department, int> _IDepartmentRepository;
         private readonly IGenericRepository<Designation, int> _IDesignationRepository;
         private readonly IGenericRepository<PAndLMaster, int> _IPAndLMasterRepository;
@@ -50,7 +50,7 @@ namespace HRMS.Admin.UI.Controllers.Payroll
         private readonly IDapperRepository<ExportEmployeeParams> _IExportEmployeeRepository;
         private readonly IHostingEnvironment _IHostingEnviroment;
         public EmployeeDetailController(IGenericRepository<EmployeeDetail, int> EmployeeDetailRepo, IHostingEnvironment hostingEnvironment,
-            IGenericRepository<Subsidiary, int> SubsidiaryRepo,
+            IGenericRepository<LegalEntity, int> SubsidiaryRepo,
             IGenericRepository<Department, int> DepartmentRepo,
             IGenericRepository<Designation, int> DesignationRepo,
              IGenericRepository<PAndLMaster, int> PAndLMasterRepo,

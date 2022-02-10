@@ -50,7 +50,7 @@ namespace HRMS.Admin.UI.Controllers.Master
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(AnnouncementAndUpdateController)} action name {nameof(GetAssesmentYearList)} exception is {ex.Message}";
+                string template = $"Controller name {nameof(NewsAndUpdateController)} action name {nameof(GetAssesmentYearList)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }

@@ -2,8 +2,7 @@
 
 <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
-@*<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">*@
-
+ 
 
 <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
       data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
@@ -15,11 +14,11 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label asp-for="Name">Department</label> <span style="color:red">  *</span>
-                            <select class="selectpicker form-control" multiple data-live-search="true" asp-for="DepartmentId" asp-items="@(new SelectList(ViewBag.DepartmentList ,"Id","Name"))">
-                                <option value="">--Select--</option>
+                            <label asp-for="LegalEntityId">Legal Entity</label>  
+                            <select class="selectpicker form-control" multiple data-live-search="true" asp-for="LegalEntityId" asp-items="@(new SelectList(ViewBag.LegalEntityList ,"Id","Name"))">
+                                
                             </select>
-                            <span asp-validation-for="DepartmentId" class="text-danger"></span>
+                            <span asp-validation-for="LegalEntityId" class="text-danger"></span>
                         </div>
 
                     </div>
@@ -47,7 +46,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label asp-for="DocumentUrl">Document Url</label>
+                            <label asp-for="DocumentUrl">Document  </label>
                             <input asp-for="DocumentUrl" class="form-control" type="file" />
                             <span asp-validation-for="DocumentUrl" class="text-danger"></span>
                         </div>
@@ -63,8 +62,6 @@
 
     </div>
     <div class="modal-footer">
-
-
         <button type="button" class="btn btn-primary btn-close" onclick="HidePopUp();">Close</button>
         <input type="submit" class="btn btn-primary  " value="Save" />
     </div>
@@ -72,6 +69,6 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $('select').selectpicker();
+        $('#LegalEntityId').selectpicker();
     })
 </script>

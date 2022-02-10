@@ -37,12 +37,17 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\PDF\" />
+    <Folder Include="wwwroot\resources\dist\multiselect\css\" />
+    <Folder Include="wwwroot\resources\dist\multiselect\js\" />
     <Folder Include="wwwroot\resources\login\css\" />
     <Folder Include="wwwroot\resources\login\js\" />
     <Folder Include="wwwroot\resources\Subsidiary\js\" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\LegalEntity\_LegalEntityCreate.cshtml" />
+    <None Include="Views\LegalEntity\_LegalEntityIndex.cshtml" />
+    <None Include="Views\LegalEntity\_LegalEntityList.cshtml" />
     <None Include="wwwroot\Rotativa\wkhtmltoimage.exe" />
     <None Include="wwwroot\Rotativa\wkhtmltopdf.exe" />
   </ItemGroup>

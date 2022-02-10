@@ -58,7 +58,7 @@ namespace HRMS.Core.Entities.Common
         public virtual DbSet<CustomerCallingDetails> CustomerCallingDetails { get; set; }
         public virtual DbSet<CustomerLeadCloserForm> CustomerLeadCloserForms { get; set; }
         public virtual DbSet<Company> Companies { get; set; }
-        public virtual DbSet<Subsidiary> Subsidiarys { get; set; }
+        public virtual DbSet<LegalEntity> LegalEntitys { get; set; }
         public virtual DbSet<CompanyHolidays> CompanyHolidays { get; set; }
         public virtual DbSet<StateMaster> StateMasters { get; set; }
         public virtual DbSet<EmployeeType> EmployeeTypes { get; set; }
@@ -76,7 +76,7 @@ namespace HRMS.Core.Entities.Common
         public virtual DbSet<ReferCandidate> ReferCandidates { get; set; }
         public virtual DbSet<AssesmentYear> AssesmentYears { get; set; }
         public virtual DbSet<EmployeeArrears> EmployeeArrearss { get; set; }
-        public virtual DbSet<AnnouncementAndUpdate> AnnouncementAndUpdates { get; set; }
+        public virtual DbSet<NewsAndUpdate> NewsAndUpdates { get; set; }
         public virtual DbSet<CtcComponentDetail> CtcComponentDetails { get; set; }
         public virtual DbSet<EmployeeSalary> EmployeeSalarys { get; set; }
         public virtual DbSet<EmployeeCtcComponent> EmployeeCtcComponents { get; set; }
@@ -87,7 +87,7 @@ namespace HRMS.Core.Entities.Common
         public virtual DbSet<PaidRegister> PaidRegisters { get; set; }
         public virtual DbSet<LeaveType> LeaveTypes { get; set; }
         public virtual DbSet<LeaveAllocation> LeaveAllocations { get; set; }
-
+         
         public virtual DbSet<EmployeeReimbursement> EmployeeReimbursements { get; set; }
         #endregion
     }

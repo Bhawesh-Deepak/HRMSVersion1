@@ -16,32 +16,32 @@ namespace HRMS.Admin.UI.Controllers.Dashboard
     [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class DashboardController : Controller
     {
-        private readonly IGenericRepository<Subsidiary, int> _ISubsidiaryRepository;
+        private readonly IGenericRepository<LegalEntity, int> _ILegalEntityRepository;
         private readonly IGenericRepository<Company, int> _ICompanyRepository;
 
-        public DashboardController(IGenericRepository<Subsidiary, int> subsidryRepository, IGenericRepository<Company, int> companyRepository)
+        public DashboardController(IGenericRepository<LegalEntity, int> LegalEntityRepository, IGenericRepository<Company, int> companyRepository)
         {
-            _ISubsidiaryRepository = subsidryRepository;
+            _ILegalEntityRepository = LegalEntityRepository;
             _ICompanyRepository = companyRepository;
         }
         public async Task<IActionResult> Index()
         {
             try
             {
-                var subsidiarymodel = await _ISubsidiaryRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+                var legalentitymodel = await _ILegalEntityRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
                 var companymodel = await _ICompanyRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
-                var response = (from subsidiary in subsidiarymodel.Entities
+                var response = (from legalentity in legalentitymodel.Entities
                                 join company in companymodel.Entities
-                                on subsidiary.OrganisationId equals company.Id
-                                select new SubsidiaryVM
+                                on legalentity.OrganisationId equals company.Id
+                                select new LegalEntityVM
                                 {
-                                    Id = subsidiary.Id,
+                                    Id = legalentity.Id,
                                     CompanyName = company.Name,
                                     CompanyLogo = company.Logo,
                                     CompanyCode = company.Code,
-                                    Name = subsidiary.Name,
-                                    Code = subsidiary.Code,
-                                    Logo = subsidiary.Logo
+                                    Name = legalentity.Name,
+                                    Code = legalentity.Code,
+                                    Logo = legalentity.Logo
                                 }).ToList();
 
                 return await Task.Run(() => View(ViewHelper.GetViewPathDetails("Dashboard", "Dashboard"), response));
@@ -60,7 +60,7 @@ namespace HRMS.Admin.UI.Controllers.Dashboard
             {
                 await Task.Run(() =>
                 {
-                    HttpContext.Session.SetString("SubsidryId", id.ToString());
+                    HttpContext.Session.SetString("LegalEntityId", id.ToString());
                     var options = new CookieOptions { Expires = DateTime.Now.AddHours(36) };
                     Response.Cookies.Append("Id", id.ToString(), options);
                 });

@@ -24,15 +24,21 @@ namespace HRMS.Admin.UI.Controllers.Master
     public class BranchController : Controller
     {
         private readonly IGenericRepository<Branch, int> _IBranchRepository;
-        private readonly IGenericRepository<Subsidiary, int> _ISubsidiaryRepository;
+        private readonly IGenericRepository<LegalEntity, int> _ISubsidiaryRepository;
+        private readonly IGenericRepository<LocationType, int> _ILocationTypeRepository;
+        private readonly IGenericRepository<RegionMaster, int> _IRegionMasterRepository;
         private readonly IHostingEnvironment _IHostingEnviroment;
 
         public BranchController(IGenericRepository<Branch, int> BranchRepo, IHostingEnvironment hostingEnvironment,
-            IGenericRepository<Subsidiary, int> SubsidiaryRepo)
+            IGenericRepository<LegalEntity, int> SubsidiaryRepo,
+             IGenericRepository<LocationType, int> LocationTypeRepo,
+             IGenericRepository<RegionMaster, int> RegionMasterRepo)
         {
             _IBranchRepository = BranchRepo;
             _ISubsidiaryRepository = SubsidiaryRepo;
             _IHostingEnviroment = hostingEnvironment;
+            _ILocationTypeRepository = LocationTypeRepo;
+            _IRegionMasterRepository = RegionMasterRepo;
         }
         public async Task<IActionResult> Index()
         {
@@ -55,22 +61,22 @@ namespace HRMS.Admin.UI.Controllers.Master
             {
                 var BranchList = await _IBranchRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
                 var CompanyList = await _ISubsidiaryRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+                var regionList = await _IRegionMasterRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+                var LocationTypeList = await _ILocationTypeRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
 
-                var responseDetails = (from cl in CompanyList.Entities
-                                       join bl in BranchList.Entities
-                                       on cl.Id equals bl.CompanyId
-                                       select new BranchDetails
+                var responseDetails = (from company in CompanyList.Entities
+                                       join branch in BranchList.Entities on company.Id equals branch.CompanyId
+                                       join locationtype in LocationTypeList.Entities on branch.LocationTypeId equals locationtype.Id
+                                       join regions in regionList.Entities on branch.RegionId equals regions.Id
+                                       select new BranchVM
                                        {
-                                           BranchId = bl.Id,
-                                           CompanyName = cl.Name,
-                                           Name=bl.Name,
-                                           Code = bl.Code,
-                                           Logo=bl.Logo,
-                                           Address=bl.Address,
-                                           ZipCode=bl.ZipCode,
-                                           Email=bl.Email,
-                                           ContactPerson=bl.ContactPerson,
-                                           Phone=bl.Phone
+                                           Id = branch.Id,
+                                           CompanyName = company.Name,
+                                           Name = branch.Name,
+                                           Code = branch.Code,
+                                           RegionName = regions.Name,
+                                           LocationTypeName = locationtype.Name,
+
                                        }).ToList();
 
                 return PartialView(ViewHelper.GetViewPathDetails("Branch", "BranchDetails"), responseDetails);
@@ -82,19 +88,34 @@ namespace HRMS.Admin.UI.Controllers.Master
                 return RedirectToAction("Error", "Home");
             }
         }
+        public async Task<IActionResult> GetLegalEntity(int id)
+        {
+            try
+            {
+                var response = await _ISubsidiaryRepository.GetAllEntities(x => x.Id == id);
+                return Json(response.Entities.FirstOrDefault());
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(Branch)} action name {nameof(CreateBranch)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
+        }
 
         public async Task<IActionResult> CreateBranch(int id)
         {
             try
             {
                 await PopulateViewBag();
-                var response = await _IBranchRepository.GetAllEntities(x => x.Id == id);
-                if(id == 0)
+
+                if (id == 0)
                 {
                     return PartialView(ViewHelper.GetViewPathDetails("Branch", "BranchCreate"));
                 }
                 else
                 {
+                    var response = await _IBranchRepository.GetAllEntities(x => x.Id == id);
                     return PartialView(ViewHelper.GetViewPathDetails("Branch", "BranchCreate"), response.Entities.First());
                 }
             }
@@ -107,22 +128,27 @@ namespace HRMS.Admin.UI.Controllers.Master
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpsertBranch(Branch model, IFormFile Logo)
+        public async Task<IActionResult> UpsertBranch(Branch model)
         {
             try
             {
-            model.Logo = await new BlobHelper().UploadImageToFolder(Logo, _IHostingEnviroment);
-            if (model.Id == 0)
-            {
+
+                if (model.Id == 0)
+                {
                     model.FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
+                    model.CreatedBy = Convert.ToInt32(HttpContext.Session.GetString("EmployeeId"));
+                    model.CreatedDate = DateTime.Now;
+
                     var response = await _IBranchRepository.CreateEntity(model);
-                return Json(response.Message);
-            }
-            else
-            {
-                var response = await _IBranchRepository.UpdateEntity(model);
-                return Json(response.Message);
-            }
+                    return Json(response.Message);
+                }
+                else
+                {
+                    model.UpdatedBy = Convert.ToInt32(HttpContext.Session.GetString("EmployeeId"));
+                    model.UpdatedDate = DateTime.Now;
+                    var response = await _IBranchRepository.UpdateEntity(model);
+                    return Json(response.Message);
+                }
             }
             catch (Exception ex)
             {
@@ -136,14 +162,14 @@ namespace HRMS.Admin.UI.Controllers.Master
         {
             try
             {
-            var deleteModel = await _IBranchRepository.GetAllEntityById(x => x.Id == id);
-            var deleteDbModel = CrudHelper.DeleteHelper<Branch>(deleteModel.Entity, 1);
-            var deleteResponse = await _IBranchRepository.DeleteEntity(deleteDbModel);
-            if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
-            {
+                var deleteModel = await _IBranchRepository.GetAllEntityById(x => x.Id == id);
+                var deleteDbModel = CrudHelper.DeleteHelper<Branch>(deleteModel.Entity, 1);
+                var deleteResponse = await _IBranchRepository.DeleteEntity(deleteDbModel);
+                if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
+                {
+                    return Json(deleteResponse.Message);
+                }
                 return Json(deleteResponse.Message);
-            }
-            return Json(deleteResponse.Message);
             }
             catch (Exception ex)
             {
@@ -155,10 +181,15 @@ namespace HRMS.Admin.UI.Controllers.Master
         #region PrivateFields
         private async Task PopulateViewBag()
         {
-            var departmentResponse = await _ISubsidiaryRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+            var legalEntityResponse = await _ISubsidiaryRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+            var locationtypeResponse = await _ILocationTypeRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+            var regionResponse = await _IRegionMasterRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
 
-            if (departmentResponse.ResponseStatus == ResponseStatus.Success)
-                ViewBag.CompanyList = departmentResponse.Entities;
+            if (legalEntityResponse.ResponseStatus == ResponseStatus.Success && locationtypeResponse.ResponseStatus == ResponseStatus.Success
+                && regionResponse.ResponseStatus == ResponseStatus.Success)
+                ViewBag.LegalEntityList = legalEntityResponse.Entities;
+            ViewBag.LocationTypeList = locationtypeResponse.Entities;
+            ViewBag.RegionList = regionResponse.Entities;
 
         }
 

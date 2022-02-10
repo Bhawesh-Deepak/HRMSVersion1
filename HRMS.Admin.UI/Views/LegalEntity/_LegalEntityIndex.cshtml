@@ -1,22 +1,18 @@
-﻿@model HRMS.Core.Entities.Master.CompanyPolicy
-
- 
-<link href="~/resources/dist/multiselect/css/bootstrap-select.css" rel="stylesheet" />
-<script src="~/resources/dist/multiselect/js/bootstrap-select.js"></script>
+﻿
 <div class="content-wrapper" style="min-height: 870px;">
     @Html.BuildBreadcrumbNavigation()
     <section class="content">
         <div class="row">
             <div class="col-md-12">
-                <div class="row" style="margin-top:0;">
+                <div class="row">
                     <div class="col-md-12 col-sm-12">
                         <div class="box box-primary">
                             <div class="box-header with-border">
                                 <div class="box-title">
-                                    <h3 class="box-title pull-left"><i class="fa fa-list fa-lg"></i>   List of Company Policy</h3>
+                                    <i class="fa fa-list fa-lg"></i>   List of Legal Entity &nbsp;
 
                                 </div>
-                                <a class="btn btn-primary pull-right btn-xs" onclick="AddCompanyPolicy()" title="Add Company Policy">
+                                <a class="btn btn-primary pull-right btn-xs" onclick="AddSubsidiary()" title="Add New Legal Entity">
                                     <i class="fa fa-plus"> &nbsp; Add</i>
                                 </a>
                             </div>
@@ -29,12 +25,13 @@
                 </div>
             </div>
         </div>
-
     </section>
 </div>
+
+
 <environment include="Development">
-    <script src="~/HRMSJs/CompanyPolicy.js"></script>
+    <script src="~/HRMSJs/LegalEntity.js"></script>
 </environment>
 <environment include="Production">
-    <script src="~/HRMSJs/CompanyPolicy.js"></script>
+    <script src="~/HRMSJs/LegalEntity.js"></script>
 </environment>
