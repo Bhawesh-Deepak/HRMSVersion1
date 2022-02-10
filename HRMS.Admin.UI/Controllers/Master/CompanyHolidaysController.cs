@@ -9,6 +9,7 @@ using HRMS.Services.Repository.GenericRepository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -32,7 +33,7 @@ namespace HRMS.Admin.UI.Controllers.Master
         {
             try
             {
-                ViewBag.HeaderTitle = PageHeader.HeaderSetting["CompanyHolidaysIndex"];
+                 
                 return await Task.Run(() => View(ViewHelper.GetViewPathDetails("CompanyHolidays", "CompanyHolidaysIndex")));
             }
             catch (Exception ex)
@@ -50,15 +51,16 @@ namespace HRMS.Admin.UI.Controllers.Master
                 var HolidayList = await _ICompanyHolidaysRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
                 var StateList = await _IStateRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
 
-                var responseDetails = (from stl in StateList.Entities
-                                       join hdl in HolidayList.Entities
-                                       on stl.Id equals hdl.StateId
+                var responseDetails = (from holidaylist in HolidayList.Entities
+                                       join statelist in StateList.Entities
+                                       on holidaylist.StateId equals statelist.Id into f
+                                       from statelist in f.DefaultIfEmpty()
                                        select new HolidaysDetails
                                        {
-                                           HolidayId=hdl.Id,
-                                           StateName=stl.Name,
-                                           HolidayName = hdl.Name,
-                                           Holidate = hdl.HolidayDate.ToString("dd-M-yyyy", CultureInfo.InvariantCulture)
+                                           StateName = statelist != null ? statelist.Name : "Pan India",
+                                           HolidayId = holidaylist.Id,
+                                           HolidayName = holidaylist.Name,
+                                           Holidate = holidaylist.HolidayDate.ToString("dd-MM-yyyy", CultureInfo.InvariantCulture)
                                        }).ToList();
                 return PartialView(ViewHelper.GetViewPathDetails("CompanyHolidays", "CompanyHolidayDetails"), responseDetails);
             }
@@ -97,15 +99,39 @@ namespace HRMS.Admin.UI.Controllers.Master
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpsertCompanyHoliday(CompanyHolidays model)
+        public async Task<IActionResult> UpsertCompanyHoliday(CompanyHolidays model, List<int> StateId)
         {
             try
             {
+                List<CompanyHolidays> companyholidays = new List<CompanyHolidays>();
                 if (model.Id == 0)
                 {
-                    model.FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
-                    var response = await _ICompanyHolidaysRepository.CreateEntity(model);
-                    return Json(response.Message);
+                    if (StateId.Count > 0)
+                    {
+                        foreach (var data in StateId)
+                        {
+                            companyholidays.Add(new CompanyHolidays
+                            {
+                                FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId")),
+                                StateId = data,
+                                HolidayDate = model.HolidayDate,
+                                Name = model.Name,
+                                CreatedDate = DateTime.Now,
+                                CreatedBy= Convert.ToInt32(HttpContext.Session.GetString("EmployeeId")),
+                            });
+                        }
+
+                        var response = await _ICompanyHolidaysRepository.CreateEntities(companyholidays.ToArray());
+                        return Json(response.Message);
+                    }
+                    else
+                    {
+                        model.FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
+                        model.CreatedDate = DateTime.Now;
+                        model.CreatedBy = Convert.ToInt32(HttpContext.Session.GetString("EmployeeId"));
+                        var response = await _ICompanyHolidaysRepository.CreateEntity(model);
+                        return Json(response.Message);
+                    }
                 }
                 else
                 {

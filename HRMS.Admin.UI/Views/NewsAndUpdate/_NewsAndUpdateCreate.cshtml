@@ -1,0 +1,89 @@
+﻿@model HRMS.Core.Entities.Master.NewsAndUpdate
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+
+
+<form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+      asp-action="UpsertNewsAndUpdate" asp-controller="NewsAndUpdate" data-ajax-success="Success">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="BranchId">Branch</label> <span style="color:red">  *</span>
+                            <select class="form-control" asp-for="BranchId" asp-items="@(new SelectList(ViewBag.Branch ,"Id","Name"))">
+                                <option value="">--Select--</option>
+                            </select>
+                            <span asp-validation-for="BranchId" class="text-danger"></span>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="CalenderDate">Calender Date</label><span style="color:red">  *</span>
+                            <input asp-for="CalenderDate" type="date" class="form-control" />
+                            <span asp-validation-for="CalenderDate" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="divRegion"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="UploadFile">Browse File :</label>
+                            <input asp-for="UploadFile" type="file" class="form-control" />
+                            <span asp-validation-for="UploadFile" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input asp-for="Id" type="hidden" />
+                            <input asp-for="CreatedBy" type="hidden" />
+                            <input asp-for="CreatedDate" type="hidden" />
+                            <input asp-for="FinancialYear" type="hidden" />
+                            <label asp-for="News">News And Update</label><span style="color:red">  *</span>
+                            <textarea class="form-control" asp-for="News" rows="5"></textarea>
+                            <span asp-validation-for="News" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-close" onclick="HidePopUp();">Close</button>
+        <input type="submit" class="btn btn-primary" value="Save" />
+    </div>
+</form>
+
+
+<script>
+    $(document).ready(function () {
+        var Id = $("#Id").val();
+        if (Id > 0) {
+            $('#divLoader').modal('show');
+            $.get("/NewsAndUpdate/GetLocationAndRegion/", { Id: Id}, function (response) {
+                $("#divRegion").html(response);
+            }).done(function () {
+                $('#divLoader').modal('hide');
+            });
+        }
+         
+    });
+    $("#BranchId").change(function () {
+        $('#divLoader').modal('show');
+        $.get("/NewsAndUpdate/GetLocationAndRegion/", { Id: this.value }, function (response) {
+            $("#divRegion").html(response);
+        }).done(function () {
+            $('#divLoader').modal('hide');
+        });
+
+    });
+</script>

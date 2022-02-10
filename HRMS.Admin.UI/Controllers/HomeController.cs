@@ -26,14 +26,17 @@ namespace HRMS.Admin.UI.Controllers
         private readonly IGenericRepository<AssesmentYear, int> _IAssesmentYearRepository;
         private readonly IGenericRepository<EmployeeDetail, int> _IEmployeeDetailRepository;
         private readonly IDapperRepository<AttendanceGraphParams> _IAttendanceGraphRepository;
+        private readonly IDapperRepository<BirthdayAnniversaryParams> _IBirthdayAnniversaryRepository;
         public HomeController(ILogger<HomeController> logger, IGenericRepository<AssesmentYear, int> assesmentYearRepository,
             IGenericRepository<EmployeeDetail, int> employeedetailRepository,
-            IDapperRepository<AttendanceGraphParams> attendancegraphRepository)
+            IDapperRepository<AttendanceGraphParams> attendancegraphRepository,
+             IDapperRepository<BirthdayAnniversaryParams> birthdayanniversaryRepository)
         {
             _logger = logger;
             _IAssesmentYearRepository = assesmentYearRepository;
             _IEmployeeDetailRepository = employeedetailRepository;
             _IAttendanceGraphRepository = attendancegraphRepository;
+            _IBirthdayAnniversaryRepository = birthdayanniversaryRepository;
         }
 
         public async Task<IActionResult> Index()
@@ -54,19 +57,13 @@ namespace HRMS.Admin.UI.Controllers
         {
             try
             {
+                var birthdayparam = new BirthdayAnniversaryParams()
+                {
+                    Id = Id
+                };
+                var response = await Task.Run(() => _IBirthdayAnniversaryRepository.GetAll<BirthdayAnniversaryVM>(SqlQuery.GetBirtdayAnniversary, birthdayparam));
+                return PartialView(ViewHelper.GetViewPathDetails("Home", "_BirthDayAndAnniversary"), response);
 
-                if (Id == 1)
-                {
-                    var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted &&
-                    x.DateOfBirth.Value.Day == DateTime.Now.Day && x.DateOfBirth.Value.Month == DateTime.Now.Month);
-                    return PartialView(ViewHelper.GetViewPathDetails("Home", "_BirthDayAndAnniversary"), response.Entities);
-                }
-                else
-                {
-                    var response = await _IEmployeeDetailRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted &&
-                     x.JoiningDate.Day == DateTime.Now.Day && x.JoiningDate.Month == DateTime.Now.Month);
-                    return PartialView(ViewHelper.GetViewPathDetails("Home", "_BirthDayAndAnniversary"), response.Entities);
-                }
             }
             catch (Exception ex)
             {
@@ -81,7 +78,7 @@ namespace HRMS.Admin.UI.Controllers
             try
             {
                 if (FinancialYear == 0)
-                FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
+                    FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
                 var attendanceParams = new AttendanceGraphParams()
                 {
                     FinancialYear = FinancialYear

@@ -1,4 +1,6 @@
-﻿@model IEnumerable<HRMS.Core.ReqRespVm.Response.Master.CompanyPolicyDetails>
+﻿@model IEnumerable<HRMS.Core.ReqRespVm.Response.Master.NewsAndUpdateVM>
+
+
 <script src="~/resources/dist/js/jquery.dataTables.js" type="text/javascript"></script>
 
 <div class="table-responsive">
@@ -10,12 +12,13 @@
             <thead>
                 <tr class="th-primary" role="row">
                     <th>#</th>
-                    <th>Legal Entity</th>
-                    <th>Policy Name</th>
-                    <th>Policy Date</th>
-                    <th>Document </th>
+                    <th>Branch</th>
+                    <th>Location Type</th>
+                    <th>Region</th>
+                    <th>Calender Date</th>
+                    <th>News</th>
+                    <th>File</th>
                     <th>Action</th>
-
                 </tr>
             </thead>
             <tbody role="alert" aria-live="polite" aria-relevant="all">
@@ -34,33 +37,37 @@
                         trclass = "odd";
                     }
                     <tr class="@trclass">
-                        <td align="left" style="width:5%;" class="sorting_1">
+                        <td align="left" style="width:3%;" class="sorting_1">
                             @count
                         </td>
-                        <td align="left" style="width:15%;" class="sorting_1">
-                            @data.LegalEntityName
+                        <td align="left" style="width:7%;" class="sorting_1">
+                            @data.BranchName
                         </td>
-                        <td align="left" style="width:50%;" class="sorting_1">
-                            @data.Name
+                        <td align="left" style="width:7%;" class="sorting_1">
+                            @data.LocationTypeName
                         </td>
-                        <td align="left" style="width:10%;" class="sorting_1">
+                        <td align="left" style="width:7%;" class="sorting_1">
+                            @data.RegionName
+                        </td>
+                        <td align="left" style="width:6%;" class="sorting_1">
                             @data.CalenderDate
                         </td>
-
-                        <td align="left" style="width:10%;" class="sorting_1">
-                            @if (data.DocumentUrl != null && data.DocumentUrl != "")
-                            {
-                                <a title="Download Document" class="btn btn-primary btn-xs" href="@data.DocumentUrl" target="_blank">
-                                    <i class="fa fa-download "></i>
-                                </a>
-                            }
+                        <td align="left" style="width:55%;" class="sorting_1">
+                            @data.News
                         </td>
 
+                        <td align="left" style="width:5%;" class="sorting_1">
+                            @if (data.UploadFile != null && data.UploadFile != "")
+                            {
+                                <a title="Download File" target="_blank" class="btn btn-success btn-xs" href="@data.UploadFile">
+                                    <span class="fa fa-download "></span>
+                                </a>
+                            }
 
-
+                        </td>
                         <td align="center" style="width:10%;" class="sorting_1">
                             <a title="Edit" class="btn btn-primary btn-xs" onclick="UpdateRecord(@data.Id, this)">
-                                <i class="fa fa-pencil "></i>
+                                <span class="fa fa-pencil "></span>
                             </a>
                             <a title="Delete" class="btn btn-xs btn-danger" onclick="Delete(@data.Id, this)"><i class="fa fa-ban"></i></a>
 
@@ -78,6 +85,8 @@
 
 
 </div>
+
+
 <script>
     $('#example').dataTable({
         "iDisplayLength": 10,

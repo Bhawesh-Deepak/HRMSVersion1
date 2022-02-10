@@ -6,7 +6,7 @@ $(document).ready(function () {
     GetCompanyPolicyList();
 })
 
-function AddLocation() {
+function AddCompanyPolicy() {
     NewCustomRecord("/CompanyPolicy/CreateCompanyPolicy", "Create Company Policy")
 }
 
