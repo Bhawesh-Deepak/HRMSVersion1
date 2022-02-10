@@ -14,29 +14,17 @@ namespace HRMS.Core.Entities.Organisation
     {
         [Required(ErrorMessage = "This field is required.")]
         public int CompanyId { get; set; }
-
+        [Required(ErrorMessage = "This field is required.")]
+        public int RegionId { get; set; }
+        [Required(ErrorMessage = "This field is required.")]
+        public int LocationTypeId { get; set; }
         [Required(ErrorMessage = "This field is required.")]
         [Display(Prompt = "Branch Name")]
         public string Name { get; set; }
-        [Display(Prompt = "code")]
+        [Required(ErrorMessage = "This field is required.")]
+        [Display(Prompt = "Code")]
         public string Code { get; set; }
-        [Display(Prompt = "logo")]
-        public string Logo { get; set; }
-        [Display(Prompt = "Address")]
-        public string Address { get; set; }
 
-        [Display(Prompt = "Zip Code")]
-        public int ZipCode { get; set; }
 
-        [Display(Prompt = "Email")]
-
-        [DataType(DataType.EmailAddress)]
-        [RegularExpression(@"[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}", ErrorMessage = "Incorrect Email Format")]
-
-        public string Email { get; set; }
-        [Display(Prompt = "phone")]
-        public string Phone { get; set; }
-        [Display(Prompt = "Contact Person")]
-        public string ContactPerson { get; set; }
     }
 }
