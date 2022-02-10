@@ -1,8 +1,12 @@
 ﻿@model HRMS.Core.Entities.Master.Department
+
+@{
+    List<HRMS.Core.Entities.Master.Designation> designations = (List<HRMS.Core.Entities.Master.Designation>)@ViewBag.DesignationList;
+}
 <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
 
- 
+
 <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
       data-ajax-complete="AjaxComplete"
       asp-action="UpSertDepartment" asp-controller="Department" data-ajax-success="Success">
@@ -12,45 +16,195 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
+                            <label asp-for="BranchId">Branch :</label><span style="color:red">  *</span>
+                            <select class="form-control input-sm" asp-for="BranchId" asp-items="@(new SelectList(ViewBag.BranchList ,"Id","Code"))">
+                                <option value="">--Select--</option>
+                            </select>
+
+                            <span asp-validation-for="BranchId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <input asp-for="Id" type="hidden" />
                             <input asp-for="CreatedBy" type="hidden" />
                             <input asp-for="CreatedDate" type="hidden" />
                             <input asp-for="FinancialYear" type="hidden" />
-                            <label asp-for="Name">Department Name</label><span style="color:red">  *</span>
-                            <input type="text" class="form-control" asp-for="Name" />
+                            <label asp-for="Name">Department Name :</label><span style="color:red">  *</span>
+                            <input type="text" class="form-control input-sm" asp-for="Name" />
                             <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
 
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label asp-for="Code">Code</label>
-                            <input asp-for="Code" class="form-control" />
+                            <label asp-for="Code">Code :</label> <span style="color:red">  *</span>
+                            <input asp-for="Code" class="form-control input-sm" />
                             <span asp-validation-for="Code" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label asp-for="Description">Description</label>
-                            <input asp-for="Description" class="form-control" />
-                            <span asp-validation-for="Description" class="text-danger"></span>
+                @if (designations.Count() > 0)
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <style>
+                                hr {
+                                    margin-top: 0px;
+                                    margin-bottom: 0px;
+                                    border: 0;
+                                    border-top: 1px solid #eee;
+                                }
+                            </style>
+                            <br />
+                            <div class="table-responsive">
+                                <div class="dataTables_wrapper" role="grid">
+                                    <table class="table table-condensed table-striped table-hover table-bordered table-body-nowrap table-head-nowrap dataTable" cellspacing="0" rules="all" border="1" id="example" style="border-collapse:collapse;" aria-describedby="cp_MainContent_widgetExitEmployee_grdExitEmployees_info">
+                                        <thead>
+                                            <tr class="th-primary" role="row">
+                                                <th>#</th>
+                                                <th>Department</th>
+                                                <th>Designation</th>
+                                                <th>Code</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody role="alert" aria-live="polite" aria-relevant="all">
+                                            @{
+                                                int count = 1;
+                                                string trclass = string.Empty;
+                                            }
+                                            @foreach (var data in designations)
+                                            {
+                                                if (count / 2 == 0)
+                                                {
+                                                    trclass = "even";
+                                                }
+                                                else
+                                                {
+                                                    trclass = "odd";
+                                                }
+                                                <tr class="@trclass">
+                                                    <td align="left" style="width:5%;" class="sorting_1">
+                                                        @count
+                                                    </td>
+                                                    <td align="left" style="width:20%;" class="sorting_1">
+                                                        @data.DepartmentName
+                                                    </td>
+                                                    <td align="left" style="width:20%;" class="sorting_1">
+                                                        @data.Name
+                                                    </td>
+                                                    <td align="left" style="width:10%;" class="sorting_1">
+                                                        @data.Code
+                                                    </td>
+
+                                                </tr>
+                                                count++;
+                                            }
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+
+                            </div>
+
+
+                            <hr />
                         </div>
+                    </div>}
+
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="DesignationName">Designation Name :</label> <span style="color:red">  *</span>
+                            <input id="DesignationName" name="DesignationName" class="form-control input-sm" placeholder="Designation Name" />
+
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="DesignationCode">Designation Code :</label> <span style="color:red">  *</span>
+                            <input id="DesignationCode" name="DesignationCode" class="form-control input-sm" placeholder="Designation Code" />
+
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="Action">Action :</label>
+                            <button type="button" class="btn btn-primary btn-sm" title="Add Designation" onclick="BindTable()"><i class="fa fa-plus"></i></button>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <span class="text-danger" id="spnmessage"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-condensed table-striped table-hover table-bordered table-body-nowrap table-head-nowrap" id="tableDesignation" style="display:none">
+                            <thead class="th-primary" role="row">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Designation Name</th>
+                                    <th>Designation Code</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
     <div class="modal-footer">
- 
-
-
         <button type="button" class="btn btn-primary btn-close" onclick="HidePopUp();">Close</button>
- 
-      
         <input type="submit" class="btn btn-primary  " value="Save" />
     </div>
+
 </form>
+
+
+<script>
+    function BindTable() {
+        debugger;
+        var designationName = $("#DesignationName").val();
+        var designationCode = $("#DesignationCode").val();
+        var rowCount = $('#tableDesignation tr').length;
+        if (rowCount > 10) {
+            $("#spnmessage").text('You exced the limit..')
+        }
+        else {
+            var newRowContent = "<tr>"
+                + "<td>" + rowCount + "</td>"
+                + "<td>" + designationName + "<input type='hidden' id='hdndesignationName' value='" + designationName + "' name='hdndesignationName' /></td>"
+                + "<td>" + designationCode + "<input type='hidden' id='hdndesignationCode' value='" + designationCode + "' name='hdndesignationCode' /></td>"
+                + "<td><button type='button' class='btn btn-danger btn-xs btn-delete' title='Delete Designation' ><i class='fa fa-ban'></i></button></td>"
+                + "</tr>";
+
+            $("#tableDesignation tbody").append(newRowContent);
+            $("#DesignationName").val('');
+            $("#DesignationCode").val('');
+            $("#tableDesignation").show("slow")
+        }
+    }
+    $("body").on("click", ".btn-delete", function () {
+        $(this).parents("tr").remove();
+        var rowCount = $('#tableDesignation tr').length;
+        if (rowCount > 1) {
+
+        }
+        else {
+            $("#tableDesignation").hide("slow")
+        }
+
+    });
+        
+</script>
