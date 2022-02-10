@@ -1,4 +1,5 @@
-﻿using HRMS.Admin.UI.Helpers;
+﻿using HRMS.Admin.UI.AuthenticateService;
+using HRMS.Admin.UI.Helpers;
 using HRMS.Core.Entities.Organisation;
 using HRMS.Core.Helpers.BlobHelper;
 using HRMS.Core.Helpers.CommonCRUDHelper;
@@ -15,6 +16,8 @@ using System.Threading.Tasks;
 
 namespace HRMS.Admin.UI.Controllers.Organisation
 {
+    [CustomAuthenticate]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class SubsidiaryController : Controller
     {
         private readonly IGenericRepository<Company, int> _ICompanyRepository;
@@ -31,8 +34,17 @@ namespace HRMS.Admin.UI.Controllers.Organisation
         }
         public async Task<IActionResult> Index()
         {
-            ViewBag.HeaderTitle = PageHeader.HeaderSetting["Subsidiary"];
-            return await Task.Run(() => View(ViewHelper.GetViewPathDetails("Subsidiary", "SubsidiaryIndex")));
+            try
+            {
+                ViewBag.HeaderTitle = PageHeader.HeaderSetting["Subsidiary"];
+                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("Subsidiary", "SubsidiaryIndex")));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(SubsidiaryController)} action name {nameof(Index)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
         public async Task<IActionResult> GetSubsidiaryList()
         {
@@ -64,7 +76,7 @@ namespace HRMS.Admin.UI.Controllers.Organisation
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(Subsidiary)} action name {nameof(GetSubsidiaryList)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(SubsidiaryController)} action name {nameof(GetSubsidiaryList)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -72,16 +84,24 @@ namespace HRMS.Admin.UI.Controllers.Organisation
         }
         public async Task<IActionResult> CreateSubsidiary(int id)
         {
-            var response = new DBResponseHelper<Subsidiary, int>().GetDBResponseHelper(await _ISubsidiaryRepository.GetAllEntities(x => x.Id == id));
-            await PopulateViewBag();
-            if (id == 0)
+            try
             {
-                return PartialView(ViewHelper.GetViewPathDetails("Subsidiary", "SubsidiaryCreate"));
+                var response = new DBResponseHelper<Subsidiary, int>().GetDBResponseHelper(await _ISubsidiaryRepository.GetAllEntities(x => x.Id == id));
+                await PopulateViewBag();
+                if (id == 0)
+                {
+                    return PartialView(ViewHelper.GetViewPathDetails("Subsidiary", "SubsidiaryCreate"));
+                }
+                else
+                {
+                    return PartialView(ViewHelper.GetViewPathDetails("Subsidiary", "SubsidiaryCreate"), response.Item2.Entities.First());
+                }
             }
-            else
+            catch (Exception ex)
             {
-
-                return PartialView(ViewHelper.GetViewPathDetails("Subsidiary", "SubsidiaryCreate"), response.Item2.Entities.First());
+                string template = $"Controller name {nameof(SubsidiaryController)} action name {nameof(CreateSubsidiary)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
         }
         [HttpPost]
@@ -95,6 +115,7 @@ namespace HRMS.Admin.UI.Controllers.Organisation
 
                 if (model.Id == 0)
                 {
+                    model.FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
                     var createModel = CrudHelper.CreateHelper<Subsidiary>(model);
                     createModel.Logo = uploadLogoPath;
                     createModel.FavIcon = favIconPath;
@@ -113,7 +134,7 @@ namespace HRMS.Admin.UI.Controllers.Organisation
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(Subsidiary)} action name {nameof(CreateSubsidiary)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(SubsidiaryController)} action name {nameof(UpSertSubsidiary)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -121,17 +142,23 @@ namespace HRMS.Admin.UI.Controllers.Organisation
         [HttpGet]
         public async Task<IActionResult> DeleteSubsidiary(int id)
         {
-            var deleteModel = await _ISubsidiaryRepository.GetAllEntityById(x => x.Id == id);
-
-            var deleteDbModel = CrudHelper.DeleteHelper<Subsidiary>(deleteModel.Entity, 1);
-
-            var deleteResponse = await _ISubsidiaryRepository.DeleteEntity(deleteDbModel);
-
-            if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
+            try
             {
+                var deleteModel = await _ISubsidiaryRepository.GetAllEntityById(x => x.Id == id);
+                var deleteDbModel = CrudHelper.DeleteHelper<Subsidiary>(deleteModel.Entity, 1);
+                var deleteResponse = await _ISubsidiaryRepository.DeleteEntity(deleteDbModel);
+                if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
+                {
+                    return Json(deleteResponse.Message);
+                }
                 return Json(deleteResponse.Message);
-            }
-            return Json(deleteResponse.Message);
+                }
+                catch (Exception ex)
+                {
+                    string template = $"Controller name {nameof(SubsidiaryController)} action name {nameof(DeleteSubsidiary)} exception is {ex.Message}";
+                    Serilog.Log.Error(ex, template);
+                    return RedirectToAction("Error", "Home");
+                }
         }
         private async Task PopulateViewBag()
         {

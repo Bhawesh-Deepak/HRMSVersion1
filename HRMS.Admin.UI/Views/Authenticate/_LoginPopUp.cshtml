@@ -1,0 +1,44 @@
+﻿@model HRMS.Core.ReqRespVm.RequestVm.AuthenticateModel
+
+@{
+    Layout = null;
+    var returnUrl = ViewData["ReturnUrl"].ToString();
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css'>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js'></script>
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js'></script>
+    <link rel="stylesheet" href="~/css/style.css" />
+</head>
+<body class="sessionBody">
+    <section class="main-wrap">
+        <form asp-action='Login' asp-controller='Authenticate' method='post' asp-route-returnurl="@returnUrl">
+            <div id='myModal' class='modal sessionModel fade' data-backdrop="static" data-keyboard="false" role='dialog'>
+                <div class='modal-dialog'>
+                    <div class='modal-content'>
+                        <div class='modal-header'>
+                            <h4 class='modal-title'>Session Timed Out! </h4>
+                        </div>
+                        <div class='modal-body'>
+                            <p>Your session is timed out. Please enter password to login again or cancel to exit.</p>
+                            <input type='password' name='Password' autofocus class='form-control' placeholder='Enter password'>
+                        </div>
+                        <div class='modal-footer'>
+                            <input type='submit' class='btn btn-default' value='Login' />
+                            <input type='button' class='btn btn-secondary' onclick="window.location.href='/Authenticate/LoginIndex'" value='Cancel' />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+</body>
+</html>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#myModal').modal('show');
+    });
+</script>

@@ -1,0 +1,50 @@
+﻿@model IEnumerable<HRMS.Core.Entities.Payroll.EmployeeDetail>
+
+<div class="row" style="margin-top:0;">
+    <div class="col-md-12 col-sm-12">
+        <div class="owl-carousel owl-theme" id="owl-carousel-1">
+            @foreach (var item in Model)
+            {
+            <div class="item">
+                <div class="border">
+                    <img src="@item.ProfilePic" alt="" class="img-responsive">
+                    <div class="p-4">
+                        <h5>@item.EmployeeName</h5>
+                        <h6>@item.DepartmentName</h6>
+                        <a type="button" class="btn btn-primary" href="#">Send Wishes</a>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</div>
+<script>
+    $('#owl-carousel-1').owlCarousel({
+		margin: 10,
+		nav: true,
+		loop: true,
+		slideBy:1,
+        autoplay: true,
+        rtl: false,
+		autoplayTimeout:5000,
+		autoplayHoverPause:true,
+		responsive: {
+			0: {
+			items: 1
+			},
+            480: {
+			items: 2
+			},
+			768: {
+			items: 3
+			},
+			992: {
+			items:4
+			},
+            1200: {
+			items:5
+			}
+		}
+		});
+</script>

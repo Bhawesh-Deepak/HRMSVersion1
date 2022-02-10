@@ -1,4 +1,5 @@
-﻿using HRMS.Core.Entities.Organisation;
+﻿using HRMS.Admin.UI.AuthenticateService;
+using HRMS.Core.Entities.Organisation;
 using HRMS.Core.Entities.Payroll;
 using HRMS.Core.Helpers.BlobHelper;
 using HRMS.Core.Helpers.CommonCRUDHelper;
@@ -14,6 +15,9 @@ using System.Threading.Tasks;
 
 namespace HRMS.Admin.UI.Controllers.Organisation
 {
+
+    [CustomAuthenticate]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class CompanyController : Controller
     {
         private readonly IGenericRepository<Company, int> _ICompanyRepository;
@@ -33,7 +37,7 @@ namespace HRMS.Admin.UI.Controllers.Organisation
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(Company)} action name {nameof(Index)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(Company)} action name {nameof(Index)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
@@ -69,7 +73,7 @@ namespace HRMS.Admin.UI.Controllers.Organisation
             }
             catch (Exception ex)
             {
-                string template = $"Controller name {nameof(Company)} action name {nameof(CreateCompany)} exceptio is {ex.Message}";
+                string template = $"Controller name {nameof(Company)} action name {nameof(CreateCompany)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }

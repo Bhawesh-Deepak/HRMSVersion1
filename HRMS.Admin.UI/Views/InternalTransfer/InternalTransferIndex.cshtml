@@ -1,0 +1,47 @@
+﻿<div class="content-wrapper" style="min-height: 870px;">
+    @Html.BuildBreadcrumbNavigation()
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row" style="margin-top:0;">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-info-circle"></i>   Employee Personal Information
+                                    &nbsp;
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Select Employee :</label><span style="color:red">  *</span><br />
+                                            <select class="form-control" id="ddlEmployeeId" asp-items="@(new SelectList(ViewBag.EmployeeList ,"Id","EmployeeName"))">
+                                                <option value="">--Select--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" id="Div_EmployeeDetail">
+
+            </div>
+        </div>
+    </section>
+</div>
+<script>
+    $("#ddlEmployeeId").on("change", function () {
+        $('#divLoader').modal('show');
+        $.get("/InternalTransfer/GetEmployeeDetail", { Id: this.value }, function (response) {
+            $("#Div_EmployeeDetail").html(response);
+            $('#divLoader').modal('hide');
+        });
+    });
+</script>

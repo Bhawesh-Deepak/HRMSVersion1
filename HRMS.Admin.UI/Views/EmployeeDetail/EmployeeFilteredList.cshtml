@@ -1,0 +1,196 @@
+﻿@model IEnumerable<HRMS.Core.ReqRespVm.Response.Employee.EmployeeDetailVm>
+@{
+    string sortIcon = "sortingIco";
+    string ndcSortBy = sortIcon;
+    string brandNameSortBy = sortIcon;
+    string gpiSortBy = sortIcon;
+
+    if (Model.Any())
+    {
+        var sortIconAscDesc = Model.First().OrderBy.ToLower().Trim() == "asc" ? " ace" : " desc";
+        switch (Model.First().SortBy)
+        {
+            case "NDC":
+                ndcSortBy = sortIcon + sortIconAscDesc;
+                break;
+            case "BrandName":
+                brandNameSortBy = sortIcon + sortIconAscDesc;
+                break;
+            case "GPI":
+                gpiSortBy = sortIcon + sortIconAscDesc;
+                break;
+            default:
+                sortIcon = "sortingIco";
+                brandNameSortBy = sortIcon;
+                gpiSortBy = sortIcon;
+                ndcSortBy = sortIcon + " ace";
+                break;
+        }
+
+    }
+    else
+    {
+        sortIcon = "sortingIco";
+        brandNameSortBy = sortIcon;
+        gpiSortBy = sortIcon;
+        ndcSortBy = sortIcon + "ace";
+    }
+    var pageHeaderModel = new PaggerHeaderModel();
+    @if (Model != null && Model.Any())
+    {
+        pageHeaderModel.TotalRecordCount = Model.First().TotalRecords;
+        pageHeaderModel.RecordCount = Model.Count();
+        pageHeaderModel.PageIndex = Model.First().PageIndex;
+        pageHeaderModel.PageSize = (int)Model.First().PageSize;
+
+    }
+
+}
+<style>
+    .pagination > li > a {
+        background: #000000;
+        color: #666;
+        margin: 3px;
+    }
+
+    .pagination > li > a, .pagination > li > span {
+        position: relative;
+        float: left;
+        padding: 1px 7px;
+        margin-left: -1px;
+        line-height: 1.42857143;
+        color: #337ab7;
+        text-decoration: none;
+        background-color: #fff;
+        border: 1px solid #ddd;
+    }
+
+    .pagination .active {
+        background: #000000;
+        color: #fff
+    }
+</style>
+
+@if (Model.Any())
+{
+   
+<div class="row">
+    <div class="col-md-2">
+        
+        <input type="text" class="form-control input-sm" placeholder="Emp Code" id="textEmpCode" name="textEmpCode" />
+    </div>
+    <div class="col-sm-1">
+
+         
+        <button type="button" onclick="FiltereEmployee()" class="btn btn-primary   btn-sm" id="btn-employeesearch">
+            <i class="fa fa-search"></i>
+        </button>
+
+    </div>
+</div>
+    <br />
+    @Html.HRMSTableHeader(pageHeaderModel)
+    <div class="table-fixed-header has-v-scroll _done">
+        <div class="scrollDiv" id="tblDrugSearchList" style="max-height:375px; min-height:10px;">
+            <table id="example" class="table table-condensed table-striped table-hover singleSelect table-bordered" cellspacing="0" rules="all" border="1" style="width:100%; overflow-x:scroll !important">
+                <thead>
+                    <tr class="th-primary" role="row">
+                        <th style="width: 5%;white-space: nowrap">#</th>
+                        <th style="width: 10%;white-space: nowrap">
+                            <span>
+                                <a style="color:#fff" href="javascript:void(0)" onclick="jqGrigTable.fn_GetSortingItem('EmpCode', '@Model.First().OrderBy', fn_GetDrugSearchUrl())">Emp. Code</a>
+                            </span>
+                        </th>
+                        <th style="width: 15%;white-space: nowrap">
+                            <span>
+                                <a style="color:#fff" href="javascript:void(0)" onclick="jqGrigTable.fn_GetSortingItem('EmployeeName', '@Model.First().OrderBy', fn_GetDrugSearchUrl())">Employee Name</a>
+                            </span>
+                        </th>
+                        <th style="width: 10%;white-space: nowrap">
+                            <span>
+                                <a style="color:#fff" href="javascript:void(0)" onclick="jqGrigTable.fn_GetSortingItem('JoiningDate', '@Model.First().OrderBy', fn_GetDrugSearchUrl())">Joining Date</a>
+                            </span>
+                        </th>
+                        <th style="width: 15%;white-space: nowrap">
+                            <span>
+                                <a style="color:#fff" href="javascript:void(0)" onclick="jqGrigTable.fn_GetSortingItem('DepartmentName', '@Model.First().OrderBy', fn_GetDrugSearchUrl())">Department Name</a>
+                            </span>
+                        </th>
+                        <th style="width: 15%;white-space: nowrap">
+                            <span>
+                                <a style="color:#fff" href="javascript:void(0)" onclick="jqGrigTable.fn_GetSortingItem('DesignationName', '@Model.First().OrderBy', fn_GetDrugSearchUrl())">Designation Name</a>
+                            </span>
+                        </th>
+                        <th style="width: 10%;white-space: nowrap">
+                            <span>
+                                <a style="color:#fff" href="javascript:void(0)" onclick="jqGrigTable.fn_GetSortingItem('Location', '@Model.First().OrderBy', fn_GetDrugSearchUrl())">Location</a>
+                            </span>
+                        </th>
+                        <th style="width: 15%;white-space: nowrap">
+                            <span>
+                                <a style="color:#fff" href="javascript:void(0)" onclick="jqGrigTable.fn_GetSortingItem('LegalEntity', '@Model.First().OrderBy', fn_GetDrugSearchUrl())">Legal Entity</a>
+                            </span>
+                        </th>
+                        <th style="width: 10%;white-space: nowrap">
+                            <span>
+                                Action
+                            </span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int count = 1;
+                    }
+                    @foreach (var data in Model)
+                    {
+                        <tr>
+                            <td>@count</td>
+                            <td style="white-space:nowrap"><a asp-action="Edit" asp-controller="EmployeeDetail" asp-route-Id="@data.Id"><i class="fa fa-eye"></i> @data.EmpCode </a></td>
+                            <td style="white-space:nowrap">@data.EmployeeName</td>
+                            <td style="white-space:nowrap">@string.Format("{0:dd/MM/yyyy}", data.JoiningDate)</td>
+                            <td style="white-space:nowrap">@data.DepartmentName</td>
+                            <td style="white-space:nowrap">@data.DesignationName</td>
+                            <td style="white-space:nowrap">@data.Location</td>
+                            <td style="white-space:nowrap">@data.LegalEntity</td>
+                            <td style="white-space:nowrap">
+                                <a title="Edit" class="btn btn-primary btn-xs" asp-action="Edit" asp-controller="EmployeeDetail" asp-route-Id="@data.Id">
+                                    <i class="fa fa-pencil "></i>
+                                </a>
+                            </td>
+                        </tr>
+                        count++;
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 ">
+            <ul class="pagination pagination-md pull-right">
+                @if (Model.Any())
+                {
+                    @Html.Paging((int)Model.First().PageSize, Model.First().PageIndex, 5, Model.First().TotalRecords, @"fn_GetDrugSearchUrl()")
+                }
+            </ul>
+        </div>
+
+    </div>
+}
+else
+{
+    <div class="col-xs-12">
+        <div class="pull-left marB10">
+            <span class="c-red">
+                No Record Found.
+            </span>
+        </div>
+    </div>
+}
+<script>
+
+    function fn_GetDrugSearchUrl() {
+        return "/EmployeeDetail/GetFilteredData";
+    }
+</script>

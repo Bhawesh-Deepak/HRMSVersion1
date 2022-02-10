@@ -1,6 +1,7 @@
 ﻿using HRMS.Core.Entities.Common;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -8,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace HRMS.Core.Entities.Payroll
 {
-    [Table("EmployeeDetail", Schema ="Payroll")]
-    public class EmployeeDetail:BaseModel<int>
+    [Table("EmployeeDetail", Schema = "Payroll")]
+    public class EmployeeDetail : BaseModel<int>
     {
         public string Salutation { get; set; }
         public string EmployeeName { get; set; }
@@ -35,7 +36,9 @@ namespace HRMS.Core.Entities.Payroll
         public string WorkExprience { get; set; }
         public string EducationalQualification { get; set; }
         public string InstituteName { get; set; }
-        public DateTime ConfirmationDate { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime? ConfirmationDate { get; set; }
         public string RecruitmentSource { get; set; }
         public string RecruitmentName { get; set; }
         public string FatherName { get; set; }
@@ -55,7 +58,7 @@ namespace HRMS.Core.Entities.Payroll
         public string WhatsAppNumber { get; set; }
         public string NoticePeriod { get; set; }
         public string SpouceName { get; set; }
-        public DateTime DateOfMairrage { get; set; }
+        public DateTime? DateOfMairrage { get; set; }
         public string EmergencyNumber { get; set; }
         public string EmergencyRelationWithEmployee { get; set; }
         public string UANNumber { get; set; }
@@ -83,5 +86,11 @@ namespace HRMS.Core.Entities.Payroll
         public string LeaveApprover1 { get; set; }
         public string LeaveApprover2 { get; set; }
         public string ProfilePic { get; set; }
+        public string PTStateName { get; set; }
+        public int IsPFEligible { get; set; }
+        public bool IsFNFinitiated { get; set; }
+        public bool IsSabbatical { get; set; }
+        [NotMapped]
+        public int Steps { get; set; }
     }
 }

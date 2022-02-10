@@ -15,5 +15,5 @@ function Delete(id, eData) {
 }
 
 function UpdateRecord(id) {
-    UpdateCustomRecord(id, "/Subsidiary/CreateSubsidiary", "Create Subsidiary", "Update Subsidiary");
+    UpdateCustomRecord(id, "/Subsidiary/CreateSubsidiary", "Update Subsidiary", "Update Subsidiary");
 }

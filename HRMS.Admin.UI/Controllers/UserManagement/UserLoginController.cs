@@ -1,4 +1,5 @@
-﻿using HRMS.Core.Entities.Master;
+﻿using HRMS.Admin.UI.AuthenticateService;
+using HRMS.Core.Entities.Master;
 using HRMS.Core.Entities.Payroll;
 using HRMS.Core.Entities.UserManagement;
 using HRMS.Core.ReqRespVm.RequestVm;
@@ -11,6 +12,8 @@ using System.Threading.Tasks;
 
 namespace HRMS.Admin.UI.Controllers.UserManagement
 {
+    [CustomAuthenticate]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class UserLoginController : Controller
     {
         private readonly IGenericRepository<RoleMaster, int> _IRoleMasterRepoository;
@@ -26,7 +29,16 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
         }
         public IActionResult Index()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(UserLoginController)} action name {nameof(Index)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         //public async task<iactionresult> createlogin(authenticateuser model)

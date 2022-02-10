@@ -1,0 +1,186 @@
+﻿@model IEnumerable<HRMS.Core.ReqRespVm.Response.Employee.EmployeeDetailVm>
+@{
+    string sortIcon = "sortingIco";
+    string ndcSortBy = sortIcon;
+    string brandNameSortBy = sortIcon;
+    string gpiSortBy = sortIcon;
+
+    if (Model.Any())
+    {
+        var sortIconAscDesc = Model.First().OrderBy.ToLower().Trim() == "asc" ? " ace" : " desc";
+        switch (Model.First().SortBy)
+        {
+            case "NDC":
+                ndcSortBy = sortIcon + sortIconAscDesc;
+                break;
+            case "BrandName":
+                brandNameSortBy = sortIcon + sortIconAscDesc;
+                break;
+            case "GPI":
+                gpiSortBy = sortIcon + sortIconAscDesc;
+                break;
+            default:
+                sortIcon = "sortingIco";
+                brandNameSortBy = sortIcon;
+                gpiSortBy = sortIcon;
+                ndcSortBy = sortIcon + " ace";
+                break;
+        }
+
+    }
+    else
+    {
+        sortIcon = "sortingIco";
+        brandNameSortBy = sortIcon;
+        gpiSortBy = sortIcon;
+        ndcSortBy = sortIcon + "ace";
+    }
+    var pageHeaderModel = new PaggerHeaderModel();
+    @if (Model != null && Model.Any())
+    {
+        pageHeaderModel.TotalRecordCount = Model.First().TotalRecords;
+        pageHeaderModel.RecordCount = Model.Count();
+        pageHeaderModel.PageIndex = Model.First().PageIndex;
+        pageHeaderModel.PageSize = (int)Model.First().PageSize;
+
+    }
+
+}
+<style>
+    .pagination > li > a {
+        background: #000000;
+        color: #666;
+        margin: 3px;
+    }
+    .pagination .active {
+        background: #000000;
+        color: #fff
+    }
+    .pagination > li > a, .pagination > li > span {
+        position: relative;
+        float: left;
+        padding: 1px 7px;
+        margin-left: -1px;
+        line-height: 1.42857143;
+        color: #337ab7;
+        text-decoration: none;
+        background-color: #fff;
+        border: 1px solid #ddd;
+    }
+</style>
+@if (Model.Any())
+{
+    @Html.HRMSTableHeader(pageHeaderModel)
+    <div class="table-fixed-header has-v-scroll _done">
+        <div style="max-height:375px; min-height:10px;" class="scrollDiv" id="tblDrugSearchList">
+            <table class="table table-hover table-striped singleSelect" cellspacing="0" cellpadding="0" style="width:100%; min-width: 1000px;">
+                <thead class="th-primary">
+                    <tr>
+                        <th style="width: 5%">
+                            #
+                        </th>
+                        <th style="width: 5%">
+                            <span>
+                                <a href="javascript:void(0)" style="color:white" onclick="jqGrigTable.fn_GetSortingItem('EmpCode', '@Model.First().OrderBy', fn_GetDrugSearchUrl())">Name & Department</a>
+                            </span>
+                        </th>
+
+
+                        <th>
+                            <span>
+                                <a href="javascript:void(0)" style="color:white" onclick="jqGrigTable.fn_GetSortingItem('DesignationName', '@Model.First().OrderBy', fn_GetDrugSearchUrl())">Designation Name</a>
+                            </span>
+                        </th>
+                        <th>
+                            <span>
+                                <a href="javascript:void(0)" style="color:white" onclick="jqGrigTable.fn_GetSortingItem('Location', '@Model.First().OrderBy', fn_GetDrugSearchUrl())">Location</a>
+                            </span>
+                        </th>
+
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int count = 1;
+                        string trclass = string.Empty;
+                    }
+                    @foreach (var data in Model)
+                    {
+                        if (count / 2 == 0)
+                        {
+                            trclass = "even";
+                        }
+                        else
+                        {
+                            trclass = "odd";
+                        }
+                        <tr class="trclass">
+                            <td align="left" class="sorting_1" style="width: 5%;cursor: pointer;white-space: nowrap" onclick="employeedetail(@data.Id, this)" title="Click to get Details">
+                                @count
+
+                            </td>
+                            <td align="left" class="sorting_1" style="width: 30%;cursor: pointer;white-space: nowrap" onclick="employeedetail(@data.Id, this)" title="Click to get Details">
+                                @data.EmployeeName <span style="color:red">at </span> @data.DepartmentName
+
+                            </td>
+                            <td align="left" class="sorting_1" style="width:30%;cursor:pointer;white-space:nowrap" onclick="employeedetail(@data.Id);" title="Click to get Details">
+                                @data.DesignationName
+                            </td>
+                            <td align="left" class="sorting_1" style="width: 20%;cursor: pointer;white-space: nowrap" onclick="employeedetail(@data.Id);" title="Click to get Details">
+                                @data.Location
+                            </td>
+                            <td align="left" class="sorting_1" style="width: 10%;cursor: pointer;white-space: nowrap" onclick="employeedetail(@data.Id);" title="Click to get Details">
+                                @if (data.IsActive == true && data.IsDeleted == false)
+                                {
+                                    @: Active
+                                }
+
+                                else
+                                {
+                                    @:In-Active
+                                }
+                            </td>
+
+                        </tr>
+                        count++;
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <ul class="pagination pagination-md pull-right" style="margin-top:0px;">
+                @if (Model.Any())
+                {
+                    @Html.Paging((int)Model.First().PageSize, Model.First().PageIndex, 5, Model.First().TotalRecords, @"fn_GetDrugSearchUrl()")
+                }
+            </ul>
+        </div>
+    </div>
+}
+else
+{
+    <div class="col-xs-12">
+        <div class="pull-left marB10">
+            <span class="c-red">
+                No Record Found.
+            </span>
+        </div>
+    </div>
+}
+<script>
+    function employeedetail(id) {
+        $('#divLoader').modal('show');
+        $.get("/EmployeeDirectory/GetEmployeeDetails", { Id: id }, function (data) {
+            $("#div_EmployeeDetail").html(data);
+            $('#divLoader').modal('hide');
+        });
+    }
+    function fn_GetDrugSearchUrl() {
+        return "/EmployeeDirectory/GetFilteredData";
+    }
+</script>

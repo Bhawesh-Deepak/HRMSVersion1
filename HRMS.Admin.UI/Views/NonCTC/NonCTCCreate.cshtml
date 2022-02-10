@@ -1,74 +1,90 @@
 ﻿<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
-
+<link href="~/css/site.css" rel="stylesheet" />
 @model HRMS.Core.ReqRespVm.RequestVm.UploadExcelVm
-<div class="row">
-    <div class="col-md-12">
-        <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
-              data-ajax-complete="AjaxComplete"
-              asp-action="UploadNonCTCComponent" enctype="multipart/form-data"
-              asp-controller="EmployeeNonCTC" data-ajax-success="Success">
-            <div class="box-body">
-
-                <div class="col-md-4">
-                    <div class="form-group">
-
-                        <label>Select Year</label>
-                        <select class="form-control" asp-for="YearId">
-                            <option value="">--Select--</option>
-                            @{
-                                var year = DateTime.Now.Year;
-                                for (int i = year; i < year + 50; i++)
-                                {
-                                    <option value="@i">@i</option>
-                                }
-                            }
-
-                        </select>
+<div class="content-wrapper" style="min-height: 870px;">
+    @Html.BuildBreadcrumbNavigation()
+    <section class="content-header">
+        <ol class="breadcrumb">
+            <li>Home</li>
+            <li class="active">Index</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row" style="margin-top:0;">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-cloud-upload text-primary"></i> &nbsp;  Employee Non-CTC Import
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-12 ui-sortable">
+                                        <div class="panel panel-default" style="border-left: 3px solid green">
+                                            <div class="panel-body">
+                                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                                      data-ajax-complete="AjaxComplete"
+                                                      asp-action="UploadNonCTCComponent" enctype="multipart/form-data"
+                                                      asp-controller="EmployeeNonCTC" data-ajax-success="Success">
+                                                    <div class="col-md-12 px-4 d-none" id="d-1">
+                                                        <div class="alert alert-danger alert-dismissible" style="display:none" id="Div_ExcelValidate">
+                                                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                                            <span id="span_excelValidate"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                                <input type="file" asp-for="UploadFile" class="form-control" required="" onchange="checkfile(this);">
+                                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            @*<a href="~/Documents/Employee-Non-CTC.xlsx" class="btn btn-success" download="Arrear"><i class="fa fa-download"></i> Download Templete</a>*@
+                                                            <a asp-action="DownloadExcelFormat" asp-controller="EmployeeNonCTC" class="btn btn-success"><i class="fa fa-download"></i> Download Templete</a>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-upload"></i> Submit</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-                </div>
-
-                <div class="col-md-4">
-                    <div class="form-group">
-
-                        <label>Select Month</label>
-                        <select class="form-control" asp-for="MonthId">
-                            <option value="">--Select--</option>
-                            @{
-                                for (int i = 1; i < 13; i++)
-                                {
-                                    DateTime date = new DateTime(2020, @i, 1);
-                                    <option value="@i">@date.ToString("MMMM")</option>
-                                }
-                            }
-
-                        </select>
-                    </div>
-
-                </div>
-
-                <div class="col-md-4">
-                    <div class="form-group">
-
-                        <label>Upload Non CTC Component</label>
-                        <input type="file" class="form-control" asp-for="UploadFile" />
-                    </div>
-
                 </div>
             </div>
-
-            <div class="box-footer">
-                <div class="col-md-8">
-                    <input type="submit" class="btn btn-primary pull-right" value="Save" />
-                    <button class="buttonload" style="display:none">
-                        <i class="fa fa-refresh fa-spin"></i>Loading
-                    </button>
-                </div>
-                <div class="col-md-4">
-                    <button type="reset" class="btn btn-danger pull-left">Cancel</button>
-                </div>
-            </div>
-        </form>
-    </div>
+        </div>
+    </section>
 </div>
+
+<script type="text/javascript" language="javascript">
+    function checkfile(sender) {
+        var validExts = new Array(".xlsx", ".xls");
+        var fileExt = sender.value;
+        var filename = $('#UploadFile')[0].files[0].name;
+        fileExt = fileExt.substring(fileExt.lastIndexOf('.'));
+        if (validExts.indexOf(fileExt) < 0) {
+            $('#UploadFile').val(null);
+            $('#Div_ExcelValidate').show('slow');
+            $('#span_excelValidate').text("Invalid file selected, valid files are of " + validExts.toString() + " types.");
+            return false;
+        }
+        else if (filename != 'EmployeeNonCTC.xlsx') {
+            $('#UploadFile').val(null);
+            $('#Div_ExcelValidate').show('slow');
+            $('#span_excelValidate').text("Invalid file Uploade");
+        }
+        else return true;
+    }
+</script>

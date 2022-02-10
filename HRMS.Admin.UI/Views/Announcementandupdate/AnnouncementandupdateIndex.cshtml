@@ -1,0 +1,52 @@
+﻿@model HRMS.Core.Entities.Master.AnnouncementAndUpdate
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.8.1/css/bootstrap-select.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.8.1/js/bootstrap-select.js"></script>
+
+
+    <div class="content-wrapper" style="min-height: 870px;">
+        @Html.BuildBreadcrumbNavigation()
+        <section class="content">
+            <div>
+                <div>
+
+                    <div>
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="row" style="margin-top:0;">
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="box box-primary">
+                                            <div class="box-header with-border">
+                                                <div class="box-title">
+                                                    <h3 class="box-title pull-left">List of @ViewBag.HeaderTitle</h3>
+
+                                                </div>
+                                                <a class="btn btn-primary pull-right btn-xs" onclick="AddRecord()" title="Add New Announcement And Update">
+                                                    <i class="fa fa-plus"> &nbsp; Add</i>
+                                                </a>
+                                            </div>
+                                            <div class="box-body">
+                                                <div id="divHRMS">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+    <environment include="Development">
+        <script src="~/HRMSJs/Announcementandupdate.js"></script>
+    </environment>
+    <environment include="Production">
+        <script src="~/HRMSJs/Announcementandupdate.js"></script>
+    </environment>

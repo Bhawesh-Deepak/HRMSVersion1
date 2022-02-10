@@ -1,0 +1,113 @@
+﻿@model HRMS.Core.Entities.Organisation.Branch
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<style>
+   
+</style>
+<form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+      asp-action="UpsertBranch" asp-controller="Branch" data-ajax-success="Success">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="CompanyId">Company Name</label><span style="color:red">  *</span>
+                            <select class="form-control" asp-for="CompanyId" asp-items="@(new SelectList(ViewBag.CompanyList ,"Id","Name"))">
+                                <option value="">--Select--</option>
+                            </select>
+
+                            <span asp-validation-for="CompanyId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input asp-for="Id" type="hidden" />
+                            <input asp-for="CreatedBy" type="hidden" />
+                            <input asp-for="CreatedDate" type="hidden" />
+                            <input asp-for="FinancialYear" type="hidden" />
+                            <label asp-for="Name">Branch Name</label><span style="color:red">  *</span>
+                            <input type="text" class="form-control" asp-for="Name" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Code">Code</label>
+                            <input asp-for="Code" class="form-control" />
+                            <span asp-validation-for="Code" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Address">Address</label>
+                            <input asp-for="Address" class="form-control" />
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Email">Email</label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Phone">Phone</label>
+                            <input asp-for="Phone" class="form-control" />
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="ZipCode">Zip Code</label>
+                            <input asp-for="ZipCode" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="ContactPerson">Contact Person</label>
+                            <input asp-for="ContactPerson" class="form-control" />
+                            <span asp-validation-for="ContactPerson" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Logo">Logo</label>
+                            <input asp-for="Logo" class="form-control" type="file" />
+                            <span asp-validation-for="Logo" class="text-danger"></span>
+                        </div>
+                    </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-close" onclick="HidePopUp();">Close</button>
+        <input type="submit" class="btn btn-primary  " value="Save" />
+    </div>
+</form>

@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace HRMS.Admin.UI
 {
@@ -28,14 +29,14 @@ namespace HRMS.Admin.UI
             services.AddControllersWithViews();
             services.AddService();
             services.AddHttpContextAccessor();
-            services.AddSession(option => { option.IdleTimeout = TimeSpan.FromMinutes(20); });
+            services.AddSession(option => { option.IdleTimeout = TimeSpan.FromMinutes(60); });
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
             services.ConfigureApplicationCookie(option =>
             {
                 option.LoginPath = "/Authenticate/Login";
                 option.SlidingExpiration = true;
-                option.Cookie.Expiration = TimeSpan.FromMinutes(20);
+                option.Cookie.Expiration = TimeSpan.FromHours(20);
             });
         }
 
@@ -50,6 +51,7 @@ namespace HRMS.Admin.UI
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            Rotativa.AspNetCore.RotativaConfiguration.Setup(env.WebRootPath, "Rotativa");
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -60,6 +62,7 @@ namespace HRMS.Admin.UI
 
             app.UseAuthorization();
 
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -69,3 +72,5 @@ namespace HRMS.Admin.UI
         }
     }
 }
+
+

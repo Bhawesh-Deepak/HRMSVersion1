@@ -1,77 +1,103 @@
 ﻿@model IEnumerable<HRMS.Core.Entities.Master.SalaryHeads>
+<div class="table-responsive">
 
-<table id="tblDataList" class="table table-striped table-bordered responsive" style="width:100%">
-    <thead>
-        <tr>
-            <th>Head Name</th>
-            <th>Head Code</th>
-            <th>Head Type</th>
-            <th>Is Depend on Day</th>
-            <th>Display on Payslip</th>
-            <th>Action</th>
+    <div class="dataTables_wrapper" role="grid">
 
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var data in Model)
-        {
-            <tr>
-                <td>
-                    @data.HeadName
-                </td>
-                <td>
 
-                    @data.HeadCode
-                </td>
-                <td>
-                    @if (data.HeadType.Trim().ToUpper() == "A")
+        <table class="table table-condensed table-striped table-hover table-bordered table-body-nowrap table-head-nowrap dataTable" cellspacing="0" rules="all" border="1" id="example" style="border-collapse:collapse;" aria-describedby="cp_MainContent_widgetExitEmployee_grdExitEmployees_info">
+            <thead>
+                <tr class="th-primary" role="row">
+                    <th>#</th>
+                    <th>Head Name</th>
+                    <th>Head Code</th>
+                    <th>Head Type</th>
+                    <th>Is Depend on Day</th>
+                    <th>Display on Payslip</th>
+                    <th>Action</th>
+
+                </tr>
+            </thead>
+            <tbody role="alert" aria-live="polite" aria-relevant="all">
+                @{
+                    int count = 1;
+                    string trclass = string.Empty;
+                }
+                @foreach (var data in Model)
+                {
+                    if (count / 2 == 0)
                     {
-                        <span style="color:green">Addition</span>
+                        trclass = "even";
                     }
                     else
                     {
-                        <span style="color:orangered">Deduction</span>
+                        trclass = "odd";
                     }
-                </td>
+                <tr>
+                    <td align="left" style="width:5%;" class="sorting_1">
+                        @count
+                    </td>
+                    <td align="left" style="width:5%;" class="sorting_1">
+                        @data.HeadName
+                    </td>
+                    <td align="left" style="width:5%;" class="sorting_1">
 
-                <td>
-                    @if (data.IsDependOnDay)
-                    {
+                        @data.HeadCode
+                    </td>
+                    <td align="left" style="width:5%;" class="sorting_1">
+                        @if (data.HeadType.Trim().ToUpper() == "A")
+                        {
+                            <span style="color:green">Addition</span>
+                        }
+                        else
+                        {
+                            <span style="color:orangered">Deduction</span>
+                        }
+                    </td>
+
+                    <td align="left" style="width:5%;" class="sorting_1">
+                        @if (data.IsDependOnDay)
+                        {
 
 
-                        <span><i class="fa fa-check"></i></span>
-                    }
-                    else
-                    {
-                        <span><i class="fa fa-cancel"></i></span>
-                    }
-                </td>
-                <td>
-                    @if (data.IsDisplayOnPaySlip)
-                    {
+                            <span><i class="fa fa-check"></i></span>
+                        }
+                        else
+                        {
+                            <span><i class="fa fa-cancel"></i></span>
+                        }
+                    </td>
+                    <td align="left" style="width:5%;" class="sorting_1">
+                        @if (data.IsDisplayOnPaySlip)
+                        {
 
 
-                        <span><i class="fa fa-check"></i></span>
-                    }
-                    else
-                    {
-                        <span><i class="fa fa-cancel"></i></span>
-                    }
-                </td>
+                            <span><i class="fa fa-check"></i></span>
+                        }
+                        else
+                        {
+                            <span><i class="fa fa-cancel"></i></span>
+                        }
+                    </td>
 
-                <td>
-                    <a class="btn btn-outline-success pull-right" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'  style='color:#DD4B39'></i>" onclick="UpdateRecord(@data.Id, this)">
-                        <i class="fa fa-edit" style="color:#3C8DBC"></i>
+                    <td align="left" style="width:5%;" class="sorting_1">
+                        <a class="btn btn-outline-success pull-right" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'  style='color:#DD4B39'></i>" onclick="UpdateRecord(@data.Id, this)">
+                            <i class="fa fa-edit" style="color:#3C8DBC"></i>
 
-                    </a>
+                        </a>
 
-                    <a class="btn btn-outline-danger pull-right" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'  style='color:#DD4B39'></i>" onclick="Delete(@data.Id, this)">
-                        <i class="fa fa-trash" style="color:#DD4B39"></i>
+                        <a class="btn btn-outline-danger pull-right" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'  style='color:#DD4B39'></i>" onclick="Delete(@data.Id, this)">
+                            <i class="fa fa-trash" style="color:#DD4B39"></i>
 
-                    </a>
-                </td>
-            </tr>
-        }
-    </tbody>
+                        </a>
+                    </td>
+                </tr>
+                    count++;
+                }
 
-</table>
+            </tbody>
+        </table>
+
+    </div>
+
+
+</div>

@@ -1,0 +1,64 @@
+﻿@model HRMS.Core.Entities.HR.PaidRegister
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<style>
+</style>
+<form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+      asp-action="UpsertPaidRegister" asp-controller="PaidRegisterUpload" data-ajax-success="Success">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input asp-for="Id" type="hidden" />
+                        <input asp-for="CreatedBy" type="hidden" />
+                        <input asp-for="CreatedDate" type="hidden" />
+                        <input asp-for="FinancialYear" type="hidden" />
+                        <label asp-for="DateMonth">Month :</label><span style="color:red">  *</span>
+                        <select class="form-control input-sm" asp-for="DateMonth" asp-items="@(Enumerable.Range(1, 12).Select(x => new SelectListItem { Value = x.ToString(), Text = System.Globalization.CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(x) }))">
+                            <option value="">----Select One----</option>
+                        </select>
+                        <span asp-validation-for="DateMonth" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+
+                        <label asp-for="DateYear">Year :</label><span style="color:red">  *</span>
+                        <input class="form-control" asp-for="DateYear" />
+                        <span asp-validation-for="DateYear" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+
+
+
+
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="UploadFilePath">Browse File :</label><span style="color:red">  *</span>
+                        <input asp-for="UploadFilePath" class="form-control" type="file" onchange="checkfile(this);" />
+                        <span asp-validation-for="UploadFilePath" class="text-danger"></span>
+                        <span id="span_excelValidate" style="color:red"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+
+
+        <button type="button" class="btn btn-primary btn-close" onclick="HidePopUp();">Close</button>
+        <input type="submit" class="btn btn-primary  " value="Save" />
+    </div>
+</form>

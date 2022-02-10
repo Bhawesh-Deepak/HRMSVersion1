@@ -1,0 +1,128 @@
+﻿
+
+
+<style>
+    .nav-tabs-custom > .nav-tabs > li > a {
+        font-size: 12px;
+        font-weight: 200 !important;
+    }
+</style>
+
+
+<div class="content-wrapper" style="min-height: 870px;">
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row" style="margin-top:0;">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="box box-success">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-user-circle-o fa-lg"></i>  Add New Employee
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <div class="profile-nav nav-tabs-custom customNavigation">
+
+                                    <ul id="nav-t" class="nav nav-tabs">
+                                        <li class="active" id="liBusinessScenario"><a href="#Business_Scenario" data-toggle="tab">Business Scenario </a></li>
+                                        <li id="liEmployee_Detail"><a href="#Employee_Detail" data-toggle="tab">Employee Detail's</a></li>
+                                        <li id="liEducational_Detail"><a href="#Educational_Detail " data-toggle="tab">Educational Detail's </a></li>
+                                        <li id="liBank_Detail"><a href="#Bank_Detail" data-toggle="tab">Bank Detail's</a></li>
+
+                                    </ul>
+                                    <div class="tab-content">
+
+                                        <div class="pro-overview tab-pane active" id="Business_Scenario">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+
+    function SuccessEmp(response) {
+       
+        if (response.message == "Server error please contact admin team") {
+            alertify.set('notifier', 'position', 'bottom-right');
+            alertify.error(response);
+        }
+        else {
+            debugger;
+            if (response.steps == 1) {
+                $("#liEmployee_Detail").addClass("active");
+                $("#liBusinessScenario").removeClass("active");
+                GetEmployeeDetail(response.empCode);
+                alertify.set('notifier', 'position', 'bottom-right');
+                alertify.success(response.message);
+            }
+            else if (response.steps == 2) {
+                
+                $("#liEducational_Detail").addClass("active");
+                $("#liEmployee_Detail").removeClass("active");
+                GetEducationalQualificationDetail(response.id);
+                alertify.set('notifier', 'position', 'bottom-right');
+                alertify.success(response.message);
+            }
+            else if (response.steps == 3) {
+
+                $("#liBank_Detail").addClass("active");
+                $("#liEducational_Detail").removeClass("active");
+                GetBankDetail(response.id);
+                alertify.set('notifier', 'position', 'bottom-right');
+                alertify.success(response.message);
+                setTimeout(function () {
+                    location.reload();
+                }, 500)
+            }
+            
+        }
+
+      
+    }
+    $(document).ready(function () {
+        GetBussinessScenerio();
+    });
+    function GetBussinessScenerio() {
+        $('#divLoader').modal('show');
+        $.get("/EmployeeDetail/CreateBusinessScenario/", function (response) {
+            $("#Business_Scenario").html(response);
+        }).done(function () {
+            $('#divLoader').modal('hide');
+        });
+    }
+    function GetEmployeeDetail(EmpCode) {
+        $('#divLoader').modal('show');
+        $.get("/EmployeeDetail/CreateEmployeeDetail/", { EmpCode: EmpCode},function (response) {
+            $("#Business_Scenario").html(response);
+        }).done(function () {
+            $('#divLoader').modal('hide');
+        });
+    }
+    function GetEducationalQualificationDetail(Id) {
+        $('#divLoader').modal('show');
+        $.get("/EmployeeDetail/CreateEmployeeEducationalQualification/", { Id: Id }, function (response) {
+            $("#Business_Scenario").html(response);
+        }).done(function () {
+            $('#divLoader').modal('hide');
+        });
+    }
+    function GetBankDetail(Id) {
+        $('#divLoader').modal('show');
+        $.get("/EmployeeDetail/CreateEmployeeBankDetail/", { Id: Id }, function (response) {
+            $("#Business_Scenario").html(response);
+        }).done(function () {
+            $('#divLoader').modal('hide');
+        });
+    }
+</script>

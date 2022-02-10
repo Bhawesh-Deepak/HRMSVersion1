@@ -2,7 +2,9 @@
 using HRMS.Core.Entities.Master;
 using HRMS.Core.Entities.Organisation;
 using HRMS.Core.Entities.Payroll;
+using HRMS.Core.Entities.Posting;
 using HRMS.Core.Entities.UserManagement;
+using HRMS.Core.Entities.HR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -12,7 +14,7 @@ namespace HRMS.Core.Entities.Common
     /// <summary>
     /// This is the context class which is used to connect to database
     /// </summary>
-    public class HRMSContext: DbContext
+    public class HRMSContext : DbContext
     {
         private readonly string _connectionString;
 
@@ -21,7 +23,7 @@ namespace HRMS.Core.Entities.Common
             _connectionString = configuration.GetSection("ConnectionStrings:DefaultConnection").Value;
         }
 
-        public HRMSContext(IConfiguration configuration,string dbName)
+        public HRMSContext(IConfiguration configuration, string dbName)
         {
             _connectionString = configuration.GetSection($"ConnectionStrings:{dbName}").Value;
         }
@@ -42,9 +44,7 @@ namespace HRMS.Core.Entities.Common
         public virtual DbSet<SalaryHeads> SalaryHeads { get; set; }
         public virtual DbSet<Designation> Designations { get; set; }
         public virtual DbSet<EmployeeAttendance> EmployeeAttendances { get; set; }
-        public virtual DbSet<EmployeeNonCTC> EmployeeNonCTCs { get; set; }
         public virtual DbSet<EmployeeDetail> EmployeeDetails { get; set; }
-        public virtual DbSet<EmployeeSalaryDetail> EmployeeSalaryDetails { get; set; }
         public virtual DbSet<CustomerLeadDetail> CustomerLeadDetails { get; set; }
         public virtual DbSet<RoleMaster> RoleMasters { get; set; }
         public virtual DbSet<ModuleMaster> ModuleMasters { get; set; }
@@ -59,8 +59,36 @@ namespace HRMS.Core.Entities.Common
         public virtual DbSet<CustomerLeadCloserForm> CustomerLeadCloserForms { get; set; }
         public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<Subsidiary> Subsidiarys { get; set; }
-        
+        public virtual DbSet<CompanyHolidays> CompanyHolidays { get; set; }
+        public virtual DbSet<StateMaster> StateMasters { get; set; }
+        public virtual DbSet<EmployeeType> EmployeeTypes { get; set; }
+        public virtual DbSet<LocationType> LocationTypes { get; set; }
+        public virtual DbSet<Location> Locations { get; set; }
+        public virtual DbSet<PAndLMaster> PAndLMasters { get; set; }
+        public virtual DbSet<RegionMaster> RegionMasters { get; set; }
+        public virtual DbSet<CompanyNews> CompanyNews { get; set; }
+        public virtual DbSet<Shift> Shifts { get; set; }
+        public virtual DbSet<Branch> Branches { get; set; }
+        public virtual DbSet<CompanyPolicy> CompanyPolicies { get; set; }
+        public virtual DbSet<AssetsCategory> AssetsCategories { get; set; }
+        public virtual DbSet<EmployeeAssets> EmployeeAssets { get; set; }
+        public virtual DbSet<CurrentOpening> CurrentOpenings { get; set; }
+        public virtual DbSet<ReferCandidate> ReferCandidates { get; set; }
+        public virtual DbSet<AssesmentYear> AssesmentYears { get; set; }
+        public virtual DbSet<EmployeeArrears> EmployeeArrearss { get; set; }
+        public virtual DbSet<AnnouncementAndUpdate> AnnouncementAndUpdates { get; set; }
+        public virtual DbSet<CtcComponentDetail> CtcComponentDetails { get; set; }
+        public virtual DbSet<EmployeeSalary> EmployeeSalarys { get; set; }
+        public virtual DbSet<EmployeeCtcComponent> EmployeeCtcComponents { get; set; }
+        public virtual DbSet<EmployeeNonCTC> EmployeeNonCTCs { get; set; }
+        public virtual DbSet<AdminEmployeeDetail> AdminEmployeeDetails { get; set; }
+        public virtual DbSet<EmployeeSalaryPosted> EmployeeSalaryPosteds { get; set; }
+        public virtual DbSet<EmployeeTDSSummery> EmployeeTDSSummerys { get; set; }
+        public virtual DbSet<PaidRegister> PaidRegisters { get; set; }
+        public virtual DbSet<LeaveType> LeaveTypes { get; set; }
+        public virtual DbSet<LeaveAllocation> LeaveAllocations { get; set; }
 
+        public virtual DbSet<EmployeeReimbursement> EmployeeReimbursements { get; set; }
         #endregion
     }
 }

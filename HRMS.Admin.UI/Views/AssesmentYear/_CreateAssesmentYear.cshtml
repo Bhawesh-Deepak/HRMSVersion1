@@ -1,0 +1,59 @@
+﻿@model HRMS.Core.Entities.Master.AssesmentYear
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+ 
+<form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+      data-ajax-complete="AjaxComplete"
+      asp-action="UpSertAssesmentYear" asp-controller="AssesmentYear" data-ajax-success="Success">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input asp-for="Id" type="hidden" />
+                            <input asp-for="CreatedBy" type="hidden" />
+                            <input asp-for="CreatedDate" type="hidden" />
+                            <input asp-for="FinancialYear" type="hidden" />
+                            <label asp-for="StartYear">Start Year</label><span style="color:red">  *</span>
+                            <input class="form-control" asp-for="StartYear" type="number" />
+                            <span asp-validation-for="StartYear" class="text-danger"></span>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="StartMonth">Start Month</label><span style="color:red">  *</span>
+                            <input asp-for="StartMonth" class="form-control" type="number"/>
+                            <span asp-validation-for="StartMonth" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="EndYear">End Year</label><span style="color:red">  *</span>
+                            <input asp-for="EndYear" class="form-control" type="number"/>
+                            <span asp-validation-for="EndYear" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="EndMonth">End Month</label><span style="color:red">  *</span>
+                            <input asp-for="EndMonth" class="form-control" type="number" />
+                            <span asp-validation-for="EndMonth" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+
+
+        <button type="button" class="btn btn-primary btn-close" onclick="HidePopUp();">Close</button>
+        <input type="submit" class="btn btn-primary  " value="Save" />
+    </div>
+</form>

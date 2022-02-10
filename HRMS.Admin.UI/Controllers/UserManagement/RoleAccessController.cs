@@ -1,4 +1,5 @@
-﻿using HRMS.Core.Entities.Master;
+﻿using HRMS.Admin.UI.AuthenticateService;
+using HRMS.Core.Entities.Master;
 using HRMS.Core.Entities.UserManagement;
 using HRMS.Core.Helpers.CommonHelper;
 using HRMS.Core.ReqRespVm.Response.UserManagement;
@@ -11,6 +12,8 @@ using System.Threading.Tasks;
 
 namespace HRMS.Admin.UI.Controllers.UserManagement
 {
+    [CustomAuthenticate]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class RoleAccessController : Controller
     {
         private readonly IGenericRepository<RoleMaster, int> _IRoleMasterRepository;
@@ -31,55 +34,82 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
         }
         public async Task<IActionResult> Index()
         {
-            await PopulateViewBag();
+            try
+            {
+                await PopulateViewBag();
 
-            return View(ViewHelper.GetViewPathDetails("RoleAccess", "RoleAccessIndex"));
+                return View(ViewHelper.GetViewPathDetails("RoleAccess", "RoleAccessIndex"));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(RoleAccessController)} action name {nameof(Index)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> GetRoleAccess(int roleId)
         {
-            ViewBag.RoleId = roleId;
-            var response = await GetRoleAccessDetails(roleId);
-            return PartialView(ViewHelper.GetViewPathDetails("RoleAccess", "RoleAccessDetail"), response);
+            try
+            {
+                ViewBag.RoleId = roleId;
+                var response = await GetRoleAccessDetails(roleId);
+                return PartialView(ViewHelper.GetViewPathDetails("RoleAccess", "RoleAccessDetail"), response);
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(RoleAccessController)} action name {nameof(GetRoleAccess)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> RoleAccessPost(string[] module, string[] subModule,
             int[] DisplayOrder, int RoleId)
         {
-            var deleteModel = await _IRoleAccessRepository.GetAllEntities(x => x.RoleId == RoleId);
-
-            if (deleteModel.ResponseStatus == Core.Entities.Common.ResponseStatus.Success)
+            try
             {
-                deleteModel.Entities.ToList().ForEach(data =>
+                var deleteModel = await _IRoleAccessRepository.GetAllEntities(x => x.RoleId == RoleId);
+
+                if (deleteModel.ResponseStatus == Core.Entities.Common.ResponseStatus.Success)
                 {
-                    data.IsActive = false;
-                    data.IsDeleted = true;
-                });
+                    deleteModel.Entities.ToList().ForEach(data =>
+                    {
+                        data.IsActive = false;
+                        data.IsDeleted = true;
+                    });
 
-                var deleteResponse = await _IRoleAccessRepository.DeleteEntities(deleteModel.Entities.ToArray());
+                    var deleteResponse = await _IRoleAccessRepository.DeleteEntities(deleteModel.Entities.ToArray());
 
+                }
+                var createModels = new List<RoleAccess>();
+
+                for (int i = 0; i < subModule.Count(); i++)
+                {
+                    var roleAccessModel = new RoleAccess();
+                    roleAccessModel.RoleId = RoleId;
+                    roleAccessModel.SubModuleId = Convert.ToInt32(subModule[i]);
+                    roleAccessModel.ModuleId = Convert.ToInt32(module[i]);
+                    roleAccessModel.DisplayOrder = Convert.ToInt32(DisplayOrder[i]==0?i.ToString(): DisplayOrder[i]);
+                    roleAccessModel.IsActive = true;
+                    roleAccessModel.IsDeleted = false;
+                    roleAccessModel.CreatedBy = 1;
+                    roleAccessModel.CreatedDate = DateTime.Now;
+
+                    createModels.Add(roleAccessModel);
+                }
+
+                var createResponse = await _IRoleAccessRepository.CreateEntities(createModels.ToArray());
+
+                return Json(createResponse.Message);
             }
-            var createModels = new List<RoleAccess>();
-
-            for (int i = 0; i < subModule.Count(); i++)
+            catch (Exception ex)
             {
-                var roleAccessModel = new RoleAccess();
-                roleAccessModel.RoleId = RoleId;
-                roleAccessModel.SubModuleId = Convert.ToInt32(subModule[i]);
-                roleAccessModel.ModuleId = Convert.ToInt32(module[i]);
-                roleAccessModel.DisplayOrder = Convert.ToInt32(DisplayOrder[i]);
-                roleAccessModel.IsActive = true;
-                roleAccessModel.IsDeleted = false;
-                roleAccessModel.CreatedBy = 1;
-                roleAccessModel.CreatedDate = DateTime.Now;
-
-                createModels.Add(roleAccessModel);
+                string template = $"Controller name {nameof(RoleAccessController)} action name {nameof(RoleAccessPost)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
             }
-
-            var createResponse = await _IRoleAccessRepository.CreateEntities(createModels.ToArray());
-
-            return Json(createResponse.Message);
 
         }
 

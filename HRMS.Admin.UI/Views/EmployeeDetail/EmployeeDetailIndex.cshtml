@@ -1,0 +1,208 @@
+﻿ <div class="content-wrapper" style="min-height: 870px;">
+    @Html.BuildBreadcrumbNavigation()
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row" style="margin-top:0;">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-filter fa-lg"></i>&nbsp; Filter &nbsp;
+
+                                </div>
+
+                            </div>
+                            <div class="box-body">
+                                <form method="get" asp-action="ExportToExcel" asp-controller="EmployeeDetail">
+                                    <div class="row">
+                                        <div class="col-sm-2">
+
+                                            <label for="">Legal Entity: :</label>
+                                            <select id="LegalEntity" name="LegalEntity" class="form-control input-sm"
+                                                    asp-items="@(new SelectList((IEnumerable<HRMS.Core.Entities.Organisation.Subsidiary>)ViewBag.subsidiaryList,"Name","Name"))">
+                                                <option value="">--Select--</option>
+                                            </select>
+
+                                        </div>
+                                        <div class="col-sm-2">
+
+                                            <label for="">Department :</label>
+                                            <select id="DepartmentName" name="DepartmentName" class="form-control input-sm"
+                                                    asp-items="@(new SelectList((IEnumerable<HRMS.Core.Entities.Master.Department>)ViewBag.departmentList,"Name","Name"))">
+                                                <option value="">--Select--</option>
+                                            </select>
+
+                                        </div>
+                                        <div class="col-sm-2">
+
+                                            <label for="">Designation:</label>
+                                            <select id="DesignationName" name="DesignationName" class="form-control input-sm"
+                                                    asp-items="@(new SelectList((IEnumerable<HRMS.Core.Entities.Master.Designation>)ViewBag.designationList,"Name","Name"))">
+                                                <option value="">--Select--</option>
+                                            </select>
+
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <label for="">P &amp; L Head :</label>
+                                            <select id="PAndLHeadName" name="PAndLHeadName" class="form-control input-sm"
+                                                    asp-items="@(new SelectList((IEnumerable<HRMS.Core.Entities.Master.PAndLMaster>)ViewBag.pandlList,"Name","Name"))">
+                                                <option value="">--Select--</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-2">
+
+                                            <label for="exampleInputEmail2">DOJ :</label>
+                                            <input type="date" id="txtdoj" name="txtdoj" placeholder="DOJ" class="form-control input-sm">
+
+                                        </div>
+                                        <div class="col-sm-2">
+
+                                            <label for="exampleInputName2">Location :</label>
+
+                                            <select id="Location" name="Location" class="form-control input-sm"
+                                                    asp-items="@(new SelectList((IEnumerable<HRMS.Core.Entities.Master.Location>)ViewBag.locationList,"Name","Name"))">
+                                                <option value="">--Select--</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label for="exampleInputName2">Active /In-Active :</label>
+
+                                                <select class="form-control  input-sm" id="ddlisactive" name="ddlisactive">
+                                                    <option value="">--Select One--</option>
+                                                    <option value="1">Active</option>
+                                                    <option value="0">In-Active</option>
+                                                    <option value="2">Sabbatical</option>
+                                                </select>
+
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-1">
+
+                                            <label for="">Search :</label><br>
+                                            <button type="button" onclick="FiltereEmployee()" class="btn btn-primary   btn-sm" id="btn-employeesearch">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+
+                                        </div>
+                                        <div class="col-sm-1">
+
+                                            <label for="">Refresh :</label><br>
+                                            <a asp-action="Index" asp-controller="EmployeeDetail" class="btn btn-primary  btn-sm">
+                                                <i class="fa fa-refresh"></i>
+                                            </a>
+
+                                        </div>
+                                        <div class="col-sm-1">
+
+                                            <label for="">Export :</label>
+                                            <button type="submit" class="btn btn-primary btn-sm" id="btn-employeeexport">
+                                                <i class="fa fa-download"></i> Export
+                                            </button>
+
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="row" style="margin-top:0;">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="box box-warning">
+                            <div class="box-body">
+                                @await Component.InvokeAsync("EmployeeCount")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="row" style="margin-top:0;">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-user-circle-o fa-lg"></i>   List of Employee &nbsp;
+
+                                </div>
+                                <div class="row pull-right">
+                                    <div class="col-md-10">
+                                        <a class="btn btn-primary pull-right btn-xs" asp-action="Create" asp-controller="EmployeeDetail" title="Add New Employee">
+                                            <i class="fa fa-plus"> &nbsp; Add New Employee</i>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a class="btn btn-primary pull-right btn-xs" style="margin-left:5px" asp-action="ExportToExcel" asp-controller="EmployeeDetail" title="Export All Employee">
+                                            <i class="fa fa-download"> &nbsp; Export</i>
+                                        </a>
+                                    </div>
+                                </div>
+                               
+                               
+                            </div>
+                            <div class="box-body">
+                                <div class="table-responsive">
+
+                                    <div class="dataTables_wrapper" id="divEmployeeDetails" role="grid">
+
+
+
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</div>
+
+<script>
+    function FiltereEmployee() {
+        let legalEntity = $("#LegalEntity").val();
+        let department = $("#DepartmentName").val();
+        let designation = $("#DesignationName").val();
+        let pandlName = $("#PAndLHeadName").val();
+        let doj = $("#txtdoj").val();
+        let location = $("#Location").val();
+        let status = $("#ddlisactive").val();
+        let EmpCode = $("#textEmpCode").val();
+        debugger;
+        $.get("/EmployeeDetail/GetFilteredData", {
+            LeagalEntity: legalEntity, DepartmentName: department,
+            DesignationName: designation, PAndLHeadName: pandlName,
+            JoiningDate: doj, Location: location, IsActive: status, EmpCode: EmpCode
+        }, function (data) {
+            $("#divEmployeeDetails").html(data);
+        });
+    }
+
+    $(document).ready(function () {
+        $("#btn-employeesearch").trigger("click");
+    })
+</script>
+

@@ -1,4 +1,6 @@
-﻿function Success(response) {
+﻿const { debug } = require("../AlertifyJs/src/js/outro");
+
+function Success(response) {
     if (response == "Server error please contact admin team") {
        alertify.set('notifier', 'position', 'top-right');
         alertify.error(response);
@@ -31,24 +33,27 @@ function CustomDelete(id, url) {
     });
 }
 
+ 
 function CustomDeleteRecord(id, getUrl, deleteUrl, event) {
     alertify.set('notifier', 'position', 'top-right');
+ 
     alertify.confirm("Are you sure want to delete the record ?", function () {
-
+        debugger;
         var thisId = $(event);
-        thisId.button('loading');
+        $('#divLoader').modal('show');
 
         $.get(deleteUrl, { id: id }, function (response) {
+            
             alertify.success("Record deleted successfully");
+            $('#divLoader').modal('hide');
         }).done(function () {
+            
             $.get(getUrl, function (response) {
-                $("#divHRMS").html(response);
+                
+                $(divurl).html(response);
+                
             }).done(function () {
-                $("#tblDataList").DataTable({
-                    fixedHeader: true,
-                    select: true,
-                    responsive: true
-                });
+                 
             });
 
             $(".form-control").val('');//Clear the controll which is present inside the form.

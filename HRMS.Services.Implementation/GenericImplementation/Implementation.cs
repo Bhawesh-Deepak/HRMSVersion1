@@ -23,6 +23,8 @@ namespace HRMS.Services.Implementation.GenericImplementation
             TEntities = context.Set<TEntity>();
         }
 
+       
+
         /// <summary>
         /// Check the Item present on to the data base or not
         /// </summary>
@@ -143,11 +145,22 @@ namespace HRMS.Services.Implementation.GenericImplementation
             try
             {
                 IQueryable<TEntity> dbQuery = context.Set<TEntity>();
-                var tList = dbQuery.AsNoTracking().Where(where).ToList<TEntity>();
+                if (where != null)
+                {
+                    var tList = dbQuery.AsNoTracking().Where(where).ToList<TEntity>();
+                    return await Task.Run(() => new GenericResponse<TEntity, T>()
+                     .GetGenericResponse(tList, null, "success", default,
+                     ResponseStatus.Success));
+                }
+                else {
+                    var tList = dbQuery.AsNoTracking().ToList<TEntity>();
+                    return await Task.Run(() => new GenericResponse<TEntity, T>()
+                     .GetGenericResponse(tList, null, "success", default,
+                     ResponseStatus.Success));
+                }
+              
 
-                return await Task.Run(() => new GenericResponse<TEntity, T>()
-                 .GetGenericResponse(tList, null, "success", default,
-                 ResponseStatus.Success));
+            
             }
             catch (Exception ex)
             {

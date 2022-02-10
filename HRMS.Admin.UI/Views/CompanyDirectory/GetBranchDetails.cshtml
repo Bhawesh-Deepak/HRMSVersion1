@@ -1,0 +1,80 @@
+﻿@model IEnumerable<HRMS.Core.ReqRespVm.Response.Organisation.BranchDirectoryVM>
+<div class="row" style="margin-top:0;">
+    <div class="col-md-12 col-sm-12">
+        <div class="box box-success">
+            <div class="box-header with-border">
+                <div class="box-title">
+                    <i class="fa fa-building-o"></i>&nbsp;&nbsp;Branch Detail's (Live Data)&nbsp;
+
+                </div>
+
+            </div>
+            <div class="box-body" id="">
+
+
+                @if (Model.Count() > 0)
+                {
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="panel-heading-btn pull-right">
+                                <a asp-action="DownloadEmployee" asp-controller="CompanyDirectory" asp-route-LegalEntity="@Model.First().SubsidiaryName" class="btn btn-xs btn-icon btn-circle btn-success" title="Export All Employee in Excel"><i class="fa fa-download "></i></a>
+                            </div>
+                            <h4 class="panel-title">
+
+                                <span>@Model.First().SubsidiaryName</span>
+                               
+                            </h4>
+                        </div>
+
+                    </div>
+                }
+                    <div class="table-responsive">
+
+                        <div class="dataTables_wrapper" role="grid">
+
+                            <table class="table table-condensed table-striped table-hover table-bordered table-body-nowrap table-head-nowrap dataTable" id="example">
+                                <thead class="th-success" role="row">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Branch Name</th>
+                                        <th>No of Active Employee  </th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody Role="alert" aria-live="polite" aria-relevant="all">
+                                    @{ int count = 1; }
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@count</td>
+                                            <td>@item.BranchName</td>
+                                            <td>@item.TotalEmployee</td>
+                                            <td><a asp-action="DownloadEmployee" asp-controller="CompanyDirectory" asp-route-BranchName="@Model.First().BranchName" class="btn btn-xs btn-icon btn-circle btn-primary" title="Export All Employee in Excel"><i class="fa fa-download "></i></a></td>
+                                        </tr>
+                                        count++;
+
+                                    }
+                                </tbody>
+                                <tfoot class="th-primary">
+                                    <tr>
+                                        <td> </td>
+                                        <td>Total :</td>
+                                        <td>@Model.Sum(x => x.TotalEmployee)</td>
+                                        <td> </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#example').dataTable({
+        "iDisplayLength": 10,
+        "bDestroy": true,
+        "scrollX": true,
+        "aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+    });
+</script>

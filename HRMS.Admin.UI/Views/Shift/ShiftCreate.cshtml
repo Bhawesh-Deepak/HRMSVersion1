@@ -1,0 +1,62 @@
+﻿@model HRMS.Core.Entities.Master.Shift
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<style>
+ 
+</style>
+<form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+      data-ajax-complete="AjaxComplete"
+      asp-action="UpsertShift" asp-controller="Shift" data-ajax-success="Success">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input asp-for="Id" type="hidden" />
+                            <input asp-for="CreatedBy" type="hidden" />
+                            <input asp-for="CreatedDate" type="hidden" />
+                            <input asp-for="FinancialYear" type="hidden" />
+                            <label asp-for="Name">Shift</label><span style="color:red">  *</span>
+                            <input type="text" class="form-control" asp-for="Name" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="ShiftStartTime">Start Time</label><span style="color:red">  *</span>
+                            <input type="time" class="form-control" asp-for="ShiftStartTime" />
+                            <span asp-validation-for="ShiftStartTime" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="ShiftEndTime">End Time</label><span style="color:red">  *</span>
+                            <input type="time" class="form-control" asp-for="ShiftEndTime" />
+                            <span asp-validation-for="ShiftEndTime" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="ShiftLateTime">Late Time</label><span style="color:red">  *</span>
+                            <input type="time" class="form-control" asp-for="ShiftLateTime" />
+                            <span asp-validation-for="ShiftLateTime" class="text-danger"></span>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-close" onclick="HidePopUp();">Close</button>
+        <input type="submit" class="btn btn-primary" value="Save" />
+    </div>
+</form>

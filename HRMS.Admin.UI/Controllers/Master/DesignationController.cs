@@ -1,9 +1,12 @@
-﻿using HRMS.Admin.UI.Helpers;
+﻿using HRMS.Admin.UI.AuthenticateService;
+using HRMS.Admin.UI.Helpers;
 using HRMS.Core.Entities.Common;
 using HRMS.Core.Entities.Master;
+using HRMS.Core.Helpers.CommonCRUDHelper;
 using HRMS.Core.Helpers.CommonHelper;
 using HRMS.Core.ReqRespVm.Response.Master;
 using HRMS.Services.Repository.GenericRepository;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,6 +16,8 @@ using System.Threading.Tasks;
 
 namespace HRMS.Admin.UI.Controllers.Master
 {
+    [CustomAuthenticate]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class DesignationController : Controller
     {
         private readonly IGenericRepository<Department, int> _IDepartmentRepository;
@@ -28,33 +33,52 @@ namespace HRMS.Admin.UI.Controllers.Master
         }
         public async Task<IActionResult> Index()
         {
+            try
+            {
             ViewBag.HeaderTitle = PageHeader.HeaderSetting["DesignationIndex"];
-           
             return await Task.Run(() => View(ViewHelper.GetViewPathDetails("Designation", "DesignationIndex")));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(Designation)} action name {nameof(Index)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> GetDesignationList()
         {
+            try
+            {
             var departmentList = await _IDepartmentRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
             var designationLIst = await _IDesignationRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
 
-            var responseDetails = (from dpt in departmentList.Entities
-                                   join dsg in designationLIst.Entities
-                                   on dpt.Id equals dsg.DepartmentId
-                                   select new DesignationDetail
+            var responseDetails = (from department in departmentList.Entities
+                                   join designtion in designationLIst.Entities
+                                   on department.Id equals designtion.DepartmentId
+                                   select new Designation
                                    {
-                                       DesignationId = dsg.Id,
-                                       DesignationCode = dsg.Code,
-                                       DepartmentName = dpt.Name,
-                                       Desscription = dsg.Description,
-                                       DesignationName=dsg.Name
+                                       Id = designtion.Id,
+                                       Code = designtion.Code,
+                                       DepartmentName = department.Name,
+                                       Description = designtion.Description,
+                                       Name= designtion.Name
                                    }).ToList();
 
             return PartialView(ViewHelper.GetViewPathDetails("Designation", "DesignationDetails"), responseDetails);
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(Designation)} action name {nameof(GetDesignationList)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> CreateDesignation(int id)
         {
+            try
+            {
             await PopulateViewBag();
             var response = await _IDesignationRepository.GetAllEntities(x => x.Id == id);
 
@@ -67,23 +91,60 @@ namespace HRMS.Admin.UI.Controllers.Master
 
                 return PartialView(ViewHelper.GetViewPathDetails("Designation", "DesignationCreate"), response.Entities.First());
             }
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(Designation)} action name {nameof(CreateDesignation)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> UpsertDesignation(Designation model)
         {
+            try
+            {
             if (model.Id == 0)
             {
-                var response = await _IDesignationRepository.CreateEntity(model);
-                return Json(response.Message);
+                    model.FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
+                    var response = await _IDesignationRepository.CreateEntity(model);
+                    return Json(response.Message);
             }
             else
             {
                 var response = await _IDesignationRepository.UpdateEntity(model);
                 return Json(response.Message);
             }
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(Designation)} action name {nameof(UpsertDesignation)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
         }
-
+        [HttpGet]
+        public async Task<IActionResult> DeleteDesignation(int id)
+        {
+            try
+            {
+            var deleteModel = await _IDesignationRepository.GetAllEntityById(x => x.Id == id);
+            var deleteDbModel = CrudHelper.DeleteHelper<Designation>(deleteModel.Entity, 1);
+            var deleteResponse = await _IDesignationRepository.DeleteEntity(deleteDbModel);
+            if (deleteResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Deleted)
+            {
+                return Json(deleteResponse.Message);
+            }
+            return Json(deleteResponse.Message);
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(Designation)} action name {nameof(DeleteDesignation)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
+        }
         #region PrivateFields
         private async Task PopulateViewBag()
         {

@@ -1,0 +1,90 @@
+﻿@model HRMS.Core.Entities.Payroll.EmployeeReimbursement
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<style>
+</style>
+<form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+      asp-action="UpsertReiembursement" asp-controller="EmployeeReimbursement" data-ajax-success="Success">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="InvoiceYear">Invoice Year</label><span style="color:red">  *</span>
+                            <select asp-for="InvoiceYear" class="form-control">
+                                <option value="">--Select--</option>
+                                @for (var i = 2019; i < 2050; i++)
+                                {
+                                    <option value="@i">@i</option>
+                                    if (i == DateTime.Now.Year) { break; }
+
+                                }
+
+                            </select>
+                            <span asp-validation-for="InvoiceYear" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="InvoiceMonth">Invoice Month</label><span style="color:red">  *</span>
+                            <select asp-for="InvoiceMonth" class="form-control">
+                                <option value="">--Select--</option>
+                                @for (int i = 1; i < 13; i++)
+                                {
+                                    string fullMonthName = new DateTime(2015, i, 1).ToString("MMMM", System.Globalization.CultureInfo.CreateSpecificCulture("en"));
+                                    <option value="@fullMonthName">@fullMonthName</option>
+                                }
+                            </select>
+                            <span asp-validation-for="InvoiceMonth" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="InvoiceNumber">Invoice Number</label>
+                            <input asp-for="InvoiceNumber" class="form-control" />
+                            <span asp-validation-for="InvoiceNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Currency">Currency</label>
+                            <input asp-for="Currency" class="form-control" />
+                            <span asp-validation-for="Currency" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="InvoiceAmount">Invoice Amount</label>
+                            <input asp-for="InvoiceAmount" class="form-control" />
+                            <span asp-validation-for="InvoiceAmount" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="InvoicePDFPath">Upload File</label>
+                            <input type="file" id="Resume" name="InvoiceFile" class="form-control" />
+                            <span asp-validation-for="InvoicePDFPath" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="HidePopUp();">Close</button>
+        <input type="submit" class="btn btn-primary  " value="Save" />
+    </div>
+</form>
