@@ -9,25 +9,18 @@ using System.Threading.Tasks;
 
 namespace HRMS.Core.Entities.Master
 {
-    [Table("AnnouncementAndUpdate", Schema = "Master")]
-    public class AnnouncementAndUpdate : BaseModel<int>
+    [Table("NewsAndUpdate", Schema = "Master")]
+    public class NewsAndUpdate : BaseModel<int>
     {
         [Required(ErrorMessage = "This field is required.")]
         public int BranchId { get; set; }
+        [Required(ErrorMessage = "This field is required.")]
+        [Display(Prompt = "News and Update")]
+        public string News { get; set; }
 
         [Required(ErrorMessage = "This field is required.")]
-        public int DepartmentId { get; set; }
+        public DateTime CalenderDate { get; set; }
+        public string UploadFile { get; set; }
 
-        [Required(ErrorMessage = "This field is required.")]
-        [Display(Prompt = "Announcement")]
-        public string Announcement { get; set; }
-
-
-        [Required(ErrorMessage = "This field is required.")]
-        public DateTime AnnouncementDate { get; set; }
-        [Required(ErrorMessage = "This field is required.")]
-        public DateTime ApplicableDate { get; set; }
-
-       
     }
 }

@@ -27,5 +27,6 @@ namespace HRMS.Services.Implementation.SqlConstant
         public const string GetESICReport = @"[Reporting].[usp_ESICReport]";
         public const string GetemployeeAutoComplete = @"[Payroll].[usp_getEmployeeAutoComplete]";
         public const string GetExportEmployee = @"[Payroll].[usp_ExportEmployeeDetail]";
+        public const string GetBirtdayAnniversary = @"[Payroll].[usp_GetBirthdayAnniversary]";
     }
 }

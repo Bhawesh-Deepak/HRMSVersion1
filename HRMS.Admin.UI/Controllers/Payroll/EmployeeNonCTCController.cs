@@ -100,7 +100,7 @@ namespace HRMS.Admin.UI.Controllers.Payroll
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
-            return Json("");
+            
         }
 
 

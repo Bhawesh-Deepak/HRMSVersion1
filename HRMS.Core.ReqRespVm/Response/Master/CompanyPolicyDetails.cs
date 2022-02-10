@@ -8,8 +8,8 @@ namespace HRMS.Core.ReqRespVm.Response.Master
 {
     public class CompanyPolicyDetails
     {
-        public int CompanyPolicyId { get; set; }
-        public  string DepartmentName { get; set; }
+        public int Id { get; set; }
+        public  string LegalEntityName { get; set; }
         public string Name { get; set; }
         public string CalenderDate { get; set; }
         public string DocumentUrl { get; set; }
