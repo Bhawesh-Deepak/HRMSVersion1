@@ -1,6 +1,8 @@
 ﻿using HRMS.Admin.UI.AuthenticateService;
 using HRMS.Admin.UI.Helpers;
 using HRMS.Core.Entities.Common;
+using HRMS.Core.Entities.Master;
+using HRMS.Core.Entities.Organisation;
 using HRMS.Core.Entities.Posting;
 using HRMS.Core.Helpers.CommonCRUDHelper;
 using HRMS.Core.Helpers.CommonHelper;
@@ -21,13 +23,22 @@ namespace HRMS.Admin.UI.Controllers.Posting
     public class CurrentOpeningController : Controller
     {
         private readonly IGenericRepository<CurrentOpening, int> _ICurrentOpeningRepository;
+        private readonly IGenericRepository<Branch, int> _IBranchMasterRepository;
+        private readonly IGenericRepository<Department, int> _IDepartmentRepository;
+        private readonly IGenericRepository<Designation, int> _IDesignationRepository;
         private readonly IHostingEnvironment _IhostingEnviroment;
 
         public CurrentOpeningController(IGenericRepository<CurrentOpening, int> currentOpeningRepository,
-            IHostingEnvironment hostingEnviroment)
+            IHostingEnvironment hostingEnviroment,
+            IGenericRepository<Branch, int> branchMasterRepository,
+            IGenericRepository<Department, int> departmentRepository,
+            IGenericRepository<Designation, int> designationRepository)
         {
             _ICurrentOpeningRepository = currentOpeningRepository;
             _IhostingEnviroment = hostingEnviroment;
+            _IBranchMasterRepository = branchMasterRepository;
+            _IDepartmentRepository = departmentRepository;
+            _IDesignationRepository = designationRepository;
         }
 
         public async Task<IActionResult> Index()
@@ -67,6 +78,8 @@ namespace HRMS.Admin.UI.Controllers.Posting
         {
             try
             {
+                await PopulateViewBag();
+
                 var response = await _ICurrentOpeningRepository.GetAllEntityById(x => x.Id == id);
                 return PartialView(ViewHelper.GetViewPathDetails("CurrentOpening", "CurrentOpeningCreate"), response.Entity);
             }
@@ -85,6 +98,9 @@ namespace HRMS.Admin.UI.Controllers.Posting
             {
                 model.FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
                 model.DescriptionPath = PdfFile == null ? model.DescriptionPath : await UploadPDFFile(PdfFile);
+                model.LastApplyDate = model.ClosingDate;
+                model.Location = string.Empty;
+
 
                 var response = model.Id == 0 ? await CreateOpeningDb(model) : await UpdateOpeningDb(model);
 
@@ -123,6 +139,8 @@ namespace HRMS.Admin.UI.Controllers.Posting
             }
         }
 
+
+
         #region PrivateMethods
 
         public async Task<ResponseStatus> CreateOpeningDb(CurrentOpening model)
@@ -154,6 +172,12 @@ namespace HRMS.Admin.UI.Controllers.Posting
             return imagePath;
         }
 
+        private async Task PopulateViewBag()
+        {
+            ViewBag.Departments = (await _IDepartmentRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted)).Entities;
+            ViewBag.Designation = (await _IDesignationRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted)).Entities;
+            ViewBag.Branchs = (await _IBranchMasterRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted)).Entities;
+        }
         #endregion
     }
 }

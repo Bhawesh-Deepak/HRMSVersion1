@@ -28,6 +28,35 @@
             <div class="col-md-12">
                 <div class="col-md-6">
                     <div class="form-group">
+                        <label asp-for="BranchId">Branch </label><span style="color:red">  *</span>
+                        <select asp-for="BranchId" class="form-control" asp-items="@(new SelectList(ViewBag.Branchs ,"Id","Name"))">
+                            <option value="">--Select--</option>
+                           
+                        </select>
+                        <span asp-validation-for="BranchId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="DepartmentId">Department </label><span style="color:red">  *</span>
+                        <select asp-for="DepartmentId" class="form-control"  asp-items="@(new SelectList(ViewBag.Departments ,"Id","Name"))">
+                            <option value="">--Select--</option>
+                        </select>
+                        <span asp-validation-for="DepartmentId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="DesignationId">Designation </label><span style="color:red">  *</span>
+                        <select asp-for="DesignationId" class="form-control"  asp-items="@(new SelectList(ViewBag.Designation ,"Id","Name"))">
+                            <option value="">--Select--</option>
+                        </select>
+                        <span asp-validation-for="DesignationId" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
                         <input asp-for="Id" type="hidden" />
                         <input asp-for="CreatedBy" type="hidden" />
                         <input asp-for="CreatedDate" type="hidden" />
@@ -55,37 +84,44 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label asp-for="Vacancy">Vacancies</label><span style="color:red">  *</span>
-                        <input asp-for="Vacancy" class="form-control" />
+                        <input type="number" asp-for="Vacancy" class="form-control" />
                         <span asp-validation-for="Vacancy" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label asp-for="LastApplyDate">Last Apply Date</label><span style="color:red">  *</span>
-                        <input asp-for="LastApplyDate" class="form-control" />
-                        <span asp-validation-for="LastApplyDate" class="text-danger"></span>
+                        <label asp-for="OpeningDate">Opening Date</label><span style="color:red">  *</span>
+                        <input asp-for="OpeningDate" class="form-control" />
+                        <span asp-validation-for="OpeningDate" class="text-danger"></span>
                     </div>
                 </div>
 
                 <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="ClosingDate">Closing Date</label><span style="color:red">  *</span>
+                        <input asp-for="ClosingDate" class="form-control" />
+                        <span asp-validation-for="ClosingDate" class="text-danger"></span>
+                    </div>
+                </div>
+                @*<div class="col-md-6">
                     <div class="form-group">
                         <label asp-for="Location">Job Location</label><span style="color:red">  *</span>
                         <input asp-for="Location" class="form-control" />
                         <span asp-validation-for="Location" class="text-danger"></span>
                     </div>
-                </div>
+                </div>*@
 
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Job Descripiotn (.Pdf)</label>
-                        <input type="file" class="form-control" name="PdfFile" id="PdfFile" />
-                        <span asp-validation-for="DescriptionPath" class="text-danger"></span>
+                        <label>Job Description</label>
+                        <textarea asp-for="JobDescription" class="form-control" rows="5"></textarea>
+                        <span asp-validation-for="JobDescription" class="text-danger"></span>
                     </div>
                 </div>
-                <div class="col-md-12">
+                @*<div class="col-md-12">
                     <canvas id="the-canvas" style="border: 1px solid black; height: 300px; width: 300px;"></canvas>
-                </div>
-              
+                </div>*@
+
             </div>
         </div>
 
