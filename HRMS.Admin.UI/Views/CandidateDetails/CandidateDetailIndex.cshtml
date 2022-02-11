@@ -14,7 +14,9 @@
                                         <div class="box-header with-border">
                                             <div class="box-title">
                                                 Talent Acquisition &nbsp;
-
+                                                <a class="btn btn-primary pull-right btn-xs" onclick="AddCandidateDetails()" title="Add Candidate Details">
+                                                    <i class="fa fa-plus"> &nbsp; Add</i>
+                                                </a>
                                             </div>
                                         </div>
                                         <div class="box-body">
@@ -39,10 +41,8 @@
 
 
 <environment include="Development">
-    <script src="~/HRMSJs/ReferCandidate.js"></script>
-
+    <script src="~/HRMSJs/CandidateDetail.js"></script>
 </environment>
 <environment include="Production">
-    <script src="~/HRMSJs/ReferCandidate.js"></script>
-
+    <script src="~/HRMSJs/CandidateDetail.js"></script>
 </environment>

@@ -6,7 +6,7 @@
 </style>
 <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
       data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
-      asp-action="ReferalCandidate" asp-controller="CandidateReferal" data-ajax-success="Success">
+      asp-action="UpSertCandidateDetails" asp-controller="CandidateDetail" data-ajax-success="Success">
     <div class="modal-body">
         <div class="row">
             <div class="col-md-12">
@@ -32,7 +32,9 @@
                         <div class="form-group">
                             <input type="hidden" asp-for="JobTitleId" />
                             <label asp-for="JobTitleId">Job Title</label><span style="color:red">  *</span>
-                            <input asp-for="JobTitleId" class="form-control" />
+                            <select asp-for="JobTitleId" class="form-control">
+                                <option value="">--Select--</option>
+                            </select>
                             <span asp-validation-for="JobTitleId" class="text-danger"></span>
                         </div>
                     </div>
