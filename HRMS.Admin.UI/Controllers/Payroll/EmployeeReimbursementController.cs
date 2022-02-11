@@ -17,7 +17,9 @@ namespace HRMS.Admin.UI.Controllers.Payroll
     {
         private readonly IGenericRepository<EmployeeReimbursement, int> _IEmployeeReimbursementRepo;
         private readonly IHostingEnvironment _IHostingEnviroment;
-        public EmployeeReimbursementController(IGenericRepository<EmployeeReimbursement, int> iEmployeeReimbursementRepo, IHostingEnvironment hostingEnvironment)
+
+        public EmployeeReimbursementController(IGenericRepository<EmployeeReimbursement, int> iEmployeeReimbursementRepo, 
+            IHostingEnvironment hostingEnvironment)
         {
             _IEmployeeReimbursementRepo = iEmployeeReimbursementRepo;
             _IHostingEnviroment = hostingEnvironment;
@@ -100,7 +102,6 @@ namespace HRMS.Admin.UI.Controllers.Payroll
                 return RedirectToAction("Error", "Home");
             }
         }
-
 
         [HttpGet]
         public async Task<IActionResult> DeleteReimbursement(int id)

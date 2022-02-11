@@ -13,17 +13,14 @@ namespace HRMS.Core.Entities.Posting
     public class CurrentOpening:BaseModel<int>
     {
         [Required()]
-        [MaxLength(1000), MinLength(10)]
         [Display(Prompt ="Please Enter Job Title")]
         public string Title { get; set; }
 
         [Required()]
-        [MaxLength(500), MinLength(5)]
         [Display(Prompt = "Please Enter Required Exprience")]
         public string RequiredExprience { get; set; }
 
         [Required()]
-        [MaxLength(1500), MinLength(5)]
         [Display(Prompt = "Please Enter Required Key Skills")]
         public string KeySkills { get; set; }
 
@@ -37,9 +34,20 @@ namespace HRMS.Core.Entities.Posting
         public DateTime LastApplyDate { get; set; }
 
         [Required()]
-        [MaxLength(2500), MinLength(10)]
         [Display(Prompt = "Please Enter Job Location")]
         public string Location { get; set; }
         public string DescriptionPath { get; set; }
+        public int BranchId { get; set; }
+        public int DepartmentId { get; set; }
+        public int DesignationId { get; set; }
+
+        [DataType(DataType.Date)]
+        [Required]
+        public DateTime OpeningDate { get; set; }
+
+        [DataType(DataType.Date)]
+        [Required]
+        public DateTime ClosingDate { get; set; }
+        public string JobDescription { get; set; }
     }
 }
