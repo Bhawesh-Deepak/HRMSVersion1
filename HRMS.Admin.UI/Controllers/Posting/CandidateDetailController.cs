@@ -35,7 +35,7 @@ namespace HRMS.Admin.UI.Controllers.Posting
             {
                 ViewBag.HeaderTitle = PageHeader.HeaderSetting["CurrentOpeningIndex"];
 
-                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("CurrentOpening", "CurrentOpeningIndex")));
+                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("CandidateDetails", "CandidateDetailIndex")));
             }
             catch (Exception ex)
             {
@@ -67,7 +67,7 @@ namespace HRMS.Admin.UI.Controllers.Posting
                                   JobTitle = OM.Title
                               }).ToList();
 
-                return PartialView(ViewHelper.GetViewPathDetails("CurrentOpening", "CurrentOpeningDetails"), models);
+                return PartialView(ViewHelper.GetViewPathDetails("CandidateDetails", "CandidateDetailDetails"), models);
             }
             catch (Exception ex)
             {
@@ -84,7 +84,7 @@ namespace HRMS.Admin.UI.Controllers.Posting
                 await PopulateViewBag();
 
                 var response = await _ICandidateDetailRepository.GetAllEntityById(x => x.Id == id);
-                return PartialView(ViewHelper.GetViewPathDetails("CurrentOpening", "CurrentOpeningCreate"), response.Entity);
+                return PartialView(ViewHelper.GetViewPathDetails("CandidateDetails", "CandidateDetailCreate"), response.Entity);
             }
             catch (Exception ex)
             {
