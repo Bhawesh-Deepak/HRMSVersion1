@@ -58,14 +58,30 @@
             box-shadow: 0px 0px 10px #000;
         }
     </style>
+    <style>
+        
+        .color-line {
+            background: #f7f9fa;
+            height: 6px;
+            background-image: -webkit-linear-gradient(left,#f7f9fa,#f7f9fa 25%,#9b59b6 25%,#9b59b6 35%,#3498db 35%,#3498db 45%,#62cb31 45%,#62cb31 55%,#ffb606 55%,#ffb606 65%,#e67e22 65%,#e67e22 75%,#e74c3c 85%,#e74c3c 85%,#c0392b 85%,#c0392b 100%);
+            background-image: -moz-linear-gradient(left,#f7f9fa,#f7f9fa 25%,#9b59b6 25%,#9b59b6 35%,#3498db 35%,#3498db 45%,#62cb31 45%,#62cb31 55%,#ffb606 55%,#ffb606 65%,#e67e22 65%,#e67e22 75%,#e74c3c 85%,#e74c3c 85%,#c0392b 85%,#c0392b 100%);
+            background-image: -ms-linear-gradient(left,#f7f9fa,#f7f9fa 25%,#9b59b6 25%,#9b59b6 35%,#3498db 35%,#3498db 45%,#62cb31 45%,#62cb31 55%,#ffb606 55%,#ffb606 65%,#e67e22 65%,#e67e22 75%,#e74c3c 85%,#e74c3c 85%,#c0392b 85%,#c0392b 100%);
+            background-image: linear-gradient(to right,#CC2AC0,#CC2AC0 25%,#9b59b6 25%,#9b59b6 35%,#3498db 35%,#3498db 45%,#62cb31 45%,#62cb31 55%,#ffb606 55%,#ffb606 65%,#e67e22 65%,#e67e22 75%,#e74c3c 85%,#e74c3c 85%,#c0392b 85%,#c0392b 100%);
+            background-size: 100% 6px;
+            background-position: 50% 100%;
+            background-repeat: no-repeat
+        }
+     
+    </style>
 </head>
 <body oncontextmenu='return false' class='snippet-body'>
+    <div class="color-line"> </div>
     <div class="container mt-1 mb-1">
         <div class="d-flex justify-content-between mb-1">
             <span><img src="~/LoginJsCss/images/logo.png" style="width:20%" alt="" class="img-fluid"></span>
             <a asp-action="Logout" asp-controller="Authenticate" class="btn btn-success add"><i class="fa fa-power-off"></i> Log Out</a>
         </div>
-        
+
         <div class="row g-2">
             @foreach (var item in Model)
             {
