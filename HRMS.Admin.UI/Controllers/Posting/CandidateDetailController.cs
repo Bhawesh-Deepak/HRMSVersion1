@@ -95,11 +95,11 @@ namespace HRMS.Admin.UI.Controllers.Posting
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpSertCandidateDetails(CandidateDetail model, IFormFile resumePath)
+        public async Task<IActionResult> UpSertCandidateDetails(CandidateDetail model, IFormFile Resume)
         {
             try
             {
-                model.ResumePath = await UploadPDFFile(resumePath);
+                model.ResumePath = await UploadPDFFile(Resume);
 
                 model.FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
 

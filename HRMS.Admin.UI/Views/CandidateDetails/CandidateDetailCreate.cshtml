@@ -32,7 +32,7 @@
                         <div class="form-group">
                             <input type="hidden" asp-for="JobTitleId" />
                             <label asp-for="JobTitleId">Job Title</label><span style="color:red">  *</span>
-                            <select asp-for="JobTitleId" class="form-control">
+                            <select asp-for="JobTitleId" class="form-control" asp-items="@(new SelectList(ViewBag.CurrentOpening ,"Id","Title"))">
                                 <option value="">--Select--</option>
                             </select>
                             <span asp-validation-for="JobTitleId" class="text-danger"></span>
