@@ -1,0 +1,99 @@
+﻿@model HRMS.Core.Entities.Posting.CandidateDetail
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<style>
+</style>
+<form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+      asp-action="ReferalCandidate" asp-controller="CandidateReferal" data-ajax-success="Success">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="hidden" asp-for="ReferedBy" />
+                            <label asp-for="ReferedBy">ReferedBy</label><span style="color:red">  *</span>
+                            <select asp-for="ReferedBy" class="form-control">
+                                <option value="">--Select--</option>
+                                <option value="Recruitment Agency">Recruitment Agency</option>
+                                <option value="Internship & Aprenticeship">Internship & Aprenticeship</option>
+                                <option value="Recruitment Event">Recruitment Event</option>
+                                <option value="Employee Referal">Employee Referal</option>
+                                <option value="TalentPool DataBase">Talent Pool DataBase</option>
+                                <option value="Promotional Transfer">Promotional Transfer</option>
+                            </select>
+                            <span asp-validation-for="ReferedBy" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="hidden" asp-for="JobTitleId" />
+                            <label asp-for="JobTitleId">Job Title</label><span style="color:red">  *</span>
+                            <input asp-for="JobTitleId" class="form-control" />
+                            <span asp-validation-for="JobTitleId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="CandidateName">Candidate Name</label><span style="color:red">  *</span>
+                            <input asp-for="CandidateName" class="form-control" />
+                            <span asp-validation-for="CandidateName" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="EmailId">Candidate Email</label>
+                            <input asp-for="EmailId" class="form-control" />
+                            <span asp-validation-for="EmailId" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="PhoneNumber">Candidate Phone</label>
+                            <input asp-for="PhoneNumber" class="form-control" />
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="ResumePath">Upload Resume</label>
+                            <input type="file" id="Resume" name="Resume" class="form-control" />
+                            <span asp-validation-for="ResumePath" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="CandidateStatus">Candidate Status</label>
+                            <select asp-for="CandidateStatus" class="form-control">
+                                <option value="">--Select--</option>
+                                <option value="Pending For First Round">Pending For First Round</option>
+                                <option value="Interview 1st Round">Interview 1st Round</option>
+                                <option value="Interview 2nd Round">Interview 2nd Round</option>
+                                <option value="Interview 3rd Round">Interview 3rd Round</option>
+                                <option value="Selected">Selected</option>
+                                <option value="On Hold">On Hold</option>
+                            </select>
+                            <span asp-validation-for="ResumePath" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="HidePopUp();">Close</button>
+        <input type="submit" class="btn btn-primary  " value="Save" />
+    </div>
+</form>
