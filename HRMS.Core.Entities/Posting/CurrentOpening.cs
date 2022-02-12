@@ -50,5 +50,16 @@ namespace HRMS.Core.Entities.Posting
         [Required]
         public DateTime ClosingDate { get; set; }
         public string JobDescription { get; set; }
+
+        [NotMapped]
+        public string EntityName { get; set; }
+
+        [NotMapped]
+        public string DepartmentName { get; set; }
+
+        [NotMapped]
+        public string BranchName { get; set; }
+        [NotMapped]
+        public string Designation { get; set; }
     }
 }
