@@ -10,10 +10,14 @@
             <thead>
                 <tr class="th-primary" role="row">
                     <th>#</th>
+                    <th>Entity</th>
+                    <th>Branch</th>
+                    <th>Department</th>
+                    <th>Designation</th>
                     <th>Job Title</th>
                     <th>Required Experience</th>
                     <th>Key Skills</th>
-                    <th>Vacancy</th>
+                    <th>Vacancies</th>
                     <th>Opening Date</th>
                     <th>Closing Date</th>
                     <th>Job Description</th>
@@ -36,43 +40,55 @@
                     {
                         trclass = "odd";
                     }
-                    <tr class="@trclass">
-                        <td align="left" style="width:5%;" class="sorting_1">
-                            @count
-                        </td>
-                        <td align="left" style="width:10%;" class="sorting_1">
-                            @data.Title
-                        </td>
-                        <td align="left" style="width:20%;" class="sorting_1">
-                            @data.RequiredExprience
-                        </td>
-                        <td align="left" style="width:45%;" class="sorting_1">
-                            @data.KeySkills
-                        </td>
+                <tr class="@trclass">
+                    <td align="left" style="width:5%;" class="sorting_1">
+                        @count
+                    </td>
+                    <td align="left" style="width:10%;" class="sorting_1">
+                        @data.EntityName
+                    </td>
+                    <td align="left" style="width:10%;" class="sorting_1">
+                        @data.BranchName
+                    </td>
+                    <td align="left" style="width:10%;" class="sorting_1">
+                        @data.DepartmentName
+                    </td>
+                    <td align="left" style="width:10%;" class="sorting_1">
+                        @data.Designation
+                    </td>
+                    <td align="left" style="width:10%;" class="sorting_1">
+                        @data.Title
+                    </td>
+                    <td align="left" style="width:20%;" class="sorting_1">
+                        @data.RequiredExprience
+                    </td>
+                    <td align="left" style="width:45%;" class="sorting_1">
+                        @data.KeySkills
+                    </td>
 
-                        <td align="left" style="width:45%;" class="sorting_1">
-                            @data.Vacancy
-                        </td>
-                        <td align="left" style="width:45%;" class="sorting_1">
-                            @data.OpeningDate.ToShortDateString()
-                        </td>
-                        <td align="left" style="width:45%;" class="sorting_1">
-                            @data.ClosingDate.ToShortDateString()
-                        </td>
-                        <td align="left" style="width:45%;" class="sorting_1">
-                            @data.JobDescription
-                        </td>
+                    <td align="left" style="width:45%;" class="sorting_1">
+                        @data.Vacancy
+                    </td>
+                    <td align="left" style="width:45%;" class="sorting_1">
+                        @data.OpeningDate.ToShortDateString()
+                    </td>
+                    <td align="left" style="width:45%;" class="sorting_1">
+                        @data.ClosingDate.ToShortDateString()
+                    </td>
+                    <td align="left" style="width:45%;" class="sorting_1">
+                        @data.JobDescription
+                    </td>
 
-                        <td align="center" style="width:20%;" class="sorting_1">
-                            <a title="Edit" class="btn btn-primary btn-xs" onclick="UpdateRecord(@data.Id, this)">
-                                <i class="fa fa-pencil "></i>
-                            </a>
-                            <a title="Delete" class="btn btn-xs btn-danger" onclick="Delete(@data.Id, this)"><i class="fa fa-ban"></i></a>
+                    <td align="center" style="width:20%;" class="sorting_1">
+                        <a title="Edit" class="btn btn-primary btn-xs" onclick="UpdateRecord(@data.Id, this)">
+                            <i class="fa fa-pencil "></i>
+                        </a>
+                        <a title="Delete" class="btn btn-xs btn-danger" onclick="Delete(@data.Id, this)"><i class="fa fa-ban"></i></a>
 
 
 
-                        </td>
-                    </tr>
+                    </td>
+                </tr>
                     count++;
                 }
 
