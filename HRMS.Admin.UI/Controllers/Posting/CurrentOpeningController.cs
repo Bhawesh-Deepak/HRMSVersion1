@@ -64,8 +64,42 @@ namespace HRMS.Admin.UI.Controllers.Posting
         {
             try
             {
-                var response = await _ICurrentOpeningRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
-                return PartialView(ViewHelper.GetViewPathDetails("CurrentOpening", "CurrentOpeningDetails"), response.Entities);
+
+                var currentopening = await _ICurrentOpeningRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+                var legalentitylist = await _ILegalEntityRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+                var branchlist = await _IBranchMasterRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+                var departmentlist = await _IDepartmentRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+                var designationlist = await _IDesignationRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+
+                var responseDetails = (from currentopeening in currentopening.Entities
+                                       join branch in branchlist.Entities on currentopeening.BranchId equals branch.Id
+                                       into Bn
+                                       from branch in Bn.DefaultIfEmpty()
+                                       join department in departmentlist.Entities on currentopeening.DepartmentId equals department.Id
+                                       into dp
+                                       from department in dp.DefaultIfEmpty()
+                                       join legalentity in legalentitylist.Entities on currentopeening.EntityId equals legalentity.Id
+                                       into le
+                                       from legalentity in le.DefaultIfEmpty()
+                                       join designation in designationlist.Entities on currentopeening.DesignationId equals designation.Id
+                                       into dl
+                                       from designation in dl.DefaultIfEmpty()
+                                       select new CurrentOpening
+                                       {
+                                           BranchName = branch != null ? branch.Name : "",
+                                           DepartmentName = department != null ? department.Name : "",
+                                           EntityName = legalentity != null ? legalentity.Name : "",
+                                           Designation = designation != null ? designation.Name : "",
+                                           Title = currentopeening.Title,
+                                           RequiredExprience = currentopeening.RequiredExprience,
+                                           KeySkills = currentopeening.KeySkills,
+                                           Vacancy = currentopeening.Vacancy,
+                                           OpeningDate = currentopeening.OpeningDate,
+                                           ClosingDate = currentopeening.ClosingDate,
+                                           JobDescription = currentopeening.JobDescription
+
+                                       }).ToList();
+                return PartialView(ViewHelper.GetViewPathDetails("CurrentOpening", "CurrentOpeningDetails"), responseDetails);
             }
             catch (Exception ex)
             {
