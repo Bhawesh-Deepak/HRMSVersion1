@@ -9,9 +9,22 @@
     var employeeName = HttpContextAccessor.HttpContext.Session.GetString("UserName");
     var roleId = HttpContextAccessor.HttpContext.Session.GetString("RoleId");
 }
-
+<style>
+    .color-line {
+        background: #f7f9fa;
+        height: 6px;
+        background-image: -webkit-linear-gradient(left,#f7f9fa,#f7f9fa 25%,#9b59b6 25%,#9b59b6 35%,#3498db 35%,#3498db 45%,#62cb31 45%,#62cb31 55%,#ffb606 55%,#ffb606 65%,#e67e22 65%,#e67e22 75%,#e74c3c 85%,#e74c3c 85%,#c0392b 85%,#c0392b 100%);
+        background-image: -moz-linear-gradient(left,#f7f9fa,#f7f9fa 25%,#9b59b6 25%,#9b59b6 35%,#3498db 35%,#3498db 45%,#62cb31 45%,#62cb31 55%,#ffb606 55%,#ffb606 65%,#e67e22 65%,#e67e22 75%,#e74c3c 85%,#e74c3c 85%,#c0392b 85%,#c0392b 100%);
+        background-image: -ms-linear-gradient(left,#f7f9fa,#f7f9fa 25%,#9b59b6 25%,#9b59b6 35%,#3498db 35%,#3498db 45%,#62cb31 45%,#62cb31 55%,#ffb606 55%,#ffb606 65%,#e67e22 65%,#e67e22 75%,#e74c3c 85%,#e74c3c 85%,#c0392b 85%,#c0392b 100%);
+        background-image: linear-gradient(to right,#CC2AC0,#CC2AC0 25%,#9b59b6 25%,#9b59b6 35%,#3498db 35%,#3498db 45%,#62cb31 45%,#62cb31 55%,#ffb606 55%,#ffb606 65%,#e67e22 65%,#e67e22 75%,#e74c3c 85%,#e74c3c 85%,#c0392b 85%,#c0392b 100%);
+        background-size: 100% 6px;
+        background-position: 50% 100%;
+        background-repeat: no-repeat
+    }
+</style>
 
 <header class="main-header">
+    <div class="color-line"> </div>
     <a asp-controller="Home" asp-action="Index" class="logo">
         <span class="logo-mini">
             <img src="@companyDetails.Logo">
@@ -31,15 +44,15 @@
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
                 @*<li>
-                    <div class="sidebar-form" style="max-width:200px;">
-                        <div class="input-group">
-                            <input type="text" id="txtEMployee" class="form-control xs" autocomplete="off" placeholder="Search Employee ...">
-                            <span class="input-group-btn">
-                                <a data-toggle="modal" data-target="#popEmpDetails" id="search-btn-2" class="btn btn-flat"><i class="fa fa-search"></i></a>
-                            </span>
+                        <div class="sidebar-form" style="max-width:200px;">
+                            <div class="input-group">
+                                <input type="text" id="txtEMployee" class="form-control xs" autocomplete="off" placeholder="Search Employee ...">
+                                <span class="input-group-btn">
+                                    <a data-toggle="modal" data-target="#popEmpDetails" id="search-btn-2" class="btn btn-flat"><i class="fa fa-search"></i></a>
+                                </span>
+                            </div>
                         </div>
-                    </div>
-                </li>*@
+                    </li>*@
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="~/resources/dist/img/emp.png" class="user-image" alt="User Image">

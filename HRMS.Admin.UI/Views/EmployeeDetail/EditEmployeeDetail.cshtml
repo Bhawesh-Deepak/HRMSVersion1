@@ -64,6 +64,7 @@
 </style>
 
 <div class="content-wrapper" style="min-height: 870px;">
+    @Html.BuildBreadcrumbNavigation()
     <section class="content">
         <div class="row">
             <div class="col-md-12">
@@ -72,12 +73,12 @@
                         <div class="box box-success">
                             <div class="box-header with-border">
                                 <div class="box-title">
-                                    <i class="fa fa-user-circle-o fa-lg"></i>  Update Employee Detail's
+                                    <i class="fa fa-user-circle-o fa-lg"></i>  Update Employee Details
                                 </div>
                             </div>
                             <div class="box-body">
                                 <div class="stepwizard">
- 
+
                                     <div class="stepwizard-row setup-panel">
                                         <div class="stepwizard-step col-md-3">
                                             <a href="#step-1" type="button" class="btn btn-success btn-circle">1</a>
@@ -85,15 +86,15 @@
                                         </div>
                                         <div class="stepwizard-step col-md-3">
                                             <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
-                                            <p> Employee Detail's </p>
+                                            <p> Employee Details </p>
                                         </div>
                                         <div class="stepwizard-step col-md-3">
                                             <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
-                                            <p> Educational Detail's </p>
+                                            <p> Educational Details </p>
                                         </div>
                                         <div class="stepwizard-step col-md-3">
                                             <a href="#step-4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
-                                            <p> Bank Detail's </p>
+                                            <p> Bank Details </p>
                                         </div>
                                     </div>
                                 </div>
@@ -344,13 +345,13 @@
                                                                                 Employee Lavel :
 
                                                                             </label>
-                                                                           <input type="text" class="form-control" placeholder="Level" asp-for="Level" />
+                                                                            <input type="text" class="form-control" placeholder="Level" asp-for="Level" />
                                                                             <span asp-validation-for="Level" class="text-danger"></span>
                                                                         </div>
 
                                                                     </div>
-                                                                     
-                                                                     
+
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -688,7 +689,7 @@
                                                                             <span asp-validation-for="PreviousOrganisation" class="text-danger"></span>
                                                                         </div>
                                                                     </div>
-                                                                     
+
 
                                                                 </div>
                                                             </div>
@@ -729,7 +730,7 @@
                                                                         </div>
 
                                                                     </div>
-                                                                     
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -821,7 +822,7 @@
                                                                         </div>
 
                                                                     </div>
-                                                                     
+
                                                                 </div>
                                                             </div>
                                                         </div>

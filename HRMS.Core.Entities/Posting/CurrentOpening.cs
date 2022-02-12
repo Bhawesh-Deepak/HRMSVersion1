@@ -17,7 +17,7 @@ namespace HRMS.Core.Entities.Posting
         public string Title { get; set; }
 
         [Required()]
-        [Display(Prompt = "Please Enter Required Exprience")]
+        [Display(Prompt = "Please Enter Required Experience")]
         public string RequiredExprience { get; set; }
 
         [Required()]
