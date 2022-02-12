@@ -41,6 +41,7 @@ namespace HRMS.Admin.UI.Controllers.ViewComponents
                             on rd.ModuleId equals md.Id
                             join sm in subModuleDetails.Entities
                             on rd.SubModuleId equals sm.Id
+                            
                             select new MenuSubMenuVm()
                             {
                                 MenuName= md.ModuleName,
