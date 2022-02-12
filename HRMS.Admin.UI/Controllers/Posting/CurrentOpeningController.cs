@@ -26,19 +26,21 @@ namespace HRMS.Admin.UI.Controllers.Posting
         private readonly IGenericRepository<Branch, int> _IBranchMasterRepository;
         private readonly IGenericRepository<Department, int> _IDepartmentRepository;
         private readonly IGenericRepository<Designation, int> _IDesignationRepository;
+        private readonly IGenericRepository<LegalEntity, int> _ILegalEntityRepository;
         private readonly IHostingEnvironment _IhostingEnviroment;
 
         public CurrentOpeningController(IGenericRepository<CurrentOpening, int> currentOpeningRepository,
             IHostingEnvironment hostingEnviroment,
             IGenericRepository<Branch, int> branchMasterRepository,
             IGenericRepository<Department, int> departmentRepository,
-            IGenericRepository<Designation, int> designationRepository)
+            IGenericRepository<Designation, int> designationRepository, IGenericRepository<LegalEntity, int> legalEntityRepository)
         {
             _ICurrentOpeningRepository = currentOpeningRepository;
             _IhostingEnviroment = hostingEnviroment;
             _IBranchMasterRepository = branchMasterRepository;
             _IDepartmentRepository = departmentRepository;
             _IDesignationRepository = designationRepository;
+            _ILegalEntityRepository = legalEntityRepository;
         }
 
         public async Task<IActionResult> Index()
@@ -176,7 +178,21 @@ namespace HRMS.Admin.UI.Controllers.Posting
         {
             ViewBag.Departments = (await _IDepartmentRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted)).Entities;
             ViewBag.Designation = (await _IDesignationRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted)).Entities;
-            ViewBag.Branchs = (await _IBranchMasterRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted)).Entities;
+            var branchs = (await _IBranchMasterRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted)).Entities.ToList();
+            branchs.ToList().ForEach(data =>
+            {
+                data.Name = $"{data.Name} ({data.Code})";
+            });
+
+            ViewBag.Branchs = branchs;
+            var entities = (await _ILegalEntityRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted)).Entities;
+            entities.ToList().ForEach(data =>
+            {
+                data.Name = $"{data.Name} ({data.Code})";
+
+            });
+
+            ViewBag.LegalEntity = entities;
         }
         #endregion
     }

@@ -37,6 +37,7 @@ namespace HRMS.Core.Entities.Posting
         [Display(Prompt = "Please Enter Job Location")]
         public string Location { get; set; }
         public string DescriptionPath { get; set; }
+        public int EntityId { get; set; }
         public int BranchId { get; set; }
         public int DepartmentId { get; set; }
         public int DesignationId { get; set; }
