@@ -10,12 +10,12 @@
             <thead>
                 <tr class="th-primary" role="row">
                     <th>#</th>
-                    <th>Company Name</th>
-                    <th>Location Type</th>
-                    <th>Region</th>
-
-                    <th>Branch Name</th>
+                    <th>Entity</th>
                     <th>Code</th>
+                    <th>Branch Name</th>
+                    <th>Region</th>
+                    <th>Location Type</th>
+
 
                     <th>Action</th>
 
@@ -44,17 +44,20 @@
                         @data.CompanyName
                     </td>
                     <td align="left" style="width:5%;" class="sorting_1">
-                        @data.LocationTypeName
-                    </td>
-                    <td align="left" style="width:5%;" class="sorting_1">
-                        @data.RegionName
+                        @data.Code
                     </td>
                     <td align="left" style="width:15%;" class="sorting_1">
                         @data.Name
                     </td>
                     <td align="left" style="width:5%;" class="sorting_1">
-                        @data.Code
+                        @data.RegionName
                     </td>
+                    <td align="left" style="width:5%;" class="sorting_1">
+                        @data.LocationTypeName
+                    </td>
+
+
+
 
                     <td align="center" style="width:10%;" class="sorting_1">
                         <a title="Edit" class="btn btn-primary btn-xs" onclick="UpdateRecord(@data.Id, this)">
