@@ -55,8 +55,8 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
                                 {
                                     SubModuleId = sb.Id,
                                     SubModuleName = sb.SubModuleName,
-                                    Controller = sb.ControllerName,
-                                    Action = sb.ActionName,
+                                    //Controller = sb.ControllerName,
+                                    //Action = sb.ActionName,
                                     Icon = sb.SubModuleIcon,
                                     ModuleName = mm.ModuleName,
                                     ModuleId=mm.Id
@@ -165,8 +165,8 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
                             {
                                 SubModuleId = sb.Id,
                                 SubModuleName = sb.SubModuleName,
-                                Controller = sb.ControllerName,
-                                Action = sb.ActionName,
+                                //Controller = sb.ControllerName,
+                                //Action = sb.ActionName,
                                 Icon = sb.SubModuleIcon,
                                 ModuleName = mm.ModuleName,
                                 ModuleId = mm.Id

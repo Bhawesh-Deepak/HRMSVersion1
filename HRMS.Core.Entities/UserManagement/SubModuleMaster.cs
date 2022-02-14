@@ -12,12 +12,6 @@ namespace HRMS.Core.Entities.UserManagement
         [Required(ErrorMessage = "this field   is required.")]
         [Display(Prompt = "Sub Module Name")]
         public string SubModuleName { get; set; }
-        [Required(ErrorMessage = "this field   is required.")]
-        [Display(Prompt = "Controller Name")]
-        public string ControllerName { get; set; }
-        [Required(ErrorMessage = "this field   is required.")]
-        [Display(Prompt = "Action Name")]
-        public string ActionName { get; set; }
 
         [Required(ErrorMessage = "this field   is required.")]
         [Display(Prompt = "Icon")]

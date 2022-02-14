@@ -49,6 +49,7 @@ namespace HRMS.Core.Entities.Common
         public virtual DbSet<RoleMaster> RoleMasters { get; set; }
         public virtual DbSet<ModuleMaster> ModuleMasters { get; set; }
         public virtual DbSet<SubModuleMaster> SubModuleMasters { get; set; }
+        public virtual DbSet<MenuChildNode> MenuChildNodes { get; set; }
         public virtual DbSet<RoleAccess> RoleAccesses { get; set; }
         public virtual DbSet<AuthenticateUser> AuthenticateUsers { get; set; }
         public virtual DbSet<CustomerDetail> CustomerDetails { get; set; }

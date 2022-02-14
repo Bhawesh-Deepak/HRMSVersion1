@@ -37,14 +37,14 @@
                 {
                     <li><a asp-controller="Home" asp-action="Index"><i class="fa fa-home"></i> <span>Home</span></a></li>
                 }
-                @foreach (var data in Model.GroupBy(x => x.MenuName))
+                @foreach (var data in Model.GroupBy(x => x.ModuleId))
                 {
                     <li class="treeview">
-                        <a href="#"><i class="@data.First().MenuIcon"></i> <span>@data.First().MenuName</span><i class="fa fa-angle-left pull-right"></i></a>
+                        <a href="#"><i class="@data.First().ModuleIcon"></i> <span>@data.First().ModuleName</span><i class="fa fa-angle-left pull-right"></i></a>
                         <ul class="treeview-menu">
                             @foreach (var item in data)
                             {
-                                <li><a asp-action="@item.ActionName" asp-controller="@item.Controller"><i class="@item.SubMenuIcon"></i> <span> @item.SubMenuName</span></a></li>
+                                <li><a asp-action="@item.ActionName" asp-controller="@item.ControllerName"><i class="@item.SubModuleIcon"></i> <span> @item.SubModuleName</span></a></li>
                             }
                         </ul>
                     </li>
