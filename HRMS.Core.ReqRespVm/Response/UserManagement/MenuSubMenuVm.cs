@@ -8,12 +8,17 @@ namespace HRMS.Core.ReqRespVm.Response.UserManagement
 {
     public class MenuSubMenuVm
     {
-        public string MenuName { get; set; }
-        public string MenuIcon { get; set; }
-        public string SubMenuName { get; set; }
-        public string Controller { get; set; }
+        public int ModuleId { get; set; }
+        public int SubModuleId { get; set; }
+        public int ChildNodeId { get; set; }
+        public string ModuleName { get; set; }
+        public string SubModuleName { get; set; }
+        public string ChildNodeName { get; set; }
+        public string ControllerName { get; set; }
         public string ActionName { get; set; }
-        public string SubMenuIcon { get; set; }
+        public string ModuleIcon { get; set; }
+        public string SubModuleIcon { get; set; }
+        public string ChilNodeIcon { get; set; }
         public int DisplayOrder { get; set; }
     }
 }
