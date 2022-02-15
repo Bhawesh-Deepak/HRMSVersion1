@@ -1,0 +1,105 @@
+﻿@model IEnumerable<HRMS.Core.ReqRespVm.Response.Employee.NewHireAndExitEmployeeDetailVM>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="row" style="margin-top:0;">
+            <div class="col-md-12 col-sm-12">
+                <div class="box box-warning">
+                    <div class="box-header with-border">
+                        <div class="box-title">
+                            <h3 class="box-title pull-left"><i class="fa fa-cloud-download fa-lg"></i> @ViewBag.HeaderTitle</h3>
+                        </div>
+                        <form asp-action="ExportToExcel" asp-controller="NewHireAndExitEmployee" method="post">
+                            <input id="hdnFromDate" name="FromDate" type="hidden" />
+                            <input id="hdnToDate" name="ToDate" type="hidden" />
+                            <input id="hdnValueType" name="ValueType" type="hidden" />
+                            <button type="submit" class="btn btn-primary pull-right btn-xs" title="Export Employee" style="margin-top:-22px">
+                                <i class="fa fa-download"> &nbsp; Export</i>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="box-body">
+                        <script src="~/resources/dist/js/jquery.dataTables.js" type="text/javascript"></script>
+
+                        <div class="table-responsive">
+
+                            <div class="dataTables_wrapper" role="grid">
+
+
+                                <table class="table table-condensed table-striped table-hover table-bordered table-body-nowrap table-head-nowrap dataTable" cellspacing="0" rules="all" border="1" id="example" style="border-collapse:collapse;" aria-describedby="cp_MainContent_widgetExitEmployee_grdExitEmployees_info">
+                                    <thead>
+                                        <tr class="th-primary" role="row">
+                                            <th>#</th>
+                                            <th>EmpCode</th>
+                                            <th>Employee Name</th>
+                                            <th>Legal Entity</th>
+                                            <th>Department</th>
+                                            <th>Designation</th>
+                                            <th>Exit/Joining Date</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody role="alert" aria-live="polite" aria-relevant="all">
+                                        @{
+                                            int count = 1;
+                                            string trclass = string.Empty;
+                                        }
+                                        @foreach (var data in Model)
+                                        {
+                                            if (count / 2 == 0)
+                                            {
+                                                trclass = "even";
+                                            }
+                                            else
+                                            {
+                                                trclass = "odd";
+                                            }
+                                            <tr class="@trclass">
+                                                <td align="left" style="width:3%;" class="sorting_1">
+                                                    @count
+                                                </td>
+                                                <td align="left" style="width:7%;" class="sorting_1">
+                                                    @data.EmpCode
+                                                </td>
+                                                <td align="left" style="width:10%;" class="sorting_1">
+                                                    @data.EmployeeName
+                                                </td>
+                                                <td align="left" style="width:20%;" class="sorting_1">
+                                                    @data.LegalEntity
+                                                </td>
+                                                <td align="left" style="width:20%;" class="sorting_1">
+                                                    @data.DepartmentName
+                                                </td>
+                                                <td align="left" style="width:20%;" class="sorting_1">
+                                                    @data.DesignationName
+                                                </td>
+
+                                                <td align="left" style="width:10%;" class="sorting_1">
+                                                    @data.CalenderDate.ToString("dd/MM/yyyy")
+                                                </td>
+
+                                            </tr>
+                                            count++;
+                                        }
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+
+                        </div>
+                        <script>
+                            $('#example').dataTable({
+                                "iDisplayLength": 10,
+                                "bDestroy": true,
+                                "scrollX": true,
+                                "aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

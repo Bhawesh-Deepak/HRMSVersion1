@@ -20,5 +20,6 @@ namespace HRMS.Core.ReqRespVm.Response.UserManagement
         public string SubModuleIcon { get; set; }
         public string ChilNodeIcon { get; set; }
         public int DisplayOrder { get; set; }
+        public int MenuLevel { get; set; }
     }
 }
