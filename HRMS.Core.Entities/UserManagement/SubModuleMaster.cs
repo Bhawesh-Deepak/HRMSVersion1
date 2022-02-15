@@ -16,5 +16,6 @@ namespace HRMS.Core.Entities.UserManagement
         [Required(ErrorMessage = "this field   is required.")]
         [Display(Prompt = "Icon")]
         public string SubModuleIcon { get; set; }
+        public int MenuLevel { get; set; }
     }
 }

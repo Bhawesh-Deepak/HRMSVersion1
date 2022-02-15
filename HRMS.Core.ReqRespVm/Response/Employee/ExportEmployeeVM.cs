@@ -10,6 +10,8 @@ namespace HRMS.Core.ReqRespVm.Response.Employee
     {
         public int Id { get; set; }
         public string JoiningDate { get; set; }
+        public DateTime JoiningDates { get; set; }
+        public DateTime ExitDates { get; set; }
         public string ConfirmationDate { get; set; }
         public string DateOfBirth { get; set; }
         public string PIPStartDate { get; set; }

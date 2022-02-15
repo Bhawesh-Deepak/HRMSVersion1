@@ -58,7 +58,7 @@ namespace HRMS.Admin.UI.Controllers.ViewComponents
                                 ControllerName=cn.ControllerName,
                                 ActionName=cn.ActionName,
                                 DisplayOrder=rd.DisplayOrder
-
+                                ,MenuLevel=sm.MenuLevel
                             }).OrderBy(x=>x.DisplayOrder).ToList();
 
             return await Task.FromResult((IViewComponentResult)View("_MenuSubMenu", response));

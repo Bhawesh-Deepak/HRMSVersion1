@@ -19,7 +19,7 @@
         <!-- search form -->
         <div class="sidebar-form" style="">
             <div class="input-group">
-                <input type="text" id="txtSearchMenu" class="form-control ui-autocomplete-input"   placeholder="Search ...">
+                <input type="text" id="txtSearchMenu" class="form-control ui-autocomplete-input" placeholder="Search ...">
                 <span class="input-group-btn">
                     <a data-toggle="modal" data-target="#popEmpDetails" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></a>
                 </span>
@@ -28,36 +28,58 @@
         <!-- /.search form -->
         <!-- Sidebar Menu -->
         <div id="sideMenuContainer">
-            <ul class="sidebar-menu menuList">
-                @if (roleId == "1" || roleId == "2" || roleId == "3")
+            <ul class='sidebar-menu'>
+                @foreach (var Module in Model.GroupBy(x => x.ModuleId))
                 {
-                    <li><a asp-controller="Dashboard" asp-action="Index"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
-                }
-                else
-                {
-                    <li><a asp-controller="Home" asp-action="Index"><i class="fa fa-home"></i> <span>Home</span></a></li>
-                }
-                @foreach (var data in Model.GroupBy(x => x.ModuleId))
-                {
-                    <li class="treeview">
-                        <a href="#"><i class="@data.First().ModuleIcon"></i> <span>@data.First().ModuleName</span><i class="fa fa-angle-left pull-right"></i></a>
-                        <ul class="treeview-menu">
-                            @foreach (var item in data)
-                            {
-                                <li><a asp-action="@item.ActionName" asp-controller="@item.ControllerName"><i class="@item.SubModuleIcon"></i> <span> @item.SubModuleName</span></a></li>
-                            }
-                        </ul>
+                    <li class='treeview'>
+                        @if (Module.First().MenuLevel == 1)
+                        {
+                            <a asp-action="@Module.First().ActionName" asp-controller="@Module.First().ControllerName"><i class='@Module.First().ModuleIcon'></i> <span>@Module.First().ModuleName</span></a>
+
+                        }
+                        else
+                        {
+                            <a href='javascript:void(0)'><i class='@Module.First().ModuleIcon'></i> <span>@Module.First().ModuleName</span><i class='fa fa-angle-left pull-right'></i></a>
+                            <ul class='treeview-menu'>
+                                <li>
+                                    @foreach (var SubModule in Module.GroupBy(x => x.SubModuleId))
+                                    {
+                                        if (SubModule.First().MenuLevel == 2)
+                                        {
+                                            @foreach (var item in SubModule)
+                                            {
+                                                <a asp-action="@item.ActionName" asp-controller="@item.ControllerName"><i class='@item.ChilNodeIcon'></i> <span>@item.ChildNodeName</span></a>
+                                            }
+                                        }
+                                        else
+                                        {
+
+                                            <a href='javascript:void(0)'><i class='@SubModule.First().SubModuleIcon'></i> <span>@SubModule.First().SubModuleName</span><i class='fa fa-angle-left pull-right'></i></a>
+
+                                            <ul class='treeview-menu'>
+                                                @foreach (var item in SubModule)
+                                                {
+                                                    <li><a asp-action="@item.ActionName" asp-controller="@item.ControllerName"><i class='@item.ChilNodeIcon'></i> <span>@item.ChildNodeName</span></a></li>
+                                                }
+                                            </ul>
+                                        }
+                                    }
+
+                                </li>
+
+                            </ul>
+                        }
+
                     </li>
                 }
 
-                
             </ul>
         </div>
     </section>
     <!-- /.sidebar -->
 </aside>
 
- 
+
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -73,35 +95,3 @@
         });
     });
 </script>
-
-@*<script>
-      $( function() {
-        var availableTags = [
-          "ActionScript",
-          "AppleScript",
-          "Asp",
-          "BASIC",
-          "C",
-          "C++",
-          "Clojure",
-          "COBOL",
-          "ColdFusion",
-          "Erlang",
-          "Fortran",
-          "Groovy",
-          "Haskell",
-          "Java",
-          "JavaScript",
-          "Lisp",
-          "Perl",
-          "PHP",
-          "Python",
-          "Ruby",
-          "Scala",
-          "Scheme"
-        ];
-        $("#txtSearchMenu").autocomplete({
-          source: availableTags
-        });
-      });
-    </script>*@
