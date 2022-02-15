@@ -8,6 +8,7 @@ using HRMS.Core.Entities.HR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
+using HRMS.Core.Entities.Talent;
 
 namespace HRMS.Core.Entities.Common
 {
@@ -92,6 +93,9 @@ namespace HRMS.Core.Entities.Common
         public virtual DbSet<EmployeeReimbursement> EmployeeReimbursements { get; set; }
 
         public virtual DbSet<CandidateDetail> CandidateDetails { get; set; }
+
+        public virtual DbSet<LearningandDevelopment> LearningandDevelopments { get; set; }
+        public virtual DbSet<Course> Courses  { get; set; }
         #endregion
     }
 }
