@@ -19,5 +19,6 @@ namespace HRMS.Core.ReqRespVm.Response.Reporting
         public int LOPDays { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+        public string MonthsName { get; set; }
     }
 }

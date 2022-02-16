@@ -16,6 +16,9 @@ namespace HRMS.Core.ReqRespVm.Response.Attendance
         public int TotalDays { get; set; }
         public int LOPDays { get; set; }
         public int PresentDays { get; set; }
+        public string MonthsName { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
         public IDictionary<DateTime, string> DatWiseAttendance { get; set; }
     }
 }
