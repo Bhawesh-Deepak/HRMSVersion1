@@ -1,4 +1,5 @@
-﻿using HRMS.Core.Entities.Common;
+﻿using HRMS.Admin.UI.AuthenticateService;
+using HRMS.Core.Entities.Common;
 using HRMS.Core.Entities.Master;
 using HRMS.Core.Entities.Talent;
 using HRMS.Core.Helpers.CommonCRUDHelper;
@@ -13,6 +14,8 @@ using System.Threading.Tasks;
 
 namespace HRMS.Admin.UI.Controllers.Talent
 {
+    [CustomAuthenticate]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class CourseController : Controller
     {
         private readonly IGenericRepository<Course, int> _ICourseRepository;
@@ -96,7 +99,6 @@ namespace HRMS.Admin.UI.Controllers.Talent
                 return RedirectToAction("Error", "Home");
             }
         }
-
         [HttpPost]
         public async Task<IActionResult> UpsertCourse(Course model)
         {
@@ -147,7 +149,6 @@ namespace HRMS.Admin.UI.Controllers.Talent
                 return RedirectToAction("Error", "Home");
             }
         }
-
         private async Task PopulateViewBag()
         {
             var designationResponse = await _IDesignationRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
