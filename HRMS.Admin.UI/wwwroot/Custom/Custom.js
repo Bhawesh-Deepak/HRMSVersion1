@@ -39,7 +39,7 @@ function CustomDeleteRecord(id, getUrl, deleteUrl, event) {
  
     alertify.confirm("Are you sure want to delete the record ?", function () {
         debugger;
-        var thisId = $(event);
+       
         $('#divLoader').modal('show');
 
         $.get(deleteUrl, { id: id }, function (response) {
@@ -50,10 +50,10 @@ function CustomDeleteRecord(id, getUrl, deleteUrl, event) {
             
             $.get(getUrl, function (response) {
                 
-                $(divurl).html(response);
+                $('#divHRMS').html(response);
                 
             }).done(function () {
-                 
+                
             });
 
             $(".form-control").val('');//Clear the controll which is present inside the form.

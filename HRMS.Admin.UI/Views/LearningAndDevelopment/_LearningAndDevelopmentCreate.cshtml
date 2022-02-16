@@ -1,4 +1,4 @@
-﻿@model HRMS.Core.Entities.Talent.LearningandDevelopment
+﻿@model HRMS.Core.Entities.Talent.LearningAndDevelopment
 
 <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
@@ -6,18 +6,19 @@
 </style>
 <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
       data-ajax-complete="AjaxComplete"
-      asp-action="UpsertLocation" asp-controller="Location" data-ajax-success="Success">
+      asp-action="UpsertLearningAndDevelopment" asp-controller="LearningAndDevelopment" data-ajax-success="Success">
     <div class="modal-body">
         <div class="row">
             <div class="col-md-12">
 
                 <div class="col-md-6">
                     <div class="form-group">
+
                         <label asp-for="DesignationId">Designation</label><span style="color:red">  *</span>
-                        <select class="form-control" asp-for="DesignationId" asp-items="@(new SelectList(ViewBag.DesignationList ,"Id","Name"))">
-                            <option value="">---Select---</option>
+                        <select class="form-control selectpicker" multiple data-live-search="true" asp-for="DesignationId" asp-items="@(new SelectList(ViewBag.DesignationList, "Id", "Name"))">
                         </select>
                         <span asp-validation-for="DesignationId" class="text-danger"></span>
+
                     </div>
 
                 </div>
@@ -27,31 +28,24 @@
                         <input asp-for="CreatedBy" type="hidden" />
                         <input asp-for="CreatedDate" type="hidden" />
                         <input asp-for="FinancialYear" type="hidden" />
-                        <label asp-for="HRS">HRS</label><span style="color:red">  *</span>
-                        <select asp-for="HRS" class="form-control">
-                            <option value="">--Select--</option>
-                            <option value="A-20 (HRS)">A-20 (HRS)</option>
-                            <option value="B-40 (HRS)">B-40 (HRS)</option>
-
+                        <label asp-for="LAndDHourId">HRS</label><span style="color:red">  *</span>
+                        <select class="form-control" asp-for="LAndDHourId" asp-items="@(new SelectList(ViewBag.LAndDHourList ,"Id","Name"))">
+                            <option value="">---Select---</option>
                         </select>
-                        <span asp-validation-for="HRS" class="text-danger"></span>
+                        <span asp-validation-for="LAndDHourId" class="text-danger"></span>
                     </div>
-
                 </div>
-
-
-
-
-
-
             </div>
         </div>
 
     </div>
     <div class="modal-footer">
-
-
         <button type="button" class="btn btn-primary btn-close" onclick="HidePopUp();">Close</button>
         <input type="submit" class="btn btn-primary  " value="Save" />
     </div>
 </form>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#DesignationId').selectpicker();
+    })
+</script>

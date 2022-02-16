@@ -1,5 +1,5 @@
 ﻿function GetLearningandDevelopmentList() {
-    // GetCustomRecord("/LearningandDevelopment/GetLearningandDepartmentList", "divHRMS")
+    GetCustomRecord("/LearningAndDevelopment/GetLearningAndDevelopmentList", "divHRMS")
 }
 
 $(document).ready(function () {
@@ -7,13 +7,13 @@ $(document).ready(function () {
 })
 
 function AddLearningandDevelopment() {
-    NewCustomRecord("/LearningandDevelopment/CreateLearningandDevelopment", "Create Learning And Development")
+    NewCustomRecord("/LearningAndDevelopment/CreateLearningAndDevelopment", "Create Learning And Development")
 }
 
 function Delete(id, eData) {
-    CustomDeleteRecord(id, "/LearningandDevelopment/GetLoctionList", "/Location/DeleteLocation", eData);
+    CustomDeleteRecord(id, "/LearningAndDevelopment/GetLearningAndDevelopmentList", "/LearningAndDevelopment/DeleteLearningAndDevelopment", eData);
 }
 
 function UpdateRecord(id) {
-    UpdateCustomRecord(id, "/Location/CreateLocation", "Update Location");
+    UpdateCustomRecord(id, "/LearningAndDevelopment/CreateLearningAndDevelopment", "Update Learning And Development");
 }
