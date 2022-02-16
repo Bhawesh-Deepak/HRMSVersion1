@@ -175,6 +175,8 @@ namespace HRMS.Admin.UI.Controllers.Posting
 
             return imagePath;
         }
+
+               
         #endregion
     }
 }
