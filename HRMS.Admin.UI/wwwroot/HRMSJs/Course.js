@@ -1,9 +1,9 @@
 ﻿function GetCourseList() {
-    GetCustomRecord("/Location/GetLoctionList", "divHRMS")
+    GetCustomRecord("/Course/GetCourseList", "divHRMS")
 }
 
 $(document).ready(function () {
-    // GetCourseList();
+     GetCourseList();
 })
 
 function AddCourse() {
@@ -11,9 +11,9 @@ function AddCourse() {
 }
 
 function Delete(id, eData) {
-    CustomDeleteRecord(id, "/Location/GetLoctionList", "/Location/DeleteLocation", eData);
+    CustomDeleteRecord(id, "/Course/GetCourseList", "/Course/DeleteCourse", eData);
 }
 
 function UpdateRecord(id) {
-    UpdateCustomRecord(id, "/Location/CreateLocation", "Update Location");
+    UpdateCustomRecord(id, "/Course/CreateCourse", "Update Course");
 }

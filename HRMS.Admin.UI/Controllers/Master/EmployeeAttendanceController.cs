@@ -110,7 +110,7 @@ namespace HRMS.Admin.UI.Controllers.Master
         {
             try
             {
-                var response = new ReadAttendanceExcelHelper().GetAttendanceDetails(model.UploadFile);
+                var response = new ReadAttendanceExcelHelper().GetAttendanceDetailsBackData(model.UploadFile);
                 response.ToList().ForEach(item =>
                 {
                     var model = new AttendanceParams()
@@ -119,7 +119,7 @@ namespace HRMS.Admin.UI.Controllers.Master
                         YearId = item.DateYear,
                         EmpCode = item.EmployeeCode,
                         LopDays = item.LOPDays,
-                        FinancialYear = 0
+                        FinancialYear = item.FinancialYear
                     };
 
                     var uploadResponse = _IEmployeeDapperRepository

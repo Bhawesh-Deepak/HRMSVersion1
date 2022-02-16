@@ -42,7 +42,7 @@ namespace HRMS.Core.Helpers.ExcelHelper
                 model.LOPDays = Convert.ToDecimal(dataResult.dtResult.Rows[i][3]);
                 model.PresentDays = Convert.ToDecimal(dataResult.dtResult.Rows[i][4]);
                 model.TotalDays = DateTime.DaysInMonth(model.DateYear, model.DateMonth);
-                model.PresentDays = model.TotalDays - model.LOPDays;
+               // model.PresentDays = model.TotalDays - model.LOPDays;
                 model.FinancialYear = Convert.ToInt32(dataResult.dtResult.Rows[i][5]);
                 models.Add(model);
             }
