@@ -92,9 +92,10 @@ namespace HRMS.Core.Entities.Common
         public virtual DbSet<EmployeeReimbursement> EmployeeReimbursements { get; set; }
         public virtual DbSet<CandidateDetail> CandidateDetails { get; set; }
         public virtual DbSet<LearningAndDevelopment> LearningAndDevelopments { get; set; }
-        public virtual DbSet<Course> Courses  { get; set; }
+        public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<CourseMode> CourseModes { get; set; }
         public virtual DbSet<LAndDHour> LAndDHours { get; set; }
+        public virtual DbSet<EmployeeTermination> EmployeeTerminations { get; set; }
         #endregion
     }
 }
