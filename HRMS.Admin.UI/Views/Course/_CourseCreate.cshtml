@@ -1,0 +1,95 @@
+﻿@model HRMS.Core.Entities.Talent.Course
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<style>
+</style>
+<form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+      data-ajax-complete="AjaxComplete"
+      asp-action="UpsertCourse" asp-controller="Course" data-ajax-success="Success">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="DesignationId">Designation</label><span style="color:red">  *</span>
+                        <select class="form-control" asp-for="DesignationId" asp-items="@(new SelectList(ViewBag.DesignationList ,"Id","Name"))">
+                            <option value="">---Select One---</option>
+                        </select>
+                        <span asp-validation-for="DesignationId" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input asp-for="Id" type="hidden" />
+                        <input asp-for="CreatedBy" type="hidden" />
+                        <input asp-for="CreatedDate" type="hidden" />
+                        <input asp-for="FinancialYear" type="hidden" />
+                        <label asp-for="CourseModeId">Mode</label><span style="color:red">  *</span>
+                        <select class="form-control"   asp-for="CourseModeId" asp-items="@(new SelectList(ViewBag.CourseModeList ,"Id","Name"))">
+                            <option value="">---Select One---</option>
+                        </select>
+                        <span asp-validation-for="CourseModeId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Name">  Name</label><span style="color:red">  *</span>
+                        <input type="text" class="form-control" asp-for="Name" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Code">  Code</label><span style="color:red">  *</span>
+                        <input type="text" class="form-control" asp-for="Code" />
+                        <span asp-validation-for="Code" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="StartDate">Start Date</label><span style="color:red">  *</span>
+                        <input type="date" class="form-control" asp-for="StartDate" />
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="EndDate">End Date</label><span style="color:red">  *</span>
+                        <input type="date" class="form-control" asp-for="EndDate" />
+                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="TrainingDateTime">Training Date Time</label><span style="color:red">  *</span>
+                        <input   class="form-control" asp-for="TrainingDateTime" />
+                        <span asp-validation-for="TrainingDateTime" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+
+
+        <button type="button" class="btn btn-primary btn-close" onclick="HidePopUp();">Close</button>
+        <input type="submit" class="btn btn-primary  " value="Save" />
+    </div>
+</form>
