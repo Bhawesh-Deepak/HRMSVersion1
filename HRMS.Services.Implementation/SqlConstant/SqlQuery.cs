@@ -31,5 +31,6 @@ namespace HRMS.Services.Implementation.SqlConstant
         public const string GetNewHireAndExitEmployee = @"[Payroll].[usp_GetNewHireAndExitEmployee]";
         public const string GetEmployeeAttendanceDetails = @"Report.usp_GetEmployeeAttendanceDetail";
         public const string GetEmployeeMediClaimReport = @"[Reporting].[usp_GetMediclaimReport] ";
+        public const string calculateSalary = @"[Reporting].[usp_CalculateSalary]";
     }
 }
