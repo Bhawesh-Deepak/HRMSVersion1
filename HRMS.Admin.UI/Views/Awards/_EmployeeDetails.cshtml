@@ -1,0 +1,37 @@
+﻿@model HRMS.Core.Entities.Payroll.EmployeeDetail
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label asp-for="EmployeeName">Employee Name</label><span style="color:red">  *</span>
+            <input type="text" class="form-control" asp-for="EmployeeName" readonly="readonly" />
+            <span asp-validation-for="EmployeeName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+
+            <label asp-for="LegalEntity">Legal Entity</label><span style="color:red">  *</span>
+            <input type="text" class="form-control" asp-for="LegalEntity" readonly="readonly" />
+            <span asp-validation-for="LegalEntity" class="text-danger"></span>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label asp-for="DepartmentName">Department Name </label><span style="color:red">  *</span>
+            <input type="text" class="form-control" readonly="readonly" asp-for="DepartmentName" />
+            <span asp-validation-for="DepartmentName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label asp-for="DesignationName">Designation Name</label><span style="color:red">  *</span>
+            <input type="text" class="form-control" readonly="readonly" asp-for="DesignationName" />
+            <span asp-validation-for="DesignationName" class="text-danger"></span>
+        </div>
+    </div>
+</div>

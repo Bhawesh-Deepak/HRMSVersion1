@@ -1,0 +1,170 @@
+﻿@model HRMS.Core.Entities.Talent.Award
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<style>
+    .ui-autocomplete {
+        max-height: 300px;
+        overflow-y: auto;
+        overflow-x: auto;
+    }
+
+    html .ui-autocomplete {
+        max-height: 300px;
+    }
+</style>
+<form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+      asp-action="UpsertAwards" asp-controller="Awards" data-ajax-success="Success">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <input asp-for="Id" type="hidden" />
+                                <input asp-for="CreatedBy" type="hidden" />
+                                <input asp-for="CreatedDate" type="hidden" />
+                                <input asp-for="FinancialYear" type="hidden" />
+                                <label asp-for="EmpCode"> Employee :</label>
+                                <input type="text" class="form-control" asp-for="EmpCode" placeholder="Search Employee" />
+                            </div>
+                            <span asp-validation-for="EmpCode" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="AwardTypeId">Award Type</label><span style="color:red">  *</span>
+                            <select class="form-control" asp-for="AwardTypeId" asp-items="@(new SelectList(ViewBag.AwardsTypeList ,"Id","Name"))">
+                                <option value="">--Select--</option>
+
+                            </select>
+                            <span asp-validation-for="AwardTypeId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="EmployeeName">Employee Name</label><span style="color:red">  *</span>
+                            <input type="text" class="form-control" asp-for="EmployeeName" readonly="readonly" placeholder="Employee Name" />
+                            <span asp-validation-for="EmployeeName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+
+                            <label asp-for="LegalEntity">Legal Entity</label><span style="color:red">  *</span>
+                            <input type="text" class="form-control" asp-for="LegalEntity" readonly="readonly" placeholder="Legal Entity" />
+                            <span asp-validation-for="LegalEntity" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="DepartmentName">Department Name </label><span style="color:red">  *</span>
+                            <input type="text" class="form-control" readonly="readonly" asp-for="DepartmentName" placeholder="Department Name"/>
+                            <span asp-validation-for="DepartmentName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="DesignationName">Designation Name</label><span style="color:red">  *</span>
+                            <input type="text" class="form-control" readonly="readonly" asp-for="DesignationName" placeholder="Designation Name" />
+                            <span asp-validation-for="DesignationName" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="AwardName">Award Name </label><span style="color:red">  *</span>
+                            <input type="text" class="form-control" asp-for="AwardName" />
+                            <span asp-validation-for="AwardName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+
+                            <label asp-for="Project">Project</label><span style="color:red">  *</span>
+                            <input type="text" class="form-control" asp-for="Project" />
+                            <span asp-validation-for="Project" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Amount">Amount</label><span style="color:red">  *</span>
+                            <input type="number" asp-for="Amount" class="form-control"  placeholder="Amount" />
+                            <span asp-validation-for="Amount" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="AwardDate">Award Date</label><span style="color:red">  *</span>
+                            <input type="date" asp-for="AwardDate" class="form-control" />
+                            <span asp-validation-for="AwardDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-close" onclick="HidePopUp();">Close</button>
+        <input type="submit" class="btn btn-primary  " value="Save" />
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+        $("#EmpCode").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/Common/getEmployeeAutoComplete',
+                    method: "POST",
+                    data: { "term": request.term },
+                    dataType: "json",
+                    success: function (data) {
+                        response($.map(data, function (item) {
+
+                            return {
+                                label: item.employeeName,
+                                value: item.empCode,
+                                employeeid: item.id
+                            };
+                        }))
+                    },
+                    error: function (xhr, textStatus, error) {
+                        alert(xhr.statusText);
+                    },
+                    failure: function (response) {
+                        alert("failure " + response.responseText);
+                    }
+                });
+            },
+            select: function (e, i) {
+                debugger;
+                $('#divLoader').modal('show');
+                $.get("/Awards/GetEmployeeDetails", { Id: i.item.employeeid }, function (data) {
+                    debugger;
+                    $('#EmployeeName').val(data.employeeName);
+                    $('#LegalEntity').val(data.legalEntity);
+                    $('#DepartmentName').val(data.departmentName);
+                    $('#DesignationName').val(data.designationName);
+                    $('#divLoader').modal('hide');
+                });
+            },
+            minLength: 3
+        });
+    });
+</script>
