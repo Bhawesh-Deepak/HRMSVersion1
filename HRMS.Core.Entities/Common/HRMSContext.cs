@@ -96,6 +96,8 @@ namespace HRMS.Core.Entities.Common
         public virtual DbSet<CourseMode> CourseModes { get; set; }
         public virtual DbSet<LAndDHour> LAndDHours { get; set; }
         public virtual DbSet<EmployeeTermination> EmployeeTerminations { get; set; }
+        public virtual DbSet<AwardType> AwardTypes { get; set; }
+        public virtual DbSet<Award> Awards { get; set; }
         #endregion
     }
 }
