@@ -34,5 +34,11 @@ namespace HRMS.Services.Implementation.SqlConstant
         public const string calculateSalary = @"[Reporting].[usp_CalculateSalary]";
         public const string GetBonusRegister = @"[Reporting].[usp_GetBonusRegister]";
         public const string GetOverTimeRegister = @"[Reporting].[usp_GetOverTimeRegister]";
+        public const string UploadCTCStructure = @"[Payroll].[usp_UpdateCTCStructure]";
+        public const string UploadEmployeeSalary = @"[Payroll].[usp_UpdateEmployeeSalary]";
+        public const string ExportNewHireAndExitEmployee = @"[Reporting].[usp_GetNewHireAndExitEmployee]";
+
+
+        
     }
 }

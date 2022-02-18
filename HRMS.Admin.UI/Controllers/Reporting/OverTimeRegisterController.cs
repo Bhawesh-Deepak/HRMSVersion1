@@ -70,7 +70,7 @@ namespace HRMS.Admin.UI.Controllers.Reporting
             Sheets.Cells["B1"].Value = "Employee Name";
             Sheets.Cells["C1"].Value = "Moth";
             Sheets.Cells["D1"].Value = "Year";
-            Sheets.Cells["E1"].Value = "Bonus Amount";
+            Sheets.Cells["E1"].Value = "OT Amount";
 
             int row = 2;
             foreach (var data in response)

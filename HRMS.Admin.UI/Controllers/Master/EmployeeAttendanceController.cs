@@ -110,7 +110,7 @@ namespace HRMS.Admin.UI.Controllers.Master
         {
             try
             {
-                var response = new ReadAttendanceExcelHelper().GetAttendanceDetailsBackData(model.UploadFile);
+                var response = new ReadAttendanceExcelHelper().GetAttendanceDetails(model.UploadFile);
                 response.ToList().ForEach(item =>
                 {
                     var model = new AttendanceParams()
