@@ -45,7 +45,7 @@ namespace HRMS.Admin.UI.Controllers.Reporting
             }
         }
         [HttpPost]
-        public async Task<IActionResult> DownloadAttendanceDayWiseReport(MediClaimSqlParams model, IFormFile UploadFile)
+        public async Task<IActionResult> DownloadMediClaimReport(MediClaimSqlParams model, IFormFile UploadFile)
         {
             string empresponse = null;
             if (UploadFile != null) { empresponse = new ReadEmployeeCode().GetSalaryRegisterEmpCodeDetails(UploadFile); }

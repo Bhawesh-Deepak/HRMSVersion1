@@ -82,7 +82,7 @@ namespace HRMS.Admin.UI.Controllers.Reporting
                 }
                 Sheets.Cells["A2"].Value = "Employee Code";
                 Sheets.Cells["B2"].Value = "Employee Name";
-                Sheets.Cells["C2"].Value = "P T State";
+                Sheets.Cells["C2"].Value = "State";
                 Sheets.Cells["D2"].Value = "LWF ";
                 int row = 3;
                 foreach (var data in response)

@@ -67,15 +67,23 @@ namespace HRMS.Admin.UI.Controllers.Payroll
         [HttpPost]
         public async Task<IActionResult> ExportToExcel(NewHireAndExitEmployeeVM model)
         {
-            var param = new ExportEmployeeParams();
-            var response = new List<ExportEmployeeVM>();
-            var responseDetails = _IExportEmployeeRepository.GetAll<ExportEmployeeVM>(SqlQuery.GetExportEmployee, param);
+            var param = new NewHireAndExitEmployeeVM()
+            {
+                FromDate = model.FromDate,
+                ToDate = model.ToDate,
+                ValueType = model.ValueType
+            };
+            string excelfileName = string.Empty;
             if (model.ValueType == 1)
-                response = responseDetails.Where(z => z.JoiningDates.Date >= model.FromDate.Date && z.JoiningDates.Date <= model.ToDate.Date).ToList();
+                excelfileName = @"NewHireEmployee.xlsx";
             else
-                response = responseDetails.Where(z => z.ExitDates.Date >= model.FromDate.Date && z.ExitDates.Date <= model.ToDate.Date).ToList();
+                excelfileName = @"ExitEmployee.xlsx";
+
+
+            var response = _INewHireAndExitEmployeeVMRepository.GetAll<ExportEmployeeVM>(SqlQuery.ExportNewHireAndExitEmployee, param);
+
             string sWebRootFolder = _IHostingEnviroment.WebRootPath;
-            string sFileName = @"EmployeeMaster.xlsx";
+            string sFileName = excelfileName;// @"EmployeeMaster.xlsx";
             string URL = string.Format("{0}://{1}/{2}", Request.Scheme, Request.Host, sFileName);
             FileInfo file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
             if (file.Exists)
@@ -285,7 +293,7 @@ namespace HRMS.Admin.UI.Controllers.Payroll
             }
             var stream = new MemoryStream(Eps.GetAsByteArray());
             return File(stream.ToArray(), "application/vnd.ms-excel", sFileName);
-             
+
         }
     }
 }
