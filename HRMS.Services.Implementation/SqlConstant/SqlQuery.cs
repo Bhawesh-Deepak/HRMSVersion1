@@ -37,8 +37,9 @@ namespace HRMS.Services.Implementation.SqlConstant
         public const string UploadCTCStructure = @"[Payroll].[usp_UpdateCTCStructure]";
         public const string UploadEmployeeSalary = @"[Payroll].[usp_UpdateEmployeeSalary]";
         public const string ExportNewHireAndExitEmployee = @"[Reporting].[usp_GetNewHireAndExitEmployee]";
+        public const string GetSalaryRegisterBySalaryCalculation = @"[Reporting].[usp_GetSalaryRegisterBySalaryCalculation]";
 
+         
 
-        
     }
 }

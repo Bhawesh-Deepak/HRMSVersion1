@@ -86,19 +86,19 @@ namespace HRMS.Core.Helpers.ExcelHelper
                 ComponentValue.Add(dataResult.dtResult.Rows[i][12].ToString().GetDefaultDBNull<decimal>());
                 ComponentID.Add(22);
 
-                ComponentValue.Add(dataResult.dtResult.Rows[i][12].ToString().GetDefaultDBNull<decimal>());
+                ComponentValue.Add(dataResult.dtResult.Rows[i][13].ToString().GetDefaultDBNull<decimal>());
                 ComponentID.Add(23);
-                ComponentValue.Add(dataResult.dtResult.Rows[i][12].ToString().GetDefaultDBNull<decimal>());
+                ComponentValue.Add(dataResult.dtResult.Rows[i][13].ToString().GetDefaultDBNull<decimal>());
                 ComponentID.Add(24);
 
-                ComponentValue.Add(dataResult.dtResult.Rows[i][13].ToString().GetDefaultDBNull<decimal>());
+                ComponentValue.Add(dataResult.dtResult.Rows[i][14].ToString().GetDefaultDBNull<decimal>());
                 ComponentID.Add(25);
-                ComponentValue.Add(dataResult.dtResult.Rows[i][13].ToString().GetDefaultDBNull<decimal>());
+                ComponentValue.Add(dataResult.dtResult.Rows[i][14].ToString().GetDefaultDBNull<decimal>());
                 ComponentID.Add(26);
 
-                ComponentValue.Add(dataResult.dtResult.Rows[i][14].ToString().GetDefaultDBNull<decimal>());
+                ComponentValue.Add(dataResult.dtResult.Rows[i][15].ToString().GetDefaultDBNull<decimal>());
                 ComponentID.Add(27);
-                ComponentValue.Add(dataResult.dtResult.Rows[i][14].ToString().GetDefaultDBNull<decimal>());
+                ComponentValue.Add(dataResult.dtResult.Rows[i][15].ToString().GetDefaultDBNull<decimal>());
                 ComponentID.Add(28);
                 //---------------------------NON-CTC --------------------------------------------------
                 ComponentValue.Add(0);
@@ -130,14 +130,14 @@ namespace HRMS.Core.Helpers.ExcelHelper
                 ComponentValue.Add(0);
                 ComponentID.Add(42);
                 //---------------------------End Earning ------Start Deduction -----------------------------------------
-                ComponentValue.Add(dataResult.dtResult.Rows[i][15].ToString().GetDefaultDBNull<decimal>());
+                ComponentValue.Add(dataResult.dtResult.Rows[i][16].ToString().GetDefaultDBNull<decimal>());
                 ComponentID.Add(43);
-                ComponentValue.Add(dataResult.dtResult.Rows[i][15].ToString().GetDefaultDBNull<decimal>());
+                ComponentValue.Add(dataResult.dtResult.Rows[i][16].ToString().GetDefaultDBNull<decimal>());
                 ComponentID.Add(44);
 
-                ComponentValue.Add(dataResult.dtResult.Rows[i][16].ToString().GetDefaultDBNull<decimal>());
+                ComponentValue.Add(dataResult.dtResult.Rows[i][17].ToString().GetDefaultDBNull<decimal>());
                 ComponentID.Add(45);
-                ComponentValue.Add(dataResult.dtResult.Rows[i][16].ToString().GetDefaultDBNull<decimal>());
+                ComponentValue.Add(dataResult.dtResult.Rows[i][17].ToString().GetDefaultDBNull<decimal>());
                 ComponentID.Add(46);
                 //----------------------------NON CTC-----------------------------
                 ComponentValue.Add(0);

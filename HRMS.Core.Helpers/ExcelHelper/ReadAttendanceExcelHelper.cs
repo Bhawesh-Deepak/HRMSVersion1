@@ -19,9 +19,9 @@ namespace HRMS.Core.Helpers.ExcelHelper
                 model.DateMonth = Convert.ToInt32(dataResult.dtResult.Rows[i][0]);
                 model.DateYear = Convert.ToInt32(dataResult.dtResult.Rows[i][1]);
                 model.EmployeeCode = Convert.ToString(dataResult.dtResult.Rows[i][2]);
-                model.LOPDays = Convert.ToInt32(dataResult.dtResult.Rows[i][3]);
+                model.LOPDays = Convert.ToDecimal(dataResult.dtResult.Rows[i][3]);
                 model.TotalDays = DateTime.DaysInMonth(model.DateYear, model.DateMonth);
-                model.PresentDays = model.TotalDays - model.LOPDays;
+                model.PresentDays = Convert.ToDecimal(model.TotalDays - model.LOPDays);
                 model.FinancialYear = 1;
                 models.Add(model);
             }
