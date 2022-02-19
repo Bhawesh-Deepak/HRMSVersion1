@@ -29,7 +29,7 @@ namespace HRMS.Admin.UI
             services.AddControllersWithViews();
             services.AddService();
             services.AddHttpContextAccessor();
-            services.AddSession(option => { option.IdleTimeout = TimeSpan.FromMinutes(60); });
+            services.AddSession(option => { option.IdleTimeout = TimeSpan.FromMinutes(130); });
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
             services.ConfigureApplicationCookie(option =>
