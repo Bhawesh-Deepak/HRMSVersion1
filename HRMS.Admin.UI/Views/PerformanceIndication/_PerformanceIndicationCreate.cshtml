@@ -1,0 +1,156 @@
+﻿@model IEnumerable<HRMS.Core.Entities.Talent.PerformanceIndication>
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<style>
+</style>
+<form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+      asp-action="UpsertPerformanceIndication" asp-controller="PerformanceIndication" data-ajax-success="Success">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="CompanyId">Designation</label><span style="color:red">  *</span>
+                            <select class="form-control selectpicker" multiple data-live-search="true" id="DesignationId" asp-items="@(new SelectList(ViewBag.DesignationList ,"Id","Name"))">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                @if (Model.Count() > 0)
+                {
+                    int count = 1;
+                    foreach (var item in Model)
+                    {
+                        if (count == 1)
+                        {
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="TechnicalCompetency"></label><span style="color:red"></span>
+                                        <input type="text" class="form-control input-sm" id="TechnicalCompetency" name="TechnicalCompetency" placeholder="Enter Technical Competency" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="OrganizationCompetency"></label><span style="color:red"></span>
+                                        <input type="text" class="form-control input-sm" id="OrganizationCompetency" name="OrganizationCompetency" placeholder="Enter Organization Competency" />
+                                    </div>
+                                </div>
+
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control input-sm" id="TechnicalCompetency" name="TechnicalCompetency" placeholder="Enter Technical Competency" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control input-sm" id="OrganizationCompetency" name="OrganizationCompetency" placeholder="Enter Organization Competency" />
+                                    </div>
+                                </div>
+
+                            </div>
+                        }
+                        count++;
+                    }
+
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="TechnicalCompetency">Technical Competency</label><span style="color:red">  *</span>
+                                <input type="text" class="form-control input-sm" id="TechnicalCompetency" name="TechnicalCompetency" placeholder="Enter Technical Competency" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="OrganizationCompetency">Organization Competency</label><span style="color:red">  *</span>
+                                <input type="text" class="form-control input-sm" id="OrganizationCompetency" name="OrganizationCompetency" placeholder="Enter Organization Competency" />
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-sm" id="TechnicalCompetency" name="TechnicalCompetency" placeholder="Enter Technical Competency" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-sm" id="OrganizationCompetency" name="OrganizationCompetency" placeholder="Enter Organization Competency" />
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-sm" id="TechnicalCompetency" name="TechnicalCompetency" placeholder="Enter Technical Competency" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-sm" id="OrganizationCompetency" name="OrganizationCompetency" placeholder="Enter Organization Competency" />
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-sm" id="TechnicalCompetency" name="TechnicalCompetency" placeholder="Enter Technical Competency" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-sm" id="OrganizationCompetency" name="OrganizationCompetency" placeholder="Enter Organization Competency" />
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-sm" id="TechnicalCompetency" name="TechnicalCompetency" placeholder="Enter Technical Competency" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-sm" id="OrganizationCompetency" name="OrganizationCompetency" placeholder="Enter Organization Competency" />
+                            </div>
+                        </div>
+
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-close" onclick="HidePopUp();">Close</button>
+        <input type="submit" class="btn btn-primary  " value="Save" />
+    </div>
+</form>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#DesignationId').selectpicker();
+    })
+</script>

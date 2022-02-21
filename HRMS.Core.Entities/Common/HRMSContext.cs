@@ -98,6 +98,7 @@ namespace HRMS.Core.Entities.Common
         public virtual DbSet<EmployeeTermination> EmployeeTerminations { get; set; }
         public virtual DbSet<AwardType> AwardTypes { get; set; }
         public virtual DbSet<Award> Awards { get; set; }
+        public virtual DbSet<PerformanceIndication> PerformanceIndications { get; set; }
         #endregion
     }
 }
