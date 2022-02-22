@@ -102,12 +102,12 @@ function MonthlyGrossSalaryIncentive(event) {
         labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar"],
         datasets: [{
             label: "Gross Salary",
-            backgroundColor: "#99ccff",
+            backgroundColor: '#33bdbd',
             data: [116500018, 112429557, 110892602, 126680702, 132873168, 143819752, 155044084, 149415537, 162666193, 0, 0, 0]
         }, {
             label: "Performance Incentives",
-            backgroundColor: "#b3d9ff",
-            data: [18905792, 16779774, 10015738, 131619881, 8895766, 9628087, 11027584, 14080574, 13698153, 0, 0, 0]
+            backgroundColor: "#8e96c5",
+            data: [18905792, 16779774, 10015738, 13161981, 8895766, 9628087, 11027584, 14080574, 13698153, 0, 0, 0]
         }]
     };
 
@@ -130,18 +130,18 @@ function NoofEmployeeSalaryPaid(event) {
     var xValues = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     var yValues = [0, 0, 0, 3720, 3212, 4014, 4431, 4955, 4758, 4998, 4694, 4528];
     var barColors = [
-        "#b91d47",
-        "#EEE9E9",
-        "#E2CFCF",
-        "#EABCBC",
-        "#F08080",
-        "#E8BDBA",
-        "#E7DDDC",
-        "#FFE7E4",
-        "#F9EDEC",
-        "#C66957",
-        "#DBD0CC",
-        "#FFD3B5"
+        "#60FBA9",
+        "#FBE860",
+        "#FBC360",
+        "#0BB26E",
+        "#0BB2AD",
+        "#F8C471",
+        "#FADBD8",
+        "#21618C",
+        "#BCCF05",
+        "#204D5F",
+        "#EEABAD",
+        "#B9D1E3"
     ];
     new Chart("myChart-2", {
         type: "doughnut",
@@ -164,18 +164,18 @@ function NoofEmployeeIncentivePaid(event) {
     var xValues = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     var yValues = [0, 0, 0, 778, 519, 555, 580, 518, 610, 661, 532, 719];
     var barColors = [
-        "#b91d47",
-        "#EEE9E9",
-        "#E2CFCF",
-        "#EABCBC",
-        "#F08080",
-        "#E8BDBA",
-        "#E7DDDC",
-        "#FFE7E4",
-        "#F9EDEC",
-        "#C66957",
-        "#DBD0CC",
-        "#FFD3B5"
+        "#60FBA9",
+        "#FBE860",
+        "#FBC360",
+        "#0BB26E",
+        "#0BB2AD",
+        "#F8C471",
+        "#FADBD8",
+        "#21618C",
+        "#BCCF05",
+        "#204D5F",
+        "#EEABAD",
+        "#B9D1E3"
     ];
     new Chart("myChart-3", {
         type: "doughnut",
