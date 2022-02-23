@@ -7,8 +7,10 @@ using HRMS.Services.Repository.GenericRepository;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -69,6 +71,9 @@ namespace HRMS.Admin.UI.Controllers.Payroll
                     Sheets.Cells[cells[cell] + "1"].Value = item.ComponentName.Trim();
                     cell++;
                 }
+                Sheets.Cells["A1:" + cells[cell - 1] + "1"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                Sheets.Cells["A1:" + cells[cell - 1] + "1"].Style.Fill.BackgroundColor.SetColor(Color.LightBlue);
+
                 var stream = new MemoryStream(Eps.GetAsByteArray());
                 return File(stream.ToArray(), "application/vnd.ms-excel", sFileName);
             }

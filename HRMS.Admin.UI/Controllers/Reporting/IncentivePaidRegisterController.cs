@@ -81,8 +81,8 @@ namespace HRMS.Admin.UI.Controllers.Reporting
             ExcelWorksheet Sheets = Eps.Workbook.Worksheets.Add("Incentive");
             Sheets.View.FreezePanes(1, 4);
             Sheets.Cells["A1:E1"].Style.Fill.PatternType = ExcelFillStyle.Solid;
-            Sheets.Cells["A1:E1"].Style.Fill.BackgroundColor.SetColor(Color.Gray);
-            Eps.Encryption.Password = "sqy" + model.DateMonth + "" + model.DateYear;
+            Sheets.Cells["A1:E1"].Style.Fill.BackgroundColor.SetColor(Color.LightBlue);
+             
             Sheets.Cells["A1"].Value = "Month";
             Sheets.Cells["B1"].Value = "Year";
             Sheets.Cells["C1"].Value = "Employee_Code";

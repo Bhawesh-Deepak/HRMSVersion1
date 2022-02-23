@@ -228,9 +228,9 @@ namespace HRMS.Admin.UI.Controllers.Payroll
                     cell++;
                 }
                 Sheets.Cells["A1:" + cells[cell - 1] + "1"].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                Sheets.Cells["A1:" + cells[cell - 1] + "1"].Style.Fill.BackgroundColor.SetColor(Color.Gray);
+                Sheets.Cells["A1:" + cells[cell - 1] + "1"].Style.Fill.BackgroundColor.SetColor(Color.LightBlue);
                 Sheets.Cells["A1:" + cells[cell - 1] + "2"].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                Sheets.Cells["A1:" + cells[cell - 1] + "2"].Style.Fill.BackgroundColor.SetColor(Color.Gray);
+                Sheets.Cells["A1:" + cells[cell - 1] + "2"].Style.Fill.BackgroundColor.SetColor(Color.LightBlue);
                 var stream = new MemoryStream(Eps.GetAsByteArray());
                 return File(stream.ToArray(), "application/vnd.ms-excel", sFileName);
             }

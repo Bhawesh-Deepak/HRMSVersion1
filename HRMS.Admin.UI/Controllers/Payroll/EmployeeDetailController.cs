@@ -193,8 +193,8 @@ namespace HRMS.Admin.UI.Controllers.Payroll
             ExcelWorksheet Sheets = Eps.Workbook.Worksheets.Add("EmployeeMaster");
             Sheets.View.FreezePanes(1, 4);
             Sheets.Cells["A1:CU1"].Style.Fill.PatternType = ExcelFillStyle.Solid;
-            Sheets.Cells["A1:CU1"].Style.Fill.BackgroundColor.SetColor(Color.Gray);
-            Eps.Encryption.Password = "sqy123";
+            Sheets.Cells["A1:CU1"].Style.Fill.BackgroundColor.SetColor(Color.LightBlue);
+            
             Sheets.Cells["A1"].Value = "salutation";
             Sheets.Cells["B1"].Value = "EmployeeName";
             Sheets.Cells["C1"].Value = "EmpCode";
