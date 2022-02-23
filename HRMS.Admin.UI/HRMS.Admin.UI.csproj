@@ -42,6 +42,7 @@
     <Folder Include="wwwroot\resources\dist\multiselect\js\" />
     <Folder Include="wwwroot\resources\login\css\" />
     <Folder Include="wwwroot\resources\login\js\" />
+    <Folder Include="wwwroot\resources\plugins\high-chart\js\" />
     <Folder Include="wwwroot\resources\Subsidiary\js\" />
   </ItemGroup>
 

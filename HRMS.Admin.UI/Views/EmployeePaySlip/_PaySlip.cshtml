@@ -166,7 +166,7 @@
                                 <td><strong>Particulars</strong></td>
                                 <td><strong>Amount</strong></td>
                             </tr>
-                            @foreach (var item in EmpSalary.Where(x => x.ComponentType == 1))
+                            @foreach (var item in EmpSalary.Where(x => x.ComponentType == 1).OrderBy(x=>x.ComponentId))
                             {
                                 if (item.SalaryAmount != 0)
                                 {
@@ -187,7 +187,7 @@
                                 <td><strong>Amount</strong></td>
                             </tr>
 
-                            @foreach (var item in EmpSalary.Where(x => x.ComponentType == 2))
+                            @foreach (var item in EmpSalary.Where(x => x.ComponentType == 2).OrderBy(x => x.ComponentId))
                             {
                                 if (item.SalaryAmount != 0)
                                 {
