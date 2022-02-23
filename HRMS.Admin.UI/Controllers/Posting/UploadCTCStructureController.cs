@@ -9,8 +9,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,7 +28,7 @@ namespace HRMS.Admin.UI.Controllers.Posting
         private readonly IDapperRepository<UploadCTCSTructureParams> _IUploadCTCSTructureRepository;
         private readonly IDapperRepository<EmployeeSalaryParams> _IEmployeeSalaryRepository;
         public UploadCTCStructureController(IGenericRepository<CtcComponentDetail, int> CtcComponentDetailRepo,
-            IGenericRepository<EmployeeCtcComponent, int> EmployeeCtcComponentRepo,IGenericRepository<EmployeeSalary, int> employeeSalaryDetailRepo,
+            IGenericRepository<EmployeeCtcComponent, int> EmployeeCtcComponentRepo, IGenericRepository<EmployeeSalary, int> employeeSalaryDetailRepo,
             IHostingEnvironment hostingEnvironment, IDapperRepository<UploadCTCSTructureParams> uploadCTCSTructureRepository,
             IDapperRepository<EmployeeSalaryParams> employeeSalaryRepository)
         {
@@ -64,7 +66,7 @@ namespace HRMS.Admin.UI.Controllers.Posting
                     file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
                 }
                 var response = await _ICtcComponentDetailRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted && x.ComponentValueType == 1);
-                string[] cells = { "C","D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "AA", "AB", "AC", "AD", "AE", "AF", "AG", "AH", "AI", "AJ", "AK", "AL", "AM", "AN", "AO", "AP", "AQ", "AR", "AS", "AT", "AU", "AV", "AW", "AX", "AY", "AZ", "BA", "BB", "BC", "BD", "BE", "BF", "BG", "BH", "BI", "BJ", "BK", "BL", "BM", "BN", "BO", "BP", "BQ", "BR", "BS", "BT", "BU", "BV", "BW", "BX", "BY", "BZ" };
+                string[] cells = { "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "AA", "AB", "AC", "AD", "AE", "AF", "AG", "AH", "AI", "AJ", "AK", "AL", "AM", "AN", "AO", "AP", "AQ", "AR", "AS", "AT", "AU", "AV", "AW", "AX", "AY", "AZ", "BA", "BB", "BC", "BD", "BE", "BF", "BG", "BH", "BI", "BJ", "BK", "BL", "BM", "BN", "BO", "BP", "BQ", "BR", "BS", "BT", "BU", "BV", "BW", "BX", "BY", "BZ" };
                 ExcelPackage Eps = new ExcelPackage();
                 ExcelWorksheet Sheets = Eps.Workbook.Worksheets.Add("CTCStructure");
                 Sheets.Cells["A1"].Value = "EmpCode";
@@ -75,7 +77,9 @@ namespace HRMS.Admin.UI.Controllers.Posting
                     Sheets.Cells[cells[cell] + "1"].Value = item.ComponentName.Trim();
                     cell++;
                 }
-                
+                Sheets.Cells["A1:" + cells[cell - 1] + "1"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                Sheets.Cells["A1:" + cells[cell - 1] + "1"].Style.Fill.BackgroundColor.SetColor(Color.LightBlue);
+
                 var stream = new MemoryStream(Eps.GetAsByteArray());
                 return File(stream.ToArray(), "application/vnd.ms-excel", sFileName);
             }
@@ -95,10 +99,11 @@ namespace HRMS.Admin.UI.Controllers.Posting
 
                 response.EmployeeSalaryDetails.ToList().ForEach(data =>
                 {
-                    var updateModel = new EmployeeSalaryParams(){
+                    var updateModel = new EmployeeSalaryParams()
+                    {
                         CTC = data.CTC,
                         EmpCode = data.EmpCode,
-                        UpdatedBy= Convert.ToInt32(HttpContext.Session.GetString("EmployeeId")),
+                        UpdatedBy = Convert.ToInt32(HttpContext.Session.GetString("EmployeeId")),
                     };
 
                     var uploadResponse = _IEmployeeSalaryRepository
@@ -118,7 +123,7 @@ namespace HRMS.Admin.UI.Controllers.Posting
                     .Execute<UploadCTCSTructureParams>(SqlQuery.UploadCTCStructure, model);
 
                 });
-                    return Json("Employee Basic information and Salary Detail Uploaded successfully !!!");
+                return Json("Employee Basic information and Salary Detail Uploaded successfully !!!");
             }
             catch (Exception ex)
             {

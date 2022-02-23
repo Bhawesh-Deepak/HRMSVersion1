@@ -9,8 +9,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -61,7 +63,7 @@ namespace HRMS.Admin.UI.Controllers.Leave
                 string[] cells = { "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "AA", "AB", "AC", "AD", "AE", "AF", "AG" };
                 ExcelPackage Eps = new ExcelPackage();
                 ExcelWorksheet Sheets = Eps.Workbook.Worksheets.Add("LeaveAllocation");
-
+                
                 Sheets.Cells["A1"].Value = "EmpCode";
 
                 int cell = 0;
@@ -70,6 +72,9 @@ namespace HRMS.Admin.UI.Controllers.Leave
                     Sheets.Cells[cells[cell] + "1"].Value = item.Code.Trim();
                     cell++;
                 }
+                Sheets.Cells["A1:" + cells[cell - 1] + "1"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                Sheets.Cells["A1:" + cells[cell - 1] + "1"].Style.Fill.BackgroundColor.SetColor(Color.LightBlue);
+
                 var stream = new MemoryStream(Eps.GetAsByteArray());
                 return File(stream.ToArray(), "application/vnd.ms-excel", sFileName);
             }

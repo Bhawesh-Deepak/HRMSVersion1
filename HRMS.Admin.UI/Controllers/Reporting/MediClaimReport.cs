@@ -10,8 +10,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -84,6 +86,9 @@ namespace HRMS.Admin.UI.Controllers.Reporting
                 
                 row++;
             }
+            Sheets.Cells["A1:" + "E1"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+            Sheets.Cells["A1:" + "E1"].Style.Fill.BackgroundColor.SetColor(Color.LightBlue);
+
             var stream = new MemoryStream(Eps.GetAsByteArray());
             return File(stream.ToArray(), "application/vnd.ms-excel", sFileName);
         }

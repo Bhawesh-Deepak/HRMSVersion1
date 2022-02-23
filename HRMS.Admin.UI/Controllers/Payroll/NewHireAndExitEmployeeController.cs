@@ -192,7 +192,7 @@ namespace HRMS.Admin.UI.Controllers.Payroll
             Sheets.Cells["CS1"].Value = "Total Deduction";
             Sheets.Cells["CT1"].Value = "Net Salary";
             int row = 2;
-
+            int cnt1 = 0;
             foreach (var item in response.GroupBy(X => X.Id))
             {
                 Sheets.Cells[string.Format("A{0}", row)].Value = item.First().Salutation;
@@ -271,7 +271,7 @@ namespace HRMS.Admin.UI.Controllers.Payroll
                 Sheets.Cells[string.Format("BV{0}", row)].Value = item.First().PTStateName;
                 Sheets.Cells[string.Format("BW{0}", row)].Value = item.First().IsPFEligible;
 
-                int cnt1 = 0;
+                  cnt1 = 0;
                 foreach (var itemdata in item.Where(x => x.ComponentType == 1).OrderBy(X => X.ComponentId))
                 {
                     Sheets.Cells[string.Format(CellArray[cnt1] + "{0}", row)].Value = Math.Round((Double)itemdata.ComponentValue, 2); //string.Format("{0:0.00}", itemdata.ComponentValue);
@@ -291,6 +291,8 @@ namespace HRMS.Admin.UI.Controllers.Payroll
                 Sheets.Cells[string.Format("CT{0}", row)].Value = Math.Round((Double)actual, 2); //string.Format("{0:0.00}", (TEarning - TDedcution));
                 row++;
             }
+            Sheets.Cells["A1:" + CellArray[cnt1 - 1] + "1"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+            Sheets.Cells["A1:" + CellArray[cnt1 - 1] + "1"].Style.Fill.BackgroundColor.SetColor(Color.LightBlue);
             var stream = new MemoryStream(Eps.GetAsByteArray());
             return File(stream.ToArray(), "application/vnd.ms-excel", sFileName);
 

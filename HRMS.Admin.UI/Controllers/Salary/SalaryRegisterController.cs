@@ -85,8 +85,8 @@ namespace HRMS.Admin.UI.Controllers.Salary
                 ExcelWorksheet Sheets = Eps.Workbook.Worksheets.Add("EmployeeSalary");
                 Sheets.View.FreezePanes(1, 4);
                 Sheets.Cells["A1:DD1"].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                Sheets.Cells["A1:DD1"].Style.Fill.BackgroundColor.SetColor(Color.Gray);
-                Eps.Encryption.Password = "sqy" + model.DateMonth + "" + model.DateYear;
+                Sheets.Cells["A1:DD1"].Style.Fill.BackgroundColor.SetColor(Color.LightBlue);
+                 
                 Sheets.Cells["A1"].Value = "Month";
                 Sheets.Cells["B1"].Value = "Year";
                 Sheets.Cells["C1"].Value = "Employee_Code";
@@ -210,6 +210,7 @@ namespace HRMS.Admin.UI.Controllers.Salary
 
                     row++;
                 }
+
                 var stream = new MemoryStream(Eps.GetAsByteArray());
                 return File(stream.ToArray(), "application/vnd.ms-excel", sFileName);
             }

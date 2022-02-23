@@ -10,6 +10,7 @@ using HRMS.Services.Repository.GenericRepository;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -106,7 +107,7 @@ namespace HRMS.Admin.UI.Controllers.Reporting
             Sheets.Cells["H1"].Value = "Total Days";
             Sheets.Cells["I1"].Value = "Present Days";
             Sheets.Cells["J1"].Value = "Lop Days";
-             
+
             string[] cells = { "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "AA", "AB", "AC", "AD", "AE", "AF", "AG", "AH", "AI", "AJ", "AK", "AL", "AM", "AN", "AO", "AP", "AQ", "AR", "AS", "AT", "AU", "AV", "AW", "AX", "AY", "AZ" };
             foreach (var data in models)
             {
@@ -122,6 +123,7 @@ namespace HRMS.Admin.UI.Controllers.Reporting
                 break;
             }
             int row = 2;
+            int CELLCOUNT = 0;
             foreach (var data in models)
             {
                 Sheets.Cells[string.Format("A{0}", row)].Value = data.EmployeeCode;
@@ -134,7 +136,7 @@ namespace HRMS.Admin.UI.Controllers.Reporting
                 Sheets.Cells[string.Format("H{0}", row)].Value = data.TotalDays;
                 Sheets.Cells[string.Format("I{0}", row)].Value = data.PresentDays;
                 Sheets.Cells[string.Format("J{0}", row)].Value = data.LOPDays;
-                int CELLCOUNT = 0;
+                  CELLCOUNT = 0;
                 foreach (var item in data.DatWiseAttendance)
                 {
                     Sheets.Cells[string.Format(cells[CELLCOUNT] + "{0}", row)].Value = item.Value;
@@ -142,6 +144,9 @@ namespace HRMS.Admin.UI.Controllers.Reporting
                 }
                 row++;
             }
+            Sheets.Cells["A1:" + cells[CELLCOUNT - 1] + "1"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+            Sheets.Cells["A1:" + cells[CELLCOUNT - 1] + "1"].Style.Fill.BackgroundColor.SetColor(Color.LightBlue);
+
             var stream = new MemoryStream(Eps.GetAsByteArray());
             return File(stream.ToArray(), "application/vnd.ms-excel", sFileName);
             // return Json(models);
