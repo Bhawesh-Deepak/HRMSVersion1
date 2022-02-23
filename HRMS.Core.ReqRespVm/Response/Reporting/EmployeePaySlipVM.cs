@@ -9,6 +9,7 @@ namespace HRMS.Core.ReqRespVm.Response.Reporting
     public class EmployeePaySlipVM
     {
         public int Id { get; set; }
+        public int ComponentId { get; set; }
         public string EmpCode { get; set; }
         public string Salutation { get; set; }
         public string UANNumber { get; set; }
