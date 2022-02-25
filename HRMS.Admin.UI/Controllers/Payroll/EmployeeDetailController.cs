@@ -117,8 +117,17 @@ namespace HRMS.Admin.UI.Controllers.Payroll
         {
             try
             {
+                int pageSizes = 0;
+                if (pageIndex == 0)
+                    pageIndex = 1;
+                if ((int)pageSize == 0)
+                    pageSizes = 10;
+                if (sortBy == null)
+                    sortBy = "Name";
+                if (sortOrder == null)
+                    sortOrder = "ASC";
                 searchModelEntity.PageNo = pageIndex;
-                searchModelEntity.PageSize = (int)pageSize;
+                searchModelEntity.PageSize = (int)pageSizes;
                 searchModelEntity.SortColumn = sortBy;
                 searchModelEntity.SortOrder = sortOrder;
                 searchModelEntity.IsActive = true;
@@ -194,7 +203,7 @@ namespace HRMS.Admin.UI.Controllers.Payroll
             Sheets.View.FreezePanes(1, 4);
             Sheets.Cells["A1:CU1"].Style.Fill.PatternType = ExcelFillStyle.Solid;
             Sheets.Cells["A1:CU1"].Style.Fill.BackgroundColor.SetColor(Color.LightBlue);
-            
+
             Sheets.Cells["A1"].Value = "salutation";
             Sheets.Cells["B1"].Value = "EmployeeName";
             Sheets.Cells["C1"].Value = "EmpCode";

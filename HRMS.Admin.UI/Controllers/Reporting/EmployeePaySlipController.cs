@@ -70,11 +70,12 @@ namespace HRMS.Admin.UI.Controllers.Reporting
                 System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
                 string strMonthName = mfi.GetMonthName(model.DateMonth).ToString();
                 var response = await Task.Run(() => _IEmployeePaySlipRepository.GetAll<EmployeePaySlipVM>(SqlQuery.GetPaySlip, payslipparams));
-                var responsepdf = new ViewAsPdf(ViewHelper.GetViewPathDetails("EmployeePaySlip", "_PaySlip"), response)
-                {
-                    FileName = strMonthName + "_" + model.DateYear + "_PaySlip.pdf",
-                };
-                return responsepdf;
+                //var responsepdf = new ViewAsPdf(ViewHelper.GetViewPathDetails("EmployeePaySlip", "_PaySlip"), response)
+                //{
+                //    FileName = strMonthName + "_" + model.DateYear + "_PaySlip.pdf",
+                //};
+                //return responsepdf;
+                 return new ViewAsPdf(ViewHelper.GetViewPathDetails("EmployeePaySlip", "_PaySlip"), response);
             }
             catch (Exception ex)
             {

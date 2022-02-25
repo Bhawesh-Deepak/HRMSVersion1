@@ -37,7 +37,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label asp-for="BranchId">Branch :</label><span style="color:red">  *</span>
-                            <select class="form-control input-sm" asp-for="BranchId" asp-items="@(new SelectList(ViewBag.BranchList ,"Id","Code"))">
+                            <select class="form-control input-sm" asp-for="BranchId" asp-items="@(new SelectList(ViewBag.BranchList ,"Id","Name"))">
                                 <option value="">--Select--</option>
                             </select>
 
