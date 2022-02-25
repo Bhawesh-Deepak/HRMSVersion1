@@ -23,12 +23,15 @@ namespace HRMS.Admin.UI.Controllers.Master
         private readonly IGenericRepository<Department, int> _IDepartmentRepository;
         private readonly IGenericRepository<Branch, int> _IBranchRepository;
         private readonly IGenericRepository<Designation, int> _IDesignationRepository;
+        private readonly IGenericRepository<LegalEntity, int> _ILegalEntityRepository;
         public DepartmentController(IGenericRepository<Department, int> departmentRepo,
-            IGenericRepository<Branch, int> branchRepo, IGenericRepository<Designation, int> designationRepo)
+            IGenericRepository<Branch, int> branchRepo, IGenericRepository<Designation, int> designationRepo,
+            IGenericRepository<LegalEntity, int> legalentityRepo)
         {
             _IDepartmentRepository = departmentRepo;
             _IBranchRepository = branchRepo;
             _IDesignationRepository = designationRepo;
+            _ILegalEntityRepository = legalentityRepo;
         }
         public async Task<IActionResult> Index()
         {
@@ -260,8 +263,19 @@ namespace HRMS.Admin.UI.Controllers.Master
         private async Task PopulateViewBag()
         {
             var branchResponse = await _IBranchRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+            var legalentity = await _ILegalEntityRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+            var responseDetails = (from branch in branchResponse.Entities
+                                   join legal in legalentity.Entities on branch.CompanyId equals legal.Id
+                                   
+                                   select new Branch
+                                   {
+                                       Id = branch.Id,
+                                       Name = branch.Code+" ( "+legal.Name+" ) ",
+                                      
+                                   }).ToList();
+
             if (branchResponse.ResponseStatus == ResponseStatus.Success)
-                ViewBag.BranchList = branchResponse.Entities;
+                ViewBag.BranchList = responseDetails.ToList();
         }
 
     }
