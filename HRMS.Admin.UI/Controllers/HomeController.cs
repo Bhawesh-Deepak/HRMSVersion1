@@ -72,6 +72,36 @@ namespace HRMS.Admin.UI.Controllers
                 return RedirectToAction("Error", "Home");
             }
         }
+        public async Task<IActionResult> GetAttendanceDayWiseReport()
+        {
+            try
+            {
+                await PopulateViewBag();
+                return PartialView(ViewHelper.GetViewPathDetails("Home", "GetAttendanceDayWiseReport"));
+
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(HomeController)} action name {nameof(GetAttendanceDayWiseReport)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
+        }
+        public async Task<IActionResult> GetPaidRegister()
+        {
+            try
+            {
+                await PopulateViewBag();
+                return PartialView(ViewHelper.GetViewPathDetails("Home", "GetPaidRegister"));
+
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(HomeController)} action name {nameof(GetPaidRegister)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
+        }
         [HttpGet]
         public async Task<IActionResult> GetAttendanceGraph(int FinancialYear)
         {
@@ -89,6 +119,21 @@ namespace HRMS.Admin.UI.Controllers
             catch (Exception ex)
             {
                 string template = $"Controller name {nameof(HomeController)} action name {nameof(GetAttendanceGraph)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
+        }
+        [HttpGet]
+        public async Task<IActionResult> SendBirtdayAnniversaryWises(int id)
+        {
+            try
+            {
+
+                return PartialView(ViewHelper.GetViewPathDetails("Home", "_SendBirtdayAnniversaryWises"));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(HomeController)} action name {nameof(SendBirtdayAnniversaryWises)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
