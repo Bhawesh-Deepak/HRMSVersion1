@@ -113,7 +113,7 @@ namespace HRMS.Admin.UI.Controllers.Payroll
             }
         }
 
-        public async Task<IActionResult> GetFilteredData(EmployeeDetailParams searchModelEntity, string sortBy, int pageIndex, PageSize pageSize, string sortOrder)
+        public async Task<IActionResult> GetFilteredData([FromQuery]EmployeeDetailParams searchModelEntity, string sortBy, int pageIndex, PageSize pageSize, string sortOrder)
         {
             try
             {

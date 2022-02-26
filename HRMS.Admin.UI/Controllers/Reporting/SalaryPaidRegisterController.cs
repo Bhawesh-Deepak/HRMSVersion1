@@ -38,6 +38,7 @@ namespace HRMS.Admin.UI.Controllers.Reporting
         {
             try
             {
+                await PopulateViewBag();
                 return await Task.Run(() => View(ViewHelper.GetViewPathDetails("SalaryPaidRegister", "_SalaryPaidRegister")));
             }
             catch (Exception ex)
