@@ -66,7 +66,7 @@ namespace HRMS.Admin.UI.Controllers.Master
                                            Name = department.Name,
                                            Code = department.Code,
                                            BranchId = branch.Id,
-                                           BranchName = branch.Name+" ( "+legal.Name+" ) ",
+                                           BranchName = legal.Name,//branch.Name+" ( "+legal.Name+" ) ",
                                            BranchCode = branch.Code,
                                            DesignationId = designtion.Id,
                                            DesignationName = designtion.Name,

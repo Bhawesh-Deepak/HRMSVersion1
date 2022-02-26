@@ -62,6 +62,7 @@ namespace HRMS.Admin.UI.Controllers
                     Id = Id
                 };
                 var response = await Task.Run(() => _IBirthdayAnniversaryRepository.GetAll<BirthdayAnniversaryVM>(SqlQuery.GetBirtdayAnniversary, birthdayparam));
+                TempData["BirtdayParameter"] = Id;
                 return PartialView(ViewHelper.GetViewPathDetails("Home", "_BirthDayAndAnniversary"), response);
 
             }
