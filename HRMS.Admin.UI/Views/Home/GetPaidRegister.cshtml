@@ -1,0 +1,52 @@
+﻿@model HRMS.Core.ReqRespVm.RequestVm.EmployeeSalaryRegisterVM
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<div class="row" style="margin-top:0;">
+    <div class="col-md-12 col-sm-12">
+        <div class="box box-success">
+            <div class="box-header with-border">
+                <div class="box-title">
+                    <i class="fa fa-cloud-download fa-lg"></i> &nbsp; Download Salary Paid Register
+                </div>
+            </div>
+            <div class="box-body">
+                <form id="form" method="post"
+                      enctype="multipart/form-data"
+                      asp-action="DownloadSalaryPaidRegister" asp-controller="SalaryPaidRegister">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label asp-for="DateMonth"> Month :</label><em class="text-danger">*</em>
+                                        <select class="form-control input-sm" asp-for="DateMonth" asp-items="@(Enumerable.Range(1, 12).Select(x => new SelectListItem { Value = x.ToString(), Text = System.Globalization.CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(x) }))">
+                                            <option value="">----Select One----</option>
+                                        </select>
+                                        <span asp-validation-for="DateMonth" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label asp-for="DateYear">Year :</label><em class="text-danger">*</em>
+                                        <select class="form-control input-sm" asp-for="DateYear" asp-items="@(new SelectList(ViewBag.AssesmentYear ,"StartYear","StartYear"))">
+                                            <option value="">----Select One----</option>
+                                        </select>
+                                        <span asp-validation-for="DateYear" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="Action">Action:</label><br />
+                                        <button type="submit" class="btn btn-primary btn-sm" title="Export  Salary Paid Register"><i class="fa fa-download"></i> Export</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

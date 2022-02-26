@@ -55,16 +55,18 @@ namespace HRMS.Admin.UI.Controllers.Master
                 var departmentresponse = await _IDepartmentRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
                 var designationresponse = await _IDesignationRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
                 var branchresponse = await _IBranchRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+                var legalentityresponse = await _ILegalEntityRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
                 var responseDetails = (from department in departmentresponse.Entities
                                        join designtion in designationresponse.Entities on department.Id equals designtion.DepartmentId
                                        join branch in branchresponse.Entities on department.BranchId equals branch.Id
+                                       join legal in legalentityresponse.Entities on branch.CompanyId equals legal.Id
                                        select new DepartmentAndDesignationVM
                                        {
                                            Id = department.Id,
                                            Name = department.Name,
                                            Code = department.Code,
                                            BranchId = branch.Id,
-                                           BranchName = branch.Name,
+                                           BranchName = branch.Name+" ( "+legal.Name+" ) ",
                                            BranchCode = branch.Code,
                                            DesignationId = designtion.Id,
                                            DesignationName = designtion.Name,
