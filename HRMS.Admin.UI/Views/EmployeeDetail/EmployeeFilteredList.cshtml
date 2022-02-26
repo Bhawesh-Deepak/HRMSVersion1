@@ -200,10 +200,9 @@ else
         var location = $("#Location").val();
         var status = $("#ddlisactive").val();
         debugger;
-        return "/EmployeeDetail/GetFilteredData/ ? LeagalEntity = " + legalEntity;//+ " & DepartmentName=" + department +
-            //" & DesignationName=" + designation + " & PAndLHeadName=" + pandlName + " & JoiningDate=" + Year + "&Location" + location + "&IsActive" + status";
-         
+        var url = "/EmployeeDetail/GetFilteredData/?LeagalEntity=" + legalEntity + "&DepartmentName=" + department + "&DesignationName=" + designation + "&PAndLHeadName=" + pandlName + "&JoiningDate=" + doj + "&Location=" + location + "&IsActive=" + status;
+        return url;
     };
 
-    
+
 </script>
