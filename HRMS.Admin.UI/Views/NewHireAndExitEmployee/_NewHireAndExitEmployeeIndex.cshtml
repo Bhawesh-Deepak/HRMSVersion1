@@ -2,7 +2,12 @@
 
 
 <div class="content-wrapper" style="min-height: 870px;">
-    @Html.BuildBreadcrumbNavigation()
+    @*@Html.BuildBreadcrumbNavigation()*@
+    <ol class="breadcrumb">
+        <li><a asp-action="Index" asp-controller="Home">Home</a></li>
+        <li>Payroll</li>
+        <li><a asp-action="Index" asp-controller="NewHireAndExitEmployee">New Hire & Exit Employee</a></li>
+    </ol>
     <section class="content">
         <div class="row">
             <div class="col-md-12">
