@@ -15,6 +15,10 @@ using HRMS.Core.Entities.Organisation;
 using System.Net.Http;
 using HRMS.Admin.UI.AuthenticateService;
 using HRMS.Core.Entities.Master;
+using HRMS.Core.ReqRespVm.RequestVm.NeedSupport;
+using System.Net.Mail;
+using MimeKit;
+using Microsoft.AspNetCore.Hosting;
 
 namespace HRMS.Admin.UI.Controllers.UserManagement
 {
@@ -27,16 +31,18 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
         private readonly IGenericRepository<AuthenticateUser, int> _IAuthenticateRepository;
         private readonly IGenericRepository<Company, int> _ICompanyRepository;
         private readonly IGenericRepository<AssesmentYear, int> _IAssesmentYearRepository;
+        private readonly IHostingEnvironment _IHostingEnviroment;
 
         public AuthenticateController(IGenericRepository<EmployeeDetail, int> employeeDetailRepository, IGenericRepository<AdminEmployeeDetail, int> adminemployeeDetailRepository,
             IGenericRepository<AuthenticateUser, int> authenticateRepo, IGenericRepository<Company, int> companyRepository,
-            IGenericRepository<AssesmentYear, int> assesmentyearRepository)
+            IGenericRepository<AssesmentYear, int> assesmentyearRepository, IHostingEnvironment hostingEnvironment)
         {
             _IEmployeeDetailRepository = employeeDetailRepository;
             _IAdminEmployeeDetailRepository = adminemployeeDetailRepository;
             _IAuthenticateRepository = authenticateRepo;
             _ICompanyRepository = companyRepository;
             _IAssesmentYearRepository = assesmentyearRepository;
+            _IHostingEnviroment = hostingEnvironment;
         }
 
         public async Task<IActionResult> LoginIndex(string message)
@@ -92,7 +98,7 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
                             return Redirect(returnurl);
                         }
 
-                           return RedirectToAction("Index", "Dashboard");
+                        return RedirectToAction("Index", "Dashboard");
                     }
                     else
                     {
@@ -110,7 +116,7 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
                             return Redirect(returnurl);
                         }
 
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "CommingSoon");
                     }
 
                 }
@@ -161,7 +167,7 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
         {
             try
             {
-                return await Task.Run(() => PartialView("~/Views/Authenticate/ChangePassword.cshtml"));
+                return await Task.Run(() => View("~/Views/Authenticate/ChangePassword.cshtml"));
             }
             catch (Exception ex)
             {
@@ -236,10 +242,36 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
             }
         }
 
+        public async Task<IActionResult> ForgetPasswordPost(string otpCode, string empCode, string NewPassword)
+        {
+            try
+            {
+                var empDetails = await _IEmployeeDetailRepository.GetAllEntities(x => x.EmpCode.Trim().ToLower() == empCode.Trim().ToLower());
+                var response = await _IAuthenticateRepository.GetAllEntities(x => x.EmployeeId == empDetails.Entities.First().Id && x.ForgetPasswordCode.Trim().ToLower() == otpCode.Trim().ToLower());
+                if (response.Entities.Any())
+                {
+                    var newPassword = PasswordEncryptor.Instance.Encrypt(NewPassword, "HRMSPAYROLLPASSWORDKEY");
+                    var authModel = await _IAuthenticateRepository.GetAllEntities(x => x.EmployeeId == empDetails.Entities.First().Id);
+                    authModel.Entities.First().Password = newPassword;
+                    authModel.Entities.First().ForgetPasswordCode = null;
+                    authModel.Entities.First().ForgetPasswordTime = null;
+                    authModel.Entities.First().UpdatedBy = empDetails.Entities.First().Id;
+                    authModel.Entities.First().UpdatedDate = DateTime.Now;
+                    var updateResponse = await _IAuthenticateRepository.UpdateMultipleEntity(authModel.Entities.ToArray());
+                }
+
+                return Json(true);
+            }
+            catch (Exception ex)
+            {
+                return Json(false);
+            }
+        }
+
         #region PrivateMethod
         public async Task<bool> SendOtp(EmployeeDetail empDetail, string message)
         {
-            empDetail.ContactNumber = "9560435849";
+            empDetail.ContactNumber = empDetail.ContactNumber;//"9560435849";
             using var client = new HttpClient();
             client.BaseAddress = new Uri(BASEURL);
             var response = await client.GetAsync("SMSApi/send?userid=klbsotp&password=Klb@2020&sendMethod=quick&mobile=" + empDetail?.ContactNumber + "&msg=" + message + "&senderid=MODOTP&msgType=text&duplicatecheck=true&format=text");
@@ -307,6 +339,97 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
             {
                 throw new Exception(ex.Message, ex);
             }
+        }
+        #endregion
+        #region  Need Help Method
+        public async Task<IActionResult> NeedHelp()
+        {
+            try
+            {
+                return PartialView(ViewHelper.GetViewPathDetails("Authenticate", "_NeedHelpIndex"));
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(AuthenticateController)} action name {nameof(NeedHelp)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> NeedHelpPost(NeedSupportVM model)
+        {
+            //try
+            //{
+            //    var isMailSend = false;
+            //    try
+            //    {
+
+            //        SmtpClient client = new SmtpClient();
+            //        MimeMessage message = new MimeMessage();
+
+            //        MailboxAddress from = new MailboxAddress("Sunil","");
+            //        message.From.Add(from);
+
+            //        MailboxAddress to = new MailboxAddress("User",
+            //        "BhaweshDeepak@yahoo.com");
+
+            //        List<MailboxAddress> toMailAddress = new List<MailboxAddress>();
+            //        toEmailIds.ForEach(item =>
+            //        {
+            //            var userName = item.Split("@")[0];
+            //            toMailAddress.Add(new MailboxAddress(userName, item.Trim()));
+            //        });
+
+
+            //        message.To.AddRange(toMailAddress);
+
+            //        message.Subject = batchId;
+
+            //        BodyBuilder bodyBuilder = new BodyBuilder();
+            //        bodyBuilder.HtmlBody = emailTemplate;
+
+
+            //        message.Body = bodyBuilder.ToMessageBody();
+
+            //        try
+            //        {
+
+            //            client.Connect(_configuration.GetSection("EmailNotification:SMTPServer").Value,
+            //                Convert.ToInt32(_configuration.GetSection("EmailNotification:SMTPPort").Value), SecureSocketOptions.StartTls);
+
+            //            client.Authenticate("stcvat1@gmail.com", "vi@pra91");
+
+            //            client.Send(message);
+            //            isMailSend = true;
+
+            //        }
+            //        catch (Exception ex)
+            //        {
+            //            //await WriteEmailLoger(ex);
+            //            isMailSend = false;
+            //        }
+            //        finally
+            //        {
+            //            client.Disconnect(true);
+            //            client.Dispose();
+            //        }
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //       // await WriteEmailLoger(ex);
+            //        isMailSend = false;
+            //    }
+
+            //   // return await Task.Run(() => isMailSend);
+            //    return PartialView(ViewHelper.GetViewPathDetails("Authenticate", "_NeedHelpIndex"));
+            //}
+            //catch (Exception ex)
+            //{
+            //    string template = $"Controller name {nameof(AuthenticateController)} action name {nameof(NeedHelp)} exception is {ex.Message}";
+            //    Serilog.Log.Error(ex, template);
+            //    return RedirectToAction("Error", "Home");
+            //}
+            return RedirectToAction("LoginIndex", "Authenticate");
         }
         #endregion
     }
