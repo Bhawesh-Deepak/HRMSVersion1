@@ -1,0 +1,44 @@
+﻿@model HRMS.Core.ReqRespVm.Response.Reporting.GratuityCalculationVM
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="box box-success">
+            <div class="box-header with-border">
+                <div class="box-title">
+                    <i class="fa fa-calculator fa-lg"></i>  Gratuity   &nbsp;
+                </div>
+                <a class="btn btn-primary pull-right btn-xs" onclick="ExportGratuityCalculation()" title="Export Gratuity Calculation">
+                    <i class="fa fa-download"> &nbsp; Export</i>
+                </a>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-7">Emp Code : @Model.EmpCode</div>
+                    <div class="col-md-5">Emp Name : @Model.EmployeeName</div>
+                    <input type="hidden" id="EmpCode" value="@Model.EmpCode" />
+                    <input type="hidden" id="DateOfLeaving" value="@Model.DateOfLeaving" />
+                </div>
+                <div class="row">
+                    <div class="col-md-7">Date Of Joining : @Model.JoiningDate.ToString("dd/MM/yyyy")</div>
+                    <div class="col-md-5">Date Of Leaving : @Model.DateOfLeaving.ToString("dd/MM/yyyy")</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-7">Monthly Income (Basic + DA) <i class="fa fa-info-circle fa-lg text-yellow" title="Monthly Income as Per Your Last Drawn Salary"></i> : <i class="fa fa-rupee"></i> @Model.BasicAmount</div>
+                    <div class="col-md-5">Tenure <i class="fa fa-info-circle fa-lg text-yellow" title="Round Off Tenure to the nearest whole number E.g if your tenure 5 year 2 months select 5 years.if your tenure is 5 year 7 months, select 6 years   "></i> : @Model.NoOfYear Years</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12"> Your Gratuity Amount is Rs. :  @Model.GratuityAmount</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function ExportGratuityCalculation() {
+        var EmpCode = $("#EmpCode").val();
+        var DateOfLeaving = $("#DateOfLeaving").val();
+        location.href = "/GratuityCalculation/ExportGratuityCalculation?EmpCode=" + EmpCode + "&DateOfLeaving=" + DateOfLeaving;
+        
+    }
+</script>
