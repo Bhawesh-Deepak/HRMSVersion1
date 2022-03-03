@@ -70,7 +70,7 @@ namespace HRMS.Admin.UI.Controllers.Reporting
             ExcelWorksheet Sheets = Eps.Workbook.Worksheets.Add("OverTime");
             Sheets.Cells["A1"].Value = "Employee Code";
             Sheets.Cells["B1"].Value = "Employee Name";
-            Sheets.Cells["C1"].Value = "Moth";
+            Sheets.Cells["C1"].Value = "Month";
             Sheets.Cells["D1"].Value = "Year";
             Sheets.Cells["E1"].Value = "OT Amount";
 
