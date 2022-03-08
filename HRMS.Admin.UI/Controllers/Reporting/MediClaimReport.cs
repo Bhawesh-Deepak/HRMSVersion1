@@ -32,7 +32,7 @@ namespace HRMS.Admin.UI.Controllers.Reporting
                 EmployeeCode= empCode
             };
             var response =  _MediClaimRepository.GetAll<EmployeeMediClaimVm>(SqlQuery.GetEmployeeMediClaimReport, sqlParams);
-            return response
+            return response;
         }
     }
 }
