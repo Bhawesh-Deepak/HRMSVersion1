@@ -42,6 +42,7 @@ namespace HRMS.API.Controllers.EmployeeMasterDetails
             }
             catch (Exception ex) 
             {
+                Serilog.Log.Error(ex, ex.Message);
                 return await Task.Run(()=> BadRequest(new Helpers.ResponseEntityList<EmployeeDetail>
                     (System.Net.HttpStatusCode.InternalServerError, ResponseStatus.DataBaseException.ToString(), null)
                     .GetResponseEntityList()));
