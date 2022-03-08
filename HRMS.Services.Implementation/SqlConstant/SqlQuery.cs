@@ -40,6 +40,8 @@ namespace HRMS.Services.Implementation.SqlConstant
         public const string GetSalaryRegisterBySalaryCalculation = @"[Reporting].[usp_GetSalaryRegisterBySalaryCalculation]";
         public const string GetComputationofTaxReport = @"[Reporting].[usp_GetComputationOfTaxReport]";
         public const string GetGratuityCalculation = @"[Reporting].[usp_GetGratuityCalculation]";
+        public const string GetNetVsGrossSalary = @"[Reporting].[usp_GetNetVSGrossSalary]";
+        public const string GetAttendanceStatus = @"[Reporting].[usp_GetAttendanceStatus]";
 
 
 
