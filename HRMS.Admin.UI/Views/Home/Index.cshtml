@@ -1,260 +1,283 @@
-﻿@{
+﻿
+
+@{
     ViewData["Title"] = "Home Page";
 }
 @using System.Globalization;
 @using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor HttpContextAccessor;
-    @{
+@{
 
-        var financialYear = HttpContextAccessor.HttpContext.Session.GetString("financialYear");
+    var financialYear = HttpContextAccessor.HttpContext.Session.GetString("financialYear");
+}
+<script src="~/resources/plugins/high-chart/js/highcharts.js"></script>
+<script src="~/resources/plugins/high-chart/js/exporting.js"></script>
+<script src="~/resources/plugins/high-chart/js/export-data.js"></script>
+<script src="~/resources/plugins/high-chart/js/accessibility.js"></script>
+<link href="~/resources/plugins/high-chart/css/highchartcustom.css" rel="stylesheet" />
+<script src="~/resources/plugins/high-chart/js/data.js"></script>
+<script src="~/resources/plugins/high-chart/js/highcharts-3d.js"></script>
+<style>
+    .item {
+        text-align: center
     }
-    <link href="https://beats.squareyards.com//resources/dist/css/profile-view.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-    <style>
-        .item {
-            text-align: center
+
+    .nav-tabs-custom > .nav-tabs > li > a {
+        font-size: 12px;
+        font-weight: 0 !important;
+    }
+
+    .item .img-responsive {
+        max-width: 100px;
+        margin: auto
+    }
+
+    .item h5 {
+        font-weight: bold;
+        margin-top: 10px
+    }
+
+    .btn-primary:hover {
+        color: #fff
+    }
+
+    .owl-nav {
+        display: block !important
+    }
+
+    .owl-prev {
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-size: 60px !important;
+    }
+
+    .owl-next {
+        position: absolute;
+        right: 0;
+        top: 0;
+        font-size: 60px !important;
+    }
+
+    .owl-prev, .owl-next {
+        color: #4291af !important;
+    }
+
+        .owl-prev:hover, .owl-next:hover {
+            background: #fff !important;
+            color: #3c8dbc !important
         }
-        .nav-tabs-custom > .nav-tabs > li > a {
-             font-size: 12px; 
-             font-weight: 0 !important; 
-        }
 
-            .item .img-responsive {
-                max-width: 100px;
-                margin: auto
-            }
 
-            .item h5 {
-                font-weight: bold;
-                margin-top: 10px
-            }
+    .owl-dots {
+        margin-top: 30px
+    }
 
-        .btn-primary:hover {
-            color: #fff
-        }
+   
+    
+</style>
 
-        .owl-nav {
-            display: none
-        }
 
-        .owl-dots {
-            margin-top: 30px
-        }
 
-        .box.box-primary {
-            border-top-color: transparent
-        }
-    </style>
+<div class="content-wrapper" style="min-height: 870px;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            <strong>Welcome</strong> to Square Payroll
+            <a href="javascript:void(0)" class="lead btn btn-info"> Current Financial Year :  @financialYear</a>
+        </h1>
+        <ol class="breadcrumb">
+        </ol>
+    </section>
+    <section class="content">
+        <br />
+        @await Component.InvokeAsync("EmployeeCount")
 
-    <div class="content-wrapper" style="min-height: 870px;">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1>
-                <strong>Welcome</strong> to Square Payroll
-                <a href="javascript:void(0)" class="lead btn btn-info"><em class="fa fa-plus"></em>Current Financial Year :  @financialYear</a>
-            </h1>
-            <ol class="breadcrumb">
-            </ol>
-        </section>
-        <section class="content">
-            <br />
-            @await Component.InvokeAsync("EmployeeCount")
-
-        </section>
-        <section class="content">
-            <div class="row" style="margin-top:0;">
-                <div class="col-md-12 col-sm-12">
-                    <div class="box box-success">
-                        <div class="box-header with-border">
-                            <div class="box-title">
-                                <i class="fa fa-bar-chart "></i> Salary
-                            </div>
-                        </div>
-                        <div class="box-body">
-                            <div class="profile-nav nav-tabs-custom customNavigation">
-                                <a id="bar"><i class="fa fa-bars"></i></a>
-                                <ul id="nav-t" class="nav nav-tabs">
-                                    <li class="active"><a href="#Monthly_Attendance_Graph" data-toggle="tab">Monthly Attendance Graph</a></li>
-                                    <li><a href="#Monthly_Gross_Salary_Incentive" data-toggle="tab">Monthly Gross Salary & Incentive</a></li>
-                                    <li><a href="#Number_of_Employees_to_whom_Salary_Paid " data-toggle="tab">Number of Employees to whom Salary Paid </a></li>
-                                    <li><a href="#Number_of_Employees_to_whom_Incentive_Paid" data-toggle="tab">Number of Employees to whom Incentive Paid</a></li>
-
-                                </ul>
-                                <div class="tab-content" style="overflow-x:auto">
-                                    <div class="pro-overview tab-pane active" id="Monthly_Attendance_Graph">
-                                        <div class="row" style="margin-top:0;">
-                                            <div class="col-md-12 col-sm-12">
-                                                <div class="box box-primary">
-                                                    <div class="box-header with-border">
-                                                        <div class="box-title">
-                                                            <h3 class="box-title pull-left"><i class="fa fa-calendar"></i> Monthly Attendance Graph</h3>
-
-                                                        </div>
-                                                        @*<select id="AssesmentYear1" name="AssesmentYear1" class="   pull-right btn-xs"
-                                                                asp-items="@(new SelectList((IEnumerable<HRMS.Core.Entities.Master.AssesmentYear>)ViewBag.AssesmentYear,"Id","Name"))">
-                                                            <option value="">---Select One---</option>
-                                                        </select>*@
-                                                    </div>
-                                                    <div class="box-body">
-                                                        <canvas id="myChart-4" style="width:100%;height:300px;padding-left:20px;padding-right:20px"></canvas>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane" id="Monthly_Gross_Salary_Incentive">
-                                        <div class="row" style="margin-top:0;">
-                                            <div class="col-md-12 col-sm-12">
-                                                <div class="box box-primary">
-                                                    <div class="box-header with-border">
-                                                        <div class="box-title">
-                                                            <h3 class="box-title pull-left"><i class="fa fa-rupee"></i> Monthly Gross Salary & Incentive</h3>
-
-                                                        </div>
-                                                        @*<select id="AssesmentYear2" name="AssesmentYear2" class="   pull-right btn-xs"
-                                                                asp-items="@(new SelectList((IEnumerable<HRMS.Core.Entities.Master.AssesmentYear>)ViewBag.AssesmentYear,"Id","Name"))">
-                                                            <option value="">---Select One---</option>
-                                                        </select>*@
-                                                    </div>
-                                                    <div class="box-body">
-                                                        <canvas id="myChart-5" style="width:100%;height:300px;padding-left:20px;padding-right:20px"></canvas>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="pro-overview tab-pane" id="Number_of_Employees_to_whom_Salary_Paid" data-select2-id="Number_of_Employees_to_whom_Salary_Paid">
-                                        <div class="row" style="margin-top:0;">
-                                            <div class="col-md-12 col-sm-12">
-                                                <div class="box box-primary">
-                                                    <div class="box-header with-border">
-                                                        <div class="box-title">
-                                                            <h3 class="box-title pull-left"><i class="fa fa-rupee"></i> Number of Employees to whom Salary Paid </h3>
-
-                                                        </div>
-                                                        @*<select id="AssesmentYear3" name="AssesmentYear3" class="   pull-right btn-xs"
-                                                                asp-items="@(new SelectList((IEnumerable<HRMS.Core.Entities.Master.AssesmentYear>)ViewBag.AssesmentYear,"Id","Name"))">
-                                                            <option value="">---Select One---</option>
-                                                        </select>*@
-                                                    </div>
-                                                    <div class="box-body">
-                                                        <canvas id="myChart-2" style="width:100%;height:300px;padding-left:20px;padding-right:20px"></canvas>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane" id="Number_of_Employees_to_whom_Incentive_Paid">
-                                        <div class="row" style="margin-top:0;">
-                                            <div class="col-md-12 col-sm-12">
-                                                <div class="box box-primary">
-                                                    <div class="box-header with-border">
-                                                        <div class="box-title">
-                                                            <h3 class="box-title pull-left"><i class="fa fa-rupee"></i> Number of Employees to whom Incentive Paid </h3>
-                                                        </div>
-                                                        @*<select id="AssesmentYear4" name="AssesmentYear4" class="   pull-right btn-xs"
-                                                                asp-items="@(new SelectList((IEnumerable<HRMS.Core.Entities.Master.AssesmentYear>)ViewBag.AssesmentYear,"Id","Name"))">
-                                                            <option value="">---Select One---</option>
-                                                        </select>*@
-                                                    </div>
-                                                    <div class="box-body">
-                                                        <canvas id="myChart-3" style="width:100%;height:300px;padding-left:20px;padding-right:20px"></canvas>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+    </section>
+    <section class="content">
+        <div class="row" style="margin-top:0;">
+            <div class="col-md-12 col-sm-12">
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <div class="box-title">
+                            <i class="fa fa-bar-chart "></i> Salary
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="row" style="margin-top:0;">
-                <div class="col-md-12 col-sm-12">
-                    <div class="box box-warning">
-                        <div class="box-header with-border">
-                            <div class="box-title">
-                                <i class="fa fa-search-plus"></i> Employee Tracking
-                            </div>
-                        </div>
-                        <div class="box-body">
-                            <div class="table-responsive">
-                                <div class="dataTables_wrapper" role="grid">
-                                    <table class="table table-condensed table-striped table-hover table-bordered table-body-nowrap table-head-nowrap dataTable" cellspacing="0" rules="all" border="1" id="example" style="border-collapse:collapse;" aria-describedby="cp_MainContent_widgetExitEmployee_grdExitEmployees_info">
+                    <div class="box-body">
+                        <div class="profile-nav nav-tabs-custom customNavigation">
+
+                            <ul id="nav-t" class="nav nav-tabs">
+                                <li class="active"><a href="#Monthly_Attendance_Graph" onclick="GetDetail(1)" data-toggle="tab">Monthly Attendance Graph</a></li>
+                                <li><a href="#Monthly_Gross_Salary_Incentive" onclick="GetDetail(2)" data-toggle="tab">Monthly Gross Salary & Incentive</a></li>
+                                <li><a href="#Number_of_Employees_to_whom_Salary_Paid " data-toggle="tab">Number of Employees to whom Salary Paid </a></li>
+                                <li><a href="#Number_of_Employees_to_whom_Incentive_Paid" data-toggle="tab">Number of Employees to whom Incentive Paid</a></li>
+
+                            </ul>
+                            <div class="tab-content">
+                                <div class="pro-overview tab-pane active" id="Monthly_Attendance_Graph">
+                                    <div id="container"></div>
+                                </div>
+                                <div class="tab-pane" id="Monthly_Gross_Salary_Incentive">
+                                    <table id="datatable" style="display:none">
                                         <thead>
-                                            <tr class="th-success" role="row">
-                                                <th>#</th>
-                                                <th>Name</th>
-                                                <th>Date</th>
-                                                <th>Status</th>
-                                                <th>In Time</th>
-                                                <th>In Location</th>
-                                                <th>Out Time</th>
-                                                <th>Out Location</th>
+                                            <tr>
+                                                <th></th>
+                                                <th>Gross Salary</th>
+                                                <th>Performance Incentives</th>
                                             </tr>
                                         </thead>
-                                        <tbody role="alert" aria-live="polite" aria-relevant="all">
+                                        <tbody>
+                                            <tr>
+                                                <th>Apr</th>
+                                                <td>116500018</td>
+                                                <td>18905792</td>
+                                            </tr>
+                                            <tr>
+                                                <th>May</th>
+                                                <td>112429557</td>
+                                                <td>16779774</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Jun</th>
+                                                <td>110892602</td>
+                                                <td>10015738</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Jul</th>
+                                                <td>126680702</td>
+                                                <td>13161981</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Aug</th>
+                                                <td>132873168</td>
+                                                <td>8895766</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Sep</th>
+                                                <td>143819752</td>
+                                                <td>9628087</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Oct</th>
+                                                <td>155044084</td>
+                                                <td>11027584</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Nov</th>
+                                                <td>149415537</td>
+                                                <td>14080574</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Dec</th>
+                                                <td>162666193</td>
+                                                <td>13698153</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Jan</th>
+                                                <td>176577642</td>
+                                                <td>19327455</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Feb</th>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Mar</th>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
                                         </tbody>
                                     </table>
+                                    <div id="container1"></div>
+                                </div>
+                                <div class="pro-overview tab-pane" id="Number_of_Employees_to_whom_Salary_Paid" data-select2-id="Number_of_Employees_to_whom_Salary_Paid">
+                                    <div id="container2"></div>
+                                </div>
+                                <div class="tab-pane" id="Number_of_Employees_to_whom_Incentive_Paid">
+                                    <div id="container3"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row" style="margin-top:0;">
-                <div class="col-md-12 col-sm-12">
-                    <div class="box box-danger" style="background-color: #dd4b39">
-                        <div class="box-header with-border">
-                            <div class="box-title" style="color:white">
-                                <i class="fa fa-birthday-cake"></i> Birthday and Work Anniversary
-                            </div>
-                        </div>
-                        <div class="box-body" style="background:url('/images/birthday.jpg'); padding:30px 30px 20px">
-                            <div class="profile-nav nav-tabs-custom customNavigation">
-                                <ul class="tabs">
-                                    <li class="active"><a href="#" onclick="getBirthDayandAnniversary(1);" data-toggle="tab">Birthday</a></li>
-                                    <li><a href="#" onclick="getBirthDayandAnniversary(2);" data-toggle="tab">Anniversary</a></li>
-                                </ul>
-                                <div class="tab-content">
-                                    <div class="pro-overview tab-pane active" id="tab-1">
+        </div>
+        <div id="div_details">
 
-                                    </div>
+        </div>
+        <div class="row" style="margin-top:0;">
+            <div class="col-md-12 col-sm-12">
+                <div class="box box-primary" style="background-color: #4291af">
+                    <div class="box-header with-border">
+                        <div class="box-title" style="color:white">
+                            <i class="fa fa-birthday-cake"></i> Birthday and Work Anniversary
+                        </div>
+                    </div>
+                    <div class="box-body" style="background:url('/images/birthday.jpg'); padding:30px 30px 20px">
+                        <div class="profile-nav nav-tabs-custom customNavigation">
+                            <br>
+                            <ul class="tabs">
+                                <li class="active"><a href="#" onclick="getBirthDayandAnniversary(1);" data-toggle="tab">Birthday</a></li>
+                                <li><a href="#" onclick="getBirthDayandAnniversary(2);" data-toggle="tab">Anniversary</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="pro-overview tab-pane active" id="tab-1">
 
                                 </div>
-                            </div>
 
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>
-        </section>
-    </div>
-    <script>
-        $(document).ready(function () {
-            getBirthDayandAnniversary(1);
+        </div>
+    </section>
+</div>
+<script>
+    $(document).ready(function () {
+        getBirthDayandAnniversary(1);
+        GetDetail(1);
+    });
+    function getBirthDayandAnniversary(Id) {
+        $('#divLoader').modal('show');
+        $.get("/Home/GetBirthDayAnniversary", { Id: Id }, function (data) {
+            $("#tab-1").html(data);
+            $('#divLoader').modal('hide');
         });
-        function getBirthDayandAnniversary(Id) {
-            $('#divLoader').modal('show');
-            $.get("/Home/GetBirthDayAnniversary", { Id: Id }, function (data) {
-                $("#tab-1").html(data);
-                $('#divLoader').modal('hide');
-            });
-        }
-    </script>
+    }
+    function GetDetail(event) {
+        $('#divLoader').modal('show');
+        var url = null;
+        if (event == 1)
+            url = "/Home/GetAttendanceDayWiseReport/"
+        else if (event == 2)
+            url = "/Home/GetPaidRegister/"
+        //else if (event == 3)
+        //    url = "/Home/"
+        //else if (event == 4)
+        //    url = "/Home/"
+        $.get(url, function (data) {
+            $("#div_details").html(data);
+            $('#divLoader').modal('hide');
 
-
-    <script>
-        $("#bar").click(function () {
-            $("#nav-t").slideDown();
-            $("#nav-t").fadeOut(3000);
         });
-    </script>
 
-    <environment include="Development">
-        <script src="~/HRMSJs/DashboardGraph.js"></script>
-    </environment>
-    <environment include="Production">
-        <script src="~/HRMSJs/DashboardGraph.js"></script>
-    </environment>
+    }
+</script>
+
+
+<script>
+    $("#bar").click(function () {
+        $("#nav-t").slideDown();
+        $("#nav-t").fadeOut(3000);
+    });
+</script>
+
+<environment include="Development">
+    <script src="~/HRMSJs/DashboardGraph.js"></script>
+</environment>
+<environment include="Production">
+    <script src="~/HRMSJs/DashboardGraph.js"></script>
+</environment>

@@ -1,0 +1,63 @@
+﻿@model HRMS.Core.ReqRespVm.RequestVm.ComputationOfTaxModel
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<div class="content-wrapper" style="min-height: 870px;">
+    @*@Html.BuildBreadcrumbNavigation()*@
+    <ol class="breadcrumb">
+        <li><a asp-action="Index" asp-controller="Home">Home</a></li>
+        <li>Payroll</li>
+        <li><a asp-action="Index" asp-controller="ComputationOfTaxReport">Tax Computation</a></li>
+    </ol>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row" style="margin-top:0;">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-cloud-download fa-lg text-primary"></i> &nbsp; Computation Of Tax Report
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post"
+                                      enctype="multipart/form-data"
+                                      asp-action="ExportComputationOfReport" asp-controller="ComputationOfTaxReport">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label asp-for="UploadFile"> Employee Code :</label> 
+                                                        <input type="file" asp-for="UploadFile" class="form-control input-sm" />
+                                                       
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label asp-for="FinancialYear">  Assesment Year :</label><em class="text-danger">*</em>
+                                                        <select class="form-control input-sm" asp-for="FinancialYear" asp-items="@(new SelectList(ViewBag.AssesmentYearList ,"Id","Name"))">
+                                                            <option value="">--Select One--</option>
+                                                        </select>
+                                                        <span asp-validation-for="FinancialYear" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group text-left">
+                                                        <label for="Action">Action:</label><br />
+                                                        <button type="submit" class="btn btn-primary btn-sm" title="Export Computation of Tax Report"><i class="fa fa-download"></i> Export</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

@@ -1,118 +1,127 @@
 ﻿@model HRMS.Core.ReqRespVm.RequestVm.EmployeeSalaryRegisterVM
- <style>
-     .ui-autocomplete {
-         max-height: 300px;
-         overflow-y: auto;
-         overflow-x: auto;
-     }
+<style>
+    .ui-autocomplete {
+        max-height: 300px;
+        overflow-y: auto;
+        overflow-x: auto;
+    }
 
-     html .ui-autocomplete {
-         max-height: 300px;
-     }
- </style>
+    html .ui-autocomplete {
+        max-height: 300px;
+    }
+</style>
 
-    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
-    <div class="content-wrapper" style="min-height: 870px;">
-        @Html.BuildBreadcrumbNavigation()
-        <section class="content">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="row" style="margin-top:0;">
-                        <div class="col-md-12 col-sm-12">
-                            <div class="box box-primary">
-                                <div class="box-header with-border">
-                                    <div class="box-title">
-                                        <i class="fa fa-cloud-download fa-lg text-primary"></i> &nbsp; Pay Slip
-                                    </div>
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<div class="content-wrapper" style="min-height: 870px;">
+
+    <ol class="breadcrumb">
+        <li><a asp-action="Index" asp-controller="Home">Home</a></li>
+        <li>Payroll</li>
+        <li><a asp-action="Index" asp-controller="EmployeePaySlip">Payslip</a></li>
+    </ol>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row" style="margin-top:0;">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-cloud-download fa-lg text-primary"></i> &nbsp; Pay Slip
                                 </div>
-                                <div class="box-body">
-                                    <form id="form" method="post"
-                                          enctype="multipart/form-data"
-                                          asp-action="DownloadPaySlip" asp-controller="EmployeePaySlip">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <div class="form-group">
-                                                            <label asp-for="EmployeeCode"> Employee :</label>
-                                                            <input type="text" class="form-control input-sm" asp-for="EmployeeCode" placeholder="Search Employee" />
-                                                        </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post"  
+                                      enctype="multipart/form-data"
+                                      asp-action="DownloadPaySlip" asp-controller="EmployeePaySlip">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label asp-for="EmployeeCode"> Employee :</label>
+                                                        <input type="text" class="form-control input-sm" asp-for="EmployeeCode" placeholder="Search Employee" />
                                                     </div>
-                                                    <div class="col-md-3">
-                                                        <div class="form-group">
-                                                            <label asp-for="UploadFile"> Employee :</label>
-                                                            <input type="file" class="form-control input-sm" asp-for="UploadFile" placeholder="Enter Month" />
-                                                        </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label asp-for="UploadFile"> Employee :</label>
+                                                        <input type="file" class="form-control input-sm" asp-for="UploadFile" placeholder="Enter Month" />
                                                     </div>
-                                                    <div class="col-md-2">
-                                                        <div class="form-group">
-                                                            <label asp-for="DateMonth"> Month :</label><em class="text-danger">*</em>
-                                                            <select class="form-control input-sm" asp-for="DateMonth" asp-items="@(Enumerable.Range(1, 12).Select(x => new SelectListItem { Value = x.ToString(), Text = System.Globalization.CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(x) }))">
-                                                                <option value="">----Select One----</option>
-                                                            </select>
-                                                            <span asp-validation-for="DateMonth" class="text-danger"></span>
-                                                        </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label asp-for="DateMonth"> Month :</label><em class="text-danger">*</em>
+                                                        <select class="form-control input-sm" asp-for="DateMonth" asp-items="@(Enumerable.Range(1, 12).Select(x => new SelectListItem { Value = x.ToString(), Text = System.Globalization.CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(x) }))">
+                                                            <option value="">----Select One----</option>
+                                                        </select>
+                                                        <span asp-validation-for="DateMonth" class="text-danger"></span>
                                                     </div>
-                                                    <div class="col-md-2">
-                                                        <div class="form-group">
-                                                            <label asp-for="DateYear">Year :</label><em class="text-danger">*</em>
-                                                            <select class="form-control input-sm" asp-for="DateYear" asp-items="@(new SelectList(ViewBag.AssesmentYearList ,"StartYear","StartYear"))">
-                                                                <option value="">----Select One----</option>
-                                                            </select>
-                                                            <span asp-validation-for="DateYear" class="text-danger"></span>
-                                                        </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label asp-for="DateYear">Year :</label><em class="text-danger">*</em>
+                                                        <select class="form-control input-sm" asp-for="DateYear" asp-items="@(new SelectList(ViewBag.AssesmentYearList ,"StartYear","StartYear"))">
+                                                            <option value="">----Select One----</option>
+                                                        </select>
+                                                        <span asp-validation-for="DateYear" class="text-danger"></span>
                                                     </div>
-                                                    <div class="col-md-2">
-                                                        <div class="form-group text-center">
-                                                            <label for="Action">Action:</label><br />
-                                                            <button type="submit" class="btn btn-primary btn-sm" title="Export Pay Slip"><i class="fa fa-download"></i> Export</button>
-                                                        </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group text-center">
+                                                        <label for="Action">Action:</label><br />
+                                                        <button type="submit" class="btn btn-primary btn-sm" id="btn-view" name="btnSubmit" value="View" title="View Pay Slip"><i class="fa fa-eye"></i> View</button>
+                                                        <button type="submit" class="btn btn-primary btn-sm"  name="btnSubmit" value="Download" title="Download Pay Slip"><i class="fa fa-download"></i> Download</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </form>
-                                </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-    </div>
- <script>
-     $(document).ready(function () {
-         $("#EmployeeCode").autocomplete({
-             source: function (request, response) {
-                 $.ajax({
-                     url: '/Common/getEmployeeAutoComplete',
-                     method:"POST",
+        </div>
+    </section>
+</div>
+<script>
+    $("#btn-view").click(function (e) {
+        $("#divLoader").show();  
+    });
+    $(document).ready(function () {
+        $("#EmployeeCode").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/Common/getEmployeeAutoComplete',
+                    method: "POST",
 
-                     data: { "term": request.term },
-                     dataType: "json",
-                     success: function (data) {
-                         response($.map(data, function (item) {
-                             
-                             return {
-                                 label: item.employeeName,
-                                 value: item.empCode,
-                                 employeeid: item.id
-                             };
-                         }))
-                     },
-                     error: function (xhr, textStatus, error) {
-                         alert(xhr.statusText);
-                     },
-                     failure: function (response) {
-                         alert("failure " + response.responseText);
-                     }
-                 });
-             },
-             select: function (e, i) {
-                 $("#EmployeeCode").text(i.item.value);
-             },
-             minLength: 3
-         });
-     });
- </script>
+                    data: { "term": request.term },
+                    dataType: "json",
+                    success: function (data) {
+                        response($.map(data, function (item) {
+
+                            return {
+                                label: item.employeeName,
+                                value: item.empCode,
+                                employeeid: item.id
+                            };
+                        }))
+                    },
+                    error: function (xhr, textStatus, error) {
+                        alert(xhr.statusText);
+                    },
+                    failure: function (response) {
+                        alert("failure " + response.responseText);
+                    }
+                });
+            },
+            select: function (e, i) {
+                $("#EmployeeCode").text(i.item.value);
+            },
+            minLength: 3
+        });
+    });
+</script>

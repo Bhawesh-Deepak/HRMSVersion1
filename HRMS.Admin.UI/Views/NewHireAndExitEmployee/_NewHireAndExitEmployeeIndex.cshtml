@@ -2,7 +2,12 @@
 
 
 <div class="content-wrapper" style="min-height: 870px;">
-    @Html.BuildBreadcrumbNavigation()
+    @*@Html.BuildBreadcrumbNavigation()*@
+    <ol class="breadcrumb">
+        <li><a asp-action="Index" asp-controller="Home">Home</a></li>
+        <li>Payroll</li>
+        <li><a asp-action="Index" asp-controller="NewHireAndExitEmployee">New Hire & Exit Employee</a></li>
+    </ol>
     <section class="content">
         <div class="row">
             <div class="col-md-12">
@@ -11,7 +16,7 @@
                         <div class="box box-primary">
                             <div class="box-header with-border">
                                 <div class="box-title">
-                                    <h3 class="box-title pull-left"><i class="fa fa-cloud-download fa-lg"></i> New Hire Employee</h3>
+                                    <h3 class="box-title pull-left"><i class="fa fa-cloud-download fa-lg text-primary"></i> New Hire And Exit Employee</h3>
 
                                 </div>
 
@@ -28,7 +33,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label asp-for="ToDate">From Date</label><span style="color:red">  *</span>
+                                            <label asp-for="ToDate">To Date</label><span style="color:red">  *</span>
                                             <input type="date" asp-for="ToDate" class="form-control" />
                                             <span asp-validation-for="ToDate" class="text-danger"></span>
                                         </div>

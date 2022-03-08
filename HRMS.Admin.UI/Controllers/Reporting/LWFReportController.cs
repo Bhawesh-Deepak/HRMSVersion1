@@ -15,6 +15,8 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using HRMS.Admin.UI.AuthenticateService;
+using OfficeOpenXml.Style;
+using System.Drawing;
 
 namespace HRMS.Admin.UI.Controllers.Reporting
 {
@@ -82,7 +84,7 @@ namespace HRMS.Admin.UI.Controllers.Reporting
                 }
                 Sheets.Cells["A2"].Value = "Employee Code";
                 Sheets.Cells["B2"].Value = "Employee Name";
-                Sheets.Cells["C2"].Value = "P T State";
+                Sheets.Cells["C2"].Value = "State";
                 Sheets.Cells["D2"].Value = "LWF ";
                 int row = 3;
                 foreach (var data in response)
@@ -93,6 +95,9 @@ namespace HRMS.Admin.UI.Controllers.Reporting
                     Sheets.Cells[string.Format("D{0}", row)].Value = data.SalaryAmount;
                     row++;
                 }
+                Sheets.Cells["A1:" + "D1"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                Sheets.Cells["A1:" + "D1"].Style.Fill.BackgroundColor.SetColor(Color.LightBlue);
+
                 var stream = new MemoryStream(Eps.GetAsByteArray());
                 return File(stream.ToArray(), "application/vnd.ms-excel", sFileName);
             }

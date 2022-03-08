@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ using HRMS.Services.Repository.GenericRepository;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
+using OfficeOpenXml.Style;
 
 namespace HRMS.Admin.UI.Controllers.Posting
 {
@@ -79,6 +81,10 @@ namespace HRMS.Admin.UI.Controllers.Posting
                 Sheets.Cells[cells[cell] + "2"].Value = "LegalEntity";
                 Sheets.Cells[cells[cell + 1] + "2"].Value = "Department";
                 Sheets.Cells[cells[cell + 2] + "2"].Value = "Designation";
+                Sheets.Cells["A1:" + cells[cell + 2] + "1"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                Sheets.Cells["A1:" + cells[cell + 2] + "1"].Style.Fill.BackgroundColor.SetColor(Color.LightBlue);
+                Sheets.Cells["A1:" + cells[cell + 2] + "2"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                Sheets.Cells["A1:" + cells[cell + 2] + "2"].Style.Fill.BackgroundColor.SetColor(Color.LightBlue);
                 var stream = new MemoryStream(Eps.GetAsByteArray());
                 return File(stream.ToArray(), "application/vnd.ms-excel", sFileName);
             }
@@ -120,6 +126,10 @@ namespace HRMS.Admin.UI.Controllers.Posting
                 Sheets.Cells[cells[cell + 1] + "2"].Value = "Department";
                 Sheets.Cells[cells[cell + 2] + "2"].Value = "Designation";
                 Sheets.Cells[cells[cell + 3] + "2"].Value = "Financial Year";
+                Sheets.Cells["A1:" + cells[cell + 2] + "1"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                Sheets.Cells["A1:" + cells[cell + 2] + "1"].Style.Fill.BackgroundColor.SetColor(Color.LightBlue);
+                Sheets.Cells["A1:" + cells[cell + 2] + "2"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                Sheets.Cells["A1:" + cells[cell + 2] + "2"].Style.Fill.BackgroundColor.SetColor(Color.LightBlue);
                 var stream = new MemoryStream(Eps.GetAsByteArray());
                 return File(stream.ToArray(), "application/vnd.ms-excel", sFileName);
             }

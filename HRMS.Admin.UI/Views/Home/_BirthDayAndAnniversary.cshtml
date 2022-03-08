@@ -1,50 +1,76 @@
 ﻿@model IEnumerable<HRMS.Core.ReqRespVm.Response.Reporting.BirthdayAnniversaryVM>
-
+@{
+    int birthdayparams = Convert.ToInt32(TempData["BirtdayParameter"]);
+}
+<input type="hidden" id="hdnBirthdayParams" name="hdnBirthdayParams" value="@birthdayparams" />
 <div class="row" style="margin-top:0;">
     <div class="col-md-12 col-sm-12">
         <div class="owl-carousel owl-theme" id="owl-carousel-1">
             @foreach (var item in Model)
             {
-            <div class="item">
-                <div class="border">
-                    <img src="@item.ProfilePic" alt="" class="img-responsive">
-                    <div class="p-4">
-                        <h5>@item.EmployeeName</h5>
-                        <h6>@item.DepartmentName</h6>
-                        <a type="button" class="btn btn-primary" href="#">Send Wishes</a>
+                <div class="item">
+                    <div class="border">
+                        <img src="@item.ProfilePic" alt="" class="img-responsive">
+                        <div class="p-4">
+                            <h5>@item.EmployeeName</h5>
+                            <h6>@item.DepartmentName</h6>
+                            <a class="btn btn-success" href="javscript:void(0)" onclick="SendWishes(@item.Id)">Send Wishes</a>
+                        </div>
                     </div>
                 </div>
-            </div>
             }
         </div>
     </div>
 </div>
 <script>
     $('#owl-carousel-1').owlCarousel({
-		margin: 10,
-		nav: true,
-		loop: true,
-		slideBy:1,
+        margin: 10,
+        nav: true,
+        loop: true,
+        slideBy: 1,
         autoplay: true,
         rtl: false,
-		autoplayTimeout:5000,
-		autoplayHoverPause:true,
-		responsive: {
-			0: {
-			items: 1
-			},
+        autoplayTimeout: 5000,
+        autoplayHoverPause: true,
+        responsive: {
+            0: {
+                items: 1
+            },
             480: {
-			items: 2
-			},
-			768: {
-			items: 3
-			},
-			992: {
-			items:4
-			},
+                items: 2
+            },
+            768: {
+                items: 3
+            },
+            992: {
+                items: 4
+            },
             1200: {
-			items:5
-			}
-		}
-		});
+                items: 5
+            }
+        }
+    });
+    function SendWishes(ids) {
+        var birthdaymessage = null;
+        var headertext = null;
+        var params = $("#hdnBirthdayParams").val();
+        if (params == 1) {
+            headertext = 'Send Birthday wishes';
+            birthdaymessage = 'Wishing you the best on your birthday and everything good in the year ahead.';
+        }
+        else {
+            headertext = 'Send Anniversary wishes';
+            birthdaymessage = 'On this blissful and charming day of your Corporate anniversary.. may you continue the journey of success with pride!';
+        }
+        $('#divLoader').modal('show');
+        $("#modalTitle").text(headertext);
+        $.get("/Home/SendBirtdayAnniversaryWises/", { id: ids }, function (response) {
+            $("#divHRMSCreate").html(response);
+            $("#divModalPop").show();
+            $("#txtmessage").val(birthdaymessage);
+
+        }).done(function () {
+            $('#divLoader').modal('hide');
+        });
+    }
 </script>

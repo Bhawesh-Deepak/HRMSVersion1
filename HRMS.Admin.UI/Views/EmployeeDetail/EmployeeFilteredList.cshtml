@@ -73,21 +73,21 @@
 
 @if (Model.Any())
 {
-   
-<div class="row">
-    <div class="col-md-2">
-        
-        <input type="text" class="form-control input-sm" placeholder="Emp Code" id="textEmpCode" name="textEmpCode" />
-    </div>
-    <div class="col-sm-1">
 
-         
-        <button type="button" onclick="FiltereEmployee()" class="btn btn-primary   btn-sm" id="btn-employeesearch">
-            <i class="fa fa-search"></i>
-        </button>
+    <div class="row">
+        <div class="col-md-2">
 
+            <input type="text" class="form-control input-sm" placeholder="Emp Code" id="textEmpCode" name="textEmpCode" />
+        </div>
+        <div class="col-sm-1">
+
+
+            <button type="button" onclick="FiltereEmployee()" class="btn btn-primary   btn-sm" id="btn-employeesearch">
+                <i class="fa fa-search"></i>
+            </button>
+
+        </div>
     </div>
-</div>
     <br />
     @Html.HRMSTableHeader(pageHeaderModel)
     <div class="table-fixed-header has-v-scroll _done">
@@ -191,6 +191,18 @@ else
 <script>
 
     function fn_GetDrugSearchUrl() {
-        return "/EmployeeDetail/GetFilteredData";
-    }
+
+        var legalEntity = $("#LegalEntity").val();
+        var department = $("#DepartmentName").val();
+        var designation = $("#DesignationName").val();
+        var pandlName = $("#PAndLHeadName").val();
+        var doj = $("#txtdoj").val();
+        var location = $("#Location").val();
+        var status = $("#ddlisactive").val();
+        debugger;
+        var url = "/EmployeeDetail/GetFilteredData/?LeagalEntity=" + legalEntity + "&DepartmentName=" + department + "&DesignationName=" + designation + "&PAndLHeadName=" + pandlName + "&JoiningDate=" + doj + "&Location=" + location + "&IsActive=" + status;
+        return url;
+    };
+
+
 </script>

@@ -71,6 +71,15 @@ namespace HRMS.Admin.UI.Controllers.Organisation
         {
             try
             {
+                int pageSizes = 0;
+                if (pageIndex == 0)
+                    pageIndex = 1;
+                if ((int)pageSize == 0)
+                    pageSizes = 10;
+                if (sortBy == null)
+                    sortBy = "Name";
+                if (sortOrder == null)
+                    sortOrder = "ASC";
                 searchModelEntity.PageNo = pageIndex;
                 searchModelEntity.PageSize = (int)pageSize;
                 searchModelEntity.SortColumn = sortBy;

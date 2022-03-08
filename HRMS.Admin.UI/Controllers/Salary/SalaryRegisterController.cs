@@ -11,6 +11,7 @@ using HRMS.Core.ReqRespVm.SqlParams;
 using HRMS.Services.Implementation.SqlConstant;
 using HRMS.Services.Repository.GenericRepository;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
@@ -53,32 +54,24 @@ namespace HRMS.Admin.UI.Controllers.Salary
             }
         }
         [HttpPost]
-        public async Task<IActionResult> ExportSalaryRegister(EmployeeSalaryRegisterVM model)
+        public async Task<IActionResult> ExportSalaryRegister(EmployeeSalaryRegisterVM model, IFormFile UploadFile)
         {
             try
             {
-                List<SalaryRegisterVM> response = null;
-                if (model.UploadFile == null)
+
+                string empCode = string.Empty;
+                if (UploadFile != null)
+                    empCode = new ReadEmployeeCode().GetSalaryRegisterEmpCodeDetails(model.UploadFile);
+
+                var request = new SalaryRegisterByEmployeeCodeParams()
                 {
-                    var request = new SalaryRegisterParams()
-                    {
-                        DateMonth = model.DateMonth,
-                        DateYear = model.DateYear,
-                    };
-                    response = (await Task.Run(() => _ISalaryRegisterParamsRepository.GetAll<SalaryRegisterVM>(SqlQuery.GetEmployeeSalary, request))).ToList();
-                }
-                else
-                {
-                    var empresponse = new ReadEmployeeCode().GetSalaryRegisterEmpCodeDetails(model.UploadFile);
-                    var request = new SalaryRegisterByEmployeeCodeParams()
-                    {
-                        DateMonth = model.DateMonth,
-                        DateYear = model.DateYear,
-                        EmployeeCode = empresponse
-                    };
-                    response = (await Task.Run(() => _ISalaryRegisterByEmployeeCodeParamsRepository.GetAll<SalaryRegisterVM>(SqlQuery.GetEmployeeSalaryByCode, request))).ToList();
-                }
-                
+                    DateMonth = model.DateMonth,
+                    DateYear = model.DateYear,
+                    EmployeeCode = empCode
+                };
+                var response = (await Task.Run(() => _ISalaryRegisterByEmployeeCodeParamsRepository.GetAll<SalaryRegisterVM>(SqlQuery.GetSalaryRegisterBySalaryCalculation, request))).ToList();
+
+
                 string sWebRootFolder = _IHostingEnviroment.WebRootPath;
                 string sFileName = @"EmployeeSalaryRegister.xlsx";
                 string URL = string.Format("{0}://{1}/{2}", Request.Scheme, Request.Host, sFileName);
@@ -92,8 +85,8 @@ namespace HRMS.Admin.UI.Controllers.Salary
                 ExcelWorksheet Sheets = Eps.Workbook.Worksheets.Add("EmployeeSalary");
                 Sheets.View.FreezePanes(1, 4);
                 Sheets.Cells["A1:DD1"].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                Sheets.Cells["A1:DD1"].Style.Fill.BackgroundColor.SetColor(Color.Gray);
-                Eps.Encryption.Password = "sqy" + model.DateMonth + "" + model.DateYear;
+                Sheets.Cells["A1:DD1"].Style.Fill.BackgroundColor.SetColor(Color.LightBlue);
+                 
                 Sheets.Cells["A1"].Value = "Month";
                 Sheets.Cells["B1"].Value = "Year";
                 Sheets.Cells["C1"].Value = "Employee_Code";
@@ -211,12 +204,13 @@ namespace HRMS.Admin.UI.Controllers.Salary
                         }
                         BB++;
                     }
-                    decimal TotalDeduction = item.Where(x => x.ComponentType == 2).Sum(x => x.SalaryAmount);                    
+                    decimal TotalDeduction = item.Where(x => x.ComponentType == 2).Sum(x => x.SalaryAmount);
                     Sheets.Cells[string.Format("DC{0}", row)].Value = Math.Round(TotalDeduction, MidpointRounding.AwayFromZero);
                     Sheets.Cells[string.Format("DD{0}", row)].Value = Math.Round((TotalEarning - TotalDeduction), MidpointRounding.AwayFromZero);
 
                     row++;
                 }
+
                 var stream = new MemoryStream(Eps.GetAsByteArray());
                 return File(stream.ToArray(), "application/vnd.ms-excel", sFileName);
             }
@@ -226,15 +220,13 @@ namespace HRMS.Admin.UI.Controllers.Salary
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }
-
-
         }
         private async Task PopulateViewBag()
         {
             var assesmentyearResponse = await _IAssesmentYearRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
             if (assesmentyearResponse.ResponseStatus == ResponseStatus.Success)
                 ViewBag.AssesmentYearList = assesmentyearResponse.Entities;
-
         }
     }
 }
+

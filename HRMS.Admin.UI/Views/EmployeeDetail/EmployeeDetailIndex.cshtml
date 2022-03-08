@@ -1,5 +1,10 @@
 ﻿ <div class="content-wrapper" style="min-height: 870px;">
-    @Html.BuildBreadcrumbNavigation()
+    @*@Html.BuildBreadcrumbNavigation()*@
+    <ol class="breadcrumb">
+        <li><a asp-action="Index" asp-controller="Home">Home</a></li>
+        <li>Talent</li>
+        <li><a asp-action="Index" asp-controller="EmployeeDetail">Employee Profile</a></li>
+    </ol>
     <section class="content">
         <div class="row">
             <div class="col-md-12">
@@ -214,12 +219,12 @@
         let doj = $("#txtdoj").val();
         let location = $("#Location").val();
         let status = $("#ddlisactive").val();
-        let EmpCode = $("#textEmpCode").val();
-        debugger;
+         
+       
         $.get("/EmployeeDetail/GetFilteredData", {
             LeagalEntity: legalEntity, DepartmentName: department,
             DesignationName: designation, PAndLHeadName: pandlName,
-            JoiningDate: doj, Location: location, IsActive: status, EmpCode: EmpCode
+            JoiningDate: doj, Location: location, IsActive: status
         }, function (data) {
             $("#divEmployeeDetails").html(data);
         });

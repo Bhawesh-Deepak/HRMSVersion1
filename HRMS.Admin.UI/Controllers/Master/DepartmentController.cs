@@ -23,12 +23,15 @@ namespace HRMS.Admin.UI.Controllers.Master
         private readonly IGenericRepository<Department, int> _IDepartmentRepository;
         private readonly IGenericRepository<Branch, int> _IBranchRepository;
         private readonly IGenericRepository<Designation, int> _IDesignationRepository;
+        private readonly IGenericRepository<LegalEntity, int> _ILegalEntityRepository;
         public DepartmentController(IGenericRepository<Department, int> departmentRepo,
-            IGenericRepository<Branch, int> branchRepo, IGenericRepository<Designation, int> designationRepo)
+            IGenericRepository<Branch, int> branchRepo, IGenericRepository<Designation, int> designationRepo,
+            IGenericRepository<LegalEntity, int> legalentityRepo)
         {
             _IDepartmentRepository = departmentRepo;
             _IBranchRepository = branchRepo;
             _IDesignationRepository = designationRepo;
+            _ILegalEntityRepository = legalentityRepo;
         }
         public async Task<IActionResult> Index()
         {
@@ -52,16 +55,18 @@ namespace HRMS.Admin.UI.Controllers.Master
                 var departmentresponse = await _IDepartmentRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
                 var designationresponse = await _IDesignationRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
                 var branchresponse = await _IBranchRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+                var legalentityresponse = await _ILegalEntityRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
                 var responseDetails = (from department in departmentresponse.Entities
                                        join designtion in designationresponse.Entities on department.Id equals designtion.DepartmentId
                                        join branch in branchresponse.Entities on department.BranchId equals branch.Id
+                                       join legal in legalentityresponse.Entities on branch.CompanyId equals legal.Id
                                        select new DepartmentAndDesignationVM
                                        {
                                            Id = department.Id,
                                            Name = department.Name,
                                            Code = department.Code,
                                            BranchId = branch.Id,
-                                           BranchName = branch.Name,
+                                           BranchName = legal.Name,//branch.Name+" ( "+legal.Name+" ) ",
                                            BranchCode = branch.Code,
                                            DesignationId = designtion.Id,
                                            DesignationName = designtion.Name,
@@ -260,8 +265,19 @@ namespace HRMS.Admin.UI.Controllers.Master
         private async Task PopulateViewBag()
         {
             var branchResponse = await _IBranchRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+            var legalentity = await _ILegalEntityRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+            var responseDetails = (from branch in branchResponse.Entities
+                                   join legal in legalentity.Entities on branch.CompanyId equals legal.Id
+                                   
+                                   select new Branch
+                                   {
+                                       Id = branch.Id,
+                                       Name = branch.Code+" ( "+legal.Name+" ) ",
+                                      
+                                   }).ToList();
+
             if (branchResponse.ResponseStatus == ResponseStatus.Success)
-                ViewBag.BranchList = branchResponse.Entities;
+                ViewBag.BranchList = responseDetails.ToList();
         }
 
     }

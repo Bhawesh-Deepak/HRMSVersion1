@@ -5,7 +5,12 @@
     <script src="~/resources/dist/multiselect/js/bootstrap-select.js"></script>
 
     <div class="content-wrapper" style="min-height: 870px;">
-        @Html.BuildBreadcrumbNavigation()
+        @*@Html.BuildBreadcrumbNavigation()*@
+        <ol class="breadcrumb">
+            <li><a asp-action="Index" asp-controller="Home">Home</a></li>
+            <li>HR</li>
+            <li><a asp-action="Index" asp-controller="CompanyHolidays">List Of Holidays</a></li>
+        </ol>
         <section class="content">
             <div>
                 <div>

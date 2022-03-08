@@ -53,7 +53,7 @@
             crossorigin="anonymous"></script>
 
     <script src="~/js/CustomJqGrid.js"></script>
-     
+
     <link href="~/resources/dist/css/LayoutCustom.css" rel="stylesheet" />
 
     <link href="~/resources/plugins/jQueryUI/jquery-ui.min.css" rel="stylesheet" />
@@ -70,17 +70,16 @@
     <link href="~/resources/dist/css/iconmoon.css" rel="stylesheet" />
     <link href="~/resources/dist/css/index.css?v=1.2" rel="stylesheet" />
     <script src="~/resources/dist/js/pie-chart.js"></script>
-   
 
-
+    
 </head>
 
-<body class="skin-blue sidebar-mini" style="">
+<body class="skin-blue sidebar-mini" style="" onLoad="noBack();" onpageshow="if (event.persisted) noBack();" onUnload="">
 
 
     <div class="wrapper">
         @await Component.InvokeAsync("HeaderMenu")
-        
+
 
 
         @await Component.InvokeAsync("MenuSubMenu")
@@ -100,7 +99,7 @@
 
 </body>
 </html>
- 
+
 <script>
     $('#example').dataTable({
         "iDisplayLength": 10,
@@ -130,10 +129,33 @@
         })
     }
 
-   
+
 </script>
 @*<script type="text/javascript">
     $(document).ready(function () {
+         
+        document.onkeypress = function (event) {
+            event = (event || window.event);
+            if (event.keyCode == 123) {
+                return false;
+            }
+        }
+        document.onmousedown = function (event) {
+            event = (event || window.event);
+            if (event.keyCode == 123) {
+                return false;
+            }
+        }
+        document.onkeydown = function (event) {
+            event = (event || window.event);
+            if (event.keyCode == 123) {
+                return false;
+            }
+        }
+        window.history.forward();
+        function noBack() {
+            window.history.forward();
+        }
         $(document)[0].oncontextmenu = function () { return false; }
         $(document).mousedown(function (e) {
             if (e.button == 2) {

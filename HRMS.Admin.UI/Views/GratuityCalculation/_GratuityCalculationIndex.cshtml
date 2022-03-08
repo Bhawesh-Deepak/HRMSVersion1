@@ -1,0 +1,129 @@
+﻿<style>
+    .ui-autocomplete {
+        max-height: 300px;
+        overflow-y: auto;
+        overflow-x: auto;
+    }
+
+    html .ui-autocomplete {
+        max-height: 300px;
+    }
+</style>
+<div class="content-wrapper" style="min-height: 870px;">
+    <ol class="breadcrumb">
+        <li><a asp-action="Index" asp-controller="Home">Home</a></li>
+        <li>Compliance</li>
+        <li><a asp-action="Index" asp-controller="GratuityCalculation">Gratuity Calculation</a></li>
+    </ol>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-calculator fa-lg"></i>  Gratuity Calculation &nbsp;
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="EmpCode">Employee Code</label><span style="color:red">  *</span>
+                                            <input type="text" class="form-control" id="EmployeeCode" name="EmployeeCode" placeholder="Employee Code" />
+                                            <span id="lblEmployeeCode" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="LeavingDate">Date of Leaving</label><span style="color:red">  *</span>
+                                            <input type="date" class="form-control" id="LeavingDate" name="LeavingDate" />
+                                            <span id="lblLeavingDate" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 pull-right">
+                                        <button type="button" id="btn-Calculate" class="btn btn-primary pull-right"> <i class="fa fa-calculator"></i> Calculate</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6" id="divGraduatyCalculate">
+                
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+    $("#btn-Calculate").click(function () {
+        var EmpCode = $("#EmployeeCode").val();
+        var LeavingDate = $("#LeavingDate").val();
+        if (EmpCode == null || EmpCode == "") {
+            $('#EmployeeCode').css('border-color', 'red');
+            $('#lblEmployeeCode').text('this field is required.');
+            return false;
+        }
+        else {
+            $('#EmployeeCode').css('border-color', '');
+            $('#lblEmployeeCode').text('');
+        }
+        if (LeavingDate == null || LeavingDate == "") {
+            $('#LeavingDate').css('border-color', 'red');
+            $('#lblLeavingDate').text('this field is required.');
+            return false;
+        }
+        else {
+            $('#LeavingDate').css('border-color', '');
+            $('#lblLeavingDate').text('');
+            $('#divLoader').modal('show');
+            $.get("/GratuityCalculation/CalculateGratuity/", { EmpCode: EmpCode, DateOfLeaving: LeavingDate }, function (response) {
+                $("#divGraduatyCalculate").html(response);
+                
+            }).done(function () {
+                $('#divLoader').modal('hide');
+            });
+
+        }
+    });
+    $(document).ready(function () {
+        $("#EmployeeCode").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/Common/getEmployeeAutoComplete',
+                    method: "POST",
+
+                    data: { "term": request.term },
+                    dataType: "json",
+                    success: function (data) {
+                        response($.map(data, function (item) {
+
+                            return {
+                                label: item.employeeName,
+                                value: item.empCode,
+                                employeeid: item.id
+                            };
+                        }))
+                    },
+                    error: function (xhr, textStatus, error) {
+                        alert(xhr.statusText);
+                    },
+                    failure: function (response) {
+                        alert("failure " + response.responseText);
+                    }
+                });
+            },
+            select: function (e, i) {
+                $("#EmployeeCode").text(i.item.value);
+            },
+            minLength: 3
+        });
+    });
+</script>
