@@ -100,6 +100,7 @@ namespace HRMS.Core.Entities.Common
         public virtual DbSet<Award> Awards { get; set; }
         public virtual DbSet<PerformanceIndication> PerformanceIndications { get; set; }
         public virtual DbSet<EmployeeTentitiveTDS> EmployeeTentitiveTDSs { get; set; }
+        public virtual DbSet<EmployeeForm16Detail> EmployeeForm16Details { get; set; }
         #endregion
     }
 }
