@@ -1,4 +1,5 @@
-﻿using HRMS.Core.Entities.Payroll;
+﻿using HRMS.Core.Entities.Common;
+using HRMS.Core.Entities.Payroll;
 using HRMS.Core.ReqRespVm.SqlParams;
 using HRMS.Services.Implementation.SqlConstant;
 using HRMS.Services.Repository.GenericRepository;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace HRMS.API.Controllers.EmployeeMasterDetails
 {
-    [Route("HRMS/V1/[controller]/[action]")]
+    [Route("HRMS/[controller]/[action]")]
     [ApiController]
     public class EmployeeMasterController : ControllerBase
     {
@@ -26,12 +27,25 @@ namespace HRMS.API.Controllers.EmployeeMasterDetails
         [Consumes("application/json")]
         public async Task<IActionResult> EmployeeProfile(int Id)
         {
-            var empParams = new EmployeeSingleDetailParam()
+            try
             {
-                Id = Id
-            };
-            var response = _IEmployeeSingleDetailRepository.GetAll<EmployeeDetail>(SqlQuery.GetEmployeeSingleDetails, empParams);
-            return Ok(response);
+                var empParams = new EmployeeSingleDetailParam()
+                {
+                    Id = Id
+                };
+
+                var response = _IEmployeeSingleDetailRepository.GetAll<EmployeeDetail>
+                    (SqlQuery.GetEmployeeSingleDetails, empParams);
+
+                return await Task.Run(()=> Ok(new Helpers.ResponseEntityList<EmployeeDetail>
+                    (System.Net.HttpStatusCode.OK, ResponseStatus.Success.ToString(), response).GetResponseEntityList())) ;
+            }
+            catch (Exception ex) 
+            {
+                return await Task.Run(()=> BadRequest(new Helpers.ResponseEntityList<EmployeeDetail>
+                    (System.Net.HttpStatusCode.InternalServerError, ResponseStatus.DataBaseException.ToString(), null)
+                    .GetResponseEntityList()));
+            }
         }
     }
 }

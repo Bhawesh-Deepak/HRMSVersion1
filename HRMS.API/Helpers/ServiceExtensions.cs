@@ -10,6 +10,7 @@ namespace HRMS.API.Helpers
         public static void AddService(this IServiceCollection service)
         {
             service.AddTransient(typeof(IGenericRepository<,>), typeof(Implementation<,>));
+            service.AddScoped(typeof(IDapperRepository<>), typeof(DapperImplementation<>));
         }
 
     }

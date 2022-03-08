@@ -71,7 +71,7 @@ namespace HRMS.Services.Implementation.GenericImplementation
             }
             catch(Exception ex)
             {
-                return null;
+                throw new Exception(ex.Message,ex);
             }
         }
         public DbConnection GetDbconnection()
