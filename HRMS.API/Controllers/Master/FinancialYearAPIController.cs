@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace HRMS.API.Controllers.Master
 {
-    [Route("HRMS/[controller]/[action]")]
+    [Route("api/HRMS/[controller]/[action]")]
     [ApiController]
     public class FinancialYearAPIController : ControllerBase
     {
@@ -29,7 +29,7 @@ namespace HRMS.API.Controllers.Master
             {
                 var models = await _IAssesmentYearRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
 
-                return new APIResponseHelper<AssesmentYear, int>().GetResponse(models);
+                return Ok(models.Entities); //new APIResponseHelper<AssesmentYear, int>().GetResponse(models);
             }
             catch (Exception ex)
             {

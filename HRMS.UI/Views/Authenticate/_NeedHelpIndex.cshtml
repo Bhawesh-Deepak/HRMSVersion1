@@ -1,0 +1,42 @@
+﻿@model HRMS.Core.ReqRespVm.RequestVm.NeedSupport.NeedSupportVM
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+    <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+          data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+          asp-action="NeedHelpPost" asp-controller="Authenticate" data-ajax-success="Success">
+        <div class="input-group mt-3 mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            <input type="text" class="form-control" asp-for="Name" /><br />
+
+        </div>
+        <span asp-validation-for="Name" class="text-danger"></span>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+            </div>
+            <input type="text" class="form-control" asp-for="Email" /><br />
+
+        </div>
+        <span asp-validation-for="Email" class="text-danger"></span>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-hashtag"></i></span>
+            </div>
+            <input type="text" class="form-control" asp-for="EmpCode" /><br />
+
+        </div>
+        <span asp-validation-for="EmpCode" class="text-danger"></span>
+
+        <div class="input-group mb-3">
+            <textarea class="form-control" rows="5" placeholder="Message" asp-for="Message"></textarea><br />
+
+        </div>
+        <span asp-validation-for="Message" class="text-danger"></span>
+
+        <button type="submit" class="db-btn sub-btn">Submit</button>
+    </form>
