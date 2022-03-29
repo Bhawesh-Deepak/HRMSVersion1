@@ -1,157 +1,96 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor;
+@using HRMS.UI.Helpers;
+@using HRMS.Core.Entities.Organisation;
+@using HRMS.Core.Entities.Payroll;
+@{
+    var companyDetails = HttpContextAccessor.HttpContext.Session.GetObjectFromJson<Company>("companyDetails");
+    var todayDate = DateTime.Now.ToLongDateString();
+    var employeeName = HttpContextAccessor.HttpContext.Session.GetString("UserName");
+    var roleId = HttpContextAccessor.HttpContext.Session.GetString("RoleId");
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - HRMS.UI</title>
+    <title>@companyDetails.Name</title>
 
-    <link rel="stylesheet" href="~/wp-contents/assests/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="~/wp-contents/assests/css/metisMenu.min.css" />
-    <link rel="stylesheet" href="~/wp-contents/assests/css/animate.min.css" />
-    <link rel="stylesheet" href="~/wp-contents/assests/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/wp-contents/assests/css/pe-icon-7-stroke.min.css" />
-    <link rel="stylesheet" href="~/wp-contents/assests/css/helper.min.css" />
-    <link href="~/wp-contents/assests/css/style.css?v=02.07" rel="stylesheet" />
-    <link href="~/wp-contents/assests/css/custom.css?v=24.01" rel="stylesheet" />
-    <script src="~/wp-contents/assests/chart/d3jsChart/js/jquery-3.3.1.min.js"></script>
-    <script src="~/wp-contents/assests/js/jquery-ui.min.js" type="13282ad51c1692550bc95cf8-text/javascript"></script>
-    <script src="~/wp-contents/assests/js/jquery.slimscroll.min.js" type="13282ad51c1692550bc95cf8-text/javascript"></script>
-    <script src="~/wp-contents/assests/js/metisMenu.min.js" type="13282ad51c1692550bc95cf8-text/javascript"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="~/wp-contents/assests/js/homer.js" type="13282ad51c1692550bc95cf8-text/javascript"></script>
-    <link href="~/wp-contents/assests/css/roster.css?v=23.15" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="@companyDetails.FavIcon" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="~/wp-contents/assets/css/fontawesome.css">
+    <link rel="stylesheet" type="text/css" href="~/wp-contents/assets/css/icofont.css">
+    <link rel="stylesheet" type="text/css" href="~/wp-contents/assets/css/themify.css">
+    <link rel="stylesheet" type="text/css" href="~/wp-contents/assets/css/flag-icon.css">
+    <link rel="stylesheet" type="text/css" href="~/wp-contents/assets/css/feather-icon.css">
+    <link rel="stylesheet" type="text/css" href="~/wp-contents/assets/css/animate.css">
+    <link rel="stylesheet" type="text/css" href="~/wp-contents/assets/css/chartist.css">
+    <link rel="stylesheet" type="text/css" href="~/wp-contents/assets/css/owlcarousel.css">
+    <link rel="stylesheet" type="text/css" href="~/wp-contents/assets/css/prism.css">
+    <link rel="stylesheet" type="text/css" href="~/wp-contents/assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="~/wp-contents/assets/css/style.css">
+    <link rel="stylesheet" href="~/wp-contents/assets/css/color-1.css" media="screen" id="color">
+    <link rel="stylesheet" type="text/css" href="~/wp-contents/assets/css/calendar.css">
+    <link rel="stylesheet" type="text/css" href="~/wp-contents/assets/css/responsive.css">
 
-
-    <style>
-        .fileInput {
-            border-bottom: 4px solid lightgray;
-            border-right: 4px solid lightgray;
-            border-top: 1px solid black;
-            border-left: 1px solid black;
-            padding: 10px;
-            margin: 15px;
-            cursor: pointer;
-        }
-
-        .imgPreview {
-            text-align: center;
-            margin: 5px 15px;
-            height: 150px;
-            width: 150px;
-            border-left: 1px solid gray;
-            border-right: 1px solid gray;
-            border-top: 5px solid gray;
-            border-bottom: 5px solid gray;
-        }
-
-        .imageBox {
-            height: 150px;
-            width: 150px;
-        }
-
-        .attendanceLegend table {
-            background-color: white;
-        }
-
-        .myModal.myModal2 .modal-dialog {
-            width: 913px !important;
-        }
-
-        #view-regulize .modal-dialog {
-            margin-top: 30px;
-        }
-
-        #view-regulize .modal-body {
-            max-height: 480px;
-            overflow: hidden;
-            overflow-y: auto;
-        }
-    </style>
 </head>
 <body>
-    <div id="header">
-        <div class="color-line"> </div>
-        <div id="logo" class="light-version"><img src="~/wp-contents/assests/img/logo.png" alt=""> </div>
-        <nav role="navigation">
-            <div class="header-link hide-menu"><i class="fa fa-bars"></i></div>
-            <div class="small-logo"><img src="~/wp-contents/assests/img/logo.png" alt=""></div>
-            <form role="search" class="navbar-form-custom" method="post" action="#">
-            </form>
-            <div class="mobile-menu">
-                <button type="button" class="navbar-toggle mobile-menu-toggle" data-toggle="collapse" data-target="#mobile-collapse"> <i class="fa fa-chevron-down"></i> </button>
-                <div class="collapse mobile-navbar" id="mobile-collapse">
-                    <ul class="nav navbar-nav">
-                        <li> <a href="/Home/Logout">Logout</a> </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="navbar-right">
-                <ul class="nav navbar-nav no-borders">
-                    <li class="dropdown"> <a href="/Home/Logout"> <i class="fa fa-power-off"></i> </a> </li>
-                </ul>
-            </div>
-        </nav>
+    <div class="loader-wrapper">
+        <div class="theme-loader">
+            <div class="loader-p"></div>
+        </div>
     </div>
+    <div class="page-wrapper compact-wrapper" id="pageWrapper">
+        @await Component.InvokeAsync("HeaderMenu")
+        <div class="page-body-wrapper sidebar-icon">
+            @await Component.InvokeAsync("MenuSubMenu")
+            @RenderBody()
+            @await Html.PartialAsync("~/Views/Shared/_Footer.cshtml")
+            @await Html.PartialAsync("~/Views/Shared/_CommomModalPopUpPartial.cshtml")
+            @await Html.PartialAsync("~/Views/Shared/_LoadingPopup.cshtml")
 
-    <aside id="menu">
-        <div id="navigation">
-
-            <div class="profile-picture">
-                <a href="/">
-                    <img src="https://sqy.s3-ap-southeast-1.amazonaws.com/employee/profile_pic/SDC0065.jpg" class="img-circle m-b" alt="logo" onerror="this.src='https://sqy.s3-ap-southeast-1.amazonaws.com/employee/profile_pic/emp.png'" style="width:120px; height:120px;">
-                </a>
-                <div class="stats-label text-color">
-                    <span class="font-extra-bold font-uppercase">Rohit Kumar</span>
-                    <div class="dropdown">
-                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                            <small class="text-muted font-extra-bold font-uppercase">SDC0065 <b class="caret"></b></small>
-                        </a>
-                        <ul class="dropdown-menu animated flipInX m-t-xs">
-                            <li><a href="/MyProfile">Profile</a></li>
-                            <li class="divider"></li>
-                            <li><a href="/Home/Logout">Logout</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <ul class="nav" id="side-menu">
-                <li><a href="/HrDashboard"> <span class="nav-label">Dashboard</span> </a></li>
-                <li><a href="/Attendance">Attendance</a></li>
-                <li><a href="/Notification/NewNotification">Notification <span class="label label-info">7 NEW</span> </a> </li>
-                <li><a href="/HrReport/LeaveBalance">Leave Balance</a></li>
-                <li><a href="/HrReport/LeaveTransaction">Leave Transaction</a></li>
-                <li>
-                    <a href="#"><span class="nav-label">Reimbursement</span><span class="fa arrow"></span> </a>
-                    <ul class="nav nav-second-level">
-                        <li><a href="/Reimbursement">Mobile Reimbursement</a></li>
-                    </ul>
-                </li>
-            </ul>
         </div>
-    </aside>
-    <div id="wrapper">
-        <div id="atndRecords">
-            <div class="react-loader-container">
-                <div class="react-loader-spinner">
-                    <img src="~/wp-contents/assests/img/sqy-loader.gif" class="react-loader-img" />
-                </div>
-            </div>
-        </div>
-        <div class="content">
-
-
-            <div>
-                @RenderBody()
-            </div>
-        </div>
-
-        <footer class="footer">
-            <strong>Copyright &copy; @DateTime.Now.Year <a target="_blank" href="http://www.klbs.in/">KLBS Softech </a>.</strong> All rights reserved.
-        </footer>
     </div>
-    <script src="~/wp-contents/assests/js/hrDashboardCalendar.bundle.js?v=30.08.52" type="text/javascript"></script>
-    <script src="~/wp-contents/assests/js/rocket-loader.min.js" data-cf-settings="13282ad51c1692550bc95cf8-|49" defer=""></script>
+    <script src="~/wp-contents/assets/js/jquery-3.5.1.min.js"></script>
+    <script src="~/wp-contents/assets/js/icons/feather-icon/feather.min.js"></script>
+    <script src="~/wp-contents/assets/js/icons/feather-icon/feather-icon.js"></script>
+    <script src="~/wp-contents/assets/js/sidebar-menu.js"></script>
+    <link href="~/resources/jQueryUI/jquery-ui.min.css" rel="stylesheet" />
+    <script src="~/resources/jQueryUI/jquery-ui.min.js"></script>
 
+    <script src="~/wp-contents/assets/js/config.js"></script>
+    <script src="~/wp-contents/assets/js/bootstrap/popper.min.js"></script>
+    <script src="~/wp-contents/assets/js/bootstrap/bootstrap.min.js"></script>
+    <script src="~/wp-contents/assets/js/chart/chartjs/chart.min.js"></script>
+    <script src="~/wp-contents/assets/js/chart/chartist/chartist.js"></script>
+    <script src="~/wp-contents/assets/js/chart/chartist/chartist-plugin-tooltip.js"></script>
+    <script src="~/wp-contents/assets/js/chart/knob/knob.min.js"></script>
+    <script src="~/wp-contents/assets/js/chart/apex-chart/apex-chart.js"></script>
+    <script src="~/wp-contents/assets/js/chart/apex-chart/stock-prices.js"></script>
+    <script src="~/wp-contents/assets/js/prism/prism.min.js"></script>
+    <script src="~/wp-contents/assets/js/clipboard/clipboard.min.js"></script>
+    <script src="~/wp-contents/assets/js/counter/jquery.waypoints.min.js"></script>
+    <script src="~/wp-contents/assets/js/counter/jquery.counterup.min.js"></script>
+    <script src="~/wp-contents/assets/js/counter/counter-custom.js"></script>
+    <script src="~/wp-contents/assets/js/custom-card/custom-card.js"></script>
+    <script src="~/wp-contents/assets/js/owlcarousel/owl.carousel.js"></script>
+    <script src="~/wp-contents/assets/js/owlcarousel/owl-custom.js"></script>
+    <script src="~/wp-contents/assets/js/dashboard/dashboard_2.js"></script>
+    <script src="~/wp-contents/assets/js/script.js"></script>
+    <!-- Plugins JS start-->
+    <script src="~/wp-contents/assets/js/calendar/tui-code-snippet.min.js"></script>
+    <script src="~/wp-contents/assets/js/calendar/tui-time-picker.min.js"></script>
+    <script src="~/wp-contents/assets/js/calendar/tui-date-picker.min.js"></script>
+    <script src="~/wp-contents/assets/js/calendar/moment.min.js"></script>
+    <script src="~/wp-contents/assets/js/calendar/chance.min.js"></script>
+    <script src="~/wp-contents/assets/js/calendar/tui-calendar.js"></script>
+    <script src="~/wp-contents/assets/js/calendar/calendars.js"></script>
+    <script src="~/wp-contents/assets/js/calendar/schedules.js"></script>
+    <script src="~/wp-contents/assets/js/calendar/app.js"></script>
+    <!-- Plugins JS Ends-->
+    @*<script src="~/wp-contents/assets/js/theme-customizer/customizer.js"></script>*@
 
 </body>
 </html>

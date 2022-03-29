@@ -1,0 +1,47 @@
+﻿@model HRMS.Core.Entities.Payroll.EmployeeDetail
+<div class="table-responsive">
+    <table class="table table-border-horizontal">
+        <tbody>
+            <tr>
+                <th scope="row">Employee Code :</th>
+                <td>@Model.EmpCode</td>
+            </tr>
+            <tr>
+                <th scope="row">Employee Name :</th>
+                <td>@Model.EmployeeName</td>
+            </tr>
+            <tr>
+                <th scope="row">Mobile Number:</th>
+                <td>@Model.ContactNumber</td>
+            </tr>
+            <tr>
+                <th scope="row">Email :</th>
+                <td>@Model.OfficeEmailId</td>
+            </tr>
+            <tr>
+                <th scope="row">Department :</th>
+                <td>@Model.DepartmentName</td>
+            </tr>
+            <tr>
+                <th scope="row">Designation :</th>
+                <td>@Model.DesignationName</td>
+            </tr>
+            <tr>
+                <th scope="row">Team Leader :</th>
+                <td>@Model.SuperVisorCode</td>
+            </tr>
+            <tr>
+                <th scope="row">P&L Head :</th>
+                <td>@Model.PAndLHeadName</td>
+            </tr>
+            <tr>
+                <th scope="row">Branch  :</th>
+                <td>@Model.BranchOfficeId</td>
+            </tr>
+            <tr>
+                <th scope="row">Location  :</th>
+                <td>@Model.Location</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,69 @@
+﻿@model IEnumerable<HRMS.Core.Entities.Master.CompanyHolidays>
+
+
+<div class="table-responsive">
+
+    <div class="dataTables_wrapper" role="grid">
+
+
+        <table class="table table-condensed table-striped table-hover table-bordered table-body-nowrap table-head-nowrap dataTable" cellspacing="0" rules="all" border="1" id="example" style="border-collapse:collapse;" aria-describedby="cp_MainContent_widgetExitEmployee_grdExitEmployees_info">
+            <thead>
+                <tr class="th-primary" role="row">
+                    <th>#</th>
+                    <th>State</th>
+                    <th>Holiday Name</th>
+                    <th>Holiday Date</th>
+
+
+                </tr>
+            </thead>
+            <tbody role="alert" aria-live="polite" aria-relevant="all">
+                @{
+                    int count = 1;
+                    string trclass = string.Empty;
+                }
+                @foreach (var data in Model)
+                {
+                    if (count / 2 == 0)
+                    {
+                        trclass = "even";
+                    }
+                    else
+                    {
+                        trclass = "odd";
+                    }
+                    <tr class="@trclass">
+                        <td align="left" style="width:5%;" class="sorting_1">
+                            @count
+                        </td>
+                        <td align="left" style="width:15%;" class="sorting_1">
+                            @if (data.StateId == 0)
+                            {
+                                @:PAN India
+                            }
+                            else
+                            {
+                                @data.StateId
+                            }
+
+                        </td>
+                        <td align="left" style="width:25%;" class="sorting_1">
+                            @data.Name
+                        </td>
+                        <td align="left" style="width:25%;" class="sorting_1">
+                            @String.Format("{0:dd/MM/yyyy}", data.HolidayDate)
+                        </td>
+
+
+
+                    </tr>
+                    count++;
+                }
+
+            </tbody>
+        </table>
+
+    </div>
+
+
+</div>

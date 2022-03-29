@@ -1,5 +1,6 @@
 ﻿using HRMS.Core.Entities.Common;
 using HRMS.Core.Entities.Master;
+using HRMS.Core.Entities.Payroll;
 using HRMS.Core.ReqRespVm.RequestVm;
 using HRMS.Core.ReqRespVm.Response.Reporting;
 using HRMS.Core.ReqRespVm.SqlParams;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace HRMS.API.Controllers.Compensation
 {
-    [Route("HRMS/[controller]/[action]")]
+    [Route("api/HRMS/[controller]/[action]")]
     [ApiController]
     public class MonthlyEarningAPIController : ControllerBase
     {
@@ -23,17 +24,20 @@ namespace HRMS.API.Controllers.Compensation
         private readonly IGenericRepository<EmployeeForm16Detail, int> _IEmployeeForm16DetailRepository;
         private readonly IDapperRepository<EmployeePaySlipParams> _IEmployeePaySlipRepository;
         private readonly IGenericRepository<AssesmentYear, int> _IAssesmentYearRepository;
+        private readonly IDapperRepository<EmployeeSingleDetailParam> _IEmployeeSingleDetailRepository;
         public MonthlyEarningAPIController(IDapperRepository<GrossVsNetSalaryParams> grossVsNetSalaryParamsRepository,
             IDapperRepository<AttendanceStatusParams> attendanceStatusParamsRepository,
             IGenericRepository<EmployeeForm16Detail, int> employeeForm16DetailRepository,
             IGenericRepository<AssesmentYear, int> assesmentYearRepository,
-             IDapperRepository<EmployeePaySlipParams> employeepayslipRepository)
+             IDapperRepository<EmployeePaySlipParams> employeepayslipRepository,
+             IDapperRepository<EmployeeSingleDetailParam> EmployeeSingleDetailRepository)
         {
             _IGrossVsNetSalaryParamsRepository = grossVsNetSalaryParamsRepository;
             _IAttendanceStatusParamsRepository = attendanceStatusParamsRepository;
             _IEmployeeForm16DetailRepository = employeeForm16DetailRepository;
             _IAssesmentYearRepository = assesmentYearRepository;
             _IEmployeePaySlipRepository = employeepayslipRepository;
+            _IEmployeeSingleDetailRepository = EmployeeSingleDetailRepository;
         }
         [HttpGet]
         [Produces("application/json")]
@@ -126,17 +130,27 @@ namespace HRMS.API.Controllers.Compensation
         [HttpGet]
         [Produces("application/json")]
         [Consumes("application/json")]
-        public async Task<IActionResult> EmployeePaySlip()
+        public async Task<IActionResult> EmployeePaySlip(int Id)
         {
             try
             {
                 var response = await _IAssesmentYearRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted && x.isCurrentFinancialYear == true);
+                var empParams = new EmployeeSingleDetailParam()
+                {
+                    Id = Id
+                };
+
+                var employeeResponse = _IEmployeeSingleDetailRepository.GetAll<EmployeeDetail>
+                    (SqlQuery.GetEmployeeSingleDetails, empParams);
+
+
+
                 var payslipResponse = new List<PaySlipVM>();
                 string[] AssesmentYears = response.Entities.First().Name.Split('-');
                 for (int i = 1; i < 13; i++)
                 {
                     System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
-                    string MonthName = mfi.GetMonthName(i).ToString();
+                    string MonthName = mfi.GetMonthName(i).ToString().Substring(0, 3); 
                     if (i > 3)
                     {
                         payslipResponse.Add(new PaySlipVM()
@@ -144,6 +158,8 @@ namespace HRMS.API.Controllers.Compensation
                             DateMonth = Convert.ToInt32(i),
                             DateYear = Convert.ToInt32(AssesmentYears[0]),
                             MonthsName = MonthName,
+                            EmployeeName=employeeResponse.FirstOrDefault().EmployeeName,
+                            EmployeeId = employeeResponse.FirstOrDefault().Id,
                         });
                     }
                     else
@@ -153,11 +169,12 @@ namespace HRMS.API.Controllers.Compensation
                             DateMonth = Convert.ToInt32(i),
                             DateYear = Convert.ToInt32(AssesmentYears[1]),
                             MonthsName = MonthName,
+                            EmployeeName = employeeResponse.FirstOrDefault().EmployeeName,
+                            EmployeeId= employeeResponse.FirstOrDefault().Id,
                         });
                     }
                 }
-                return await Task.Run(() => Ok(new Helpers.ResponseEntityList<PaySlipVM>
-                  (System.Net.HttpStatusCode.OK, ResponseStatus.Success.ToString(), payslipResponse).GetResponseEntityList()));
+                return Ok(payslipResponse);
             }
             catch (Exception ex)
             {

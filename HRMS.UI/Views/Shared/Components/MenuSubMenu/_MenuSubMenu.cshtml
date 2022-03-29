@@ -1,0 +1,87 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor;
+@using HRMS.UI.Helpers;
+@using HRMS.Core.Entities.Organisation;
+@using HRMS.Core.Entities.Payroll;
+@model IEnumerable<HRMS.Core.ReqRespVm.Response.UserManagement.MenuSubMenuVm>
+@{
+    var employeeDetail = HttpContextAccessor.HttpContext.Session.GetObjectFromJson<EmployeeDetail>("UserDetail");
+
+}
+
+
+<header class="main-nav">
+    <div class="sidebar-user text-center">
+        <a class="setting-primary" href="javascript:void(0)"><i data-feather="settings"></i></a>
+
+        <img class="img-90 rounded-circle" src="@employeeDetail.ProfilePic" alt="">
+        <div class="badge-bottom"><span class="badge badge-primary">New</span></div><a href="user-profile.html">
+            <h6 class="mt-3 f-14 f-w-600">@employeeDetail.EmployeeName</h6>
+        </a>
+        <p class="mb-0 font-roboto">@employeeDetail.DepartmentName</p>
+        <ul>
+            <li>
+                <span><span class="counter">19.8</span>k</span>
+                <p>Follow</p>
+            </li>
+            <li>
+                <span>2 year</span>
+                <p>Experince</p>
+            </li>
+            <li>
+                <span><span class="counter">95.2</span>k</span>
+                <p>Follower </p>
+            </li>
+        </ul>
+    </div>
+    <nav>
+        <div class="main-navbar">
+            <div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
+            <div id="mainnav">
+                <ul class="nav-menu custom-scrollbar">
+                    <li class="back-btn">
+                        <div class="mobile-back text-end"><span>Back</span><i class="fa fa-angle-right ps-2" aria-hidden="true"></i></div>
+                    </li>
+                    <li class="sidebar-main-title"><div><h6>Menu</h6></div></li>
+                    @foreach (var Module in Model.GroupBy(x => x.ModuleId))
+                    {
+
+                        if (Module.First().MenuLevel == 1)
+                        {
+                            
+
+                            <li class="dropdown"><a class="nav-link menu-title link-nav active" asp-action="@Module.First().ActionName" asp-controller="@Module.First().ControllerName"><i class='@Module.First().ModuleIcon'></i><span> @Module.First().ModuleName</span></a></li>
+                            <br />
+                        }
+                        else
+                        {
+                            <li class="dropdown">
+                                @foreach (var SubModule in Module.GroupBy(x => x.SubModuleId))
+                                {
+
+                                    <a class="nav-link menu-title" href="javascript:void(0)"><i class='@SubModule.First().SubModuleIcon'></i><span> @SubModule.First().SubModuleName  </span></a>
+                                    <ul class="nav-submenu menu-content">
+                                        @foreach (var item in SubModule)
+                                        {
+                                            <li><a asp-action="@item.ActionName" asp-controller="@item.ControllerName">@item.ChildNodeName</a></li>
+                                        }
+
+
+                                    </ul>
+
+
+
+
+                                }
+
+                                }
+
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+            <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>
+        </div>
+    </nav>
+</header>

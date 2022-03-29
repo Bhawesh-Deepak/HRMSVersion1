@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace HRMS.API.Controllers.DashBoard
 {
-    [Route("HRMS/[controller]/[action]")]
+    [Route("api/HRMS/[controller]/[action]")]
     [ApiController]
     public class DashBoardAPIController : ControllerBase
     {

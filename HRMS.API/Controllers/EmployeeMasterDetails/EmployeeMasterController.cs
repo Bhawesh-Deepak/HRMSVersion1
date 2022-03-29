@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace HRMS.API.Controllers.EmployeeMasterDetails
 {
-    [Route("HRMS/[controller]/[action]")]
+    [Route("api/HRMS/[controller]/[action]")]
     [ApiController]
     public class EmployeeMasterController : ControllerBase
     {
@@ -34,8 +34,7 @@ namespace HRMS.API.Controllers.EmployeeMasterDetails
                 var response = _IEmployeeSingleDetailRepository.GetAll<EmployeeDetail>
                     (SqlQuery.GetEmployeeSingleDetails, empParams);
 
-                return await Task.Run(()=> Ok(new Helpers.ResponseEntityList<EmployeeDetail>
-                    (System.Net.HttpStatusCode.OK, ResponseStatus.Success.ToString(), response).GetResponseEntityList())) ;
+                return Ok(response);
             }
             catch (Exception ex) 
             {

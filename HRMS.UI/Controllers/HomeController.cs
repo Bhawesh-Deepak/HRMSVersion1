@@ -1,29 +1,87 @@
-﻿using HRMS.UI.Models;
+﻿using HRMS.Core.Entities.Master;
+using HRMS.Core.Helpers.CommonHelper;
+using HRMS.Core.ReqRespVm.RequestVm;
+using HRMS.UI.AuthenticateService;
+using HRMS.UI.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace HRMS.UI.Controllers
 {
+    [CustomAuthenticate]
     public class HomeController : Controller
     {
+        private readonly string APIURL = string.Empty;
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IConfiguration configuration, ILogger<HomeController> logger)
         {
+            APIURL = configuration.GetSection("APIURL").Value;
             _logger = logger;
         }
-
         public IActionResult Index()
         {
-            Serilog.Log.Information("Home Index method called..");
             return View();
         }
+        public async Task<IActionResult> EmployeePayslip()
+        {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(APIURL);
+                    var responseTask = await client.GetAsync("api/HRMS/MonthlyEarningAPI/EmployeePaySlip?Id=" + Convert.ToInt32(HttpContext.Session.GetString("EmployeeId")));
+                    if (responseTask.IsSuccessStatusCode)
+                    {
+                        var responseDetails = await responseTask.Content.ReadAsStringAsync();
+                        var paySlips = JsonConvert.DeserializeObject<List<PaySlipVM>>(responseDetails);
+                        return PartialView(ViewHelper.GetViewPathDetails("Home", "_EmployeePayslip"), paySlips);
+                    }
+                    else
+                    {
+                        return PartialView(ViewHelper.GetViewPathDetails("Home", "_EmployeePayslip"));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(HomeController)} action name {nameof(EmployeePayslip)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
+        }
+        public async Task<IActionResult> Form16()
+        {
+            await PopulateViewBag();
+            return PartialView(ViewHelper.GetViewPathDetails("Home", "_Form16"));
+        }
+        #region PrivateFields
+        private async Task PopulateViewBag()
+        {
+            List<AssesmentYear> assesmentYear = null;
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(APIURL);
+                var responseTask = await client.GetAsync("api/HRMS/FinancialYearAPI/GetAllFinancialYear");
+                if (responseTask.IsSuccessStatusCode)
+                {
+                    var responseDetails = await responseTask.Content.ReadAsStringAsync();
+                      assesmentYear = JsonConvert.DeserializeObject<List<AssesmentYear>>(responseDetails);
+                    
+                }
+            }
+            ViewBag.assesmentYearList = assesmentYear;
+        }
 
+        #endregion
         public IActionResult Privacy()
         {
             return View();
