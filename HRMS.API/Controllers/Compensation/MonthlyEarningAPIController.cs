@@ -70,9 +70,9 @@ namespace HRMS.API.Controllers.Compensation
                         });
                     }
                 }
-
-                return await Task.Run(() => Ok(new Helpers.ResponseEntityList<GrossVsNetSalaryVM>
-                  (System.Net.HttpStatusCode.OK, ResponseStatus.Success.ToString(), responseDetail).GetResponseEntityList()));
+                return Ok(responseDetail);
+                //return await Task.Run(() => Ok(new Helpers.ResponseEntityList<GrossVsNetSalaryVM>
+                //  (System.Net.HttpStatusCode.OK, ResponseStatus.Success.ToString(), responseDetail).GetResponseEntityList()));
             }
             catch (Exception ex)
             {
@@ -96,8 +96,9 @@ namespace HRMS.API.Controllers.Compensation
                     EmpCode = EmpCode
                 };
                 var response = _IAttendanceStatusParamsRepository.GetAll<AttendanceStatusVM>(SqlQuery.GetAttendanceStatus, parameter);
-                return await Task.Run(() => Ok(new Helpers.ResponseEntityList<AttendanceStatusVM>
-                  (System.Net.HttpStatusCode.OK, ResponseStatus.Success.ToString(), response).GetResponseEntityList()));
+                return Ok(response.FirstOrDefault());
+                //return await Task.Run(() => Ok(new Helpers.ResponseEntityList<AttendanceStatusVM>
+                //  (System.Net.HttpStatusCode.OK, ResponseStatus.Success.ToString(), response).GetResponseEntityList()));
             }
             catch (Exception ex)
             {
@@ -199,8 +200,9 @@ namespace HRMS.API.Controllers.Compensation
                 };
 
                 var response = await Task.Run(() => _IEmployeePaySlipRepository.GetAll<EmployeePaySlipVM>(SqlQuery.GetPaySlip, payslipparams));
-                return await Task.Run(() => Ok(new Helpers.ResponseEntityList<EmployeePaySlipVM>
-                  (System.Net.HttpStatusCode.OK, ResponseStatus.Success.ToString(), response).GetResponseEntityList()));
+                return Ok(response);
+                //return await Task.Run(() => Ok(new Helpers.ResponseEntityList<EmployeePaySlipVM>
+                //  (System.Net.HttpStatusCode.OK, ResponseStatus.Success.ToString(), response).GetResponseEntityList()));
             }
             catch (Exception ex)
             {

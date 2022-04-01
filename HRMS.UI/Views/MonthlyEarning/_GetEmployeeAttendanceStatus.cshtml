@@ -1,0 +1,38 @@
+﻿@model HRMS.Core.ReqRespVm.Response.Reporting.AttendanceStatusVM
+
+
+@{
+    int totaldaysinmonth = DateTime.DaysInMonth(Convert.ToInt32(Model.DateYear), Convert.ToInt32(Model.DateMonth));
+    decimal presentperc = Convert.ToDecimal((Model.PresentDays / totaldaysinmonth) * 100);
+    decimal AbsentPer = Convert.ToDecimal((Model.LOPDays / totaldaysinmonth) * 100);
+    decimal ArrearPer = Convert.ToDecimal((Model.ArrearDays / totaldaysinmonth) * 100);
+
+}
+<div class="card">
+    <div class="card-header pb-0">
+        <h5>Attendance Status (@Model.MonthsName - @Model.DateYear )</h5>
+        <br />
+        <div class="row">
+            <div class="col-md-4">@Html.DropDownList("DateMonth", Enumerable.Range(1, 12).Select(x => new SelectListItem { Value = x.ToString(), Text = System.Globalization.CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(x) }), "-Month-", new { @class = "form-control input-sm" })</div>
+            <div class="col-md-4">@Html.DropDownList("DateYear", Enumerable.Range(DateTime.Now.Year - 3, 10).Select(x => new SelectListItem { Value = x.ToString(), Text = x.ToString() }), "-Year-", new { @class = "form-control input-sm" })</div>
+            <div class="col-md-4"><button class="btn btn-primary btn-sm" type="button" onclick="GetEmployeeAttendance()"> <i class="i-Download1"></i>  Get    </button></div>
+        </div>
+
+    </div>
+    <div class="card-body progress-showcase row">
+        <div class="col">
+            <div class="progress">
+                <div class="progress-bar-animated progress-bar-striped bg-success" role="progressbar" style="width: @presentperc%" aria-valuenow="@presentperc" aria-valuemin="0" aria-valuemax="100">Present : @Model.PresentDays</div>
+            </div>
+            <div class="progress">
+                <div class="progress-bar-animated bg-danger progress-bar-striped" role="progressbar" style="width: @AbsentPer%" aria-valuenow="@AbsentPer" aria-valuemin="0" aria-valuemax="100"> Absent Days : @Model.LOPDays</div>
+            </div>
+            <div class="progress">
+                <div class="progress-bar-animated progress-bar-striped bg-warning" role="progressbar" style="width: @ArrearPer%" aria-valuenow="@ArrearPer" aria-valuemin="0" aria-valuemax="100">Arrear :@Model.ArrearDays
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

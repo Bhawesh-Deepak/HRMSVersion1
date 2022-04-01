@@ -1,6 +1,7 @@
 ﻿using HRMS.Core.Entities.Master;
 using HRMS.Core.Helpers.CommonHelper;
 using HRMS.Core.ReqRespVm.RequestVm;
+using HRMS.Core.ReqRespVm.Response.Reporting;
 using HRMS.UI.AuthenticateService;
 using HRMS.UI.Models;
 using Microsoft.AspNetCore.Http;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Rotativa.AspNetCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -63,6 +65,72 @@ namespace HRMS.UI.Controllers
             await PopulateViewBag();
             return PartialView(ViewHelper.GetViewPathDetails("Home", "_Form16"));
         }
+        public async Task<IActionResult> getEmployeeGrossAndPI(int FinancialYear)
+        {
+            try
+            {
+                List<GrossAndPIReportVM> grossAndPIReport = null;
+                if (FinancialYear == 0)
+                    FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(APIURL);
+                    var responseTask = await client.GetAsync("/api/HRMS/DashBoardAPI/GetEmployeeGrossAndPerformanceInsentive?EmpCode=" + HttpContext.Session.GetString("EmpCode") + "&FinancialYear=" + FinancialYear);
+                    if (responseTask.IsSuccessStatusCode)
+                    {
+                        var responseDetails = await responseTask.Content.ReadAsStringAsync();
+                        grossAndPIReport = JsonConvert.DeserializeObject<List<GrossAndPIReportVM>>(responseDetails);
+                        return Json(grossAndPIReport);
+                    }
+                    else
+                    {
+                        return Json(grossAndPIReport);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(HomeController)} action name {nameof(getEmployeeGrossAndPI)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
+        }
+        public async Task<IActionResult> DownloadEmployeePayslip(int DateMonth, int DateYear)
+        {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(APIURL);
+                    var responseTask = await client.GetAsync("api/HRMS/MonthlyEarningAPI/GetEmployeePaySlip?DateMonth=" + DateMonth + "&DateYear=" + DateYear + "&EmpCode=" + HttpContext.Session.GetString("EmpCode"));
+                    if (responseTask.IsSuccessStatusCode)
+                    {
+                        var responseDetails = await responseTask.Content.ReadAsStringAsync();
+                        var paySlips = JsonConvert.DeserializeObject<List<EmployeePaySlipVM>>(responseDetails);
+                        System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                        string strMonthName = mfi.GetMonthName(DateMonth).ToString();
+                        var responsepdf = new ViewAsPdf(ViewHelper.GetViewPathDetails("Home", "_Payslip"), paySlips,null)
+                        {
+                            FileName = strMonthName + "_" + DateYear + "_PaySlip.pdf",
+                        };
+                        return responsepdf;
+                        // return PartialView(ViewHelper.GetViewPathDetails("Home", "_Payslip"), paySlips);
+                        // return new ViewAsPdf(ViewHelper.GetViewPathDetails("Home", "_Payslip"), paySlips.OrderBy(x => x.ComponentId));
+
+                    }
+                    else
+                    {
+                        return PartialView(ViewHelper.GetViewPathDetails("Home", "_Payslip"));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(HomeController)} action name {nameof(DownloadEmployeePayslip)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
+        }
         #region PrivateFields
         private async Task PopulateViewBag()
         {
@@ -74,8 +142,8 @@ namespace HRMS.UI.Controllers
                 if (responseTask.IsSuccessStatusCode)
                 {
                     var responseDetails = await responseTask.Content.ReadAsStringAsync();
-                      assesmentYear = JsonConvert.DeserializeObject<List<AssesmentYear>>(responseDetails);
-                    
+                    assesmentYear = JsonConvert.DeserializeObject<List<AssesmentYear>>(responseDetails);
+
                 }
             }
             ViewBag.assesmentYearList = assesmentYear;

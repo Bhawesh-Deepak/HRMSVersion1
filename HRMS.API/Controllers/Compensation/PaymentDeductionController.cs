@@ -10,41 +10,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HRMS.API.Controllers.DashBoard
+namespace HRMS.API.Controllers.Compensation
 {
     [Route("api/HRMS/[controller]/[action]")]
     [ApiController]
-    public class DashBoardAPIController : ControllerBase
+    public class PaymentDeductionController : ControllerBase
     {
-        private readonly IDapperRepository<GrossAndPIReportParams> _IGrossAndPIReportParamsRepository;
-
-        public DashBoardAPIController(IDapperRepository<GrossAndPIReportParams> grossAndPIReportParamsRepository)
+        private readonly IDapperRepository<PaymentDeductionParams> _IPaymentDeductionParamsRepository;
+        public PaymentDeductionController(IDapperRepository<PaymentDeductionParams> paymentDeductionParamsRepository)
         {
-            _IGrossAndPIReportParamsRepository = grossAndPIReportParamsRepository;
-
+            _IPaymentDeductionParamsRepository = paymentDeductionParamsRepository;
         }
         [HttpGet]
         [Produces("application/json")]
         [Consumes("application/json")]
-        public async Task<IActionResult> GetEmployeeGrossAndPerformanceInsentive(string EmpCode, int FinancialYear)
+        public async Task<IActionResult> GetEmployeePaymentDeduction(string EmpCode, int FinancialYear)
         {
             try
             {
-                var parameter = new GrossAndPIReportParams()
+                var parameter = new PaymentDeductionParams()
                 {
+
                     EmpCode = EmpCode,
                     FinancialYear = FinancialYear
                 };
-                var response = await Task.Run(() => _IGrossAndPIReportParamsRepository.GetAll<GrossAndPIReportVM>(SqlQuery.GetGrossAndPIReport, parameter));
-
+                var response = _IPaymentDeductionParamsRepository.GetAll<PaymentDeductionVM>(SqlQuery.GetEmployeePaymentDeduction, parameter);
                 return Ok(response);
-                //return await Task.Run(() => Ok(new Helpers.ResponseEntityList<GrossAndPIReportVM>
-                //  (System.Net.HttpStatusCode.OK, ResponseStatus.Success.ToString(), response).GetResponseEntityList()));
+
+
             }
             catch (Exception ex)
             {
                 Serilog.Log.Error(ex, ex.Message);
-                return await Task.Run(() => BadRequest(new Helpers.ResponseEntityList<GrossAndPIReportVM>
+                return await Task.Run(() => BadRequest(new Helpers.ResponseEntityList<PaymentDeductionVM>
                     (System.Net.HttpStatusCode.InternalServerError, ResponseStatus.DataBaseException.ToString(), null)
                     .GetResponseEntityList()));
             }

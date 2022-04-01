@@ -43,8 +43,6 @@ namespace HRMS.Services.Implementation.SqlConstant
         public const string GetNetVsGrossSalary = @"[Reporting].[usp_GetNetVSGrossSalary]";
         public const string GetAttendanceStatus = @"[Reporting].[usp_GetAttendanceStatus]";
         public const string GetGrossAndPIReport = @"[Reporting].[usp_GrossAndPIReport]";
-
-
-
+        public const string GetEmployeePaymentDeduction = @"[Payroll].[usp_GetEmployeePaymentDeduction]";
     }
 }
