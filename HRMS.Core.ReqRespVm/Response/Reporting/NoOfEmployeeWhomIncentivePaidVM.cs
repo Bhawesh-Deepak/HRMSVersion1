@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace HRMS.Core.ReqRespVm.Response.Reporting
 {
-    public class AttendanceGraphVM
+    public class NoOfEmployeeWhomIncentivePaidVM
     {
+        public int NoOfEmployee { get; set; }
         public string MonthsName { get; set; }
-        public decimal PresentDays { get; set; }
-        public decimal LOPDays { get; set; }
-        public int TotalEmployee { get; set; }
     }
 }

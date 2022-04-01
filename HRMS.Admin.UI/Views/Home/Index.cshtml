@@ -72,9 +72,6 @@
     .owl-dots {
         margin-top: 30px
     }
-
-   
-    
 </style>
 
 
@@ -109,94 +106,23 @@
                             <ul id="nav-t" class="nav nav-tabs">
                                 <li class="active"><a href="#Monthly_Attendance_Graph" onclick="GetDetail(1)" data-toggle="tab">Monthly Attendance Graph</a></li>
                                 <li><a href="#Monthly_Gross_Salary_Incentive" onclick="GetDetail(2)" data-toggle="tab">Monthly Gross Salary & Incentive</a></li>
-                                <li><a href="#Number_of_Employees_to_whom_Salary_Paid " data-toggle="tab">Number of Employees to whom Salary Paid </a></li>
-                                <li><a href="#Number_of_Employees_to_whom_Incentive_Paid" data-toggle="tab">Number of Employees to whom Incentive Paid</a></li>
+                                <li><a href="#Number_of_Employees_to_whom_Salary_Paid " onclick="GetDetail(3)" data-toggle="tab">Number of Employees to whom Salary Paid </a></li>
+                                <li><a href="#Number_of_Employees_to_whom_Incentive_Paid" onclick="GetDetail(4)" data-toggle="tab">Number of Employees to whom Incentive Paid</a></li>
 
                             </ul>
                             <div class="tab-content">
                                 <div class="pro-overview tab-pane active" id="Monthly_Attendance_Graph">
                                     <div id="container"></div>
                                 </div>
-                                <div class="tab-pane" id="Monthly_Gross_Salary_Incentive">
-                                    <table id="datatable" style="display:none">
-                                        <thead>
-                                            <tr>
-                                                <th></th>
-                                                <th>Gross Salary</th>
-                                                <th>Performance Incentives</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th>Apr</th>
-                                                <td>116500018</td>
-                                                <td>18905792</td>
-                                            </tr>
-                                            <tr>
-                                                <th>May</th>
-                                                <td>112429557</td>
-                                                <td>16779774</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Jun</th>
-                                                <td>110892602</td>
-                                                <td>10015738</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Jul</th>
-                                                <td>126680702</td>
-                                                <td>13161981</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Aug</th>
-                                                <td>132873168</td>
-                                                <td>8895766</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Sep</th>
-                                                <td>143819752</td>
-                                                <td>9628087</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Oct</th>
-                                                <td>155044084</td>
-                                                <td>11027584</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Nov</th>
-                                                <td>149415537</td>
-                                                <td>14080574</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Dec</th>
-                                                <td>162666193</td>
-                                                <td>13698153</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Jan</th>
-                                                <td>176577642</td>
-                                                <td>19327455</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Feb</th>
-                                                <td>0</td>
-                                                <td>0</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Mar</th>
-                                                <td>0</td>
-                                                <td>0</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <div id="container1"></div>
-                                </div>
-                                <div class="pro-overview tab-pane" id="Number_of_Employees_to_whom_Salary_Paid" data-select2-id="Number_of_Employees_to_whom_Salary_Paid">
-                                    <div id="container2"></div>
-                                </div>
-                                <div class="tab-pane" id="Number_of_Employees_to_whom_Incentive_Paid">
-                                    <div id="container3"></div>
-                                </div>
+                                @*<div class="tab-pane" id="Monthly_Gross_Salary_Incentive">
+                                        <div id="container1"></div>
+                                    </div>
+                                    <div class="pro-overview tab-pane" id="Number_of_Employees_to_whom_Salary_Paid" data-select2-id="Number_of_Employees_to_whom_Salary_Paid">
+                                        <div id="container2"></div>
+                                    </div>
+                                    <div class="tab-pane" id="Number_of_Employees_to_whom_Incentive_Paid">
+                                        <div id="container3"></div>
+                                    </div>*@
                             </div>
                         </div>
                     </div>
@@ -238,7 +164,7 @@
 <script>
     $(document).ready(function () {
         getBirthDayandAnniversary(1);
-        GetDetail(1);
+
     });
     function getBirthDayandAnniversary(Id) {
         $('#divLoader').modal('show');
@@ -247,24 +173,7 @@
             $('#divLoader').modal('hide');
         });
     }
-    function GetDetail(event) {
-        $('#divLoader').modal('show');
-        var url = null;
-        if (event == 1)
-            url = "/Home/GetAttendanceDayWiseReport/"
-        else if (event == 2)
-            url = "/Home/GetPaidRegister/"
-        //else if (event == 3)
-        //    url = "/Home/"
-        //else if (event == 4)
-        //    url = "/Home/"
-        $.get(url, function (data) {
-            $("#div_details").html(data);
-            $('#divLoader').modal('hide');
 
-        });
-
-    }
 </script>
 
 
