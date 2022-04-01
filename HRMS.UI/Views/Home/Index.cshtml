@@ -3,7 +3,13 @@
 }
 @using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor HttpContextAccessor;
-
+<script src="~/resources/plugins/high-chart/js/highcharts.js"></script>
+<script src="~/resources/plugins/high-chart/js/exporting.js"></script>
+<script src="~/resources/plugins/high-chart/js/export-data.js"></script>
+<script src="~/resources/plugins/high-chart/js/accessibility.js"></script>
+<link href="~/resources/plugins/high-chart/css/highchartcustom.css" rel="stylesheet" />
+<script src="~/resources/plugins/high-chart/js/data.js"></script>
+<script src="~/resources/plugins/high-chart/js/highcharts-3d.js"></script>
 <style>
     .calendar-basic #right {
         margin-top: 0px;
@@ -16,6 +22,7 @@
         max-height: 405px;
     }
 </style>
+
 <div class="page-body">
     <div class="container-fluid">
         <div class="page-header">
@@ -24,7 +31,7 @@
                     <h3>Dashboard</h3>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">DashBoard</a></li>
-                         
+
                     </ol>
                 </div>
                 <div class="col-sm-6">
@@ -106,16 +113,43 @@
 
                     </div>
                     <div class="card" id="div_Form16">
-                      
+
                     </div>
                 </div>
-                
+
             </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+
+                    <div class="card-body">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div id="right">
+                                    <div id="container"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
     <!-- Container-fluid Ends-->
 </div>
-
+<!-- Plugins JS start-->
+<script src="~/wp-contents/assets/js/calendar/tui-code-snippet.min.js"></script>
+<script src="~/wp-contents/assets/js/calendar/tui-time-picker.min.js"></script>
+<script src="~/wp-contents/assets/js/calendar/tui-date-picker.min.js"></script>
+<script src="~/wp-contents/assets/js/calendar/moment.min.js"></script>
+<script src="~/wp-contents/assets/js/calendar/chance.min.js"></script>
+<script src="~/wp-contents/assets/js/calendar/tui-calendar.js"></script>
+<script src="~/wp-contents/assets/js/calendar/calendars.js"></script>
+<script src="~/wp-contents/assets/js/calendar/schedules.js"></script>
+<script src="~/wp-contents/assets/js/calendar/app.js"></script>
 <script>
     $(document).ready(function () {
         $('#divLoader').modal('show');
@@ -127,15 +161,110 @@
             $("#div_Form16").html(response);
             $('#divLoader').modal('hide');
         });
+        getemployeeGrossANdPI(0);
+
     });
     function GetHoliday() {
         $('#divLoader').modal('show');
-        $.get("/Common/GetCompanyHoliday", {  }, function (response) {
+        $.get("/Common/GetCompanyHoliday", {}, function (response) {
             $("#Div_HRMS_modal").html(response);
             $('#HeaderText').text('Holidays');
             $('#exampleModalfat').modal('show');
             $('#divLoader').modal('hide');
         });
 
+    }
+</script>
+<script type="text/javascript">
+
+    function getemployeeGrossANdPI(event) {
+        $('#divLoader').modal('show');
+        var Months = [];
+        var Gross = [];
+        var PI = [];
+        $.get("/Home/getEmployeeGrossAndPI", { FinancialYear: event }, function (response) {
+            debugger
+            for (i = 0; i < response.length; i++) {
+                Months.push(response[i].monthsName);
+                Gross.push(response[i].grossSalary);
+                PI.push(response[i].performanceInsentive);
+            }
+
+
+            var chart = Highcharts.chart('container', {
+
+                chart: {
+                    type: 'column'
+                },
+
+                title: {
+                    text: 'This Year Gross Salary & Performance Insentive'
+                },
+
+                subtitle: {
+                    text: ' '
+                },
+
+                //legend: {
+                //    align: 'top',
+                //    verticalAlign: 'middle',
+                //    layout: 'vertical'
+                //},
+
+                xAxis: {
+                    categories: Months,//['Apples', 'Oranges', 'Bananas'],
+                    labels: {
+                        x: -10
+                    }
+                },
+
+                yAxis: {
+                    allowDecimals: false,
+                    title: {
+                        text: 'Amount'
+                    }
+                },
+
+                series: [{
+                    name: 'Gross Salary',
+                    data: Gross,//[6, 4, 2]
+                }, {
+                    name: 'Performance Incentive',
+                    data: PI,//[8, 4, 3]
+                }],
+
+                responsive: {
+                    rules: [{
+                        condition: {
+                            maxWidth: 500
+                        },
+                        chartOptions: {
+                            legend: {
+                                align: 'center',
+                                verticalAlign: 'bottom',
+                                layout: 'horizontal'
+                            },
+                            yAxis: {
+                                labels: {
+                                    align: 'left',
+                                    x: 0,
+                                    y: -5
+                                },
+                                title: {
+                                    text: null
+                                }
+                            },
+                            subtitle: {
+                                text: null
+                            },
+                            credits: {
+                                enabled: false
+                            }
+                        }
+                    }]
+                }
+            });
+            $('#divLoader').modal('hide');
+        });
     }
 </script>

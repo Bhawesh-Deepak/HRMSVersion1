@@ -1,0 +1,358 @@
+﻿@model IEnumerable<HRMS.Core.ReqRespVm.Response.Reporting.EmployeePaySlipVM>
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor;
+@using HRMS.UI.Helpers;
+@using HRMS.Core.Entities.Organisation;
+ 
+@{
+    var companyDetails = HttpContextAccessor.HttpContext.Session.GetObjectFromJson<Company>("companyDetails");
+    
+
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style>
+        table {
+            width: 100%;
+            margin: auto;
+            border-collapse: collapse;
+            border: 1px solid black;
+        }
+
+        .table-container {
+            /*margin: 15px;*/
+            font-family: Verdana;
+        }
+
+        .detail {
+            font-size: 14px;
+            padding: 2px 3px 2px 5px;
+            vertical-align: top;
+        }
+
+            .detail tr td:last-child {
+                padding-bottom: 20px;
+            }
+
+        .earded {
+            border: 1px solid black;
+            font-size: 12px;
+            padding: 2px 5px 2px 5px;
+        }
+
+            .earded strong {
+                font-size: 13px;
+            }
+
+        .logo {
+            position: absolute;
+            top: 0px;
+            width: 150px;
+        }
+
+            .logo img {
+                width: 100%;
+            }
+
+        .text-right {
+            text-align: right;
+            border-right: 1px solid black;
+        }
+
+        .earded tr td:nth-child(odd) {
+            font-size: 14px;
+            padding: 2px 5px 2px 5px;
+            text-align: left;
+        }
+
+        .earded tr td:nth-child(even) {
+            font-size: 14px;
+            padding: 2px 5px 2px 5px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="table-container">
+        <table>
+            <tbody>
+                <tr style="border-bottom:1px solid black;">
+                    <td class="earded" colspan="4" valign="top" style="text-align: center;  ">
+                        <p><strong style="font-size:17px">@Model.First().LegalEntity</strong></p>
+                        <div class="logo">
+                            <img src="@companyDetails.Logo" alt=" logo" style="margin-top:2px" />
+                        </div>
+                        <br /><br />
+                        @{
+                            System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                            string strMonthName = mfi.GetMonthName(@Model.FirstOrDefault().DateMonth).ToString();
+                        }
+                        <strong style="font-size:16px"> Payslip for the month of @strMonthName - @Model.First().DateYear</strong>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="detail" width="25%"><strong>Employee Code:</strong></td>
+                    <td class="detail" width="25%">@Model.First().EmpCode</td>
+                    <td class="detail" width="25%"><strong>Employee Name:</strong></td>
+                    <td class="detail" width="25%">@Model.First().EmployeeName</td>
+                </tr>
+
+                <tr>
+                    <td class="detail"><strong>LegalEntity:</strong></td>
+                    <td class="detail">@Model.First().LegalEntity</td>
+                    <td class="detail"><strong>UAN No:</strong></td>
+                    <td class="detail">@Model.First().UANNumber</td>
+                </tr>
+                <tr>
+                    <td class="detail"><strong>PAN Number:</strong></td>
+                    <td class="detail">@Model.First().PanCardNumber</td>
+                    <td class="detail"><strong>ESIC No:</strong></td>
+                    <td class="detail">@Model.First().ESICNew</td>
+                </tr>
+
+                <tr>
+                    <td class="detail"><strong>Date of Joining:</strong></td>
+                    <td class="detail">@string.Format("{0:dd/MM/yyyy}", Model.First().JoiningDate)</td>
+                    <td class="detail"><strong>Days Worked:</strong></td>
+                    <td class="detail">@Model.First().PresentDays</td>
+                </tr>
+
+                <tr>
+                    <td class="detail"><strong>LOP:</strong></td>
+                    <td class="detail">@Model.First().LopDays</td>
+                    <td class="detail"><strong>Arrear Days:</strong></td>
+                    <td class="detail"> @Model.First().ArrearDays</td>
+                </tr>
+
+                <tr>
+                    <td class="detail" style="padding-bottom:20px;"><strong>Department:</strong></td>
+                    <td class="detail">@Model.First().Department</td>
+                    <td class="detail"><strong>Designation:</strong></td>
+                    <td class="detail">@Model.First().DesignationId</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <table style="border-top:none;">
+            <tbody>
+                <tr>
+                    <td colspan="2" class="earded" style="font-size:14px; font-weight:600; color:#0c61e8;border-top:none;">Earnings</td>
+
+                    <td colspan="2" class="earded" style="font-size:14px; font-weight:600; color:#0c61e8;border-top:none;">Deductions</td>
+
+                </tr>
+
+
+                <tr style="">
+                    <td colspan="2" style="border-bottom:1px solid black;" valign="top">
+                        <table class="earded" style="border:none;">
+                            <tr>
+                                <td><strong>Particulars</strong></td>
+                                <td><strong>Amount</strong></td>
+                            </tr>
+                            @foreach (var item in Model.Where(x => x.ComponentType == 1).OrderBy(x => x.ComponentId))
+                            {
+                                if (item.SalaryAmount > 0)
+                                {
+                                    <tr>
+                                        <td>@item.ComponentName</td>
+                                        <td style="text-align:right">@string.Format("{0:0.00}", @item.SalaryAmount)</td>
+                                    </tr>
+                                }
+                            }
+
+
+                        </table>
+                    </td>
+                    <td colspan="2" style="border-left:1px solid black;border-right:1px solid; border-bottom:1px solid black;height:100%" valign="top">
+                        <table class="earded" style="border:none;">
+                            <tr>
+                                <td><strong>Particulars</strong></td>
+                                <td><strong>Amount</strong></td>
+                            </tr>
+
+                            @foreach (var item in Model.Where(x => x.ComponentType == 2).OrderBy(x => x.ComponentId))
+                            {
+                                if (item.SalaryAmount > 0)
+                                {
+                                    <tr>
+                                        <td>@item.ComponentName</td>
+                                        <td style="text-align:right">@string.Format("{0:0.00}", @item.SalaryAmount)</td>
+                                    </tr>
+                                }
+                            }
+
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-size: 14px; padding: 2px 5px 2px 5px; text-align: left;"><strong>Total Earnings </strong> </td>
+                    <td style="font-size: 14px; padding: 2px 5px 2px 5px; text-align: right;"><strong>@string.Format("{0:0.00}", Model.Where(x => x.ComponentType == 1).Sum(x => x.SalaryAmount))</strong></td>
+                    <td style="font-size: 14px; padding: 2px 5px 2px 5px; text-align: left; border-left:1px solid black;"><strong>Total Deductions</strong> </td>
+                    <td style="font-size: 14px; padding: 2px 5px 2px 5px; text-align: right;"><strong>@string.Format("{0:0.00}", Model.Where(x => x.ComponentType == 2).Sum(x => x.SalaryAmount))</strong></td>
+                </tr>
+
+                <tr>
+                    <td colspan="4" class="earded">
+                        @{
+                            decimal Earning = @Model.Where(x => x.ComponentType == 1).Sum(x => x.SalaryAmount);
+                            decimal Deductions = @Model.Where(x => x.ComponentType == 2).Sum(x => x.SalaryAmount);
+                            decimal NetSalary = Convert.ToDecimal(Earning - Deductions);
+                        }
+                        <br /><strong>Net Salary : @NetSalary</strong> <br /><input type="hidden" id="hdnNetSalary" name="hdnNetSalary" value="@NetSalary" /><br />
+                        <strong>In words : <span id="Num2Word"></span> (All Amount Is In <span>&#8377;</span>)</strong>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+
+
+</body>
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+
+
+
+        $("#Num2Word").text(test_skill1($("#hdnNetSalary").val()));
+    });
+    function test_skill1(val) {
+
+        var junkVal = val;
+        junkVal = Math.floor(junkVal);
+        var obStr = new String(junkVal);
+        numReversed = obStr.split("");
+        actnumber = numReversed.reverse();
+
+        if (Number(junkVal) >= 0) {
+            //do nothing
+        }
+        else {
+            alert('wrong Number cannot be converted');
+            return false;
+        }
+        if (Number(junkVal) == 0) {
+            document.getElementById('Num2Word').innerHTML = obStr + '' + 'Only';
+            return false;
+        }
+        if (actnumber.length > 9) {
+            alert('Oops!!!! the Number is too big to covertes');
+            return false;
+        }
+
+        var iWords = ["Zero", " One", " Two", " Three", " Four", " Five", " Six", " Seven", " Eight", " Nine"];
+        var ePlace = ['Ten', ' Eleven', ' Twelve', ' Thirteen', ' Fourteen', ' Fifteen', ' Sixteen', ' Seventeen', ' Eighteen', ' Nineteen'];
+        var tensPlace = ['dummy', ' Ten', ' Twenty', ' Thirty', ' Forty', ' Fifty', ' Sixty', ' Seventy', ' Eighty', ' Ninety'];
+
+        var iWordsLength = numReversed.length;
+        var totalWords = "";
+        var inWords = new Array();
+        var finalWord = "";
+        j = 0;
+        for (i = 0; i < iWordsLength; i++) {
+            switch (i) {
+                case 0:
+                    if (actnumber[i] == 0 || actnumber[i + 1] == 1) {
+                        inWords[j] = '';
+                    }
+                    else {
+                        inWords[j] = iWords[actnumber[i]];
+                    }
+                    inWords[j] = inWords[j] + ' Only';
+                    break;
+                case 1:
+                    tens_complication();
+                    break;
+                case 2:
+                    if (actnumber[i] == 0) {
+                        inWords[j] = '';
+                    }
+                    else if (actnumber[i - 1] != 0 && actnumber[i - 2] != 0) {
+                        inWords[j] = iWords[actnumber[i]] + ' Hundred and';
+                    }
+                    else {
+                        inWords[j] = iWords[actnumber[i]] + ' Hundred';
+                    }
+                    break;
+                case 3:
+                    if (actnumber[i] == 0 || actnumber[i + 1] == 1) {
+                        inWords[j] = '';
+                    }
+                    else {
+                        inWords[j] = iWords[actnumber[i]];
+                    }
+                    if (actnumber[i + 1] != 0 || actnumber[i] > 0) {
+                        inWords[j] = inWords[j] + " Thousand";
+                    }
+                    break;
+                case 4:
+                    tens_complication();
+                    break;
+                case 5:
+                    if (actnumber[i] == 0 || actnumber[i + 1] == 1) {
+                        inWords[j] = '';
+                    }
+                    else {
+                        inWords[j] = iWords[actnumber[i]];
+                    }
+                    if (actnumber[i + 1] != 0 || actnumber[i] > 0) {
+                        inWords[j] = inWords[j] + " Lakh";
+                    }
+                    break;
+                case 6:
+                    tens_complication();
+                    break;
+                case 7:
+                    if (actnumber[i] == 0 || actnumber[i + 1] == 1) {
+                        inWords[j] = '';
+                    }
+                    else {
+                        inWords[j] = iWords[actnumber[i]];
+                    }
+                    inWords[j] = inWords[j] + " Crore";
+                    break;
+                case 8:
+                    tens_complication();
+                    break;
+                default:
+                    break;
+            }
+            j++;
+        }
+
+        function tens_complication() {
+            if (actnumber[i] == 0) {
+                inWords[j] = '';
+            }
+            else if (actnumber[i] == 1) {
+                inWords[j] = ePlace[actnumber[i - 1]];
+            }
+            else {
+                inWords[j] = tensPlace[actnumber[i]];
+            }
+        }
+        inWords.reverse();
+        for (i = 0; i < inWords.length; i++) {
+            finalWord += inWords[i];
+        }
+        document.getElementById('Num2Word').innerHTML = "Rupees " + finalWord;
+    }
+</script>
+
+
+
+

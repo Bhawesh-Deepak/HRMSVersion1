@@ -1,0 +1,164 @@
+﻿<script src="~/resources/plugins/high-chart/js/highcharts.js"></script>
+<script src="~/resources/plugins/high-chart/js/exporting.js"></script>
+<script src="~/resources/plugins/high-chart/js/export-data.js"></script>
+<script src="~/resources/plugins/high-chart/js/accessibility.js"></script>
+<link href="~/resources/plugins/high-chart/css/highchartcustom.css" rel="stylesheet" />
+<script src="~/resources/plugins/high-chart/js/data.js"></script>
+<script src="~/resources/plugins/high-chart/js/highcharts-3d.js"></script>
+
+
+<div class="page-body dashboard-2-main">
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-6 box-col-12 des-xl-100 invoice-sec">
+                <div class="card">
+                    <div class="card-body p-0">
+                        <div id="container"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 box-col-12 des-xl-100 top-dealer-sec">
+
+                <div id="DivAttendanceStatus"></div>
+                <br />
+                <div class="card" id="div_Form16">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body" id="div_Payslip">
+
+                    </div>
+                    
+                </div>
+
+            </div>
+             
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#divLoader').modal('show');
+        $.get("/Home/EmployeePayslip", {}, function (response) {
+            $("#div_Payslip").html(response);
+            $('#divLoader').modal('hide');
+        });
+        $.get("/Home/Form16", {}, function (response) {
+            $("#div_Form16").html(response);
+            $('#divLoader').modal('hide');
+        });
+        getEmployeeGrossVsNetSalary();
+        getEmployeeAttendanceStatus();
+
+    });
+    function GetEmployeeAttendance() {
+        debugger;
+        var dateMonth = $("#DateMonth").val();
+        var dateYear = $("#DateYear").val();
+        getEmployeeAttendanceStatus(dateMonth, dateYear);
+    }
+    function getEmployeeAttendanceStatus(datemonth, dateYear) {
+        debugger;
+        $('#divLoader').modal('show');
+        $.get("/MonthlyEarning/GetEmployeeAttendaceStatus", { DateMonth: datemonth, DateYear: dateYear }, function (response) {
+            $("#DivAttendanceStatus").html(response);
+            $('#divLoader').modal('hide');
+        });
+    }
+    function getEmployeeGrossVsNetSalary() {
+        $('#divLoader').modal('show');
+        var Months = [];
+        var Gross = [];
+        var Net = [];
+        $.get("/MonthlyEarning/EmployeeGrossVsNetSalary", {}, function (response) {
+
+            for (i = 0; i < response.length; i++) {
+                Months.push(response[i].monthsName);
+                Gross.push(response[i].grossSalary);
+                Net.push(response[i].netSalary);
+            }
+
+
+            var chart = Highcharts.chart('container', {
+
+                chart: {
+                    type: 'column'
+                },
+
+                title: {
+                    text: 'Gross VS Net (Last 3 Month)'
+                },
+
+                subtitle: {
+                    text: ' '
+                },
+
+                //legend: {
+                //    align: 'top',
+                //    verticalAlign: 'middle',
+                //    layout: 'vertical'
+                //},
+
+                xAxis: {
+                    categories: Months,//['Apples', 'Oranges', 'Bananas'],
+                    labels: {
+                        x: -10
+                    }
+                },
+
+                yAxis: {
+                    allowDecimals: false,
+                    title: {
+                        text: 'Amount'
+                    }
+                },
+
+                series: [{
+                    name: 'Gross Salary',
+                    data: Gross,//[6, 4, 2]
+                }, {
+                    name: 'Net Salary',
+                    data: Net,//[8, 4, 3]
+                }],
+
+                responsive: {
+                    rules: [{
+                        condition: {
+                            maxWidth: 500
+                        },
+                        chartOptions: {
+                            legend: {
+                                align: 'center',
+                                verticalAlign: 'bottom',
+                                layout: 'horizontal'
+                            },
+                            yAxis: {
+                                labels: {
+                                    align: 'left',
+                                    x: 0,
+                                    y: -5
+                                },
+                                title: {
+                                    text: null
+                                }
+                            },
+                            subtitle: {
+                                text: null
+                            },
+                            credits: {
+                                enabled: false
+                            }
+                        }
+                    }]
+                }
+            });
+            $('#divLoader').modal('hide');
+        });
+    }
+</script>

@@ -13,6 +13,7 @@ namespace HRMS.Core.ReqRespVm.Response.Reporting
         public decimal ArrearDays { get; set; }
         public string MonthsName { get; set; }
         public int DateYear { get; set; }
+        public int DateMonth { get; set; }
 
     }
 }
