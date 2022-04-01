@@ -27,16 +27,27 @@ namespace HRMS.Admin.UI.Controllers
         private readonly IGenericRepository<EmployeeDetail, int> _IEmployeeDetailRepository;
         private readonly IDapperRepository<AttendanceGraphParams> _IAttendanceGraphRepository;
         private readonly IDapperRepository<BirthdayAnniversaryParams> _IBirthdayAnniversaryRepository;
+        private readonly IDapperRepository<GrossSalaryAndPIGraphParams> _IGrossSalaryAndPIGraphRepository;
+        private readonly IDapperRepository<NoOfEmployeeWhomSalaryPaidParams> _INoOfEmployeeWhomSalaryPaidGraphRepository;
+        private readonly IDapperRepository<NoOfEmployeeWhomIncentivePaidParams> _INoOfEmployeeWhomIncentivePaidGraphRepository;
         public HomeController(ILogger<HomeController> logger, IGenericRepository<AssesmentYear, int> assesmentYearRepository,
             IGenericRepository<EmployeeDetail, int> employeedetailRepository,
             IDapperRepository<AttendanceGraphParams> attendancegraphRepository,
-             IDapperRepository<BirthdayAnniversaryParams> birthdayanniversaryRepository)
+             IDapperRepository<BirthdayAnniversaryParams> birthdayanniversaryRepository,
+             IDapperRepository<GrossSalaryAndPIGraphParams> grossSalaryAndPIGraphRepository,
+              IDapperRepository<NoOfEmployeeWhomSalaryPaidParams> noOfEmployeeWhomSalaryPaidRepository,
+             IDapperRepository<NoOfEmployeeWhomIncentivePaidParams> noOfEmployeeWhomIncentivePaidRepository
+
+            )
         {
             _logger = logger;
             _IAssesmentYearRepository = assesmentYearRepository;
             _IEmployeeDetailRepository = employeedetailRepository;
             _IAttendanceGraphRepository = attendancegraphRepository;
             _IBirthdayAnniversaryRepository = birthdayanniversaryRepository;
+            _IGrossSalaryAndPIGraphRepository = grossSalaryAndPIGraphRepository;
+            _INoOfEmployeeWhomSalaryPaidGraphRepository = noOfEmployeeWhomSalaryPaidRepository;
+            _INoOfEmployeeWhomIncentivePaidGraphRepository = noOfEmployeeWhomIncentivePaidRepository;
         }
 
         public async Task<IActionResult> Index()
@@ -120,6 +131,69 @@ namespace HRMS.Admin.UI.Controllers
             catch (Exception ex)
             {
                 string template = $"Controller name {nameof(HomeController)} action name {nameof(GetAttendanceGraph)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetGrossSalaryAndPIGraph(int FinancialYear)
+        {
+            try
+            {
+                if (FinancialYear == 0)
+                    FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
+                var attendanceParams = new GrossSalaryAndPIGraphParams()
+                {
+                    FinancialYear = FinancialYear
+                };
+                var response = await Task.Run(() => _IGrossSalaryAndPIGraphRepository.GetAll<GrossSalaryAndPIGraphVM>(SqlQuery.GetGrossSalaryandIncentiveReport, attendanceParams));
+                return Json(response);
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(HomeController)} action name {nameof(GetGrossSalaryAndPIGraph)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetNoOfEmployeeWhomSalaryPaidGraph(int FinancialYear)
+        {
+            try
+            {
+                if (FinancialYear == 0)
+                    FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
+                var salaryPaidParams = new NoOfEmployeeWhomSalaryPaidParams()
+                {
+                    FinancialYear = FinancialYear
+                };
+                var response = await Task.Run(() => _INoOfEmployeeWhomSalaryPaidGraphRepository.GetAll<NoOfEmployeeWhomSalaryPaidVM>(SqlQuery.GetNoOfEmployeeWhomSalaryPaid, salaryPaidParams));
+                return Json(response);
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(HomeController)} action name {nameof(GetNoOfEmployeeWhomSalaryPaidGraph)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetNoOfEmployeeWhomIncentivePaidGraph(int FinancialYear)
+        {
+            try
+            {
+                if (FinancialYear == 0)
+                    FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
+                var incentiveGraphParams = new NoOfEmployeeWhomIncentivePaidParams()
+                {
+                    FinancialYear = FinancialYear
+                };
+                var response = await Task.Run(() => _INoOfEmployeeWhomIncentivePaidGraphRepository.GetAll<NoOfEmployeeWhomIncentivePaidVM>(SqlQuery.GetNoOfEmployeeWhomIncentivePaid, incentiveGraphParams));
+                return Json(response);
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(HomeController)} action name {nameof(GetNoOfEmployeeWhomIncentivePaidGraph)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }

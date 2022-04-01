@@ -18,7 +18,7 @@ namespace HRMS.Core.Entities.Organisation
         [Required(ErrorMessage = "Company logo is required.")]
         public string Logo { get; set; }
         public string Address { get; set; }
-        public string ZipCode { get; set; }
+        public int ZipCode { get; set; }
         [Display(Prompt = "Company email")]
         public string Email { get; set; }
         [Display(Prompt = "Company phone")]

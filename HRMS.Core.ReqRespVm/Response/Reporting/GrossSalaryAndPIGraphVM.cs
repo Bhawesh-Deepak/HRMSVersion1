@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace HRMS.Core.ReqRespVm.Response.Reporting
 {
-    public class AttendanceGraphVM
+    public class GrossSalaryAndPIGraphVM
     {
         public string MonthsName { get; set; }
-        public decimal PresentDays { get; set; }
-        public decimal LOPDays { get; set; }
-        public int TotalEmployee { get; set; }
+        public decimal GrossSalary { get; set; }
+        public decimal PIAmount { get; set; }
     }
 }
