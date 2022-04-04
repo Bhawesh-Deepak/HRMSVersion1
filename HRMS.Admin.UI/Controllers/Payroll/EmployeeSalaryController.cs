@@ -248,6 +248,24 @@ namespace HRMS.Admin.UI.Controllers.Payroll
             try
             {
                 var response = new ReadEmployeeSalaryExcelHelper().GetEmployeeSalaryDetails(model.UploadFile);
+                response.EmployeeDetails.ToList().ForEach(data =>
+                {
+                    data.FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
+                    data.CreatedBy = Convert.ToInt32(HttpContext.Session.GetString("EmployeeId"));
+
+                });
+                response.EmployeeSalaryDetails.ToList().ForEach(data =>
+                {
+                    data.FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
+                    data.CreatedBy = Convert.ToInt32(HttpContext.Session.GetString("EmployeeId"));
+
+                });
+                response.EmployeeCtcComponentDetails.ToList().ForEach(data =>
+                {
+                    data.FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
+                    data.CreatedBy = Convert.ToInt32(HttpContext.Session.GetString("EmployeeId"));
+
+                });
                 var employeeDetailResponse = await _IEmployeeDetailRepository.CreateEntities(response.EmployeeDetails.ToArray());
                 var employeeSalaryReponse = await _IEmployeeSalaryDetailRepository.CreateEntities(response.EmployeeSalaryDetails.ToArray());
                 var employeeSalaryList = await _IEmployeeSalaryDetailRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);

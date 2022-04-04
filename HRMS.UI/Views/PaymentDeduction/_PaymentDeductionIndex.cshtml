@@ -1,7 +1,6 @@
 ﻿@model IEnumerable<HRMS.Core.ReqRespVm.Response.Reporting.PaymentDeductionVM>
 
 <div class="page-body">
-    <!-- Container-fluid starts-->
     <div class="container-fluid dashboard-default-sec">
         <div class="row">
             <div class="col-xl-12 box-col-12 des-xl-100">
@@ -11,37 +10,486 @@
                             <div class="card-header">
                                 <h5>Payment Deduction</h5>
                                 <div class="header-top">
-                                    <div class="setting-list bg-primary position-unset">
-                                        <ul class="list-unstyled setting-option">
-                                            <li><div class="setting-white"><i class="icon-settings"></i></div></li>
-                                            <li><i class="view-html fa fa-code font-white"></i></li>
-                                            <li><i class="icofont icofont-maximize full-card font-white"></i></li>
-                                            <li><i class="icofont icofont-minus minimize-card font-white"></i></li>
-                                            <li><i class="icofont icofont-refresh reload-card font-white"></i></li>
-                                            <li><i class="icofont icofont-error close-card font-white"> </i></li>
-                                        </ul>
-                                    </div>
+
                                 </div>
                             </div>
                             <div class="card-body text-center p-t-0">
-                                
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                @foreach (var item in Model.GroupBy(x => x.DateMonth) )
+                                                {
+                                                <th scope="col"><a class="btn btn-primary btn-xs"><i class="fa fa-download"></i></a><br /> @item.First().MonthName</th>
+                                                }
+
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            @{
+                                int[] Months = { 4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3 };
+                                int Serial = 0;
+                                            }
+                                            @foreach (var ComponentGroup in Model.Where(x => x.DateMonth == Months[Serial]).GroupBy(x => x.ComponentType))
+                            {
+                                            <tr>
+
+                                                <td colspan="14">
+                                                    <div class="default-according style-1" id="accordionoc">
+                                                        <div class="card">
+                                                            <div class="card-header bg-primary">
+                                                                <h5 class="mb-0">
+                                                                    <button class="btn btn-link text-white" data-bs-toggle="collapse" data-bs-target="@("#collapse-"+@ComponentGroup.First().ComponentType)" aria-expanded="true" aria-controls="collapse11"> <span> @ComponentGroup.First().ComponentCategory</span></button>
+                                                                </h5>
+                                                            </div>
+                                                            <div class="collapse show" id="@("collapse-"+@ComponentGroup.First().ComponentType)" aria-labelledby="collapseicon" data-bs-parent="@("collapse-"+@ComponentGroup.First().ComponentType)">
+                                                                <div class="card-body">
+                                                                    <table class="table table-bordered">
+                                                                        <tbody>
+                                                                            @foreach (var item in ComponentGroup)
+                                                            {
+                                                                            <tr>
+                                                                                <td class="col-1 text-left">@item.ComponentName</td>
+                                                                                <td>
+                                                                                    @string.Format("{0:0.0}", item.SalaryAmount)
+                                                                                    <input type="hidden" id="hdnAmt" name="@("hdnAmt_4_" + item.ComponentType)" value="@item.SalaryAmount" />
+                                                                                </td>
+                                                                                @foreach (var SalVal in Model.Where(x => x.DateMonth == 5 && x.ComponentId == item.ComponentId))
+                                                                {
+                                                                                <td>
+                                                                                    @string.Format("{0:0.0}", SalVal.SalaryAmount)
+                                                                                    <input type="hidden" id="hdnAmt" name="@("hdnAmt_5_"   + item.ComponentType)" value="@SalVal.SalaryAmount" />
+                                                                                </td>
+                                                                }
+                                                                                @foreach (var SalVal in Model.Where(x => x.DateMonth == 6 && x.ComponentId == item.ComponentId))
+                                                                {
+                                                                                <td>
+                                                                                    @string.Format("{0:0.0}", SalVal.SalaryAmount)
+                                                                                    <input type="hidden" id="hdnAmt" name="@("hdnAmt_6_"  + item.ComponentType)" value="@SalVal.SalaryAmount" />
+                                                                                </td>
+                                                                }
+                                                                                @foreach (var SalVal in Model.Where(x => x.DateMonth == 7 && x.ComponentId == item.ComponentId))
+                                                                {
+                                                                                <td>
+                                                                                    @string.Format("{0:0.0}", SalVal.SalaryAmount)
+                                                                                    <input type="hidden" id="hdnAmt" name="@("hdnAmt_7_" + item.ComponentType)" value="@SalVal.SalaryAmount" />
+                                                                                </td>
+                                                                }
+                                                                                @foreach (var SalVal in Model.Where(x => x.DateMonth == 8 && x.ComponentId == item.ComponentId))
+                                                                {
+                                                                                <td>
+                                                                                    @string.Format("{0:0.0}", SalVal.SalaryAmount)
+                                                                                    <input type="hidden" id="hdnAmt" name="@("hdnAmt_8_"   + item.ComponentType)" value="@SalVal.SalaryAmount" />
+                                                                                </td>
+                                                                }
+                                                                                @foreach (var SalVal in Model.Where(x => x.DateMonth == 9 && x.ComponentId == item.ComponentId))
+                                                                {
+                                                                                <td>
+                                                                                    @string.Format("{0:0.0}", SalVal.SalaryAmount)
+                                                                                    <input type="hidden" id="hdnAmt" name="@("hdnAmt_9_"   + item.ComponentType)" value="@SalVal.SalaryAmount" />
+                                                                                </td>
+                                                                }
+                                                                                @foreach (var SalVal in Model.Where(x => x.DateMonth == 10 && x.ComponentId == item.ComponentId))
+                                                                {
+                                                                                <td>
+                                                                                    @string.Format("{0:0.0}", SalVal.SalaryAmount)
+                                                                                    <input type="hidden" id="hdnAmt" name="@("hdnAmt_10_"  + item.ComponentType)" value="@SalVal.SalaryAmount" />
+                                                                                </td>
+                                                                }
+                                                                                @foreach (var SalVal in Model.Where(x => x.DateMonth == 11 && x.ComponentId == item.ComponentId))
+                                                                {
+                                                                                <td>
+                                                                                    @string.Format("{0:0.0}", SalVal.SalaryAmount)
+                                                                                    <input type="hidden" id="hdnAmt" name="@("hdnAmt_11_"  + item.ComponentType)" value="@SalVal.SalaryAmount" />
+                                                                                </td>
+                                                                }
+                                                                                @foreach (var SalVal in Model.Where(x => x.DateMonth == 12 && x.ComponentId == item.ComponentId))
+                                                                {
+                                                                                <td>
+                                                                                    @string.Format("{0:0.0}", SalVal.SalaryAmount)
+                                                                                    <input type="hidden" id="hdnAmt" name="@("hdnAmt_12_"  + item.ComponentType)" value="@SalVal.SalaryAmount" />
+                                                                                </td>
+                                                                }
+                                                                                @foreach (var SalVal in Model.Where(x => x.DateMonth == 1 && x.ComponentId == item.ComponentId))
+                                                                {
+                                                                                <td>
+                                                                                    @string.Format("{0:0.0}", SalVal.SalaryAmount)
+                                                                                    <input type="hidden" id="hdnAmt" name="@("hdnAmt_1_"   + item.ComponentType)" value="@SalVal.SalaryAmount" />
+                                                                                </td>
+                                                                }
+                                                                                @foreach (var SalVal in Model.Where(x => x.DateMonth == 2 && x.ComponentId == item.ComponentId))
+                                                                {
+                                                                                <td>
+                                                                                    @string.Format("{0:0.0}", SalVal.SalaryAmount)
+                                                                                    <input type="hidden" id="hdnAmt" name="@("hdnAmt_2_"   + item.ComponentType)" value="@SalVal.SalaryAmount" />
+                                                                                </td>
+                                                                }
+                                                                                @foreach (var SalVal in Model.Where(x => x.DateMonth == 3 && x.ComponentId == item.ComponentId))
+                                                                {
+                                                                                <td>
+                                                                                    @string.Format("{0:0.0}", SalVal.SalaryAmount)
+                                                                                    <input type="hidden" id="hdnAmt" name="@("hdnAmt_3_"  + item.ComponentType)" value="@SalVal.SalaryAmount" />
+                                                                                </td>
+                                                                }
+
+                                                                                <td>
+                                                                                    @{
+                                                                decimal tval = Model.Where(x => x.ComponentId == item.ComponentId).Sum(x => x.SalaryAmount);
+                                                                                    }
+
+                                                                                    <span>@tval</span>
+                                                                                    <input type="hidden" id="hdnAmt" name="@("hdnAmt"  + item.ComponentType)" value="@tval" />
+                                                                                </td>
+                                                                            </tr>
+                                                            }
+
+
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                                }
+                                           
+                                        </tbody>
+                                    </table>
+                                </div>
+
                             </div>
-                             
                         </div>
                     </div>
-                    
                 </div>
             </div>
-             
         </div>
     </div>
-    <!-- Container-fluid Ends-->
 </div>
 
 
 
 
- 
+<script>
+    function show_hide_row(row) {
+
+        $(".hideshowrow" + row).slideToggle("slow");
+
+    }
+    $("#Non-ctcAssesmentYearId").change(function () {
+        window.location.href = '@Url.Action("CompensationNonCTC", "Compensation")?AssesmentYear=' + $("#Non-ctcAssesmentYearId").val();
+    });
+    $(document).ready(function () {
+
+        //------------------------------APR________________________________________________
+        var NetSalary4 = 0;
+        var Earning4 = 0;
+        var Deduction4 = 0;
+        var EarningVal4 = $('input[type="hidden"][name="hdnAmt_4_1"]');
+        if (EarningVal4.length > 0) {
+            $(EarningVal4).each(function () {
+                Earning4 += parseInt($(this).val());
+            })
+        }
+        var DeductionVal4 = $('input[type="hidden"][name="hdnAmt_4_2"]');
+        if (DeductionVal4.length > 0) {
+            $(DeductionVal4).each(function () {
+                Deduction4 += parseInt($(this).val());
+            })
+        }
+        debugger;
+        NetSalary4 = parseFloat(parseFloat(Earning4).toFixed(4) - parseFloat(Deduction4).toFixed(4)).toFixed(2);
+        if (NetSalary4 > 0) {
+            $("#span_NetSalary_4").text(NetSalary4);
+        }
+        else {
+            $('#td4').remove();
+        }
+        //------------------------------MAY________________________________________________
+        var NetSalary5 = 0;
+        var Earning5 = 0;
+        var Deduction5 = 0;
+        var EarningVal5 = $('input[type="hidden"][name="hdnAmt_5_1"]');
+        if (EarningVal5.length > 0) {
+            $(EarningVal5).each(function () {
+                Earning5 += parseInt($(this).val());
+            })
+        }
+        var DeductionVal5 = $('input[type="hidden"][name="hdnAmt_5_2"]');
+        if (DeductionVal5.length > 0) {
+            $(DeductionVal5).each(function () {
+                Deduction5 += parseInt($(this).val());
+            })
+        }
+        NetSalary5 = parseFloat(parseFloat(Earning5).toFixed(4) - parseFloat(Deduction5).toFixed(4)).toFixed(2);
+        if (NetSalary5 > 0) {
+            $("#span_NetSalary_5").text(NetSalary5);
+        }
+        else {
+            $('#td5').remove();
+        }
+        //--------------------------------------JUNE-----------------------------------------------
+        var NetSalary6 = 0;
+        var Earning6 = 0;
+        var Deduction6 = 0;
+        var EarningVal6 = $('input[type="hidden"][name="hdnAmt_6_1"]');
+        if (EarningVal6.length > 0) {
+            $(EarningVal6).each(function () {
+                Earning6 += parseInt($(this).val());
+            })
+        }
+        var DeductionVal6 = $('input[type="hidden"][name="hdnAmt_6_2"]');
+        if (DeductionVal6.length > 0) {
+            $(DeductionVal6).each(function () {
+                Deduction6 += parseInt($(this).val());
+            })
+        }
+        NetSalary6 = parseFloat(parseFloat(Earning6).toFixed(4) - parseFloat(Deduction6).toFixed(4)).toFixed(2);
+
+        if (NetSalary6 > 0) {
+            $("#span_NetSalary_6").text(NetSalary6);
+        }
+        else {
+            $('#td6').remove();
+        }
+        //------------------------------------July---------------------------------------------------------------
+        var NetSalary7 = 0;
+        var Earning7 = 0;
+        var Deduction7 = 0;
+        var EarningVal7 = $('input[type="hidden"][name="hdnAmt_7_1"]');
+        if (EarningVal7.length > 0) {
+            $(EarningVal7).each(function () {
+                Earning7 += parseInt($(this).val());
+            })
+        }
+        var DeductionVal7 = $('input[type="hidden"][name="hdnAmt_7_2"]');
+        if (DeductionVal7.length > 0) {
+            $(DeductionVal7).each(function () {
+                Deduction7 += parseInt($(this).val());
+            })
+        }
+        NetSalary7 = parseFloat(parseFloat(Earning7).toFixed(4) - parseFloat(Deduction7).toFixed(4)).toFixed(2);
+        if (NetSalary7 > 0) {
+            $("#span_NetSalary_7").text(NetSalary7);
+        }
+        else {
+            $('#td7').remove();
+        }
+
+        //---------------------------------------------August----------------------------------------------------
+        var NetSalary8 = 0;
+        var Earning8 = 0;
+        var Deduction8 = 0;
+        var EarningVal8 = $('input[type="hidden"][name="hdnAmt_8_1"]');
+        if (EarningVal8.length > 0) {
+            $(EarningVal8).each(function () {
+                Earning8 += parseInt($(this).val());
+            })
+        }
+        var DeductionVal8 = $('input[type="hidden"][name="hdnAmt_8_2"]');
+        if (DeductionVal8.length > 0) {
+            $(DeductionVal8).each(function () {
+                Deduction8 += parseInt($(this).val());
+            })
+        }
+        NetSalary8 = parseFloat(parseFloat(Earning8).toFixed(4) - parseFloat(Deduction8).toFixed(4)).toFixed(2);
+        if (NetSalary8 > 0) {
+            $("#span_NetSalary_8").text(NetSalary8);
+        }
+        else {
+            $('#td8').remove();
+        }
+
+        //---------------------------------------------SepTember----------------------------------------------------
+        var NetSalary9 = 0;
+        var Earning9 = 0;
+        var Deduction9 = 0;
+        var EarningVal9 = $('input[type="hidden"][name="hdnAmt_9_1"]');
+        if (EarningVal9.length > 0) {
+            $(EarningVal9).each(function () {
+                Earning9 += parseInt($(this).val());
+            })
+        }
+        var DeductionVal9 = $('input[type="hidden"][name="hdnAmt_9_2"]');
+        if (DeductionVal9.length > 0) {
+            $(DeductionVal9).each(function () {
+                Deduction9 += parseInt($(this).val());
+            })
+        }
+        NetSalary9 = parseFloat(parseFloat(Earning9).toFixed(4) - parseFloat(Deduction9).toFixed(4)).toFixed(2);
+
+        if (NetSalary9 > 0) {
+            $("#span_NetSalary_9").text(NetSalary9);
+        }
+        else {
+            $('#td9').remove();
+        }
+        //-----------------------------------October-----------------------------------------------------
+        var NetSalary10 = 0;
+        var Earning10 = 0;
+        var Deduction10 = 0;
+        var EarningVal10 = $('input[type="hidden"][name="hdnAmt_10_1"]');
+        if (EarningVal10.length > 0) {
+            $(EarningVal10).each(function () {
+                Earning10 += parseInt($(this).val());
+            })
+        }
+        var DeductionVal10 = $('input[type="hidden"][name="hdnAmt_10_2"]');
+        if (DeductionVal10.length > 0) {
+            $(DeductionVal10).each(function () {
+                Deduction10 += parseInt($(this).val());
+            })
+        }
+        NetSalary10 = parseFloat(parseFloat(Earning10).toFixed(4) - parseFloat(Deduction10).toFixed(4)).toFixed(2);
+        if (NetSalary10 > 0) {
+            $("#span_NetSalary_10").text(NetSalary10);
+        }
+        else {
+            $('#td10').remove();
+        }
+
+        //-----------------------------------November-----------------------------------------------------
+        var NetSalary11 = 0;
+        var Earning11 = 0;
+        var Deduction11 = 0;
+        var EarningVal11 = $('input[type="hidden"][name="hdnAmt_11_1"]');
+        if (EarningVal11.length > 0) {
+            $(EarningVal11).each(function () {
+                Earning11 += parseInt($(this).val());
+            })
+        }
+        var DeductionVal11 = $('input[type="hidden"][name="hdnAmt_11_2"]');
+        if (DeductionVal11.length > 0) {
+            $(DeductionVal11).each(function () {
+                Deduction11 += parseInt($(this).val());
+            })
+        }
+        NetSalary11 = parseFloat(parseFloat(Earning11).toFixed(4) - parseFloat(Deduction11).toFixed(4)).toFixed(2);
+        if (NetSalary11 > 0) {
+            $("#span_NetSalary_11").text(NetSalary11);
+        }
+        else {
+            $('#td11').remove();
+        }
+
+        //-----------------------------------December-----------------------------------------------------
+        var NetSalary12 = 0;
+        var Earning12 = 0;
+        var Deduction12 = 0;
+        var EarningVal12 = $('input[type="hidden"][name="hdnAmt_12_1"]');
+        if (EarningVal12.length > 0) {
+            $(EarningVal12).each(function () {
+                Earning12 += parseInt($(this).val());
+            })
+        }
+        var DeductionVal12 = $('input[type="hidden"][name="hdnAmt_12_2"]');
+        if (DeductionVal12.length > 0) {
+            $(DeductionVal12).each(function () {
+                Deduction12 += parseInt($(this).val());
+            })
+        }
+        NetSalary12 = parseFloat(parseFloat(Earning12).toFixed(4) - parseFloat(Deduction12).toFixed(4)).toFixed(2);
+        if (NetSalary12 > 0) {
+            $("#span_NetSalary_12").text(NetSalary12);
+        }
+        else {
+            $('#td12').remove();
+        }
+
+        //-----------------------------------January-----------------------------------------------------
+        var NetSalary1 = 0;
+        var Earning1 = 0;
+        var Deduction1 = 0;
+        var EarningVal1 = $('input[type="hidden"][name="hdnAmt_1_1"]');
+        if (EarningVal1.length > 0) {
+            $(EarningVal1).each(function () {
+                Earning1 += parseInt($(this).val());
+            })
+        }
+        var DeductionVal1 = $('input[type="hidden"][name="hdnAmt_1_2"]');
+        if (DeductionVal1.length > 0) {
+            $(DeductionVal1).each(function () {
+                Deduction1 += parseInt($(this).val());
+            })
+        }
+        NetSalary1 = parseFloat(parseFloat(Earning1).toFixed(4) - parseFloat(Deduction1).toFixed(4)).toFixed(2);
+        if (NetSalary1 > 0) {
+            $("#span_NetSalary_1").text(NetSalary1);
+        }
+        else {
+            $('#td1').remove();
+        }
+
+        //-----------------------------------February-----------------------------------------------------
+        var NetSalary2 = 0;
+        var Earning2 = 0;
+        var Deduction2 = 0;
+        var EarningVal2 = $('input[type="hidden"][name="hdnAmt_2_1"]');
+        if (EarningVal2.length > 0) {
+            $(EarningVal2).each(function () {
+                Earning2 += parseInt($(this).val());
+            })
+        }
+        var DeductionVal2 = $('input[type="hidden"][name="hdnAmt_2_2"]');
+        if (DeductionVal2.length > 0) {
+            $(DeductionVal2).each(function () {
+                Deduction2 += parseInt($(this).val());
+            })
+        }
+        NetSalary2 = parseFloat(parseFloat(Earning2).toFixed(4) - parseFloat(Deduction2).toFixed(4)).toFixed(2);
+        if (NetSalary2 > 0) {
+            $("#span_NetSalary_2").text(NetSalary2);
+        }
+        else {
+            $('#td2').remove();
+        }
+        //-----------------------------------March-----------------------------------------------------
+        var NetSalary3 = 0;
+        var Earning3 = 0;
+        var Deduction3 = 0;
+        var EarningVal3 = $('input[type="hidden"][name="hdnAmt_3_1"]');
+        if (EarningVal3.length > 0) {
+            $(EarningVal3).each(function () {
+                Earning3 += parseInt($(this).val());
+            })
+        }
+        var DeductionVal3 = $('input[type="hidden"][name="hdnAmt_3_2"]');
+        if (DeductionVal3.length > 0) {
+            $(DeductionVal3).each(function () {
+                Deduction3 += parseInt($(this).val());
+            })
+        }
+        NetSalary3 = parseFloat(parseFloat(Earning3).toFixed(4) - parseFloat(Deduction3).toFixed(4)).toFixed(2);
+        if (NetSalary3 > 0) {
+            $("#span_NetSalary_3").text(NetSalary3);
+        }
+        else {
+            $('#td3').remove();
+        }
+        //-------------------------------Net Salary------------------------
+        var tSal = 0;
+        var tEarning = 0;
+        var tDeduction = 0;
+        var tEarningVal = $('input[type="hidden"][name="hdnAmt1"]');
+        if (tEarningVal.length > 0) {
+            $(tEarningVal).each(function () {
+                tEarning += parseInt($(this).val());
+            })
+        }
+        var tDeductionVal = $('input[type="hidden"][name="hdnAmt2"]');
+        if (tDeductionVal.length > 0) {
+            $(tDeductionVal).each(function () {
+                tDeduction += parseInt($(this).val());
+            })
+        }
+        tSal = parseFloat(parseFloat(tEarning).toFixed(2) - parseFloat(tDeduction).toFixed(4)).toFixed(2);
+        $("#span_NetSalary").text(tSal);
+    });
+</script>
 
 
 
@@ -52,43 +500,43 @@
 
 
 
- @*ACTARTLY TECHNOLOGY PRIVATE LIMITED
+@*ACTARTLY TECHNOLOGY PRIVATE LIMITED
 
-Pushstart Media Network Private Limited
+    Pushstart Media Network Private Limited
 
-Aidetic Software Pvt Ltd (Sick Leave option Must)
+    Aidetic Software Pvt Ltd (Sick Leave option Must)
 
-Kalpkriti Pvt Ltd (Refer as Kalkriti Dinesh for Communication purpose)
+    Kalpkriti Pvt Ltd (Refer as Kalkriti Dinesh for Communication purpose)
 
-Kalpkriti concept Private Limited  (Refer As kalpkriti Prerna Mam for communication )
+    Kalpkriti concept Private Limited  (Refer As kalpkriti Prerna Mam for communication )
 
-Soho Square Solutions India Pvt LTD
+    Soho Square Solutions India Pvt LTD
 
-Clinify Private Limited
+    Clinify Private Limited
 
-CYBOARD EDTECH PRIVATE LIMITED
+    CYBOARD EDTECH PRIVATE LIMITED
 
-Cyboard Foundation
+    Cyboard Foundation
 
-JSM ENERGY PRIVATE LIMITED
+    JSM ENERGY PRIVATE LIMITED
 
-WINDSCON TECH PRIVATE LIMITED
+    WINDSCON TECH PRIVATE LIMITED
 
-<p>
+    <p>
 
-    ActartlyTechnology_Payroll_Development
-    PushstartMediaNetwork_Payroll_Development
-    AideticSoftware_Payroll_Development
-    Kalpkriti_Payroll_Development
-    KalpkritiCconcept_Payroll_Development
-    SohoSquare_Payroll_Development
-    Clinify_Payroll_Development
-    CyboardEdtech_Payroll_Development
-    CyboardFoundation_Payroll_Development
-    JsmEnergy_Payroll_Development
-    WindsconTech_Payroll_Development
-
-
+        ActartlyTechnology_Payroll_Development
+        PushstartMediaNetwork_Payroll_Development
+        AideticSoftware_Payroll_Development
+        Kalpkriti_Payroll_Development
+        KalpkritiCconcept_Payroll_Development
+        SohoSquare_Payroll_Development
+        Clinify_Payroll_Development
+        CyboardEdtech_Payroll_Development
+        CyboardFoundation_Payroll_Development
+        JsmEnergy_Payroll_Development
+        WindsconTech_Payroll_Development
 
 
-</p>*@
+
+
+    </p>*@

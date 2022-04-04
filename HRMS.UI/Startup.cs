@@ -48,7 +48,7 @@ namespace HRMS.UI
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
+            Rotativa.AspNetCore.RotativaConfiguration.Setup(env.WebRootPath, "Rotativa");
             app.UseStaticFiles();
 
             app.UseRouting();

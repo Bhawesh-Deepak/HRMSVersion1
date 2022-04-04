@@ -100,6 +100,7 @@ namespace HRMS.Core.Helpers.ExcelHelper
                 empModel.PTStateName = dataResult.dtResult.Rows[i][71].ToString().GetDefaultDBNull<string>();
                 empModel.IsPFEligible = dataResult.dtResult.Rows[i][72].ToString().GetDefaultDBNull<int>();
                 empModel.CreatedDate = DateTime.Now;
+                empModel.ProfilePic = "/resources/dist/img/emp.png";
                 employeeModels.Add(empModel);
 
                 var empSalaryModel = new EmployeeSalary();
