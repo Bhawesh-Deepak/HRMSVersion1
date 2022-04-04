@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Rotativa.AspNetCore;
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -109,13 +109,13 @@ namespace HRMS.UI.Controllers
                         var paySlips = JsonConvert.DeserializeObject<List<EmployeePaySlipVM>>(responseDetails);
                         System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
                         string strMonthName = mfi.GetMonthName(DateMonth).ToString();
-                        var responsepdf = new ViewAsPdf(ViewHelper.GetViewPathDetails("Home", "_Payslip"), paySlips,null)
+                        var responsepdf = new Rotativa.AspNetCore.ViewAsPdf(ViewHelper.GetViewPathDetails("Home", "_Payslip"), paySlips, null)
                         {
                             FileName = strMonthName + "_" + DateYear + "_PaySlip.pdf",
                         };
                         return responsepdf;
-                        // return PartialView(ViewHelper.GetViewPathDetails("Home", "_Payslip"), paySlips);
-                        // return new ViewAsPdf(ViewHelper.GetViewPathDetails("Home", "_Payslip"), paySlips.OrderBy(x => x.ComponentId));
+                        //return PartialView(ViewHelper.GetViewPathDetails("Home", "_Payslip"), paySlips);
+                        //return new ViewAsPdf(ViewHelper.GetViewPathDetails("Home", "_Payslip"), paySlips.OrderBy(x => x.ComponentId));
 
                     }
                     else

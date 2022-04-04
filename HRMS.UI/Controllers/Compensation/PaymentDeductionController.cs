@@ -20,15 +20,17 @@ namespace HRMS.UI.Controllers.Compensation
             APIURL = configuration.GetSection("APIURL").Value;
 
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int FinancialYear)
         {
             try
             {
+                if (FinancialYear == 0)
+                    FinancialYear = 3;// Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
                 List<PaymentDeductionVM> paymentDeductions = null;
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(APIURL);
-                    var responseTask = await client.GetAsync("/api/HRMS/PaymentDeduction/GetEmployeePaymentDeduction?EmpCode=" + HttpContext.Session.GetString("EmpCode")+ "&FinancialYear="+Convert.ToInt32( HttpContext.Session.GetString("financialYearId")));
+                    var responseTask = await client.GetAsync("/api/HRMS/PaymentDeduction/GetEmployeePaymentDeduction?EmpCode=" + HttpContext.Session.GetString("EmpCode") + "&FinancialYear=" + FinancialYear);
                     if (responseTask.IsSuccessStatusCode)
                     {
                         var responseDetails = await responseTask.Content.ReadAsStringAsync();
@@ -40,7 +42,7 @@ namespace HRMS.UI.Controllers.Compensation
                         return await Task.Run(() => View(ViewHelper.GetViewPathDetails("PaymentDeduction", "_PaymentDeductionIndex"), paymentDeductions));
                     }
                 }
-                
+
             }
             catch (Exception ex)
             {

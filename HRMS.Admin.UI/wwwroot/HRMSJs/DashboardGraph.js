@@ -14,7 +14,7 @@ function GetDetail(event) {
         var presents = [];
         var absents = [];
         var employees = [];
-        $.get("/Home/GetAttendanceGraph/", { FinancialYear: 3 }, function (response) {
+        $.get("/Home/GetAttendanceGraph/", { FinancialYear: 0 }, function (response) {
              
             for (i = 0; i < response.length; i++) {
                 months.push(response[i].monthsName);
@@ -89,7 +89,7 @@ function GetDetail(event) {
         var Months = [];
         var Gross = [];
         var PI = [];
-        $.get("/Home/GetGrossSalaryAndPIGraph/", { FinancialYear: 3 }, function (response) {
+        $.get("/Home/GetGrossSalaryAndPIGraph/", { FinancialYear: 0 }, function (response) {
              
             for (i = 0; i < response.length; i++) {
                 Months.push(response[i].monthsName);
@@ -176,7 +176,7 @@ function GetDetail(event) {
         $("#container").empty();
         $("#div_details").empty();
         var chartresponse = [];
-        $.get("/Home/GetNoOfEmployeeWhomSalaryPaidGraph/", { FinancialYear: 3 }, function (response) {
+        $.get("/Home/GetNoOfEmployeeWhomSalaryPaidGraph/", { FinancialYear: 0 }, function (response) {
             debugger;
             for (i = 0; i < response.length; i++) {
                 var a = response[i].monthsName;
@@ -216,7 +216,7 @@ function GetDetail(event) {
         $("#div_details").empty();
         $("#container").empty();
         var chartresponse = [];
-        $.get("/Home/GetNoOfEmployeeWhomSalaryPaidGraph/", { FinancialYear: 3 }, function (response) {
+        $.get("/Home/GetNoOfEmployeeWhomSalaryPaidGraph/", { FinancialYear: 0 }, function (response) {
              
             for (i = 0; i < response.length; i++) {
                 var a = response[i].monthsName;
@@ -245,20 +245,7 @@ function GetDetail(event) {
                 },
                 series: [{
                     name: 'Incentive Paid  Employees',
-                    data: [
-                        ['Apr', 3720],
-                        ['May', 3212],
-                        ['Jun', 4014],
-                        ['Jul', 4431],
-                        ['Aug', 4955],
-                        ['Sep', 4758],
-                        ['Oct', 4998],
-                        ['Nov', 4694],
-                        ['Dec', 4528],
-                        ['Jan', 4528],
-                        ['Feb', 0],
-                        ['Mar', 0]
-                    ]
+                    data: chartresponse,
                 }]
             });
             $('#divLoader').modal('hide');
