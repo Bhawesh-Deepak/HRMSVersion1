@@ -97,17 +97,24 @@
                 <div class="box box-success">
                     <div class="box-header with-border">
                         <div class="box-title">
-                            <i class="fa fa-bar-chart "></i> Salary
+                            <i class="fa fa-bar-chart "></i> Salary Chart
+                        </div>
+                        <div class="pull-right box-tools">
+                            <select class="form-control input-sm" id="AssesmentYear" asp-items="@(new SelectList(ViewBag.AssesmentYear ,"Id","Name"))">
+                                <option value="">--Select--</option>
+
+                            </select>
+                            
                         </div>
                     </div>
                     <div class="box-body">
                         <div class="profile-nav nav-tabs-custom customNavigation">
 
                             <ul id="nav-t" class="nav nav-tabs">
-                                <li class="active"><a href="#Monthly_Attendance_Graph" onclick="GetDetail(1)" data-toggle="tab">Monthly Attendance Graph</a></li>
-                                <li><a href="#Monthly_Gross_Salary_Incentive" onclick="GetDetail(2)" data-toggle="tab">Monthly Gross Salary & Incentive</a></li>
-                                <li><a href="#Number_of_Employees_to_whom_Salary_Paid " onclick="GetDetail(3)" data-toggle="tab">Number of Employees to whom Salary Paid </a></li>
-                                <li><a href="#Number_of_Employees_to_whom_Incentive_Paid" onclick="GetDetail(4)" data-toggle="tab">Number of Employees to whom Incentive Paid</a></li>
+                                <li id="li1" class="active"><a href="#Monthly_Attendance_Graph" onclick="GetDetail(1)" data-toggle="tab">Monthly Attendance Graph</a></li>
+                                <li id="li2"><a href="#Monthly_Gross_Salary_Incentive" onclick="GetDetail(2)" data-toggle="tab">Monthly Gross Salary & Incentive</a></li>
+                                <li id="li3"><a href="#Number_of_Employees_to_whom_Salary_Paid " onclick="GetDetail(3)" data-toggle="tab">Number of Employees to whom Salary Paid </a></li>
+                                <li id="li4"><a href="#Number_of_Employees_to_whom_Incentive_Paid" onclick="GetDetail(4)" data-toggle="tab">Number of Employees to whom Incentive Paid</a></li>
 
                             </ul>
                             <div class="tab-content">

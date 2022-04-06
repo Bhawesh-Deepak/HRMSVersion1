@@ -84,6 +84,30 @@
             margin: 0 auto;
         }
     </style>
+    <style>
+
+        .color-line {
+            background: #f7f9fa;
+            height: 6px;
+            background-image: -webkit-linear-gradient(left,#f7f9fa,#f7f9fa 25%,#9b59b6 25%,#9b59b6 35%,#3498db 35%,#3498db 45%,#62cb31 45%,#62cb31 55%,#ffb606 55%,#ffb606 65%,#e67e22 65%,#e67e22 75%,#e74c3c 85%,#e74c3c 85%,#c0392b 85%,#c0392b 100%);
+            background-image: -moz-linear-gradient(left,#f7f9fa,#f7f9fa 25%,#9b59b6 25%,#9b59b6 35%,#3498db 35%,#3498db 45%,#62cb31 45%,#62cb31 55%,#ffb606 55%,#ffb606 65%,#e67e22 65%,#e67e22 75%,#e74c3c 85%,#e74c3c 85%,#c0392b 85%,#c0392b 100%);
+            background-image: -ms-linear-gradient(left,#f7f9fa,#f7f9fa 25%,#9b59b6 25%,#9b59b6 35%,#3498db 35%,#3498db 45%,#62cb31 45%,#62cb31 55%,#ffb606 55%,#ffb606 65%,#e67e22 65%,#e67e22 75%,#e74c3c 85%,#e74c3c 85%,#c0392b 85%,#c0392b 100%);
+            background-image: linear-gradient(to right,#CC2AC0,#CC2AC0 25%,#9b59b6 25%,#9b59b6 35%,#3498db 35%,#3498db 45%,#62cb31 45%,#62cb31 55%,#ffb606 55%,#ffb606 65%,#e67e22 65%,#e67e22 75%,#e74c3c 85%,#e74c3c 85%,#c0392b 85%,#c0392b 100%);
+            background-size: 100% 6px;
+            background-position: 50% 100%;
+            background-repeat: no-repeat
+        }
+        *::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+            background-color: rgba(255,255,255,0.1);
+            position: absolute;
+            z-index: 10000;
+        }
+        *::-webkit-scrollbar-thumb {
+            background-color: #e74c3c;
+        }
+    </style>
 </head>
 <body>
     <div class="loader-wrapper">
@@ -92,6 +116,7 @@
         </div>
     </div>
     <div class="page-wrapper compact-wrapper" id="pageWrapper">
+        <div class="color-line"> </div>
         @await Component.InvokeAsync("HeaderMenu")
         <div class="page-body-wrapper sidebar-icon">
             @await Component.InvokeAsync("MenuSubMenu")
