@@ -23,7 +23,7 @@ namespace HRMS.Services.Implementation.SqlConstant
         public const string GetPaySlip = @"[Reporting].[usp_GetEmployeePaySlip]";
         public const string GetPTaxReport = @"[Reporting].[usp_GetProfessionTaxReport]";
         public const string GetLWFReport = @"[Reporting].[usp_GetLWFReport]";
-        public const string GetAttendanceGraph= @"[Reporting].[usp_GetAttendanceGraph]";
+        public const string GetAttendanceGraph = @"[Reporting].[usp_GetAttendanceGraph]";
         public const string GetESICReport = @"[Reporting].[usp_ESICReport]";
         public const string GetemployeeAutoComplete = @"[Payroll].[usp_getEmployeeAutoComplete]";
         public const string GetExportEmployee = @"[Payroll].[usp_ExportEmployeeDetail]";
@@ -47,5 +47,6 @@ namespace HRMS.Services.Implementation.SqlConstant
         public const string GetGrossSalaryandIncentiveReport = @"[Reporting].[usp_GetGrossSalaryandIncentiveReport]";
         public const string GetNoOfEmployeeWhomSalaryPaid = @"[Reporting].[usp_GetNoOfEmployeeWhomSalaryPaid]";
         public const string GetNoOfEmployeeWhomIncentivePaid = @"[Reporting].[usp_GetNoOfEmployeeWhomIncentivePaid]";
+        public const string GetSingleEmployeeDetailByEmpCode = @"[Payroll].[usp_GetSingleEmployeeDetailByEmpCode]";
     }
 }

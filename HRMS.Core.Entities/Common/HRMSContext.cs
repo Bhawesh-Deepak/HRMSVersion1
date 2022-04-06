@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using HRMS.Core.Entities.Talent;
+using HRMS.Core.Entities.History;
 
 namespace HRMS.Core.Entities.Common
 {
@@ -101,6 +102,7 @@ namespace HRMS.Core.Entities.Common
         public virtual DbSet<PerformanceIndication> PerformanceIndications { get; set; }
         public virtual DbSet<EmployeeTentitiveTDS> EmployeeTentitiveTDSs { get; set; }
         public virtual DbSet<EmployeeForm16Detail> EmployeeForm16Details { get; set; }
+        public virtual DbSet<EmployeeUpdateHistory> EmployeeUpdateHistorys { get; set; }
         #endregion
     }
 }

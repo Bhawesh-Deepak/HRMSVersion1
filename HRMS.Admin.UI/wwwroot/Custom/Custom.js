@@ -1,5 +1,4 @@
-﻿const { debug } = require("../AlertifyJs/src/js/outro");
-
+﻿ 
 function Success(response) {
     if (response == "Server error please contact admin team") {
        alertify.set('notifier', 'position', 'top-right');

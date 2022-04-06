@@ -1,0 +1,1192 @@
+﻿@model HRMS.Core.ReqRespVm.RequestVm.UtilityRequestVM
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+
+<div class="content-wrapper" style="">
+    @Html.BuildBreadcrumbNavigation()
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row" style="margin-top:0;">
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i> Update Department
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdateDepartment" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i> Update Designation
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdateDesignation" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i> Update Location
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdateLocation" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:0;">
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i> Update  LegalEntity
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdateLegalEntity" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i> Update  SuperVisorCode
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdateSuperVisorCode" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i> Update  Level
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdateLevel" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:0;">
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i>  BranchOffice
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdateBranchOffice" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i>   BankAccountNumber
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdateBankAccountNumber" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i>   PAN Number
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdatePanNumber" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:0;">
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i>   PNL Head
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdatePNLHead" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i>    Bank Name
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdateBankName" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i>   IFSC Code
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdateIFSCCode" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:0;">
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i>   Aadhar Number
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdateAadharNumber" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i>     Passport Number
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdatePassportNumber" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i>    Personal Email
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdatePersonalEmail" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:0;">
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i>    Name On Bank Account
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdateNameOnBankAccount" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i>      ESIC New
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdateESICNew" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i>     UAN Number
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdateUANNumber" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:0;">
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i>     PT State
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdatePTState" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i>       Mobile Number
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdateMobileNumber" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i>      Gender
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdateGender" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:0;">
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i>     Salutation
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdateSalutation" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i>        Office EmailId
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdateOfficeEmailId" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i>       Employeement Status
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdateEmployeementStatus" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:0;">
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i>      Region
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdateRegion" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i>         Current Address
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdateCurrentAddress" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i>       Permanent Address
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdatePermanentAddress" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:0;">
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i>       Father Name
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdateFatherName" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i>      Marital Status
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdateMaritalStatus" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i>        Nationality
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdateNationality" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:0;">
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i>       PF Account Number
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdatePFAccountNumber" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i>      Employee Name
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdateEmployeeName" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i>         Shift
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdateShift" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:0;">
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i>     Exit Date
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdateExitDate" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i>     IsPFEligible
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdateIsPFEligible" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i>      IsESICEligible
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UpdateIsESICEligible" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control"  />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+ 
