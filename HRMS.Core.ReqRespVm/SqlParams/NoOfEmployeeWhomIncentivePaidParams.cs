@@ -9,5 +9,6 @@ namespace HRMS.Core.ReqRespVm.SqlParams
     public class NoOfEmployeeWhomIncentivePaidParams
     {
         public int FinancialYear { get; set; }
+        public string LegalEntity { get; set; }
     }
 }

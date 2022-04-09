@@ -30,6 +30,7 @@ namespace HRMS.Admin.UI.Controllers
         private readonly IDapperRepository<GrossSalaryAndPIGraphParams> _IGrossSalaryAndPIGraphRepository;
         private readonly IDapperRepository<NoOfEmployeeWhomSalaryPaidParams> _INoOfEmployeeWhomSalaryPaidGraphRepository;
         private readonly IDapperRepository<NoOfEmployeeWhomIncentivePaidParams> _INoOfEmployeeWhomIncentivePaidGraphRepository;
+
         public HomeController(ILogger<HomeController> logger, IGenericRepository<AssesmentYear, int> assesmentYearRepository,
             IGenericRepository<EmployeeDetail, int> employeedetailRepository,
             IDapperRepository<AttendanceGraphParams> attendancegraphRepository,
@@ -48,12 +49,14 @@ namespace HRMS.Admin.UI.Controllers
             _IGrossSalaryAndPIGraphRepository = grossSalaryAndPIGraphRepository;
             _INoOfEmployeeWhomSalaryPaidGraphRepository = noOfEmployeeWhomSalaryPaidRepository;
             _INoOfEmployeeWhomIncentivePaidGraphRepository = noOfEmployeeWhomIncentivePaidRepository;
+
         }
 
         public async Task<IActionResult> Index()
         {
             try
             {
+
                 await PopulateViewBag();
                 return View();
             }
@@ -70,7 +73,8 @@ namespace HRMS.Admin.UI.Controllers
             {
                 var birthdayparam = new BirthdayAnniversaryParams()
                 {
-                    Id = Id
+                    Id = Id,
+                    LegalEntity = Convert.ToString(HttpContext.Session.GetString("LegalEntityName"))
                 };
                 var response = await Task.Run(() => _IBirthdayAnniversaryRepository.GetAll<BirthdayAnniversaryVM>(SqlQuery.GetBirtdayAnniversary, birthdayparam));
                 TempData["BirtdayParameter"] = Id;
@@ -123,7 +127,8 @@ namespace HRMS.Admin.UI.Controllers
                     FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
                 var attendanceParams = new AttendanceGraphParams()
                 {
-                    FinancialYear = FinancialYear
+                    FinancialYear = FinancialYear,
+                    LegalEntity = Convert.ToString(HttpContext.Session.GetString("LegalEntityName"))
                 };
                 var response = await Task.Run(() => _IAttendanceGraphRepository.GetAll<AttendanceGraphVM>(SqlQuery.GetAttendanceGraph, attendanceParams));
                 return Json(response);
@@ -144,7 +149,8 @@ namespace HRMS.Admin.UI.Controllers
                     FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
                 var attendanceParams = new GrossSalaryAndPIGraphParams()
                 {
-                    FinancialYear = FinancialYear
+                    FinancialYear = FinancialYear,
+                    LegalEntity= Convert.ToString(HttpContext.Session.GetString("LegalEntityName"))
                 };
                 var response = await Task.Run(() => _IGrossSalaryAndPIGraphRepository.GetAll<GrossSalaryAndPIGraphVM>(SqlQuery.GetGrossSalaryandIncentiveReport, attendanceParams));
                 return Json(response);
@@ -165,7 +171,8 @@ namespace HRMS.Admin.UI.Controllers
                     FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
                 var salaryPaidParams = new NoOfEmployeeWhomSalaryPaidParams()
                 {
-                    FinancialYear = FinancialYear
+                    FinancialYear = FinancialYear,
+                    LegalEntity = Convert.ToString(HttpContext.Session.GetString("LegalEntityName"))
                 };
                 var response = await Task.Run(() => _INoOfEmployeeWhomSalaryPaidGraphRepository.GetAll<NoOfEmployeeWhomSalaryPaidVM>(SqlQuery.GetNoOfEmployeeWhomSalaryPaid, salaryPaidParams));
                 return Json(response);
@@ -186,7 +193,8 @@ namespace HRMS.Admin.UI.Controllers
                     FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
                 var incentiveGraphParams = new NoOfEmployeeWhomIncentivePaidParams()
                 {
-                    FinancialYear = FinancialYear
+                    FinancialYear = FinancialYear,
+                    LegalEntity = Convert.ToString(HttpContext.Session.GetString("LegalEntityName"))
                 };
                 var response = await Task.Run(() => _INoOfEmployeeWhomIncentivePaidGraphRepository.GetAll<NoOfEmployeeWhomIncentivePaidVM>(SqlQuery.GetNoOfEmployeeWhomIncentivePaid, incentiveGraphParams));
                 return Json(response);

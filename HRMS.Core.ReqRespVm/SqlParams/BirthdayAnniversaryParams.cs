@@ -9,5 +9,6 @@ namespace HRMS.Core.ReqRespVm.SqlParams
     public class BirthdayAnniversaryParams
     {
         public int Id { get; set; }
+        public string LegalEntity { get; set; }
     }
 }

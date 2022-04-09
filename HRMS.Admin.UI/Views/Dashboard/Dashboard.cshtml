@@ -3,12 +3,23 @@
 }
 @model IEnumerable<HRMS.Core.ReqRespVm.Response.Organisation.LegalEntityVM>
 
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor;
+@using HRMS.Admin.UI.Helpers;
+@using HRMS.Core.Entities.Organisation;
+ 
+@{
+    var companyDetails = HttpContextAccessor.HttpContext.Session.GetObjectFromJson<Company>("companyDetails");
+   
+}
+
 <!doctype html>
 <html>
 <head>
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <title>Kudo Tech || Dashboard </title>
+    <title>  Dashboard || @companyDetails.Name </title>
+    <link rel="shortcut icon" href="@companyDetails.FavIcon" type="image/x-icon" />
     <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css' rel='stylesheet'>
     <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet'>
     <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
@@ -59,7 +70,7 @@
         }
     </style>
     <style>
-        
+
         .color-line {
             background: #f7f9fa;
             height: 6px;
@@ -71,14 +82,13 @@
             background-position: 50% 100%;
             background-repeat: no-repeat
         }
-     
     </style>
 </head>
 <body oncontextmenu='return false' class='snippet-body'>
     <div class="color-line"> </div>
     <div class="container mt-1 mb-1">
         <div class="d-flex justify-content-between mb-1">
-            <span><img src="~/LoginJsCss/images/logo.png" style="width:20%" alt="" class="img-fluid"></span>
+            <span><img src="@companyDetails.Logo" style="width:100%" alt="" class="img-fluid"></span>
             <a asp-action="Logout" asp-controller="Authenticate" class="btn btn-success add"><i class="fa fa-power-off"></i> Log Out</a>
         </div>
 
@@ -88,6 +98,8 @@
                 <div class="col-md-3">
                     <div class="card p-2 py-3 text-center @("divId"+item.Id)" onclick="selectfunction(@item.Id,this)" id="@("divId"+item.Id)">
                         <input type="hidden" name="hdnDivLoop" value="@("divId"+item.Id)" />
+                        <input type="hidden" id="@("hdnName"+item.Id)" name="@("hdnName"+item.Id)" value="@item.Name" />
+
                         <div class="img mb-2"> <img src="@item.Logo" width="80" class="rounded-circle"> </div>
                         <h5 class="mb-0">@item.Code</h5> <small>@item.Name</small>
 
@@ -109,33 +121,39 @@
             </div>
         </div>
     </div>
+    @await Html.PartialAsync("~/Views/Shared/_LoadingPopup.cshtml")
     <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js'></script>
     <script>
         $("#btnSkip").click(function () {
-            location.href = "/Home/Index"
+            location.href = "/Home/Index";
         });
         $("#btnContinue").click(function () {
-
-            SetSessionValue($('#hdnsubsidiaryId').val());
+            SetSessionValue($('#hdnsubsidiaryId').val(), $('#hdnsubsidiaryName').val());
         });
         function selectfunction(Id, event) {
+           
             $('input[name^="hdnDivLoop"]').each(function () {
                 var loopid = $(this).val().substr(5);
                 if (Id == loopid) {
                     $("#divId" + loopid).addClass("addborder");
                     $('#btnContinue').removeAttr("disabled");
                     $('#hdnsubsidiaryId').val(loopid);
+                    $('#hdnsubsidiaryName').val($("#hdnName" + loopid).val());
+                    
                 }
                 else {
+
                     $("#divId" + loopid).removeClass("addborder");
+                   
                 }
             });
-
+             
         }
-
-        function SetSessionValue(id) {
-            $.get("/Dashboard/SetSessionValue", { id: id }, function (data) {
-
+        function SetSessionValue(id, name) {
+            $("#divLoader").modal('show');
+            $.get("/Dashboard/SetSessionValue", { id: id, Name: name }, function (data) {
+                location.href = "/Home/Index";
+                $("#divLoader").modal('hide');
             })
         }
     </script>

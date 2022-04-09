@@ -9,6 +9,7 @@
 @{
 
     var financialYear = HttpContextAccessor.HttpContext.Session.GetString("financialYear");
+    var legalEntityName = HttpContextAccessor.HttpContext.Session.GetString("LegalEntityName");
 }
 <script src="~/resources/plugins/high-chart/js/highcharts.js"></script>
 <script src="~/resources/plugins/high-chart/js/exporting.js"></script>
@@ -81,7 +82,11 @@
     <section class="content-header">
         <h1>
             <strong>Welcome</strong> to Square Payroll
-            <a href="javascript:void(0)" class="lead btn btn-info"> Current Financial Year :  @financialYear</a>
+            @if (!string.IsNullOrEmpty(legalEntityName))
+            {
+        <a href="javascript:void(0)" class="lead btn btn-primary pull-right" style="background-color: #d9b74e">Current Legal Entity : @legalEntityName</a>
+            }
+            <a href="javascript:void(0)" class="lead btn btn-info " style="margin-right:5px"> Current Financial Year :  @financialYear</a>
         </h1>
         <ol class="breadcrumb">
         </ol>

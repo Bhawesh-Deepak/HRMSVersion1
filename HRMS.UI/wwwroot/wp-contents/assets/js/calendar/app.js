@@ -382,14 +382,14 @@
 
         var html = [];
         if (viewName === 'day') {
-            html.push(currentCalendarDate('YYYY.MM.DD'));
+            html.push(currentCalendarDate('YYYY-MM-DD'));
         } else if (viewName === 'month' &&
             (!options.month.visibleWeeksCount || options.month.visibleWeeksCount > 4)) {
-            html.push(currentCalendarDate('YYYY.MM'));
+            html.push(currentCalendarDate('YYYY-MM'));
         } else {
-            html.push(moment(cal.getDateRangeStart().getTime()).format('YYYY.MM.DD'));
+            html.push(moment(cal.getDateRangeStart().getTime()).format('YYYY-MM-DD'));
             html.push(' ~ ');
-            html.push(moment(cal.getDateRangeEnd().getTime()).format(' MM.DD'));
+            html.push(moment(cal.getDateRangeEnd().getTime()).format(' MM-DD'));
         }
         renderRange.innerHTML = html.join('');
     }

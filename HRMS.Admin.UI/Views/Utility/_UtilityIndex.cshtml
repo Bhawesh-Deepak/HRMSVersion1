@@ -13,7 +13,7 @@
                         <div class="box box-primary">
                             <div class="box-header with-border">
                                 <div class="box-title">
-                                    <i class="fa fa-refresh"></i> Update Department
+                                    <i class="fa fa-refresh"></i>   Department
                                 </div>
                             </div>
                             <div class="box-body">
@@ -45,7 +45,7 @@
                         <div class="box box-primary">
                             <div class="box-header with-border">
                                 <div class="box-title">
-                                    <i class="fa fa-refresh"></i> Update Designation
+                                    <i class="fa fa-refresh"></i>   Designation
                                 </div>
                             </div>
                             <div class="box-body">
@@ -77,7 +77,7 @@
                         <div class="box box-primary">
                             <div class="box-header with-border">
                                 <div class="box-title">
-                                    <i class="fa fa-refresh"></i> Update Location
+                                    <i class="fa fa-refresh"></i>   Location
                                 </div>
                             </div>
                             <div class="box-body">
@@ -111,7 +111,7 @@
                         <div class="box box-primary">
                             <div class="box-header with-border">
                                 <div class="box-title">
-                                    <i class="fa fa-refresh"></i> Update  LegalEntity
+                                    <i class="fa fa-refresh"></i>    LegalEntity
                                 </div>
                             </div>
                             <div class="box-body">
@@ -143,7 +143,7 @@
                         <div class="box box-primary">
                             <div class="box-header with-border">
                                 <div class="box-title">
-                                    <i class="fa fa-refresh"></i> Update  SuperVisorCode
+                                    <i class="fa fa-refresh"></i>    SuperVisorCode
                                 </div>
                             </div>
                             <div class="box-body">
@@ -175,7 +175,7 @@
                         <div class="box box-primary">
                             <div class="box-header with-border">
                                 <div class="box-title">
-                                    <i class="fa fa-refresh"></i> Update  Level
+                                    <i class="fa fa-refresh"></i>    Level
                                 </div>
                             </div>
                             <div class="box-body">
@@ -1166,7 +1166,7 @@
                                         <div class="col-sm-9">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
-                                                <input type="file" asp-for="UploadFile" class="form-control"  />
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
                                                 <span asp-validation-for="UploadFile" class="text-danger"></span>
                                             </div>
                                         </div>
@@ -1183,6 +1183,75 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="row" style="margin-top:0;">
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i>    Upload Subbatical
+                                </div>
+                            </div>
+                            <div class="box-body"> 
+                     
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UploadSubbatical" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-refresh"></i>   FNF Initiated
+                                </div>
+                            </div>
+                            <div class="box-body">
+
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="UploadFNFInitiated" asp-controller="Utility" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail2">Excel File :</label><em class="text-danger">*</em>
+                                                <input type="file" asp-for="UploadFile" class="form-control" />
+                                                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 ">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <br />
+                                                <button type="submit" class="btn btn-success"> <i class="fa fa-upload"></i>  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                     
                 </div>
             </div>
         </div>

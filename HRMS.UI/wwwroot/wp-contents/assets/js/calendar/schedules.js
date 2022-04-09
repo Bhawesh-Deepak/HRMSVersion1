@@ -53,15 +53,16 @@ function ScheduleInfo() {
 }
 
 function generateTime(schedule, renderStart, renderEnd) {
+    debugger;
     var startDate = moment(renderStart.getTime())
     var endDate = moment(renderEnd.getTime());
     var diffDate = endDate.diff(startDate, 'days');
 
-    schedule.isAllday = chance.bool({likelihood: 30});
+    schedule.isAllday = chance.bool({ likelihood: 30 });
     if (schedule.isAllday) {
         schedule.category = 'allday';
-    } else if (chance.bool({likelihood: 30})) {
-        schedule.category = SCHEDULE_CATEGORY[chance.integer({min: 0, max: 1})];
+    } else if (chance.bool({ likelihood: 30 })) {
+        schedule.category = SCHEDULE_CATEGORY[chance.integer({ min: 0, max: 1 })];
         if (schedule.category === SCHEDULE_CATEGORY[1]) {
             schedule.dueDateClass = 'morning';
         }
@@ -69,25 +70,25 @@ function generateTime(schedule, renderStart, renderEnd) {
         schedule.category = 'time';
     }
 
-    startDate.add(chance.integer({min: 0, max: diffDate}), 'days');
-    startDate.hours(chance.integer({min: 0, max: 23}))
+    startDate.add(chance.integer({ min: 0, max: diffDate }), 'days');
+    startDate.hours(chance.integer({ min: 0, max: 23 }))
     startDate.minutes(chance.bool() ? 0 : 30);
     schedule.start = startDate.toDate();
 
     endDate = moment(startDate);
     if (schedule.isAllday) {
-        endDate.add(chance.integer({min: 0, max: 3}), 'days');
+        endDate.add(chance.integer({ min: 0, max: 3 }), 'days');
     }
 
     schedule.end = endDate
-        .add(chance.integer({min: 1, max: 4}), 'hour')
+        .add(chance.integer({ min: 1, max: 4 }), 'hour')
         .toDate();
 
-    if (!schedule.isAllday && chance.bool({likelihood: 20})) {
-        schedule.goingDuration = chance.integer({min: 30, max: 120});
-        schedule.comingDuration = chance.integer({min: 30, max: 120});;
+    if (!schedule.isAllday && chance.bool({ likelihood: 20 })) {
+        schedule.goingDuration = chance.integer({ min: 30, max: 120 });
+        schedule.comingDuration = chance.integer({ min: 30, max: 120 });;
 
-        if (chance.bool({likelihood: 50})) {
+        if (chance.bool({ likelihood: 50 })) {
             schedule.end = schedule.start;
         }
     }
@@ -96,7 +97,7 @@ function generateTime(schedule, renderStart, renderEnd) {
 function generateNames() {
     var names = [];
     var i = 0;
-    var length = chance.integer({min: 1, max: 10});
+    var length = chance.integer({ min: 1, max: 10 });
 
     for (; i < length; i += 1) {
         names.push(chance.name());
@@ -111,16 +112,16 @@ function generateRandomSchedule(calendar, renderStart, renderEnd) {
     schedule.id = chance.guid();
     schedule.calendarId = calendar.id;
 
-    schedule.title = chance.sentence({words: 3});
-    schedule.body = chance.bool({likelihood: 20}) ? chance.sentence({words: 10}) : '';
-    schedule.isReadOnly = chance.bool({likelihood: 20});
+    schedule.title = chance.sentence({ words: 3 });
+    schedule.body = chance.bool({ likelihood: 20 }) ? chance.sentence({ words: 10 }) : '';
+    schedule.isReadOnly = chance.bool({ likelihood: 20 });
     generateTime(schedule, renderStart, renderEnd);
 
-    schedule.isPrivate = chance.bool({likelihood: 10});
+    schedule.isPrivate = chance.bool({ likelihood: 10 });
     schedule.location = chance.address();
-    schedule.attendees = chance.bool({likelihood: 70}) ? generateNames() : [];
-    schedule.recurrenceRule = chance.bool({likelihood: 20}) ? 'repeated events' : '';
-    schedule.state = chance.bool({likelihood: 20}) ? 'Free' : 'Busy';
+    schedule.attendees = chance.bool({ likelihood: 70 }) ? generateNames() : [];
+    schedule.recurrenceRule = chance.bool({ likelihood: 20 }) ? 'repeated events' : '';
+    schedule.state = chance.bool({ likelihood: 20 }) ? 'Free' : 'Busy';
     schedule.color = calendar.color;
     schedule.bgColor = calendar.bgColor;
     schedule.dragBgColor = calendar.dragBgColor;
@@ -150,8 +151,9 @@ function generateRandomSchedule(calendar, renderStart, renderEnd) {
 }
 
 function generateSchedule(viewName, renderStart, renderEnd) {
+    debugger;
     ScheduleList = [];
-    CalendarList.forEach(function(calendar) {
+    CalendarList.forEach(function (calendar) {
         var i = 0, length = 10;
         if (viewName === 'month') {
             length = 3;
