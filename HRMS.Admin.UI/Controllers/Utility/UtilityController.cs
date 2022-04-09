@@ -58,8 +58,8 @@ namespace HRMS.Admin.UI.Controllers.Utility
                 var response = new ReadUtilityExcelHelper().GetUtilityDetails(utilityRequest.UploadFile);
                 response.ToList().ForEach(data =>
                 {
-                    var param = new EmpDetailByCodeParams(){EmpCode=data.EmpCode};
-                    var empResponse =   Task.Run(() => _IEmpDetailByCodeParamsRepository.GetAll<EmployeeDetail>(SqlQuery.GetSingleEmployeeDetailByEmpCode, param));
+                    var param = new EmpDetailByCodeParams() { EmpCode = data.EmpCode };
+                    var empResponse = Task.Run(() => _IEmpDetailByCodeParamsRepository.GetAll<EmployeeDetail>(SqlQuery.GetSingleEmployeeDetailByEmpCode, param));
                     //var empResponse = _IEmployeeDetailRepository.GetAllEntities(x => x.EmpCode.Trim() == data.EmpCode.Trim());
                     var historyModel = new EmployeeUpdateHistory()
                     {
@@ -785,7 +785,7 @@ namespace HRMS.Admin.UI.Controllers.Utility
                 {
                     var param = new EmpDetailByCodeParams() { EmpCode = data.EmpCode };
                     var empResponse = Task.Run(() => _IEmpDetailByCodeParamsRepository.GetAll<EmployeeDetail>(SqlQuery.GetSingleEmployeeDetailByEmpCode, param));
-                    empResponse.Result.FirstOrDefault().FatherName= data.ResponseValue;
+                    empResponse.Result.FirstOrDefault().FatherName = data.ResponseValue;
                     var updateempModel = empResponse.Result.FirstOrDefault();
                     var empUpdateResponse = _IEmployeeDetailRepository.UpdateEntity(updateempModel);
 
@@ -987,6 +987,54 @@ namespace HRMS.Admin.UI.Controllers.Utility
             catch (Exception ex)
             {
                 string template = $"Controller name {nameof(UtilityController)} action name {nameof(UpdateIsESICEligible)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> UploadSubbatical(UtilityRequestVM utilityRequest)
+        {
+            try
+            {
+                var response = new ReadUtilityExcelHelper().GetUtilityDetailsInt(utilityRequest.UploadFile);
+                response.ToList().ForEach(data =>
+                {
+                    var param = new EmpDetailByCodeParams() { EmpCode = data.EmpCode };
+                    var empResponse = Task.Run(() => _IEmpDetailByCodeParamsRepository.GetAll<EmployeeDetail>(SqlQuery.GetSingleEmployeeDetailByEmpCode, param));
+                    empResponse.Result.FirstOrDefault().IsSabbatical = Convert.ToBoolean(data.ResponseValueInt);
+                    var updateempModel = empResponse.Result.FirstOrDefault();
+                    var empUpdateResponse = _IEmployeeDetailRepository.UpdateEntity(updateempModel);
+
+                });
+                return Json("Subbatical Update Successfully..");
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(UtilityController)} action name {nameof(UpdateIsESICEligible)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> UploadFNFInitiated(UtilityRequestVM utilityRequest)
+        {
+            try
+            {
+                var response = new ReadUtilityExcelHelper().GetUtilityDetailsInt(utilityRequest.UploadFile);
+                response.ToList().ForEach(data =>
+                {
+                    var param = new EmpDetailByCodeParams() { EmpCode = data.EmpCode };
+                    var empResponse = Task.Run(() => _IEmpDetailByCodeParamsRepository.GetAll<EmployeeDetail>(SqlQuery.GetSingleEmployeeDetailByEmpCode, param));
+                    empResponse.Result.FirstOrDefault().IsFNFinitiated = Convert.ToBoolean(data.ResponseValueInt);
+                    var updateempModel = empResponse.Result.FirstOrDefault();
+                    var empUpdateResponse = _IEmployeeDetailRepository.UpdateEntity(updateempModel);
+
+                });
+                return Json("FNFinitiated Update Successfully..");
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(UtilityController)} action name {nameof(UploadFNFInitiated)} exception is {ex.Message}";
                 Serilog.Log.Error(ex, template);
                 return RedirectToAction("Error", "Home");
             }

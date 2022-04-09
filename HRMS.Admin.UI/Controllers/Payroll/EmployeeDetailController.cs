@@ -131,7 +131,7 @@ namespace HRMS.Admin.UI.Controllers.Payroll
                 searchModelEntity.SortColumn = sortBy;
                 searchModelEntity.SortOrder = sortOrder;
                 searchModelEntity.IsActive = true;
-
+                searchModelEntity.LeagalEntity= Convert.ToString(HttpContext.Session.GetString("LegalEntityName"));
                 PagingSortingHelper.PopulateModelForPagging(searchModelEntity, pageSize, pageIndex, sortBy, sortOrder);
                 var response = _IEmployeeRepository.GetAll<EmployeeDetailVm>(SqlQuery.GetEmployeeDetails, searchModelEntity);
 

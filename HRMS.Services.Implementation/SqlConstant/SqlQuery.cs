@@ -14,7 +14,7 @@ namespace HRMS.Services.Implementation.SqlConstant
         public const string GetEmployeeSalaryByCode = @"[dbo].[usp_GetEmployeeSalaryByEmpCode]";
         public const string GetEmployeeSalary = @"[dbo].[usp_GetEmployeeSalary]";
         public const string EmployeeIncrement = @"[Payroll].[usp_EmployeeIncrement]";
-        public const string EmployeeCount = @"[dbo].[usp_CountAllEmployee]";
+        public const string EmployeeCount = @"[Reporting].[usp_CountAllEmployee]";
         public const string EmployeeInformation = @"[dbo].[usp_GetEmployeeInformation]";
         public const string GetEmployeeDetails = @"[Payroll].[usp_GetEmployeeDetails]";
         public const string GetEmployeeSingleDetails = @"[dbo].[usp_GetSingleEmployeeDetail]";

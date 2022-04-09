@@ -74,7 +74,8 @@ var basic_calendar = {
                 start: '2016-06-13T07:00:00'
             }
             ]
-        }), $('#cal-basic-view').fullCalendar({
+        }),
+            $('#cal-basic-view').fullCalendar({
             header: {
             right: 'prev,next today',
             center: 'title',
@@ -155,7 +156,8 @@ var basic_calendar = {
                 start: '2016-06-28'
             }
             ]
-        }), $('#cal-agenda-view').fullCalendar({
+            }),
+            $('#cal-agenda-view').fullCalendar({
             header: {
             left: 'prev,next today',
             center: 'title',
@@ -239,7 +241,8 @@ var basic_calendar = {
                 start: '2016-06-28'
             }
             ]
-        }), $('#cal-bg-events').fullCalendar({
+            }),
+            $('#cal-bg-events').fullCalendar({
             header: {
             left: 'prev,next today',
             center: 'title',
@@ -315,7 +318,8 @@ var basic_calendar = {
                 color: '#ba895d'
             }   
             ]
-        }), $('#cal-event-colors').fullCalendar({
+            }),
+            $('#cal-event-colors').fullCalendar({
             header: {
             left: 'prev,next today',
             center: 'title',
@@ -411,7 +415,8 @@ var basic_calendar = {
                 color: '#22af47'
             }
             ]
-        }), $('#external-events .fc-event').each(function() {
+            }),
+            $('#external-events .fc-event').each(function () {
                 $(this).css({'backgroundColor': $(this).data('color'), 'borderColor': $(this).data('color')});
                 $(this).data('event', {
                     title: $.trim($(this).text()), 
@@ -423,7 +428,8 @@ var basic_calendar = {
                     revert: true,      
                     revertDuration: 0  
                 });
-        }), $('#fc-external-drag').fullCalendar({
+            }),
+            $('#fc-external-drag').fullCalendar({
             header: {
             left: 'prev,next today',
             center: 'title',
@@ -523,7 +529,8 @@ var basic_calendar = {
                     $(this).remove();
                 }
             }   
-        }), $('#external-events .fc-event').each(function() {
+            }),
+            $('#external-events .fc-event').each(function () {
                 $(this).css({'backgroundColor': $(this).data('color'), 'borderColor': $(this).data('color')});
                 $(this).data('event', {
                     title: $.trim($(this).text()),
@@ -535,7 +542,8 @@ var basic_calendar = {
                     revert: true, 
                     revertDuration: 0 
                 });
-        }), $('#fc-external-drag').fullCalendar({
+            }),
+            $('#fc-external-drag').fullCalendar({
             header: {
             left: 'prev,next today',
             center: 'title',

@@ -8,5 +8,6 @@ namespace HRMS.Core.ReqRespVm.SqlParams
 {
     public class EmployeeCountParms
     {
+        public string LegalEntity { get; set; }
     }
 }

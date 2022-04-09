@@ -1,5 +1,14 @@
-﻿ <div class="content-wrapper" style="min-height: 870px;">
-    @*@Html.BuildBreadcrumbNavigation()*@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor;
+ 
+@{ 
+    var legalEntity = HttpContextAccessor.HttpContext.Session.GetString("LegalEntityName");
+
+}
+
+
+
+<div class="content-wrapper" style="min-height: 870px;">
     <ol class="breadcrumb">
         <li><a asp-action="Index" asp-controller="Home">Home</a></li>
         <li>Talent</li>
@@ -25,7 +34,7 @@
 
                                             <label for="">Legal Entity: :</label>
                                             <select id="LegalEntity" name="LegalEntity" class="form-control input-sm"
-                                                    asp-items="@(new SelectList((IEnumerable<HRMS.Core.Entities.Organisation.LegalEntity>)ViewBag.subsidiaryList,"Name","Name"))">
+                                                    asp-items="@(new SelectList((IEnumerable<HRMS.Core.Entities.Organisation.LegalEntity>)ViewBag.subsidiaryList,"Name","Name",legalEntity))">
                                                 <option value="">--Select--</option>
                                             </select>
 
@@ -149,42 +158,42 @@
                                     <i class="fa fa-user-circle-o fa-lg"></i>   List of Employee &nbsp;
 
                                 </div>
-                                 
-                                    <a class="btn btn-info pull-right btn-sm dropdown-toggle" title="Toggle Menu" data-toggle="dropdown" href="javascript:void(0);" aria-expanded="false"><i class="fa fa-align-justify fa-lg"></i></a>
-                                    <ul class="dropdown-menu dropdown-blue pull-right">
-                                        <li>
-                                            <a  asp-action="Create" asp-controller="EmployeeDetail" title="Add New Employee">
-                                                <span class="fa fa-plus"></span> Add New Employee
-                                            </a>
-                                        </li>
-                                        
-                                        <li class="divider"></li>
-                                        <li>
-                                            <a asp-action="ExportToExcel" asp-controller="EmployeeDetail" title="Export All Employee">
-                                                <span class="fa fa-download"></span> Export Employee
-                                            </a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li>
-                                            <a asp-action="Index" asp-controller="EmployeeSalary" title="Import Employee">
-                                                <span class="fa fa-upload"></span> Import Employee  
-                                            </a>
-                                        </li>
-                                        
-                                    </ul>
-                                
+
+                                <a class="btn btn-info pull-right btn-sm dropdown-toggle" title="Toggle Menu" data-toggle="dropdown" href="javascript:void(0);" aria-expanded="false"><i class="fa fa-align-justify fa-lg"></i></a>
+                                <ul class="dropdown-menu dropdown-blue pull-right">
+                                    <li>
+                                        <a asp-action="Create" asp-controller="EmployeeDetail" title="Add New Employee">
+                                            <span class="fa fa-plus"></span> Add New Employee
+                                        </a>
+                                    </li>
+
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a asp-action="ExportToExcel" asp-controller="EmployeeDetail" title="Export All Employee">
+                                            <span class="fa fa-download"></span> Export Employee
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a asp-action="Index" asp-controller="EmployeeSalary" title="Import Employee">
+                                            <span class="fa fa-upload"></span> Import Employee
+                                        </a>
+                                    </li>
+
+                                </ul>
+
                                 @*<div class="row pull-right">
-            <div class="col-md-8">
-                <a class="btn btn-primary pull-left  btn-xs" asp-action="Create" asp-controller="EmployeeDetail" title="Add New Employee">
-                    <i class="fa fa-plus"> &nbsp; Add New Employee</i>
-                </a>
-            </div>
-            <div class="col-md-4">
-                <a class="btn btn-primary pull-right  btn-xs" style="margin-left:5px" asp-action="ExportToExcel" asp-controller="EmployeeDetail" title="Export All Employee">
-                    <i class="fa fa-download"> &nbsp; Export</i>
-                </a>
-            </div>
-        </div>*@
+                                        <div class="col-md-8">
+                                            <a class="btn btn-primary pull-left  btn-xs" asp-action="Create" asp-controller="EmployeeDetail" title="Add New Employee">
+                                                <i class="fa fa-plus"> &nbsp; Add New Employee</i>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <a class="btn btn-primary pull-right  btn-xs" style="margin-left:5px" asp-action="ExportToExcel" asp-controller="EmployeeDetail" title="Export All Employee">
+                                                <i class="fa fa-download"> &nbsp; Export</i>
+                                            </a>
+                                        </div>
+                                    </div>*@
 
 
                             </div>
@@ -219,8 +228,8 @@
         let doj = $("#txtdoj").val();
         let location = $("#Location").val();
         let status = $("#ddlisactive").val();
-         
-       
+
+
         $.get("/EmployeeDetail/GetFilteredData", {
             LeagalEntity: legalEntity, DepartmentName: department,
             DesignationName: designation, PAndLHeadName: pandlName,

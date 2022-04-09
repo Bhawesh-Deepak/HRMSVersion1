@@ -28,6 +28,11 @@ namespace HRMS.Admin.UI.Controllers.Dashboard
         {
             try
             {
+                if (!string.IsNullOrEmpty(Convert.ToString(HttpContext.Session.GetString("LegalEntityName"))))
+                {
+                    HttpContext.Session.Remove("LegalEntityName");
+                    HttpContext.Session.Remove("LegalEntityId");
+                }
                 var legalentitymodel = await _ILegalEntityRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
                 var companymodel = await _ICompanyRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
                 var response = (from legalentity in legalentitymodel.Entities
@@ -54,15 +59,14 @@ namespace HRMS.Admin.UI.Controllers.Dashboard
             }
         }
 
-        public async Task<IActionResult> SetSessionValue(int id)
+        public async Task<IActionResult> SetSessionValue(int id, string Name)
         {
             try
             {
                 await Task.Run(() =>
                 {
                     HttpContext.Session.SetString("LegalEntityId", id.ToString());
-                    var options = new CookieOptions { Expires = DateTime.Now.AddHours(36) };
-                    Response.Cookies.Append("Id", id.ToString(), options);
+                    HttpContext.Session.SetString("LegalEntityName", Name.ToString());
                 });
 
 
