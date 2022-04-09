@@ -32,10 +32,7 @@ namespace HRMS.Admin.UI.Controllers.Dashboard
                 {
                     HttpContext.Session.Remove("LegalEntityName");
                     HttpContext.Session.Remove("LegalEntityId");
-
                 }
-
-
                 var legalentitymodel = await _ILegalEntityRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
                 var companymodel = await _ICompanyRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
                 var response = (from legalentity in legalentitymodel.Entities
