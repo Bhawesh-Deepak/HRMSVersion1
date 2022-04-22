@@ -21,11 +21,13 @@ namespace HRMS.UI.Controllers.UserManagment
     {
         private readonly string APIURL = string.Empty;
         private readonly string AdminURL = string.Empty;
+        private readonly string CompanyImageURL = string.Empty;
         public AuthenticateController(IConfiguration configuration)
         {
             APIURL = configuration.GetSection("APIURL").Value;
             AdminURL = configuration.GetSection("AdminPortalURL").Value;
-             
+            CompanyImageURL = configuration.GetSection("CompanyImageURL").Value;
+            
         }
         public async Task<IActionResult> Index()
         {
@@ -72,7 +74,7 @@ namespace HRMS.UI.Controllers.UserManagment
                             }
 
                         });
-                        responseData.CompanyDetail.ToList().ForEach(item =>
+                         responseData.CompanyDetail.ToList().ForEach(item =>
                         {
                             if (string.IsNullOrEmpty(item.Logo))
                             {
@@ -85,7 +87,6 @@ namespace HRMS.UI.Controllers.UserManagment
                             }
 
                         });
-
                         HttpContext.Session.SetObjectAsJson("companyDetails", responseData.CompanyDetail.FirstOrDefault());
                         HttpContext.Session.SetObjectAsJson("UserDetail", responseData.EmployeeDetail.FirstOrDefault());
                         HttpContext.Session.SetString("UserName", responseData.EmployeeDetail.FirstOrDefault().EmployeeName);

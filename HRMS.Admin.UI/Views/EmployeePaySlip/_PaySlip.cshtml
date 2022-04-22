@@ -9,13 +9,13 @@
     var companyDetails = HttpContextAccessor.HttpContext.Session.GetObjectFromJson<Company>("companyDetails");
 
 }
+ 
 <!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
-
     <style>
         table {
             width: 100%;
@@ -78,158 +78,149 @@
     </style>
 </head>
 <body>
-    @foreach (var EmpSalary in Model.GroupBy(x => x.Id))
-    {
-        <div class="table-container">
-            <table>
-                <tbody>
-                    <tr style="border-bottom:1px solid black;">
-                        <td class="earded" colspan="4" valign="top" style="text-align: center;  ">
-                            <p><strong style="font-size:17px">@EmpSalary.First().LegalEntity</strong></p>
-                            <div class="logo">
-                                 
-                                <img src="~/Images/squareYardslogo_PNG.png" alt="LOGO" />
-                            </div>
-                            <br /><br />
-                            @{
-                                System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
-                                string strMonthName = mfi.GetMonthName(@EmpSalary.Last().DateMonth).ToString();
-                            }
-                            <strong style="font-size:16px"> Payslip for the month of @strMonthName - @Model.First().DateYear</strong>
-                        </td>
-                    </tr>
+    <div class="table-container">
+        <table>
+            <tbody>
+                <tr style="border-bottom:1px solid black;">
+                    <td class="earded" colspan="4" valign="top" style="text-align: center;  ">
+                        <p><strong style="font-size:17px">@Model.First().LegalEntity</strong></p>
+                        <div class="logo">
+                            <img src="@companyDetails.Logo" alt=" logo" style="margin-top:2px" />
+                        </div>
+                        <br /><br />
+                        @{
+                            System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                            string strMonthName = mfi.GetMonthName(@Model.Last().DateMonth).ToString();
+                        }
+                        <strong style="font-size:16px"> Payslip for the month of @strMonthName - @Model.First().DateYear</strong>
+                    </td>
+                </tr>
 
 
-                    <tr>
-                        <td class="detail" width="25%"><strong>Employee Code:</strong></td>
-                        <td class="detail" width="25%">@EmpSalary.First().EmpCode</td>
-                        <td class="detail" width="25%"><strong>Employee Name:</strong></td>
-                        <td class="detail" width="25%">@EmpSalary.First().EmployeeName</td>
-                    </tr>
+                <tr>
+                    <td class="detail" width="25%"><strong>Employee Code:</strong></td>
+                    <td class="detail" width="25%">@Model.First().EmpCode</td>
+                    <td class="detail" width="25%"><strong>Employee Name:</strong></td>
+                    <td class="detail" width="25%">@Model.First().EmployeeName</td>
+                </tr>
 
-                    <tr>
-                        <td class="detail"><strong>LegalEntity:</strong></td>
-                        <td class="detail">@EmpSalary.First().LegalEntity</td>
-                        <td class="detail"><strong>UAN No:</strong></td>
-                        <td class="detail">@EmpSalary.First().UANNumber</td>
-                    </tr>
-                    <tr>
-                        <td class="detail"><strong>PAN Number:</strong></td>
-                        <td class="detail">@EmpSalary.First().PanCardNumber</td>
-                        <td class="detail"><strong>ESIC No:</strong></td>
-                        <td class="detail">@EmpSalary.First().ESICNew</td>
-                    </tr>
+                <tr>
+                    <td class="detail"><strong>LegalEntity:</strong></td>
+                    <td class="detail">@Model.First().LegalEntity</td>
+                    <td class="detail"><strong>UAN No:</strong></td>
+                    <td class="detail">@Model.First().UANNumber</td>
+                </tr>
+                <tr>
+                    <td class="detail"><strong>PAN Number:</strong></td>
+                    <td class="detail">@Model.First().PanCardNumber</td>
+                    <td class="detail"><strong>ESIC No:</strong></td>
+                    <td class="detail">@Model.First().ESICNew</td>
+                </tr>
 
-                    <tr>
-                        <td class="detail"><strong>Date of Joining:</strong></td>
-                        <td class="detail">@string.Format("{0:dd/MM/yyyy}", EmpSalary.First().JoiningDate)</td>
-                        <td class="detail"><strong>Days Worked:</strong></td>
-                        <td class="detail">@EmpSalary.First().PresentDays</td>
-                    </tr>
+                <tr>
+                    <td class="detail"><strong>Date of Joining:</strong></td>
+                    <td class="detail">@string.Format("{0:dd/MM/yyyy}", Model.First().JoiningDate)</td>
+                    <td class="detail"><strong>Days Worked:</strong></td>
+                    <td class="detail">@Model.First().PresentDays</td>
+                </tr>
 
-                    <tr>
-                        <td class="detail"><strong>LOP:</strong></td>
-                        <td class="detail">@EmpSalary.First().LopDays</td>
-                        <td class="detail"><strong>Arrear Days:</strong></td>
-                        <td class="detail"> @EmpSalary.First().ArrearDays</td>
-                    </tr>
+                <tr>
+                    <td class="detail"><strong>LOP:</strong></td>
+                    <td class="detail">@Model.First().LopDays</td>
+                    <td class="detail"><strong>Arrear Days:</strong></td>
+                    <td class="detail"> @Model.First().ArrearDays</td>
+                </tr>
 
-                    <tr>
-                        <td class="detail" style="padding-bottom:20px;"><strong>Department:</strong></td>
-                        <td class="detail">@EmpSalary.First().Department</td>
-                        <td class="detail"><strong>Designation:</strong></td>
-                        <td class="detail">@EmpSalary.First().DesignationId</td>
-                    </tr>
-                </tbody>
-            </table>
+                <tr>
+                    <td class="detail" style="padding-bottom:20px;"><strong>Department:</strong></td>
+                    <td class="detail">@Model.First().Department</td>
+                    <td class="detail"><strong>Designation:</strong></td>
+                    <td class="detail">@Model.First().DesignationId</td>
+                </tr>
+            </tbody>
+        </table>
 
-            <table style="border-top:none;">
-                <tbody>
-                    <tr>
-                        <td colspan="2" class="earded" style="font-size:14px; font-weight:600; color:#0c61e8;border-top:none;">Earnings</td>
 
-                        <td colspan="2" class="earded" style="font-size:14px; font-weight:600; color:#0c61e8;border-top:none;">Deductions</td>
+        <table style="border-top:none;">
+            <tbody>
+                <tr>
+                    <td colspan="2" class="earded" style="font-size:14px; font-weight:600; color:#0c61e8;border-top:none;">Earnings</td>
 
-                    </tr>
+                    <td colspan="2" class="earded" style="font-size:14px; font-weight:600; color:#0c61e8;border-top:none;">Deductions</td>
 
-                    @***********************************************************Earning And Deduction Seprate table******************************************************************@
-                    <tr style="">
-                        <td colspan="2" style="border-bottom:1px solid black;" valign="top">
-                            <table class="earded" style="border:none;">
-                                <tr>
-                                    <td><strong>Particulars</strong></td>
-                                    <td><strong>Amount</strong></td>
-                                </tr>
-                                @foreach (var item in EmpSalary.Where(x => x.ComponentType == 1).OrderBy(x => x.ComponentId))
+                </tr>
+
+                @***********************************************************Earning And Deduction Seprate table******************************************************************@
+                <tr style="">
+                    <td colspan="2" style="border-bottom:1px solid black;" valign="top">
+                        <table class="earded" style="border:none;">
+                            <tr>
+                                <td><strong>Particulars</strong></td>
+                                <td><strong>Amount</strong></td>
+                            </tr>
+                            @foreach (var item in Model.Where(x => x.ComponentType == 1))
+                            {
+                                if (item.SalaryAmount > 0)
                                 {
-                                    if (item.SalaryAmount > 0)
-                                    {
-                                        <tr>
-                                            <td>@item.ComponentName</td>
-                                            <td style="text-align:right">@string.Format("{0:0.00}", @item.SalaryAmount)</td>
-                                        </tr>
-                                    }
+                                    <tr>
+                                        <td>@item.ComponentName</td>
+                                        <td style="text-align:right">@string.Format("{0:0.00}", @item.SalaryAmount)</td>
+                                    </tr>
                                 }
-
-
-                                @*<tr style="border-top:1px solid black;">
-                                        <td class=""><strong>Total Earnings</strong></td>
-                                        <td class=""><strong>@string.Format("{0:0.00}", Model.Where(x => x.ComponentType == 1).Sum(x => x.SalaryAmount)) </strong></td>
-
-                                    </tr>*@
-                            </table>
-                        </td>
-                        <td colspan="2" style="border-left:1px solid black;border-right:1px solid; border-bottom:1px solid black;height:100%" valign="top">
-                            <table class="earded" style="border:none;">
-                                <tr>
-                                    <td><strong>Particulars</strong></td>
-                                    <td><strong>Amount</strong></td>
-                                </tr>
-
-                                @foreach (var item in EmpSalary.Where(x => x.ComponentType == 2).OrderBy(x => x.ComponentId))
-                                {
-                                    if (item.SalaryAmount > 0)
-                                    {
-                                        <tr>
-                                            <td>@item.ComponentName</td>
-                                            <td style="text-align:right">@string.Format("{0:0.00}", @item.SalaryAmount)</td>
-                                        </tr>
-                                    }
-                                }
-
-                                @*<tr style="border-top:1px solid black; ">
-
-                                        <td class=""><strong>Total Deductions</strong></td>
-                                        <td class=""><strong>@string.Format("{0:0.00}", Model.Where(x => x.ComponentType == 2).Sum(x => x.SalaryAmount)) </strong></td>
-                                    </tr>*@
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="font-size: 14px; padding: 2px 5px 2px 5px; text-align: left;"><strong>Total Earnings </strong> </td>
-                        <td style="font-size: 14px; padding: 2px 5px 2px 5px; text-align: right;"><strong>@string.Format("{0:0.00}", EmpSalary.Where(x => x.ComponentType == 1).Sum(x => x.SalaryAmount))</strong></td>
-                        <td style="font-size: 14px; padding: 2px 5px 2px 5px; text-align: left; border-left:1px solid black;"><strong>Total Deductions</strong> </td>
-                        <td style="font-size: 14px; padding: 2px 5px 2px 5px; text-align: right;"><strong>@string.Format("{0:0.00}", EmpSalary.Where(x => x.ComponentType == 2).Sum(x => x.SalaryAmount))</strong></td>
-                    </tr>
-
-                    <tr>
-                        <td colspan="4" class="earded">
-                            @{
-                                decimal Earning = EmpSalary.Where(x => x.ComponentType == 1).Sum(x => x.SalaryAmount);
-                                decimal Deductions = EmpSalary.Where(x => x.ComponentType == 2).Sum(x => x.SalaryAmount);
-                                decimal NetSalary = Convert.ToDecimal(Earning - Deductions);
                             }
-                            <br /><strong>Net Salary : @NetSalary</strong> <br /><input type="hidden" id="@("hdnNetSalary"+EmpSalary.First().Id)" name="hdnNetSalary" value="@NetSalary" /><br />
-                            <strong>In words : <span id="@("Num2Word"+@EmpSalary.First().Id)"></span> (All Amount Is In <span>&#8377;</span>)</strong>
 
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div style="page-break-after: always"></div>
-    }
-     
+
+                            
+                        </table>
+                    </td>
+                    <td colspan="2" style="border-left:1px solid black;border-right:1px solid; border-bottom:1px solid black;height:100%" valign="top">
+                        <table class="earded" style="border:none;">
+                            <tr>
+                                <td><strong>Particulars</strong></td>
+                                <td><strong>Amount</strong></td>
+                            </tr>
+
+                            @foreach (var item in Model.Where(x => x.ComponentType == 2))
+                            {
+                                if (item.SalaryAmount > 0)
+                                {
+                                    <tr>
+                                        <td>@item.ComponentName</td>
+                                        <td style="text-align:right">@string.Format("{0:0.00}", @item.SalaryAmount)</td>
+                                    </tr>
+                                }
+                            }
+
+                            
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-size: 14px; padding: 2px 5px 2px 5px; text-align: left;"><strong>Total Earnings </strong> </td>
+                    <td style="font-size: 14px; padding: 2px 5px 2px 5px; text-align: right;"><strong>@string.Format("{0:0.00}", Model.Where(x => x.ComponentType == 1).Sum(x => x.SalaryAmount))</strong></td>
+                    <td style="font-size: 14px; padding: 2px 5px 2px 5px; text-align: left; border-left:1px solid black;"><strong>Total Deductions</strong> </td>
+                    <td style="font-size: 14px; padding: 2px 5px 2px 5px; text-align: right;"><strong>@string.Format("{0:0.00}", Model.Where(x => x.ComponentType == 2).Sum(x => x.SalaryAmount))</strong></td>
+                </tr>
+
+                <tr>
+                    <td colspan="4" class="earded">
+                        @{
+                            decimal Earning = @Model.Where(x => x.ComponentType == 1).Sum(x => x.SalaryAmount);
+                            decimal Deductions = @Model.Where(x => x.ComponentType == 2).Sum(x => x.SalaryAmount);
+                            decimal NetSalary = Convert.ToDecimal(Earning - Deductions);
+                        }
+                        <br /><strong>Net Salary : @NetSalary</strong> <br /><input type="hidden" id="hdnNetSalary" name="hdnNetSalary" value="@NetSalary" /><br />
+                        <strong>In words : <span id="Num2Word"></span> (All Amount Is In <span>&#8377;</span>)</strong>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+
+
 </body>
 </html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -239,22 +230,10 @@
     $(document).ready(function () {
 
 
-        var EarningVal3 = $('input[type="hidden"][name="hdnNetSalary"]');
-        if (EarningVal3.length > 0) {
-            $(EarningVal3).each(function () {
-                debugger;
-                var id = this.id;
-                var actualid = id.substr(12);
-                var val = parseFloat($(this).val());
 
-                $("#Num2Word" + actualid).text(test_skill1(val, actualid));
-
-            })
-        }
-
-
+        $("#Num2Word").text(test_skill1($("#hdnNetSalary").val()));
     });
-    function test_skill1(val, empid) {
+    function test_skill1(val) {
 
         var junkVal = val;
         junkVal = Math.floor(junkVal);
@@ -270,7 +249,7 @@
             return false;
         }
         if (Number(junkVal) == 0) {
-            document.getElementById('Num2Word' + empid).innerHTML = obStr + '' + 'Only';
+            document.getElementById('Num2Word').innerHTML = obStr + '' + 'Only';
             return false;
         }
         if (actnumber.length > 9) {
@@ -373,8 +352,10 @@
         for (i = 0; i < inWords.length; i++) {
             finalWord += inWords[i];
         }
-        document.getElementById('Num2Word' + empid).innerHTML = "Rupees " + finalWord;
+        document.getElementById('Num2Word').innerHTML = "Rupees " + finalWord;
     }
 </script>
 
 
+
+ 

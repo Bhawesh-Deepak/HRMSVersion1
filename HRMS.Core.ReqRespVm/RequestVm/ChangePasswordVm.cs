@@ -18,5 +18,6 @@ namespace HRMS.Core.ReqRespVm.RequestVm
         [Required(ErrorMessage = "Confirm Password is required.")]
         [Display(Prompt = "Enter Confirm Password")]
         public string ConfirmPassword { get; set; }
+        public int EmpId { get; set; }
     }
 }

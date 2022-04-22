@@ -107,20 +107,28 @@ namespace HRMS.UI.Controllers
                     {
                         var responseDetails = await responseTask.Content.ReadAsStringAsync();
                         var paySlips = JsonConvert.DeserializeObject<List<EmployeePaySlipVM>>(responseDetails);
-                        System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
-                        string strMonthName = mfi.GetMonthName(DateMonth).ToString();
-                        var responsepdf = new Rotativa.AspNetCore.ViewAsPdf(ViewHelper.GetViewPathDetails("Home", "_Payslip"), paySlips, null)
+                        if (paySlips.Count() > 0)
                         {
-                            FileName = strMonthName + "_" + DateYear + "_PaySlip.pdf",
-                        };
-                        return responsepdf;
-                        //return PartialView(ViewHelper.GetViewPathDetails("Home", "_Payslip"), paySlips);
-                        //return new ViewAsPdf(ViewHelper.GetViewPathDetails("Home", "_Payslip"), paySlips.OrderBy(x => x.ComponentId));
+                            System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                            string strMonthName = mfi.GetMonthName(DateMonth).ToString();
+                            var responsepdf = new Rotativa.AspNetCore.ViewAsPdf(ViewHelper.GetViewPathDetails("Home", "_Payslip"), paySlips, null)
+                            {
+                                FileName = strMonthName + "_" + DateYear + "_PaySlip.pdf",
+                            };
+                            return responsepdf;
+                            //return PartialView(ViewHelper.GetViewPathDetails("Home", "_Payslip"), paySlips);
+                            //return new ViewAsPdf(ViewHelper.GetViewPathDetails("Home", "_Payslip"), paySlips.OrderBy(x => x.ComponentId));
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
+                      
 
                     }
                     else
                     {
-                        return PartialView(ViewHelper.GetViewPathDetails("Home", "_Payslip"));
+                        return RedirectToAction("Index", "Home");
                     }
                 }
             }

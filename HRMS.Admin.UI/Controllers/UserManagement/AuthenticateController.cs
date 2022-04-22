@@ -19,6 +19,7 @@ using HRMS.Core.ReqRespVm.RequestVm.NeedSupport;
 using System.Net.Mail;
 using MimeKit;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 
 namespace HRMS.Admin.UI.Controllers.UserManagement
 {
@@ -32,10 +33,11 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
         private readonly IGenericRepository<Company, int> _ICompanyRepository;
         private readonly IGenericRepository<AssesmentYear, int> _IAssesmentYearRepository;
         private readonly IHostingEnvironment _IHostingEnviroment;
-
+        private readonly string IMAGEURL = string.Empty;
+        private readonly IConfiguration _configuration;
         public AuthenticateController(IGenericRepository<EmployeeDetail, int> employeeDetailRepository, IGenericRepository<AdminEmployeeDetail, int> adminemployeeDetailRepository,
             IGenericRepository<AuthenticateUser, int> authenticateRepo, IGenericRepository<Company, int> companyRepository,
-            IGenericRepository<AssesmentYear, int> assesmentyearRepository, IHostingEnvironment hostingEnvironment)
+            IGenericRepository<AssesmentYear, int> assesmentyearRepository, IHostingEnvironment hostingEnvironment, IConfiguration configuration)
         {
             _IEmployeeDetailRepository = employeeDetailRepository;
             _IAdminEmployeeDetailRepository = adminemployeeDetailRepository;
@@ -43,6 +45,7 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
             _ICompanyRepository = companyRepository;
             _IAssesmentYearRepository = assesmentyearRepository;
             _IHostingEnviroment = hostingEnvironment;
+            IMAGEURL = configuration.GetSection("IMAGEURL").Value;
         }
 
         public async Task<IActionResult> LoginIndex(string message)
@@ -79,6 +82,9 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
                 {
 
                     var companyDetail = await _ICompanyRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
+                    companyDetail.Entities.ToList().ForEach(data => {
+                        data.Logo = IMAGEURL + data.Logo;
+                    });
                     var assesmentYear = await _IAssesmentYearRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted && x.isCurrentFinancialYear);
                     await SetCookies(model.UserName, "UserName");
                     if (response.Entities.First().RoleId == 1)
@@ -213,7 +219,7 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
             try
             {
                 var empDetails = await _IEmployeeDetailRepository.GetAllEntities(x => x.EmpCode.Trim().ToLower() == empCode.Trim().ToLower());
-
+                var companyDetail = await _ICompanyRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
                 var randomOtp = GetRandomOtp();
 
                 if (empDetails != null && empDetails.Entities.Any())
@@ -222,7 +228,7 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
 
                     if (updateResponse)
                     {
-                        var message = GetOtpMessage(empDetails.Entities.First(), randomOtp);
+                        var message = GetOtpMessage(empDetails.Entities.First(), randomOtp, companyDetail.Entities.First());
 
                         var sentOtpStatus = await SendOtp(empDetails.Entities.First(), message);
 
@@ -294,9 +300,9 @@ namespace HRMS.Admin.UI.Controllers.UserManagement
             return new string(stringChars);
         }
 
-        public string GetOtpMessage(EmployeeDetail empDetail, string randomPassword) =>
+        public string GetOtpMessage(EmployeeDetail empDetail, string randomPassword,Company company) =>
              $"Dear {empDetail?.EmployeeName}.  Your OTP is {randomPassword}" +
-                $" Do not share with any one for security. Regards Square HR.";
+                $" Do not share with any one for security. Regards {company.Name}.";
 
         private async Task<bool> UpdateEmpForgetPasswordOtp(string otpCode, string empCode)
         {

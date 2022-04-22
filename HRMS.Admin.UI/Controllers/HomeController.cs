@@ -10,6 +10,7 @@ using HRMS.Services.Repository.GenericRepository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Rotativa.AspNetCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -231,6 +232,10 @@ namespace HRMS.Admin.UI.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        public IActionResult Privacy()
+        {
+            return new  ViewAsPdf("Privacy");
         }
     }
 }

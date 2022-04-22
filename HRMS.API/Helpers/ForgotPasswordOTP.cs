@@ -1,4 +1,5 @@
-﻿using HRMS.Core.Entities.Payroll;
+﻿using HRMS.Core.Entities.Organisation;
+using HRMS.Core.Entities.Payroll;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,33 +34,10 @@ namespace HRMS.API.Helpers
             return new string(stringChars);
         }
 
-        public string GetOtpMessage(EmployeeDetail empDetail, string randomPassword) =>
+        public string GetOtpMessage(EmployeeDetail empDetail, string randomPassword,Company company) =>
              $"Dear {empDetail?.EmployeeName}.  Your OTP is {randomPassword}" +
-                $" Do not share with any one for security. Regards Square HR.";
-        //private async Task<bool> UpdateEmpForgetPasswordOtp(string otpCode, string empCode)
-        //{
-        //    if (!string.IsNullOrEmpty(empCode))
-        //    {
-        //        var authDetails = await _IAuthenticateRepository.GetAllEntities(x => x.UserName.Trim().ToLower() == empCode.Trim().ToLower());
-
-        //        if (authDetails != null && authDetails.Entities.Any())
-        //        {
-        //            var updateModel = authDetails.Entities.First();
-        //            updateModel.ForgetPasswordCode = otpCode;
-        //            updateModel.ForgetPasswordTime = DateTime.Now;
-        //            updateModel.UpdatedBy = 1;
-        //            updateModel.UpdatedDate = DateTime.Now;
-
-        //            var updateResponse = await _IAuthenticateRepository.UpdateEntity(updateModel);
-
-        //            return updateResponse.ResponseStatus == Core.Entities.Common.ResponseStatus.Updated;
-        //        }
-
-        //        return false;
-        //    }
-        //    return false;
-
-        //}
+                $" Do not share with any one for security. Regards {company.Name}.";
+         
 
     }
 }
