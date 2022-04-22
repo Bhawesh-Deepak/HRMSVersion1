@@ -15,6 +15,7 @@ using HRMS.Core.ReqRespVm.SqlParams;
 using HRMS.Services.Implementation.SqlConstant;
 using HRMS.Services.Repository.GenericRepository;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
@@ -164,11 +165,15 @@ namespace HRMS.Admin.UI.Controllers.Posting
                         HECAmount = 0,
                         TDSAmountYearly = 0,
                         TDSAmountMonthly = data.SalaryAmount,
-                        FinancialYear = data.FinancialYear,
-                        CreatedDate=DateTime.Now
+                        FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId")),
+                        CreatedDate = DateTime.Now
 
                     });
                 });
+                response.ToList().ForEach(data =>
+                               {
+                                   data.FinancialYear = Convert.ToInt32(HttpContext.Session.GetString("financialYearId"));
+                               });
                 var dbResponse = await _IEmployeeSalaryPostedRepository.CreateEntities(response.ToArray());
                 var tdsresponse = await _IEmployeeTDSSummeryRepository.CreateEntities(models.ToArray());
                 return Json("Salary Posting Uploaded Sucessfully");
@@ -206,8 +211,8 @@ namespace HRMS.Admin.UI.Controllers.Posting
                         TDSAmountYearly = 0,
                         TDSAmountMonthly = data.SalaryAmount,
                         FinancialYear = data.FinancialYear,
-                        CreatedDate=DateTime.Now
-                       
+                        CreatedDate = DateTime.Now
+
                     });
                 });
                 var dbResponse = await _IEmployeeSalaryPostedRepository.CreateEntities(response.ToArray());

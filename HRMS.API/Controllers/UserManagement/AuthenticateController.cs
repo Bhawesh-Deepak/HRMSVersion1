@@ -112,7 +112,7 @@ namespace HRMS.API.Controllers.UserManagement
             try
             {
                 var empDetails = await _IEmployeeDetailRepository.GetAllEntities(x => x.EmpCode.Trim().ToLower() == empCode.Trim().ToLower());
-
+                var companyDetail = await _ICompanyRepository.GetAllEntities(x => x.IsActive && !x.IsDeleted);
                 var randomOtp = new ForgotPasswordOTP().GetRandomOtp();
 
                 if (empDetails != null && empDetails.Entities.Any())
@@ -129,7 +129,7 @@ namespace HRMS.API.Controllers.UserManagement
                         var updateResponse = await _IAuthenticateRepository.UpdateEntity(updateModel);
                         if (updateResponse.Message == "success")
                         {
-                            var message = new ForgotPasswordOTP().GetOtpMessage(empDetails.Entities.First(), randomOtp);
+                            var message = new ForgotPasswordOTP().GetOtpMessage(empDetails.Entities.First(), randomOtp,companyDetail.Entities.First());
                             var sentOtpStatus = new ForgotPasswordOTP().SendOtp(empDetails.Entities.First(), message, BASEURL);
                             return Ok(true);
                         }
@@ -180,6 +180,36 @@ namespace HRMS.API.Controllers.UserManagement
             {
                 return Ok(false);
             }
+        }
+        [HttpPost]
+        [Produces("application/json")]
+        [Consumes("application/json")]
+        public async Task<IActionResult> ChangePasswordPost(ChangePasswordVm model)
+        {
+            try
+            {
+                var oldPassword = PasswordEncryptor.Instance.Encrypt(model.OldPassword, "HRMSPAYROLLPASSWORDKEY");
+                var newPassword = PasswordEncryptor.Instance.Encrypt(model.NewPassword, "HRMSPAYROLLPASSWORDKEY");
+                var response = await _IAuthenticateRepository.GetAllEntities(x => x.EmployeeId == model.EmpId && x.Password.Trim().ToLower() == oldPassword.Trim().ToLower());
+                if (response.Entities.Any())
+                {
+                    var authModel = await _IAuthenticateRepository.GetAllEntities(x => x.EmployeeId == model.EmpId);
+                    authModel.Entities.First().Password = newPassword;
+
+                    var updateResponse = await _IAuthenticateRepository.UpdateMultipleEntity(authModel.Entities.ToArray());
+
+                    return Ok(updateResponse.Message);
+                }
+                return Ok("Old Password is not macthed, Please enter valid password !");
+            }
+            catch (Exception ex)
+            {
+                string template = $"Controller name {nameof(AuthenticateController)} action name {nameof(ChangePasswordPost)} exception is {ex.Message}";
+                Serilog.Log.Error(ex, template);
+                return RedirectToAction("Error", "Home");
+            }
+
+
         }
     }
 }

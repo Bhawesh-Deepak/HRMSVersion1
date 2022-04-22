@@ -30,5 +30,6 @@ namespace HRMS.Core.ReqRespVm.Response.Reporting
         public decimal PresentDays { get; set; }
         public decimal LopDays { get; set; }
         public decimal ArrearDays { get; set; }
+        public string OfficeEmailId { get; set; }
     }
 }
