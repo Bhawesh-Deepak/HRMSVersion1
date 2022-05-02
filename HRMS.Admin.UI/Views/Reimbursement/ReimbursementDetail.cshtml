@@ -1,5 +1,4 @@
-﻿@model IEnumerable<HRMS.Core.Entities.Payroll.EmployeeReimbursement>
-
+﻿@model IEnumerable<HRMS.Core.ReqRespVm.Response.Reimbursement.EmployeeReimbursementVM>
 <script src="~/resources/dist/js/jquery.dataTables.js" type="text/javascript"></script>
 <div class="table-responsive">
     <div class="dataTables_wrapper" role="grid">
@@ -7,12 +6,15 @@
             <thead>
                 <tr class="th-primary" role="row">
                     <th>#</th>
-                    <th>Year</th>
+                    <th>Employee</th>
+                    <th>Category</th>
                     <th>Month</th>
-                    <th>Invocie #</th>
+                    <th>Year</th>
+                    <th>Invocie</th>
                     <th>Currency</th>
                     <th>Amount</th>
                     <th>Attachment</th>
+                    <th>Status</th>
                     <th>Action</th>
 
                 </tr>
@@ -32,35 +34,55 @@
                     {
                         trclass = "odd";
                     }
-                    <tr class="@trclass">
-                        <td align="left" style="width:5%;" class="sorting_1">
-                            @count
-                        </td>
-                        <td align="left" style="width:10%;" class="sorting_1">
-                            @data.InvoiceMonth
-                        </td>
-                        <td align="left" style="width:20%;" class="sorting_1">
-                            @data.InvoiceYear
-                        </td>
-                        <td align="left" style="width:45%;" class="sorting_1">
-                            @data.InvoiceNumber
-                        </td>
+                <tr class="@trclass">
+                    <td align="left" style="width:5%;" class="sorting_1">
+                        @count
+                    </td>
+                    <td align="left" style="width:20%;" class="sorting_1">
+                        @data.EmployeeName
+                    </td>
+                    <td align="left" style="width:15%;" class="sorting_1">
+                        @data.Category
+                    </td>
+                    <td align="left" style="width:5%;" class="sorting_1">
+                        @data.Month
 
-                        <td align="left" style="width:45%;" class="sorting_1">
-                            @data.Currency
-                        </td>
-                        <td align="left" style="width:45%;" class="sorting_1">
-                            @data.InvoiceAmount
-                        </td>
-                        <td align="left" style="width:45%;" class="sorting_1">
-                            <a><i class="fa fa-pdf"></i></a>
-                        </td>
-                        <td align="center" style="width:20%;" class="sorting_1">
-                            <a title="Edit" class="btn btn-primary btn-xs" onclick="UpdateRecord(@data.Id, this)">
-                                <span class="fa fa-pencil "></span>
-                            </a>
-                        </td>
-                    </tr>
+                    </td>
+                    <td align="left" style="width:5%;" class="sorting_1">
+                        @data.Year
+                    </td>
+
+                    <td align="left" style="width:15%;" class="sorting_1">
+                        @data.Invocie
+                    </td>
+                    <td align="left" style="width:5%;" class="sorting_1">
+                        @data.Currency
+                    </td>
+                    <td align="left" style="width:10%;" class="sorting_1">
+                        @data.Amount
+                    </td>
+                    <td align="left" style="width:10%;" class="sorting_1">
+                        <a href="@data.Attachment" target="_blank"><i class="fa fa-download"></i> </a>
+                    </td>
+                    <td align="left" style="width:10%;" class="sorting_1">
+                        @if(data.Status==null || data.Status=="")
+                         {
+                        @:Active
+                         }
+                         else{
+                        <span>@data.Status</span>
+                         }
+                    </td>
+
+                    <td align="center" style="width:30%;" class="sorting_1">
+                        <a title="Accept" class="btn btn-success btn-xs" onclick="Accept(@data.Id, this)">
+                            <span class="fa fa-check"></span>
+                        </a>
+                        <a title="Reject" class="btn btn-danger btn-xs" onclick="Reject(@data.Id, this)">
+                            <span class="fa fa-ban"></span>
+                        </a>
+                    </td>
+                </tr>
                     count++;
                 }
 

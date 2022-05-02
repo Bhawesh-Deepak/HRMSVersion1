@@ -1,8 +1,17 @@
-﻿@model HRMS.Core.Entities.Payroll.EmployeeReimbursement
+﻿@model HRMS.Core.Entities.Reimbursement.EmployeeReimbursement
 
 <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
 <style>
+    .ui-autocomplete {
+        max-height: 300px;
+        overflow-y: auto;
+        overflow-x: auto;
+    }
+
+    html .ui-autocomplete {
+        max-height: 300px;
+    }
 </style>
 <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
       data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
@@ -13,8 +22,43 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label asp-for="InvoiceYear">Invoice Year</label><span style="color:red">  *</span>
-                            <select asp-for="InvoiceYear" class="form-control">
+                            <label asp-for="EmpCode"> Employee :</label><span style="color:red">  *</span>
+                            <input type="text" class="form-control input-sm" asp-for="EmpCode" placeholder="Search Employee" />
+                            <span asp-validation-for="EmpCode" class="text-danger"></span>
+                            <input type="hidden" asp-for="Id" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="CategoryId">Category</label><span style="color:red">  *</span>
+                            <select class="form-control" asp-for="CategoryId" asp-items="@(new SelectList(ViewBag.CategoryList ,"Id","Name"))">
+                                <option value="">--Select--</option>
+
+                            </select>
+                            <span asp-validation-for="CategoryId" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="DateMonth">  Month</label><span style="color:red">  *</span>
+                            <select asp-for="DateMonth" class="form-control">
+                                <option value="">--Select--</option>
+                                @for (int i = 1; i < 13; i++)
+                                {
+                                    string fullMonthName = new DateTime(2015, i, 1).ToString("MMMM", System.Globalization.CultureInfo.CreateSpecificCulture("en"));
+                                    <option value="@fullMonthName">@fullMonthName</option>
+                                }
+                            </select>
+                            <span asp-validation-for="DateMonth" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="DateYear">  Year</label><span style="color:red">  *</span>
+                            <select asp-for="DateYear" class="form-control">
                                 <option value="">--Select--</option>
                                 @for (var i = 2019; i < 2050; i++)
                                 {
@@ -24,57 +68,41 @@
                                 }
 
                             </select>
-                            <span asp-validation-for="InvoiceYear" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label asp-for="InvoiceMonth">Invoice Month</label><span style="color:red">  *</span>
-                            <select asp-for="InvoiceMonth" class="form-control">
-                                <option value="">--Select--</option>
-                                @for (int i = 1; i < 13; i++)
-                                {
-                                    string fullMonthName = new DateTime(2015, i, 1).ToString("MMMM", System.Globalization.CultureInfo.CreateSpecificCulture("en"));
-                                    <option value="@fullMonthName">@fullMonthName</option>
-                                }
-                            </select>
-                            <span asp-validation-for="InvoiceMonth" class="text-danger"></span>
+                            <span asp-validation-for="DateYear" class="text-danger"></span>
                         </div>
                     </div>
 
                 </div>
-
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label asp-for="InvoiceNumber">Invoice Number</label>
+                            <label asp-for="InvoiceNumber">Invoice Number</label><span style="color:red">  *</span>
                             <input asp-for="InvoiceNumber" class="form-control" />
                             <span asp-validation-for="InvoiceNumber" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label asp-for="Currency">Currency</label>
+                            <label asp-for="InvoiceAmount">Invoice Amount</label><span style="color:red">  *</span>
+                            <input asp-for="InvoiceAmount" class="form-control" type="number" />
+                            <span asp-validation-for="InvoiceAmount" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Currency">Currency</label><span style="color:red">  *</span>
                             <input asp-for="Currency" class="form-control" />
                             <span asp-validation-for="Currency" class="text-danger"></span>
                         </div>
                     </div>
-                </div>
-
-
-                <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label asp-for="InvoiceAmount">Invoice Amount</label>
-                            <input asp-for="InvoiceAmount" class="form-control" />
-                            <span asp-validation-for="InvoiceAmount" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label asp-for="InvoicePDFPath">Upload File</label>
-                            <input type="file" id="Resume" name="InvoiceFile" class="form-control" />
-                            <span asp-validation-for="InvoicePDFPath" class="text-danger"></span>
+                            <label asp-for="FilePath">Upload File</label><span style="color:red">  *</span>
+                            <input id="InvoiceFile" name="InvoiceFile" type="file" class="form-control" />
+                            <span asp-validation-for="FilePath" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
@@ -88,3 +116,39 @@
         <input type="submit" class="btn btn-primary  " value="Save" />
     </div>
 </form>
+<script>
+
+    $(document).ready(function () {
+        $("#EmpCode").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/Common/getEmployeeAutoComplete',
+                    method: "POST",
+
+                    data: { "term": request.term },
+                    dataType: "json",
+                    success: function (data) {
+                        response($.map(data, function (item) {
+
+                            return {
+                                label: item.employeeName,
+                                value: item.empCode,
+                                employeeid: item.id
+                            };
+                        }))
+                    },
+                    error: function (xhr, textStatus, error) {
+                        alert(xhr.statusText);
+                    },
+                    failure: function (response) {
+                        alert("failure " + response.responseText);
+                    }
+                });
+            },
+            select: function (e, i) {
+                $("#EmpCode").text(i.item.value);
+            },
+            minLength: 3
+        });
+    });
+</script>

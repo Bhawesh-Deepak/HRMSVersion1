@@ -65,6 +65,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\calendar\" />
+    <Folder Include="wwwroot\Images\" />
     <Folder Include="wwwroot\wp-contents\assets\images\vito-placeholder-img\" />
   </ItemGroup>
 
