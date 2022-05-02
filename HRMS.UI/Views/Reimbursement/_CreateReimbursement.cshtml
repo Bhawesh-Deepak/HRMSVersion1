@@ -1,0 +1,136 @@
+﻿@model HRMS.Core.Entities.Reimbursement.EmployeeReimbursement
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+<div class="page-body">
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h3>Reimbursement</h3>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">Home</a></li>
+                        <li class="breadcrumb-item">Reimbursement</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 col-xl-12">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-header pb-0">
+                                <h5>Reimbursement</h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                                      data-ajax-complete="AjaxComplete" enctype="multipart/form-data"
+                                      asp-action="PostCreate" asp-controller="Reimbursement" data-ajax-success="Success">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label asp-for="CategoryId">Category</label><span style="color:red">  *</span>
+                                                        <select class="form-control" asp-for="CategoryId" asp-items="@(new SelectList(ViewBag.CategoryList ,"Id","Name"))">
+                                                            <option value="">--Select--</option>
+
+                                                        </select>
+                                                        <span asp-validation-for="CategoryId" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label asp-for="DateMonth">  Month</label><span style="color:red">  *</span>
+                                                        <select asp-for="DateMonth" class="form-control">
+                                                            <option value="">--Select--</option>
+                                                            @for (int i = 1; i < 13; i++)
+                                                                {
+                                                                    string fullMonthName = new DateTime(2015, i, 1).ToString("MMMM", System.Globalization.CultureInfo.CreateSpecificCulture("en"));
+                                                            <option value="@fullMonthName">@fullMonthName</option>
+                                                                }
+                                                        </select>
+                                                        <span asp-validation-for="DateMonth" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label asp-for="DateYear">  Year</label><span style="color:red">  *</span>
+                                                        <select asp-for="DateYear" class="form-control">
+                                                            <option value="">--Select--</option>
+                                                            @for (var i = 2019; i < 2050; i++)
+                                                                {
+                                                            <option value="@i">@i</option>
+                                                                    if (i == DateTime.Now.Year) { break; }
+
+                                                                }
+
+                                                        </select>
+                                                        <span asp-validation-for="DateYear" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label asp-for="InvoiceNumber">Invoice Number</label><span style="color:red">  *</span>
+                                                        <input asp-for="InvoiceNumber" class="form-control" />
+                                                        <span asp-validation-for="InvoiceNumber" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label asp-for="InvoiceAmount">Invoice Amount</label><span style="color:red">  *</span>
+                                                        <input asp-for="InvoiceAmount" class="form-control" type="number" />
+                                                        <span asp-validation-for="InvoiceAmount" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label asp-for="Currency">Currency</label><span style="color:red">  *</span>
+                                                        <input asp-for="Currency" class="form-control" />
+                                                        <span asp-validation-for="Currency" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label asp-for="FilePath">Upload File</label><span style="color:red">  *</span>
+                                                        <input id="InvoiceFile" name="InvoiceFile" type="file" class="form-control" />
+                                                        <span asp-validation-for="FilePath" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="dt-body-nowrap">
+
+                                                        <input type="submit" class="btn btn-primary  " value="Save" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+</div>

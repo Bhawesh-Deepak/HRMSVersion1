@@ -34,6 +34,7 @@
     <link rel="stylesheet" href="~/wp-contents/assets/css/color-1.css" media="screen" id="color">
     <link rel="stylesheet" type="text/css" href="~/wp-contents/assets/css/calendar.css">
     <link rel="stylesheet" type="text/css" href="~/wp-contents/assets/css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="~/wp-contents/assets/css/datatables.css">
     <style type="text/css">
         .highcharts-figure,
         .highcharts-data-table table {
@@ -97,6 +98,7 @@
             background-position: 50% 100%;
             background-repeat: no-repeat
         }
+
         *::-webkit-scrollbar {
             width: 8px;
             height: 8px;
@@ -104,6 +106,7 @@
             position: absolute;
             z-index: 10000;
         }
+
         *::-webkit-scrollbar-thumb {
             background-color: #e74c3c;
         }
@@ -138,11 +141,11 @@
     <script src="~/wp-contents/assets/js/bootstrap/popper.min.js"></script>
     <script src="~/wp-contents/assets/js/bootstrap/bootstrap.min.js"></script>
     @*<script src="~/wp-contents/assets/js/chart/chartjs/chart.min.js"></script>
-    <script src="~/wp-contents/assets/js/chart/chartist/chartist.js"></script>
-    <script src="~/wp-contents/assets/js/chart/chartist/chartist-plugin-tooltip.js"></script>
-    <script src="~/wp-contents/assets/js/chart/knob/knob.min.js"></script>
-    <script src="~/wp-contents/assets/js/chart/apex-chart/apex-chart.js"></script>
-    <script src="~/wp-contents/assets/js/chart/apex-chart/stock-prices.js"></script>*@
+        <script src="~/wp-contents/assets/js/chart/chartist/chartist.js"></script>
+        <script src="~/wp-contents/assets/js/chart/chartist/chartist-plugin-tooltip.js"></script>
+        <script src="~/wp-contents/assets/js/chart/knob/knob.min.js"></script>
+        <script src="~/wp-contents/assets/js/chart/apex-chart/apex-chart.js"></script>
+        <script src="~/wp-contents/assets/js/chart/apex-chart/stock-prices.js"></script>*@
     <script src="~/wp-contents/assets/js/prism/prism.min.js"></script>
     <script src="~/wp-contents/assets/js/clipboard/clipboard.min.js"></script>
     <script src="~/wp-contents/assets/js/counter/jquery.waypoints.min.js"></script>
@@ -153,7 +156,9 @@
     <script src="~/wp-contents/assets/js/owlcarousel/owl-custom.js"></script>
     @*<script src="~/wp-contents/assets/js/dashboard/dashboard_2.js"></script>*@
     <script src="~/wp-contents/assets/js/script.js"></script>
-     
+    <script src="~/wp-contents/assets/js/datatable/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/wp-contents/assets/js/datatable/datatables/datatable.custom.js"></script>
+    <script src="~/wp-contents/assets/js/tooltip-init.js"></script>
     <!-- Plugins JS Ends-->
     @*<script src="~/wp-contents/assets/js/theme-customizer/customizer.js"></script>*@
 
