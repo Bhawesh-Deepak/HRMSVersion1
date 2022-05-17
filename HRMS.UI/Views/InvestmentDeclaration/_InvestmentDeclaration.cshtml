@@ -1,0 +1,799 @@
+﻿@model IEnumerable<HRMS.Core.ReqRespVm.Response.Investment.InvestmentDeclarationOldMethodVM>
+
+
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<link href="~/wp-content/assets/plugins/modals/component.css" rel="stylesheet" type="text/css" />
+<style>
+    .fade {
+        opacity: 1;
+        -webkit-transition: opacity .15s linear;
+        -o-transition: opacity .15s linear;
+        transition: opacity .15s linear;
+    }
+</style>
+@{
+    int window = Convert.ToInt32(ViewBag.Window);
+}
+
+<div class="col-sm-12 col-md-12">
+    <div class="panel panel-bd  ">
+        <div class="panel-heading">
+            <div class="panel-title">
+                <h4><i class="fa fa-plus-circle"></i> Computation of TAXs By Old tax regime </h4>
+            </div>
+        </div>
+        <div class="panel-body">
+            <input type="hidden" id="hdnisWindowOpen" name="hdnisWindowOpen" value="@window" />
+            <form id="form-InvestmentDeclaration" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                  data-ajax-complete="AjaxComplete"
+                  asp-action="PostInvestmentDeclaration" asp-controller="InvestmentDeclaration" data-ajax-success="Success">
+                <div class="panel-group" id="accordion-1">
+                    <div class="panel panel-inverse overflow-hidden">
+                        @foreach (var IVGR1 in Model.GroupBy(x => x.IV1))
+                        {
+                            <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion" href="@("#collapse-" + IVGR1.FirstOrDefault().IV1)">
+                                <div class="" style="padding: 10px 0px 25px 15px;margin-bottom: 2px;border: 1px solid;border-color: #cc2ac0">
+                                    <div class="col-md-12">
+                                        <div class="col-lg-5">
+                                            <h3 class="panel-title">@IVGR1.FirstOrDefault().IV1Name</h3>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <h3 class="panel-title">Declared (<span id="@("DeclaredAmt" + IVGR1.FirstOrDefault().IV1)">@IVGR1.Sum(x => x.DeclaredAmount)</span>)</h3>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <h3 class="panel-title text-right"><span class="plusminus"><i class="fa fa-plus-circle"></i></span></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <div id="@("collapse-" + IVGR1.FirstOrDefault().IV1)" class="panel-collapse collapse" style="border: 1px solid blueviolet; margin-bottom: 5px">
+                                <div class="panel-body">
+                                    <h4>@IVGR1.First().IV1Name</h4>
+                                    @if (IVGR1.FirstOrDefault().Description != null)
+                                    {
+                                        <p style="color:red">@Html.Raw(IVGR1.FirstOrDefault().Description)</p>}
+                                    @if (IVGR1.FirstOrDefault().isRadiButton == 1)
+                                    {
+                                        <input type="radio" id="@("RdoYes"+IVGR1.First().IV1)" value="1" name="@("Radio"+IVGR1.First().IV1)" onchange="RadioButtonOnChange(this)" />
+                                        <label for="@("RdoYes"+IVGR1.First().IV1)">Yes</label><br />
+                                        <input type="radio" id="@("RdoNos"+IVGR1.First().IV1)" checked value="0" name="@("Radio"+IVGR1.First().IV1)" onchange="RadioButtonOnChange(this)" />
+                                        <label for="@("RdoNos" + IVGR1.First().IV1)">NO</label>
+                                    }
+
+                                    <table class="table table-bordered table-striped text-center" id="@("Table"+IVGR1.First().IV1)" style="@IVGR1.FirstOrDefault().StyleSheet">
+                                        <thead>
+                                            <tr>
+                                                @if (IVGR1.First().IV1 != 1)
+                                                {
+                                                    <th scope="col">@IVGR1.First().IV2Name</th>
+                                                }
+                                                else
+                                                {
+                                                    <th></th>
+                                                }
+
+                                                @if (IVGR1.First().IV1 == 1)
+                                                {
+                                                    <th>Month</th>
+                                                }
+                                                <th scope="col">
+                                                    Tentative Limit<br>(
+                                                    @{
+                                                        decimal ComponentValue = 0;
+                                                    }
+
+                                                    @if (IVGR1.First().IV1 == 1)
+                                                    {
+                                                        ComponentValue = IVGR1.Sum(x => x.ComponentValue) / 24;
+                                                    }
+
+                                                    else
+                                                    {
+                                                        ComponentValue = IVGR1.Sum(x => x.ComponentValue);
+                                                    }
+
+
+                                                    @string.Format("{0:0.00}", ComponentValue)
+                                                    )
+
+
+                                                </th>
+                                                <th scope="col">Declared (   <span id="@("DeclaredAmount" + IVGR1.FirstOrDefault().IV1)">@IVGR1.Sum(x => x.DeclaredAmount)</span> )</th>
+                                                <th scope="col" style="text-align:center">Proof Entry  </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var IVGR2 in IVGR1.GroupBy(x => x.IV2))
+                                            {
+                                                if (IVGR2.First().IV1 == 1)
+                                                {
+                                                    <tr>
+                                                        <td class="text-left">
+                                                            @foreach (var item in IVGR2)
+                                                            {
+                                                                <i class="@item.checkeds"></i>@item.IV3Name<br />
+                                                            }
+                                                        </td>
+                                                        <td class="text-left">
+                                                            @IVGR2.First().IV2Name
+                                                        </td>
+                                                        <td><input type="number" class="form-control" value="@(string.Format("{0:0.00}",(IVGR2.First().ComponentValue/12)))" readonly></td>
+                                                        <td>
+                                                            @{int inc = 1;}
+                                                            @foreach (var item in IVGR2)
+                                                            {
+                                                                if (inc == 1)
+                                                                {
+                                                                    <input type="number" class="@("form-control Declare"+IVGR2.First().IV1)" name="DeclaredAmount" id="@("Declared"+IVGR2.First().IV1)" data-role="@IVGR2.First().IV1" onchange="declaredchange(this);" value="@IVGR2.First().DeclaredAmount">
+                                                                }
+                                                                else
+                                                                {
+                                                                    <input type="number" style="visibility:hidden" class="@("form-control Declare"+IVGR2.First().IV1)" name="DeclaredAmount" id="@("Declared"+IVGR2.First().IV1)" data-role="@IVGR2.First().IV1" onchange="declaredchange(this);" value="0">
+                                                                }
+                                                                <input type="hidden" id="hdn" name="hdnIV1" value="@item.IV1" />
+                                                                <input type="hidden" id="hdn" name="hdnIV2" value="@item.IV2" />
+                                                                <input type="hidden" id="hdn" name="hdnIV3" value="@item.IV3" />
+                                                                <input type="hidden" id="hdnlocationId" name="hdnlocationId" value="@item.LocationId">
+                                                                inc++;
+                                                            }
+                                                        </td>
+                                                        <td>
+                                                            <div id="@("divProof" + IVGR2.First().IV3)">
+                                                                @if (IVGR2.First().ProofUrl == null || IVGR2.First().ProofUrl == "")
+                                                                {
+                                                                    <button type="button" class="btn btn-primary btn-mini waves-effect waves-light" onclick="AddProof(@IVGR2.First().IV3);"><i class="fa fa-plus"></i>   </button>
+
+                                                                }
+                                                                else
+                                                                {
+                                                                    <button type="button" class="btn btn-primary btn-mini waves-effect waves-light" onclick="AddProof(@IVGR2.First().IV3);"><i class="fa fa-plus"></i>   </button>
+                                                                    <a class="btn btn-info btn-sm " title="Download Proof" asp-controller="InvestmentDeclaration" asp-action="DownloadProof" asp-route-IV3="@IVGR2.First().IV3"> <i class="fa fa-download"></i></a>
+                                                                    <a class="btn btn-danger btn-sm" onclick="DeleteUploadedProof(@IVGR2.First().IV3);" href="#" title="Delete Proof"> <i class="fa fa-close"></i></a>
+
+                                                                }
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                                else
+                                                {
+                                                    foreach (var item in IVGR2)
+                                                    {
+                                                        <tr>
+                                                            <td class="text-left">
+                                                                @if (item.isRadio == 1)
+                                                                {
+                                                                    <input type="radio" name="@("radio" +item.IV1)" id="@("radio" +item.IV1+item.IV2+ item.IV3)" onchange="RadioBindValue(this.id)" value="@item.Value" />
+                                                                    <label for="@("radio" + item.IV3)">@Html.Raw(item.IV3Name)</label>
+                                                                }
+                                                                else if (item.isRadio == 2)
+                                                                {
+                                                                    <input type="checkbox" id="@("checkbox" +item.IV1+item.IV2+ item.IV3)" onchange="CheckBoxTextEnable(this.id)" />
+                                                                    <label for="@("checkbox" + item.IV1 + item.IV2 + item.IV3)">@Html.Raw(item.IV3Name)</label>
+                                                                }
+                                                                else if (item.isRadio == 3)
+                                                                {
+                                                                    <input type="checkbox" id="@("checkbox"+ 1)" />
+                                                                    <label for="@("checkbox" + 1)">1. Value of the house should be Rs 50 lakhs or less</label><br />
+                                                                    <input type="checkbox" id="@("checkbox"+ 2)" />
+                                                                    <label for="@("checkbox" + 2)"> 2. Loan taken for the house must be Rs 35 lakhs or less</label><br />
+                                                                    <input type="checkbox" id="@("checkbox"+ 3)" />
+                                                                    <label for="@("checkbox" +3)">The loan must be sanctioned by a Financial Institution or a Housing Finance Company</label><br />
+                                                                    <input type="checkbox" id="@("checkbox"+ 4)" />
+                                                                    <label for="@("checkbox" + 4)">The loan must be sanctioned between 01.04.2016 to 31.03.2017</label><br />
+                                                                    <input type="checkbox" id="@("checkbox"+ 5)" />
+                                                                    <label for="@("checkbox" + 5)">5. As on the date of the sanction of loan, no other house property must be owned by you.</label><br />
+                                                                }
+                                                                else
+                                                                {
+                                                                    @Html.Raw(item.IV3Name)
+                                                                }
+                                                            </td>
+                                                            <td><input type="number" class="form-control" name="Tentative" id="@("Tentative" + item.IV1 + item.IV2 + item.IV3)" value="@((item.ComponentValue))" readonly></td>
+                                                            <td>
+                                                                <input type="number" name="DeclaredAmount" class="@("form-control Declare"+IVGR2.First().IV1)" id="@("Declared" + item.IV1 + item.IV2 + item.IV3)" @item.isReadonly data-role="@IVGR2.First().IV1" onchange="declaredchange(this);" value="@item.DeclaredAmount">
+                                                                <input type="hidden" id="hdn" name="hdnIV1" value="@item.IV1" />
+                                                                <input type="hidden" id="hdn" name="hdnIV2" value="@item.IV2" />
+                                                                <input type="hidden" id="hdn" name="hdnIV3" value="@item.IV3" />
+                                                                <input type="hidden" id="hdnlocationId" name="hdnlocationId" value="@item.LocationId">
+                                                            </td>
+                                                            <td>
+                                                                <div id="@("divProof"+item.IV3)">
+                                                                    @if (item.ProofUrl == null || item.ProofUrl == "")
+                                                                    {
+                                                                        <button type="button" class="btn btn-primary btn-mini waves-effect waves-light" onclick="AddProof(@item.IV3);"><i class="fa fa-plus"></i>   </button>
+
+                                                                    }
+                                                                    else
+                                                                    {
+
+
+                                                                        <button type="button" class="btn btn-primary btn-mini waves-effect waves-light" onclick="AddProof(@item.IV3);"><i class="fa fa-plus"></i>   </button>
+                                                                        <a class="btn btn-info btn-sm " title="Download Proof" asp-controller="InvestmentDeclaration" asp-action="DownloadProof" asp-route-IV3="@IVGR2.First().IV3"> <i class="fa fa-download"></i></a>
+                                                                        <a class="btn btn-danger btn-sm" onclick="DeleteUploadedProof(@item.IV3);" href="#" title="Delete Proof"> <i class="fa fa-close"></i></a>
+
+                                                                    }
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    }
+
+                                                }
+
+                                            }
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+                <div class="form-title">
+                    <div class="row">
+                        <label class="col-sm-10"></label>
+                        <div class="col-sm-2">
+                            @if (window == 1)
+                            {
+                                <button class="btn btn-primary btn-square" type="button" id="btn-SubmitInvestment" onclick="ShowAgrrement();"> <i class="fa fa-plus"></i>  Submit</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    $("#checkbox52840").click(function () {
+        if ($("#checkbox52840").is(':checked') == true) {
+            $("#Declared52840").removeAttr("readonly");
+            $("#Declared52841").removeAttr("readonly");
+            $("input[type=checkbox][id=checkbox52841]").prop('checked', true);
+            $("input[type=checkbox][id=checkbox52842]").prop('checked', false);
+            $("input[type=checkbox][id=checkbox52843]").prop('checked', false);
+            $("input[type=checkbox][id=checkbox52844]").prop('checked', false);
+            $("input[type=checkbox][id=checkbox52845]").prop('checked', false);
+            $("#Declared52842").val(0);
+            $("#Declared52843").val(0);
+            $("#Declared52844").val(0);
+            $("#Declared52845").val(0);
+            $("#Declared52842").attr("readonly", true);
+            $("#Declared52843").attr("readonly", true);
+            $("#Declared52844").attr("readonly", true);
+            $("#Declared52845").attr("readonly", true);
+        } else {
+            $("#Declared52840").attr("readonly", true);
+            $("#Declared52840").val(0);
+            $("#Declared52841").attr("readonly", true);
+            $("#Declared52841").val(0);
+            $("input[type=checkbox][id=checkbox52840]").prop('checked', false);
+            $("input[type=checkbox][id=checkbox52841]").prop('checked', false);
+        }
+    });
+    $("#checkbox52841").click(function () {
+        if ($("#checkbox52841").is(':checked') == true) {
+            $("#Declared52840").removeAttr("readonly");
+            $("#Declared52841").removeAttr("readonly");
+            $("input[type=checkbox][id=checkbox52840]").prop('checked', true);
+            $("input[type=checkbox][id=checkbox52842]").prop('checked', false);
+            $("input[type=checkbox][id=checkbox52843]").prop('checked', false);
+            $("input[type=checkbox][id=checkbox52844]").prop('checked', false);
+            $("input[type=checkbox][id=checkbox52845]").prop('checked', false);
+            $("#Declared52842").val(0);
+            $("#Declared52843").val(0);
+            $("#Declared52844").val(0);
+            $("#Declared52845").val(0);
+            $("#Declared52842").attr("readonly", true);
+            $("#Declared52843").attr("readonly", true);
+            $("#Declared52844").attr("readonly", true);
+            $("#Declared52845").attr("readonly", true);
+        } else {
+            $("#Declared52840").attr("readonly", true);
+            $("#Declared52840").val(0);
+            $("#Declared52841").attr("readonly", true);
+            $("#Declared52841").val(0);
+            $("input[type=checkbox][id=checkbox52840]").prop('checked', false);
+            $("input[type=checkbox][id=checkbox52841]").prop('checked', false);
+        }
+    });
+    $("#checkbox52842").click(function () {
+        if ($("#checkbox52842").is(':checked') == true) {
+            $("#Declared52842").removeAttr("readonly");
+            $("#Declared52843").removeAttr("readonly");
+            $("input[type=checkbox][id=checkbox52843]").prop('checked', true);
+            $("input[type=checkbox][id=checkbox52840]").prop('checked', false);
+            $("input[type=checkbox][id=checkbox52841]").prop('checked', false);
+            $("input[type=checkbox][id=checkbox52844]").prop('checked', false);
+            $("input[type=checkbox][id=checkbox52845]").prop('checked', false);
+            $("#Declared52840").val(0);
+            $("#Declared52841").val(0);
+            $("#Declared52844").val(0);
+            $("#Declared52845").val(0);
+
+            $("#Declared52840").attr("readonly", true);
+            $("#Declared52841").attr("readonly", true);
+            $("#Declared52844").attr("readonly", true);
+            $("#Declared52845").attr("readonly", true);
+        } else {
+            $("#Declared52842").attr("readonly", true);
+            $("#Declared52842").val(0);
+            $("#Declared52843").attr("readonly", true);
+            $("#Declared52843").val(0);
+            $("input[type=checkbox][id=checkbox52842]").prop('checked', false);
+            $("input[type=checkbox][id=checkbox52843]").prop('checked', false);
+        }
+    });
+    $("#checkbox52843").click(function () {
+        if ($("#checkbox52843").is(':checked') == true) {
+            $("#Declared52842").removeAttr("readonly");
+            $("#Declared52843").removeAttr("readonly");
+            $("input[type=checkbox][id=checkbox52842]").prop('checked', true);
+            $("input[type=checkbox][id=checkbox52840]").prop('checked', false);
+            $("input[type=checkbox][id=checkbox52841]").prop('checked', false);
+            $("input[type=checkbox][id=checkbox52844]").prop('checked', false);
+            $("input[type=checkbox][id=checkbox52845]").prop('checked', false);
+            $("#Declared52840").val(0);
+            $("#Declared52841").val(0);
+            $("#Declared52844").val(0);
+            $("#Declared52845").val(0);
+
+            $("#Declared52840").attr("readonly", true);
+            $("#Declared52841").attr("readonly", true);
+            $("#Declared52844").attr("readonly", true);
+            $("#Declared52845").attr("readonly", true);
+        } else {
+            $("#Declared52842").attr("readonly", true);
+            $("#Declared52842").val(0);
+            $("#Declared52843").attr("readonly", true);
+            $("#Declared52843").val(0);
+            $("input[type=checkbox][id=checkbox52842]").prop('checked', false);
+            $("input[type=checkbox][id=checkbox52843]").prop('checked', false);
+        }
+    });
+    $("#checkbox52844").click(function () {
+        if ($("#checkbox52844").is(':checked') == true) {
+            $("#Declared52844").removeAttr("readonly");
+            $("#Declared52845").removeAttr("readonly");
+            $("input[type=checkbox][id=checkbox52845]").prop('checked', true);
+            $("input[type=checkbox][id=checkbox52840]").prop('checked', false);
+            $("input[type=checkbox][id=checkbox52841]").prop('checked', false);
+            $("input[type=checkbox][id=checkbox52842]").prop('checked', false);
+            $("input[type=checkbox][id=checkbox52843]").prop('checked', false);
+            $("#Declared52840").val(0);
+            $("#Declared52841").val(0);
+            $("#Declared52842").val(0);
+            $("#Declared52843").val(0);
+
+            $("#Declared52840").attr("readonly", true);
+            $("#Declared52841").attr("readonly", true);
+            $("#Declared52842").attr("readonly", true);
+            $("#Declared52843").attr("readonly", true);
+        } else {
+            $("#Declared52844").attr("readonly", true);
+            $("#Declared52844").val(0);
+            $("#Declared52845").attr("readonly", true);
+            $("#Declared52845").val(0);
+            $("input[type=checkbox][id=checkbox52844]").prop('checked', false);
+            $("input[type=checkbox][id=checkbox52845]").prop('checked', false);
+        }
+    });
+    $("#checkbox52845").click(function () {
+        if ($("#checkbox52845").is(':checked') == true) {
+            $("#Declared52844").removeAttr("readonly");
+            $("#Declared52845").removeAttr("readonly");
+            $("input[type=checkbox][id=checkbox52844]").prop('checked', true);
+            $("input[type=checkbox][id=checkbox52840]").prop('checked', false);
+            $("input[type=checkbox][id=checkbox52841]").prop('checked', false);
+            $("input[type=checkbox][id=checkbox52842]").prop('checked', false);
+            $("input[type=checkbox][id=checkbox52843]").prop('checked', false);
+            $("#Declared52840").val(0);
+            $("#Declared52841").val(0);
+            $("#Declared52842").val(0);
+            $("#Declared52843").val(0);
+
+            $("#Declared52840").attr("readonly", true);
+            $("#Declared52841").attr("readonly", true);
+            $("#Declared52842").attr("readonly", true);
+            $("#Declared52843").attr("readonly", true);
+        } else {
+            $("#Declared52844").attr("readonly", true);
+            $("#Declared52844").val(0);
+            $("#Declared52845").attr("readonly", true);
+            $("#Declared52845").val(0);
+            $("input[type=checkbox][id=checkbox52844]").prop('checked', false);
+            $("input[type=checkbox][id=checkbox52845]").prop('checked', false);
+        }
+    });
+</script>
+<script>
+    function declaredchange(event) {
+
+        var dataroleid = event.dataset.role;
+        if (dataroleid == 1) {
+            if (event.value > 8000) {
+                $.get("/InvestmentDeclaration/GetLandLordDetail", {}, function (data) {
+                    debugger;
+                    if (data == 0) {
+                        $('#LandLord-Modal').show();
+                    }
+                    else {
+                        $('#LandLord-Modal').show();
+                        $('#RentPaidVal').val(event.value);
+                        $('#LandLordName').val(data.landLordName);
+                        $('#PanNumber').val(data.landLordName);
+                        $("#hdnPanNumberFile").val(data.fileUrl);
+                        $('#divpanproof').html('<a href=' + data.panFileUrl + ' target="_blank" ><i class="fa fa-download"></i></a>');
+                    }
+                });
+                var actval = 0;
+                $(".Declare" + dataroleid).each(function () {
+                    actval += parseInt($(this).val());
+                });
+                $("#DeclaredAmt" + dataroleid).text(parseFloat(actval).toFixed(1));
+                $("#DeclaredAmount" + dataroleid).text(parseFloat(actval).toFixed(1));
+            }
+            else {
+                var actval = 0;
+                $(".Declare" + dataroleid).each(function () {
+                    actval += parseInt($(this).val());
+                });
+                $("#DeclaredAmt" + dataroleid).text(parseFloat(actval).toFixed(1));
+                $("#DeclaredAmount" + dataroleid).text(parseFloat(actval).toFixed(1));
+            }
+        }
+        else if (dataroleid == 10) {
+            $('#Lender-Detail-Modal').show();
+        }
+        else {
+            debugger;
+            var ids = event.id.substring(8);
+            var tentiveval = $("#Tentative" + ids).val();
+            var declareval = $("#" + event.id).val();
+            if (tentiveval != 0) {
+                if (parseInt(Number(declareval)) > parseInt(Number(tentiveval))) {
+                    alert('Declared Value Greater than Tentitive Limit');
+                    $("#" + event.id).val(0);
+                }
+                else {
+
+                    var actval = 0;
+                    $(".Declare" + dataroleid).each(function () {
+                        actval += parseInt($(this).val());
+                    });
+                    $("#DeclaredAmt" + dataroleid).text(parseFloat(actval).toFixed(1));
+                    $("#DeclaredAmount" + dataroleid).text(parseFloat(actval).toFixed(1));
+                }
+            }
+            else {
+                var actval = 0;
+                $(".Declare" + dataroleid).each(function () {
+                    actval += parseInt($(this).val());
+                });
+                $("#DeclaredAmt" + dataroleid).text(parseFloat(actval).toFixed(1));
+                $("#DeclaredAmount" + dataroleid).text(parseFloat(actval).toFixed(1));
+            }
+        }
+    }
+    function AddProof(event) {
+
+        $.get("/InvestmentDeclaration/UploadProof", {}, function (data) {
+            $("#Div_UploadProof").html(data);
+            $("#hdnIV3").val(event);
+
+            $('#large-Modal').show();
+        });
+    }
+    function DownloadProof(event) {
+        $.get("/InvestmentDeclaration/DownloadProof", { IV3: event }, function (data) {
+
+        });
+    }
+    function DeleteUploadedProof(event) {
+
+        $.get("/InvestmentDeclaration/DeleteUploadedProof", { IDPPId: event }, function (data) {
+
+            $("#Div_DeleteProof").html(data);
+            $("#deleteuploaded-Modal").show();
+        });
+    }
+    $("#btn-DeleteUploadedProof").click(function () {
+        debugger;
+        var responseUrl = '';
+        $(".proofURLclass").each(function (i, j) {
+
+            responseUrl = responseUrl.concat(",", j.defaultValue)
+
+        });
+
+
+        var responseUrl = responseUrl.substring(1);
+        var IDPPId = $("#hdn_IDPPId").val();
+        var InvestmentProofEntryId = $("#hdn_InvestmentProofEntryId").val();
+        
+        $.get("/InvestmentDeclaration/PostDeleteUploadedProof", { IDPPId: IDPPId, ProofUrl: responseUrl, InvestmentProofEntryId: InvestmentProofEntryId }, function (data) {
+            if (data == true) {
+                alert("Proof Deleted   Succesfully..");
+                $("#deleteuploaded-Modal").hide();
+
+            }
+            else {
+                alert("ther are some technical error contact admin..");
+            }
+        });
+
+       
+    });
+</script>
+<script>
+    $(document).ready(function () {
+
+        if ($("#hdnisWindowOpen").val() == 0) {
+            $('#modal-isWindowOpen').show();
+        }
+    });
+    function RadioButtonOnChange(event) {
+        var id = event.id.substring(6);
+        if ($(event).val() == 1) {
+            $("#Table" + id).show('slow');
+        }
+        else {
+            $(".Declare" + id).each(function () {
+                $(this).val(0);
+            });
+
+            $("#Table" + id).hide('slow');
+        }
+    }
+    function CheckBoxTextEnable(event) {
+
+        var id = event.substring(8);
+        if (event == 'checkbox62949') {
+            if ($("#checkbox62949").prop('checked')) {
+                $("#Declared" + id).removeAttr("readonly");
+                $("input[type=radio][name=radio6]").prop('checked', false);
+                $(".Declare" + 6).each(function () {
+                    $(this).val(0);
+                });
+            }
+            else {
+                $("#Declared" + id).attr("readonly", true);
+            }
+        }
+        else {
+
+            if ($("#" + event).prop('checked')) {
+                $("#Declared" + id).removeAttr("readonly");
+            } else {
+                $("#Declared" + id).attr("readonly", true);
+            }
+        }
+
+
+
+    }
+    function RadioBindValue(event) {
+
+        var id = event.substring(5);
+        var Pid = event.substring(6, 5);
+        if ($("#radio62946").is(':checked')) {
+            $('#Declared62946').val($("#" + event).val());
+            $("input[type=checkbox][id=checkbox62949]").prop('checked', false);
+            $('#Declared62949').val(0);
+            $("#Declared62949").attr("readonly", true);
+        }
+        else {
+            $('#Declared62946').val(0);
+        }
+        if ($("#radio62947").is(':checked')) {
+            $('#Declared62947').val($("#" + event).val());
+            $("input[type=checkbox][id=checkbox62949]").prop('checked', false);
+            $('#Declared62949').val(0);
+            $("#Declared62949").attr("readonly", true);
+        }
+        else {
+            $('#Declared62947').val(0);
+        }
+        if ($("#radio62948").is(':checked')) {
+            $('#Declared62948').val($("#" + event).val());
+            $("input[type=checkbox][id=checkbox62949]").prop('checked', false);
+            $('#Declared62949').val(0);
+            $("#Declared62949").attr("readonly", true);
+        }
+        else {
+            $('#Declared62948').val(0);
+        }
+
+
+
+    }
+</script>
+<script>
+    $("#checkbox1, #checkbox2,#checkbox3,#checkbox4,#checkbox5").click(function () {
+        if ($("#checkbox1").is(':checked') == true && $("#checkbox2").is(':checked') == true && $("#checkbox3").is(':checked') == true && $("#checkbox4").is(':checked') == true && $("#checkbox5").is(':checked') == true) {
+            $("#Declared8").removeAttr("readonly");
+        } else {
+            $("#Declared8").attr("readonly", true);
+            $("#Declared8").val(0);
+        }
+    });
+    $("#chekbox_53, #chekbox_55").click(function () {
+        if ($("#chekbox_53").is(':checked') == true && $("#chekbox_55").is(':checked') == true) {
+            $("#Declinput_5_51").removeAttr("readonly");
+        } else {
+            $("#Declinput_5_51").attr("readonly", true);
+            $("#Declinput_5_51").val(0);
+        }
+    });
+    $("#chk63").click(function () {
+        ;
+        if ($("#chk63").is(':checked') == true) {
+            $("#Declinput_11_63").removeAttr("readonly");
+        } else {
+            $("#Declinput_11_63").attr("readonly", true);
+            $("#Declinput_11_63").val(0);
+        }
+    });
+    $("#rdono,#rdoyes").click(function () {
+
+        if ($("#rdoyes").is(':checked') == true) {
+            $(".tbl11").show("Slow");
+        } else {
+            $(".tbl11").hide("slow");
+            $("#Declinput_23_75").val(0);
+
+        }
+    });
+    $("#radioyes,#radiono").click(function () {
+
+        if ($("#radioyes").is(':checked') == true) {
+            $(".tbl23").show("Slow");
+        } else {
+            $(".tbl23").hide("slow");
+            $(".61").val(0);
+        }
+    });
+    function ShowReason(event) {
+        $("#span_Reason").text(event);
+        $('#modal-Reason').show();
+    }
+    function ShowAgrrement() {
+        $('#modal-Aggremment').show();
+    }
+    function SubmitInvestment() {
+        $("#form-InvestmentDeclaration").submit();
+    }
+</script>
+<script>
+
+    $("#btn-saveLandLord").click(function () {
+        debugger;
+        var txtLandLordName = $("#LandLordName").val();
+        var txtPANCard = $("#PanNumber").val();
+        var panFile = $("#hdnPanNumberFile").val();
+
+        if (txtLandLordName == "") {
+            $("#lblLandLordName").text("Enter Land Lord Name");
+            $('#LandLordName').css('border-color', 'Red');
+            return false;
+        }
+        else {
+            $("#lblLandLordName").text('');
+            $('#LandLordName').css('border-color', '');
+        }
+        if (txtPANCard == "") {
+            $("#lblPANCard").text("Enter PAN Card Number");
+            $('#PanNumber').css('border-color', 'Red');
+            return false;
+        }
+        else {
+            var regex = /([A-Z]){5}([0-9]){4}([A-Z]){1}$/;
+            if (regex.test(txtPANCard)) {
+                $("#lblPANCard").text('');
+                $('#PanNumber').css('border-color', '');
+
+                if ($("#PanNumberFile").val() == "" && $("#hdnPanNumberFile").val() == "") {
+                    $("#spanImageError").text("Upload PAN Card Copy");
+                    $('#PanNumberFile').css('border-color', 'Red');
+                    return false;
+                }
+                else {
+                    $("#spanImageError").text('');
+                    $('#PanNumberFile').css('border-color', '');
+                    $.get("/InvestmentDeclaration/UploadLandLord", { LandLordName: $("#LandLordName").val(), LandLordPAN: $("#PanNumber").val(), FileUrl: $('#hdnPanNumberFile').val() }, function (response) {
+                        debugger;
+                        if (response == 1) {
+                                var actval = 0;
+                                $(".DecClass1").each(function () {
+                                    actval += parseInt($(this).val());
+                                });
+                                $("#txtAllSubmit_" + 1).val(parseFloat(actval).toFixed(1));
+                                $("#dvdec_" + 1).text(parseFloat(actval).toFixed(1));
+
+
+                                alert('Land Lord Details Submitted Sucessfully!!');
+                                $('#LandLord-Modal').hide();
+                            }
+                            else {
+
+                                alert('there are some technical error contact admin..')
+                            }
+
+                    });
+
+                    //var LandLordDetail = {
+                    //    LandLordName: txtLandLordName,
+                    //    LandLordPAN: txtPANCard,
+                    //    FileUrl: panFile
+                    //}
+
+                    //$.ajax({
+                    //    type: 'POST',
+                    //    url: '/InvestmentDeclaration/UploadLandLord',
+                    //    data: JSON.stringify(LandLordDetail),
+                    //    contentType: 'application/json',
+                    //    dataType: 'json',
+                    //    success: function (response) {
+                    //        if (response == 1) {
+                    //            var actval = 0;
+                    //            $(".DecClass1").each(function () {
+                    //                actval += parseInt($(this).val());
+                    //            });
+                    //            $("#txtAllSubmit_" + 1).val(parseFloat(actval).toFixed(1));
+                    //            $("#dvdec_" + 1).text(parseFloat(actval).toFixed(1));
+
+
+                    //            alert('Land Lord Details Submitted Sucessfully!!');
+                    //            $('#LandLord-Modal').hide();
+                    //        }
+                    //        else {
+
+                    //            alert('there are some technical error contact admin..')
+                    //        }
+
+                    //    },
+                    //    failure: function (response) {
+                    //        console.log("Failure");
+                    //    },
+                    //    error: function (response) {
+                    //        console.log("Error:" + response);
+                    //    }
+                    //});
+
+                }
+
+
+
+            } else {
+                $("#lblPANCard").text("Enter Valid PAN Card Number");
+                $('#PanNumber').css('border-color', 'Red');
+                return false;
+            }
+        }
+
+
+    });
+    $('#btnUploadProof').on('click', function () {
+        $.get("/InvestmentDeclaration/InsertProof", { IDPPId: $('#hdnIV3').val(), ProofUrl: $('#hdnfile').val() }, function (data) {
+            if (data == 1) {
+
+                alert('Proof Attached Sucessfully...')
+                $('#large-Modal').hide();
+                $('#divProof' + $('#hdnIV3').val()).html('Attached');
+
+            }
+            else {
+                alert('technical error contact admin..')
+                $('#large-Modal').hide();
+            }
+        });
+    });
+</script>

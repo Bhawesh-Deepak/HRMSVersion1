@@ -11,95 +11,65 @@
      
 }
 <style>
-    .img-fluid {
-        max-width: 46%;
-        height: auto;
-    }
-    .ui-autocomplete {
-        max-height: 300px;
-        overflow-y: auto;
-        overflow-x: auto;
-    }
-
-    html .ui-autocomplete {
-        max-height: 300px;
-        margin-left: 319px;
-        margin-top: 57px;
+    .color-line {
+        background: #f7f9fa;
+        height: 6px;
+        background-image: -webkit-linear-gradient(left,#f7f9fa,#f7f9fa 25%,#9b59b6 25%,#9b59b6 35%,#3498db 35%,#3498db 45%,#62cb31 45%,#62cb31 55%,#ffb606 55%,#ffb606 65%,#e67e22 65%,#e67e22 75%,#e74c3c 85%,#e74c3c 85%,#c0392b 85%,#c0392b 100%);
+        background-image: -moz-linear-gradient(left,#f7f9fa,#f7f9fa 25%,#9b59b6 25%,#9b59b6 35%,#3498db 35%,#3498db 45%,#62cb31 45%,#62cb31 55%,#ffb606 55%,#ffb606 65%,#e67e22 65%,#e67e22 75%,#e74c3c 85%,#e74c3c 85%,#c0392b 85%,#c0392b 100%);
+        background-image: -ms-linear-gradient(left,#f7f9fa,#f7f9fa 25%,#9b59b6 25%,#9b59b6 35%,#3498db 35%,#3498db 45%,#62cb31 45%,#62cb31 55%,#ffb606 55%,#ffb606 65%,#e67e22 65%,#e67e22 75%,#e74c3c 85%,#e74c3c 85%,#c0392b 85%,#c0392b 100%);
+        background-image: linear-gradient(to right,#CC2AC0,#CC2AC0 25%,#9b59b6 25%,#9b59b6 35%,#3498db 35%,#3498db 45%,#62cb31 45%,#62cb31 55%,#ffb606 55%,#ffb606 65%,#e67e22 65%,#e67e22 75%,#e74c3c 85%,#e74c3c 85%,#c0392b 85%,#c0392b 100%);
+        background-size: 100% 6px;
+        background-position: 50% 100%;
+        background-repeat: no-repeat
     }
 </style>
-<div class="page-main-header">
-    <div class="main-header-right row m-0">
-        <div class="main-header-left">
-            <div class="logo-wrapper"><a asp-action="Index" asp-controller="Home"><img class="img-fluid" src="@companyDetails.Logo" alt=""></a></div>
-            <div class="dark-logo-wrapper"><a asp-action="Index" asp-controller="Home"><img class="img-fluid" src="@companyDetails.Logo" alt=""></a></div>
-            <div class="toggle-sidebar"><i class="status_toggle middle" data-feather="align-center" id="sidebar-toggle"></i></div>
-        </div>
-        <div class="left-menu-header col">
-            <ul>
-                <li>
-                    <form class="form-inline search-form">
-                        <div class="search-bg">
-                            <i class="fa fa-search"></i>
-                            <input class="form-control-plaintext" id="EmployeeCode" name="EmployeeCode" placeholder="Search here.....">
-                        </div>
-                    </form><span class="d-sm-none mobile-search search-bg"><i class="fa fa-search"></i></span>
+<header class="main-header">
+    <div class="color-line"> </div>
+    <a asp-action="Index" asp-controller="Home" class="logo">
+        <!-- Logo -->
+        <span class="logo-mini">
+
+            <img src="@companyDetails.Logo" alt="">
+        </span>
+        <span class="logo-lg">
+
+            <img src="@companyDetails.Logo" alt="">
+        </span>
+    </a>
+    <!-- Header Navbar -->
+    <nav class="navbar navbar-static-top">
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <!-- Sidebar toggle button-->
+            <span class="sr-only">Toggle navigation</span>
+            <span class="pe-7s-keypad"></span>
+        </a>
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <li class="dropdown messages-menu">
+                    <button class="btn btn-black" type="button" style="margin-top: 13px;">   Current Financial Year : @HttpContextAccessor.HttpContext.Session.GetString("financialYear")  </button>
+                </li>
+                <li class="dropdown dropdown-user">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="pe-7s-settings"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"><i class="pe-7s-users"></i> User Profile</a></li>
+                        @*<li><a href="#"><i class="pe-7s-settings"></i> Settings</a></li>*@
+                        <li><a asp-action="Logout" asp-controller="Authenticate"><i class="pe-7s-power"></i> Logout</a></li>
+                    </ul>
                 </li>
             </ul>
         </div>
-        <div class="nav-right col pull-right right-menu p-0">
-            <ul class="nav-menus">
+    </nav>
+</header>
 
-                <li class="onhover-dropdown p-0">
-                    <button class="btn btn-success" type="button">   Current Financial Year : @HttpContextAccessor.HttpContext.Session.GetString("financialYear")  </button>
-                </li>
-                <li class="onhover-dropdown p-0">
-                    <button class="btn btn-primary-light" type="button"><a asp-action="Logout" asp-controller="Authenticate"><i class="fa fa-power-off"></i> Log Off</a></button>
-                </li>
-            </ul>
-        </div>
-        <div class="d-lg-none mobile-toggle pull-right w-auto"><i data-feather="more-horizontal"></i></div>
-    </div>
-</div>
-<script src="~/wp-contents/assets/js/jquery-3.5.1.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $("#EmployeeCode").autocomplete({
-            source: function (request, response) {
-                $.ajax({
-                    url: '/Common/getEmployeeAutoComplete',
-                    method: "POST",
-                    data: { "term": request.term },
-                    dataType: "json",
-                    success: function (data) {
-                        response($.map(data, function (item) {
 
-                            return {
-                                label: item.employeeName,
-                                value: item.empCode,
-                                employeeid: item.id
-                            };
-                        }))
-                    },
-                    error: function (xhr, textStatus, error) {
-                        alert(xhr.statusText);
-                    },
-                    failure: function (response) {
-                        alert("failure " + response.responseText);
-                    }
-                });
-            },
-            select: function (e, i) {
-                $('#divLoader').modal('show');
-                $.get("/Common/getEmployeeInformantion", { Id: i.item.employeeid }, function (response) {
-                    debugger;
-                    $("#Div_HRMS_modal").html(response);
-                    $('#HeaderText').text('Employee Details');
-                    $('#exampleModalfat').modal('show');
-                    $('#divLoader').modal('hide');
-                });
 
-            },
-            minLength: 3
-        });
-    });
-</script>
+
+
+
+
+
+
+
+
+
+  

@@ -1,0 +1,212 @@
+﻿@model HRMS.Core.ReqRespVm.Response.Investment.ComputationOfTaxReportVM
+
+
+
+<div class="col-sm-12 col-md-12">
+    <div class="panel panel-bd  ">
+        <div class="panel-heading">
+            <div class="panel-title">
+                <h4>
+                    <i class="fa fa-bar-chart"></i> Tax Calculator
+                    @*<a href="#" class="btn btn-xs  btn-primary pull-right" title="Download Tax Calculator"><i class="fa fa-download"></i>  </a>*@
+                </h4>
+            </div>
+        </div>
+        <div class="panel-body">
+            <table class="table table-bordered table-striped table-condensed flip-content" style="margin-top:0px">
+                <tbody>
+                    <tr>
+                        <td>Employee Code</td>
+                        <td class="text-right">@Model.EmployeSalary.FirstOrDefault().EmpCode</td>
+                    </tr>
+                    <tr>
+                        <td>Employee Name</td>
+                        <td class="text-right">@Model.EmployeSalary.FirstOrDefault().EmployeeName</td>
+                    </tr>
+                    @foreach (var item in Model.EmployeSalary.OrderBy(x=>x.ComponentID))
+                    {
+                    <tr>
+                        <td>@item.ComponentName</td>
+                        <td class="text-right">&#8377; @item.ComponentValue</td>
+                    </tr>
+                    }
+                    <tr>
+                        <td>Gross Salary (Prorated Base )</td>
+                        <td class="text-right">  &#8377; @Model.GrossSalary</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><b>Less:- Allowances exempt under Section 10 </b></td>
+                    </tr>
+                    <tr>
+                        <td>Section 10 (13A) - HRA Exemption</td>
+                        <td class="text-right">&#8377; @Model.HRAExamption</td>
+                    </tr>
+                    <tr>
+                        <td>Section 10 Allowances (other than HRA)</td>
+                        <td class="text-right">&#8377; @Model.Sec10</td>
+                    </tr>
+
+                    <tr>
+                        <td><b>Total amount of exemption claimed under section 10</b></td>
+                        <td class="text-right">
+                            &#8377;
+                            @{
+                                decimal sec10 = Convert.ToDecimal(Model.Sec10) + Convert.ToDecimal(Model.HRAExamption);
+                            }
+                            <b> @sec10</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Total amount of salary received</b></td>
+                        <td class="text-right">
+                            &#8377;
+                            @{
+                                decimal salaryreceived = Model.GrossSalary - sec10;
+                            }
+                            <b> @salaryreceived</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>(a) Standard Deduction - Section 16(ia)</td>
+                        <td class="text-right">&#8377; @Model.StanderedDeduction</td>
+                    </tr>
+                    <tr>
+                        <td>(b) Entertainment allowance under section 16(ii)</td>
+                        <td class="text-right">&#8377;0.00</td>
+                    </tr>
+                    <tr>
+                        <td>(c) Professional Tax Section 16(iii)</td>
+                        <td class="text-right">&#8377; @Model.Sec16</td>
+                    </tr>
+                    <tr>
+                        <td><b>Total deductions under Section 16 </b></td>
+                        <td class="text-right">
+                            &#8377;
+                            @{
+                                decimal deductionsunderSection16 = Model.StanderedDeduction + Model.Sec16;
+                            }
+                            <b>@deductionsunderSection16</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Income chargeable under the head "Salaries"</b></td>
+                        <td class="text-right">
+                            &#8377;
+                            @{
+                                decimal Incomechargeable = salaryreceived - deductionsunderSection16;
+                            }
+                            <b>@Incomechargeable</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><b>Add:- Income or (admissible Loss) from house property</b></td>
+                    </tr>
+                    <tr>
+                        <td>Section 24 - Interest on Housing Loan</td>
+                        <td class="text-right">&#8377; @Model.Sec24</td>
+                    </tr>
+                    <tr>
+                        <td>Income under the head Other Sources offered for TDS</td>
+                        <td class="text-right">&#8377; 0.00</td>
+                    </tr>
+                    <tr>
+                        <td><b>Gross Total Income</b></td>
+                        <td class="text-right">
+                            &#8377;
+                            @{
+                                decimal GrossTotalIncome = Incomechargeable - Model.Sec24;
+                            }
+                            <b>@GrossTotalIncome</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><b>Less:- Deductions under Chapter VI-A</b></td>
+                    </tr>
+
+                    <tr>
+                        <td>Section 80-C</td>
+                        <td class="text-right">&#8377; @Model.Sec80CExamption</td>
+                    </tr>
+                    <tr>
+                        <td>Section 80-CCD (1B)</td>
+                        <td class="text-right">&#8377; @Model.Sec80CCD1B</td>
+                    </tr>
+                    <tr>
+                        <td>Section 80-CCD (2)</td>
+                        <td class="text-right">&#8377; @Model.Sec80CCD2</td>
+                    </tr>
+                    <tr>
+                        <td>Section 80-D</td>
+                        <td class="text-right">&#8377; @Model.Sec80D</td>
+                    </tr>
+                    <tr>
+                        <td>Section 80-DD</td>
+                        <td class="text-right">&#8377; @Model.Sec80DD</td>
+                    </tr>
+                    <tr>
+                        <td>Section 80-E</td>
+                        <td class="text-right">&#8377; @Model.Sec80E</td>
+                    </tr>
+                    <tr>
+                        <td>Section 80-EE</td>
+                        <td class="text-right">&#8377; @Model.Sec80EE</td>
+                    </tr>
+                    <tr>
+                        <td>Section 80 EEB</td>
+                        <td class="text-right">&#8377; @Model.Sec80EEB</td>
+                    </tr>
+                    <tr>
+                        <td>Section 80-G</td>
+                        <td class="text-right">&#8377; @Model.Sec80G</td>
+                    </tr>
+                    <tr>
+                        <td>Section 80-GG</td>
+                        <td class="text-right">&#8377; @Model.Sec80GG</td>
+                    </tr>
+                    <tr>
+                        <td>Section 80-U</td>
+                        <td class="text-right">&#8377; @Model.Sec80U</td>
+                    </tr>
+                    <tr>
+                        <td><b>Aggregate of deductible amount under Chapter VI-A</b></td>
+                        <td class="text-right">
+                            &#8377;
+                            @{
+                                decimal Aggregatedeductibleamount = Model.Sec80U + Model.Sec80GG + Model.Sec80G + Model.Sec80EEB + Model.Sec80EE + Model.Sec80E + Model.Sec80DD + Model.Sec80D + Model.Sec80CCD2 + Model.Sec80CCD1B + Model.Sec80CExamption;
+                            }
+                            <b>@Aggregatedeductibleamount</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Total taxable income</b></td>
+                        <td class="text-right">
+                            &#8377;
+                            @{
+                                decimal Totaltaxableincome = GrossTotalIncome - Aggregatedeductibleamount;
+                            }
+                            <b>@Totaltaxableincome</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Tax Payable</b></td>
+                        <td class="text-right">
+                            &#8377; <b>@Model.FinalTDSAmountYearly</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Tax Deducted from Salary</b></td>
+                        <td class="text-right">
+                            &#8377; <b>@Model.PaidTax</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Net Tax Payable</b></td>
+                        <td class="text-right">
+                            &#8377; <b>@Model.RemainingTax</b>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

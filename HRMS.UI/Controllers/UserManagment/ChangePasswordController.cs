@@ -46,8 +46,13 @@ namespace HRMS.UI.Controllers.UserManagment
                 var response = await client.PostAsync("api/HRMS/Authenticate/ChangePasswordPost", stringContent);
                 if (response.IsSuccessStatusCode)
                 {
+                    return RedirectToAction("Index", "Authenticate");
                 }
-                return await Task.Run(() => View(ViewHelper.GetViewPathDetails("ChangePassword", "_ChangePasswordIndex")));
+                else
+                {
+                    return RedirectToAction("Index", "Authenticate");
+                }
+                
             }
             catch (Exception ex)
             {

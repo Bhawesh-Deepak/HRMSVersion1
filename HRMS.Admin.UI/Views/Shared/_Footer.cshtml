@@ -1,4 +1,21 @@
-﻿<footer class="main-footer">
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor;
+@using HRMS.Admin.UI.Helpers;
+@using HRMS.Core.Entities.Organisation;
 
-    <strong>Copyright © @DateTime.Now.Year <a target="_blank" href="http://kudotech.in/">Kudo Tech </a>.</strong> All rights reserved.
+@{
+    var companyDetails = HttpContextAccessor.HttpContext.Session.GetObjectFromJson<Company>("companyDetails");
+
+}
+
+
+
+
+
+
+
+
+<footer class="main-footer">
+
+    <strong>Copyright © @DateTime.Now.Year <a target="_blank" href="@companyDetails.Url">@companyDetails.Name</a>.</strong> All rights reserved.
 </footer>

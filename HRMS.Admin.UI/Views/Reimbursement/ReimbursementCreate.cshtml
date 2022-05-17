@@ -94,7 +94,10 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label asp-for="Currency">Currency</label><span style="color:red">  *</span>
-                            <input asp-for="Currency" class="form-control" />
+                            <select asp-for="Currency" class="form-control">
+                                <option value="">--Select One--</option>
+                                <option value="INR">INR</option>
+                            </select>
                             <span asp-validation-for="Currency" class="text-danger"></span>
                         </div>
                     </div>

@@ -1,4 +1,5 @@
 ﻿using HRMS.Core.Entities.HR;
+using HRMS.Core.Entities.Leave;
 using HRMS.Core.Helpers.CommonHelper;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -18,15 +19,17 @@ namespace HRMS.Core.Helpers.ExcelHelper
             var leaveallocationModels = new List<LeaveAllocation>();
             for (int i = 1; i < dataResult.dtResult.Rows.Count; i++)
             {
-                for (int J = 1; J < dataResult.dtResult.Columns.Count; J++)
+                leaveallocationModels.Add(new LeaveAllocation()
                 {
-                    var leaveallocation = new LeaveAllocation();
-                    leaveallocation.EmpCode = dataResult.dtResult.Rows[i][0].ToString().GetDefaultDBNull<string>();
-                    leaveallocation.LeaveCode = dataResult.dtResult.Rows[0][J].ToString().GetDefaultDBNull<string>();
-                    leaveallocation.CountLeave = dataResult.dtResult.Rows[i][J].ToString().GetDefaultDBNull<decimal>();
-                    leaveallocationModels.Add(leaveallocation);
-
-                }
+                    EmpCode = dataResult.dtResult.Rows[i][0].ToString().GetDefaultDBNull<string>(),
+                    AnnualLeave = dataResult.dtResult.Rows[i][1].ToString().GetDefaultDBNull<int>(),
+                    MandatoryLeave = dataResult.dtResult.Rows[i][2].ToString().GetDefaultDBNull<int>(),
+                    OptionalLeave = dataResult.dtResult.Rows[i][3].ToString().GetDefaultDBNull<int>(),
+                    SickLeaves = dataResult.dtResult.Rows[i][4].ToString().GetDefaultDBNull<int>(),
+                    MaternityLeave = dataResult.dtResult.Rows[i][5].ToString().GetDefaultDBNull<int>(),
+                    PaternityLeave = dataResult.dtResult.Rows[i][6].ToString().GetDefaultDBNull<int>(),
+                    BereavementLeave = dataResult.dtResult.Rows[i][7].ToString().GetDefaultDBNull<int>(),
+                });
             }
             return leaveallocationModels;
         }

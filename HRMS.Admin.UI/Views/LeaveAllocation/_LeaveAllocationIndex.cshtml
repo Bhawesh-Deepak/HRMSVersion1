@@ -6,6 +6,9 @@
     @Html.BuildBreadcrumbNavigation()
     <section class="content">
         <div class="row">
+            <div class="col-md-6" id="CreateLeaveAllocation">
+
+            </div>
             <div class="col-md-6">
                 <div class="row" style="margin-top:0;">
                     <div class="col-md-12 col-sm-12">
@@ -57,10 +60,22 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
 </div>
 <script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $('#divLoader').modal('show');
+        $.get("/LeaveAllocation/CreateLeaveAllocation", {}, function (response) {
+            $("#CreateLeaveAllocation").html(response);
+            $('#divLoader').modal('hide');
+        });
+    });
+
+
+
+
     function checkfile(sender) {
         var validExts = new Array(".xlsx", ".xls");
         var fileExt = sender.value;

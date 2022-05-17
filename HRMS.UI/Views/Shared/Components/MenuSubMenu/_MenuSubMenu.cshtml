@@ -7,78 +7,135 @@
 @{
     var employeeDetail = HttpContextAccessor.HttpContext.Session.GetObjectFromJson<EmployeeDetail>("UserDetail");
 }
-<header class="main-nav">
-    <div class="sidebar-user text-center">
-        <a class="setting-primary" href="javascript:void(0)"><i data-feather="settings"></i></a>
+<style>
+    .ui-widget.ui-widget-content {
+        border: 1px solid #c5c5c5;
+        z-index: 9998;
+    }
+    .ui-autocomplete {
+        max-height: 300px;
+        overflow-y: auto;
+        overflow-x: auto;
+    }
 
-        <img class="img-90 rounded-circle" src="@employeeDetail.ProfilePic" alt="">
-        <div class="badge-bottom"><span class="badge badge-primary">New</span></div><a href="Javacript(void:0)">
-            <h6 class="mt-3 f-14 f-w-600">@employeeDetail.EmployeeName</h6>
-        </a>
-        <p class="mb-0 font-roboto">@employeeDetail.DepartmentName</p>
-        @*<ul>
-            <li>
-                <span><span class="counter">19.8</span>k</span>
-                <p>Follow</p>
-            </li>
-            <li>
-                <span>2 year</span>
-                <p>Experince</p>
-            </li>
-            <li>
-                <span><span class="counter">95.2</span>k</span>
-                <p>Follower </p>
-            </li>
-        </ul>*@
-    </div>
-    <nav>
-        <div class="main-navbar">
-            <div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
-            <div id="mainnav">
-                <ul class="nav-menu custom-scrollbar">
-                    <li class="back-btn">
-                        <div class="mobile-back text-end"><span>Back</span><i class="fa fa-angle-right ps-2" aria-hidden="true"></i></div>
+    html .ui-autocomplete {
+        max-height: 300px;
+    }
+</style>
+<aside class="main-sidebar">
+    <!-- sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar user panel -->
+        <div class="user-panel text-center">
+            <div class="image">
+                <img src="@employeeDetail.ProfilePic" class="img-circle" alt="User Image">
+            </div>
+            <div class="info">
+                <p>@employeeDetail.EmployeeName</p>
+                <a href="#"><i class="fa fa-circle text-success"></i> @employeeDetail.DepartmentName</a>
+            </div>
+        </div>
+        <!-- search form -->
+        <form action="#" method="get" class="sidebar-form">
+            <div class="input-group">
+                <input type="text" name="EmployeeCode" id="EmployeeCode" class="form-control" placeholder="Search...">
+                <span class="input-group-btn">
+                    <button type="submit" name="search" id="search-btn" class="btn"><i class="fa fa-search"></i></button>
+                </span>
+            </div>
+        </form>
+        <ul class="sidebar-menu">
+            <li class="header">MAIN NAVIGATION</li>
+
+            @foreach (var Module in Model.GroupBy(x => x.ModuleId))
+            {
+                if (Module.First().MenuLevel == 1)
+                {
+                    <li class="active">
+                        <a asp-action="@Module.First().ActionName" asp-controller="@Module.First().ControllerName">
+                            <i class="@Module.First().ModuleIcon"></i> <span>@Module.First().ModuleName</span>
+                            @*<span class="pull-right-container">
+                                    <span class="label label-success pull-right">v.1</span>
+                                </span>*@
+                        </a>
                     </li>
-                    <li class="sidebar-main-title"><div><h6>Menu</h6></div></li>
-                    @foreach (var Module in Model.GroupBy(x => x.ModuleId))
-                    {
-
-                        if (Module.First().MenuLevel == 1)
+                }
+                else
+                {
+                    <li class="treeview">
+                        @foreach (var SubModule in Module.GroupBy(x => x.SubModuleId))
                         {
-                            
-
-                            <li class="dropdown"><a class="nav-link menu-title link-nav active" asp-action="@Module.First().ActionName" asp-controller="@Module.First().ControllerName"><i class='@Module.First().ModuleIcon'></i><span> @Module.First().ModuleName</span></a></li>
-                            <br />
-                        }
-                        else
-                        {
-                            <li class="dropdown">
-                                @foreach (var SubModule in Module.GroupBy(x => x.SubModuleId))
+                            <a href="#">
+                                <i class="@SubModule.First().SubModuleIcon"></i><span> @SubModule.First().SubModuleName</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                @foreach (var item in SubModule)
                                 {
-
-                                    <a class="nav-link menu-title" href="javascript:void(0)"><i class='@SubModule.First().SubModuleIcon'></i><span> @SubModule.First().SubModuleName  </span></a>
-                                    <ul class="nav-submenu menu-content">
-                                        @foreach (var item in SubModule)
-                                        {
-                                            <li><a asp-action="@item.ActionName" asp-controller="@item.ControllerName">@item.ChildNodeName</a></li>
-                                        }
-
-
-                                    </ul>
-
-
-
-
+                                    <li><a asp-action="@item.ActionName" asp-controller="@item.ControllerName">@item.ChildNodeName</a></li>
                                 }
 
-                                
 
-                            </li>
+                            </ul>
                         }
+
+
+                    </li>
+
+                }
+            }
+
+        </ul>
+    </div>
+</aside>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<link href="~/resources/jQueryUI/jquery-ui.min.css" rel="stylesheet" />
+<script src="~/resources/jQueryUI/jquery-ui.min.js"></script>
+ 
+<script>
+    $(document).ready(function () {
+        $("#EmployeeCode").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/Common/getEmployeeAutoComplete',
+                    method: "POST",
+                    data: { "term": request.term },
+                    dataType: "json",
+                    success: function (data) {
+                        response($.map(data, function (item) {
+
+                            return {
+                                label: item.employeeName,
+                                value: item.empCode,
+                                employeeid: item.id
+                            };
+                        }))
+                    },
+                    error: function (xhr, textStatus, error) {
+                        alert(xhr.statusText);
+                    },
+                    failure: function (response) {
+                        alert("failure " + response.responseText);
                     }
-                </ul>
-            </div>
-            <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>
-        </div>
-    </nav>
-</header>
+                });
+            },
+            select: function (e, i) {
+                $('#divLoader').modal('show');
+                $.get("/Common/getEmployeeInformantion", { Id: i.item.employeeid }, function (response) {
+                    
+                    $("#Div_HRMS_modal").html(response);
+                    $('#HeaderText').text('Employee Details');
+                    $('#HRMSmodal').modal('show');
+                    $('#divLoader').modal('hide');
+                });
+
+            },
+            minLength: 3
+        });
+    });
+</script>
+
+

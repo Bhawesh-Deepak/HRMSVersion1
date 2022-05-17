@@ -1,0 +1,333 @@
+﻿@model HRMS.Core.Entities.Investment.InvestmentDeclarationType
+@{
+    int window = Convert.ToInt32(ViewBag.Window);
+}
+
+<div class="content-wrapper">
+    <input type="hidden" id="hdnisWindowOpen" name="hdnisWindowOpen" value="@window" />
+    <section class="content-header">
+        <div class="header-icon">
+            <i class="pe-7s-check"></i>
+        </div>
+        <div class="header-title">
+            <h1>Investment Declaration  </h1>
+            <small>Employee Dashboard</small>
+            <ol class="breadcrumb">
+                <li><a asp-action="Index" asp-controller="Home"><i class="pe-7s-home"></i> Home</a></li>
+                <li><a href="javascript:void(0)"><i class="pe-7s-info"></i> Income Tax </a></li>
+                <li class="active">Investment Declaration </li>
+            </ol>
+        </div>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <div class="panel panel-bd  ">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            <h4><i class="fa fa-check-circle-o"></i> Investment Declaration  </h4>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            Note: For tax  Comparasion you click first Old tax regime then click New tax regime.
+                        </p>
+                        <div class="control-group">
+
+                            @if (Model == null || Model.Id == 0)
+                            {
+                                <input type="hidden" id="hdnType" name="hdntype" value="" />
+                                <div class="control-group">
+                                    <div class="i-check">
+                                        <input type="radio" name="Investment-field-radio" id="flat-checkbox-1" value="1">
+                                        <label for="flat-checkbox-1">Old tax regime</label>
+                                    </div>
+                                    @*<div class="i-check">
+                                            <input type="radio" name="Investment-field-radio" id="flat-checkbox-2" value="2">
+                                            <label for="flat-checkbox-2">New tax regime</label>
+                                        </div>*@
+
+                                </div>
+
+                            }
+                            else if (Model.DeclarationType == 1)
+                            {
+                                <input type="hidden" id="hdnType" name="hdntype" value="@Model.Id" />
+                                <div class="form-title" style="color:red">
+                                    Note: You have selected Old tax regime of investment declaration for current financial Year.
+                                    <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; After attaching all the investment proof , please click on Submit button
+                                </div>
+                                <div class="control-group">
+                                    <div class="radio">
+                                        <label>
+                                            <input name="Investment-field-radio" type="radio" value="1" class="colored-success">
+                                            <span class="text">Old tax regime </span>
+                                        </label>
+
+
+                                    </div>
+                                </div>
+                            }
+                            else
+                            { <input type="hidden" id="hdnType" name="hdntype" value="@Model.Id" />
+                                <div class="form-title">
+                                    Note: You have selected New tax regime of investment declaration for current financial Year
+                                </div>
+                                <div class="control-group">
+                                    <div class="radio">
+
+
+                                        <label>
+                                            <input name="Investment-field-radio" value="2" type="radio" class="colored-success">
+                                            <span class="text">New tax regime</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="InvestmentDeclaration" class="row">
+
+        </div>
+        <div id="TaxCalculator" class="row">
+
+        </div>
+    </section>
+
+</div>
+<div class="modal fade myModal holidayModal in" id="modal-isWindowOpen" tabindex="-1" role="dialog" aria-hidden="true" style="display: none; padding-left: 8px;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" onclick="HideisWindowOpen()">×</button>
+                <h4 class="modal-title"> <i class="fa fa-warning"></i> Warning </h4>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger m-b-0">
+                    <h4><i class="fa fa-info-circle"></i> Notice</h4>
+                    <p style="text-align:left">
+                        Investment Declaration Window Close contact admin.....
+                    </p>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-warning" onclick="HideisWindowOpen()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade myModal holidayModal in" id="LandLord-Modal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none; padding-left: 8px;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" onclick="HideLandLordModal()">×</button>
+                <h4 class="modal-title"> <i class="fa fa-warning"></i> Land Lord Details </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <div class="form-group">
+                            <label>Land Lord Name:</label>
+                            <input type="text" id="LandLordName" name="LandLordName" placeholder="Enter Land Lord Name" class="form-control">
+                            <span id="lblLandLordName" class="error" style="color:red"> </span>
+                            <input type="hidden" id="RentPaidVal" name="RentPaidVal" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <div class="form-group">
+                            <label>PAN Number:</label>
+                            <input type="text" id="PanNumber" name="PanNumber" maxlength="10" onkeyup="this.value = this.value.toUpperCase();" placeholder="Enter PAN Number" class="form-control">
+                            <span id="lblPANCard" class="error" style="color:red"> </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <div class="form-group">
+                            <label>Upload PAN Card:</label>
+                            <input type="file" id="PanNumberFile" name="PanNumberFile" class="form-control">
+                            <input type="hidden" id="hdnPanNumberFile" name="hdnPanNumberFile" />
+                            <span id="spanImageError" style="color:red"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <div class="form-group" id="divpanproof">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default " onclick="HideLandLordModal()">Close</button>
+                <button type="button" class="btn btn-primary waves-effect waves-light " id="btn-saveLandLord"> <i class="fa fa-upload "></i>  Save </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade myModal holidayModal in" id="modal-Aggremment" tabindex="-1" role="dialog" aria-hidden="true" style="display: none; padding-left: 8px;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" onclick="HideModalAggremment()">×</button>
+                <h4 class="modal-title"> <i class="fa fa-warning"></i> Warning </h4>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger m-b-0">
+                    <h4><i class="fa fa-info-circle"></i> Notice</h4>
+                    <p>  Note : Below calculation ( Tax Computation ) is based on the value which you have declared, but it may be vary ( depends upon the verified value on the basis of proof you have attached)</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" onclick="HideModalAggremment()">Close</button>
+                <button type="button" class="btn btn-warning" onclick="SubmitInvestment()">Agree</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade myModal holidayModal in" id="large-Modal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none; padding-left: 8px;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" onclick="HideLargeModal()">×</button>
+                <h4 class="modal-title"><i class="fa fa-plus"></i>    &nbsp;  Proof Entry      </h4>
+                <input type="hidden" id="hdnIV3" name="hdnIV3" />
+            </div>
+            <div class="modal-body" id="Div_UploadProof">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default " onclick="HideLargeModal()">Close</button>
+                <button type="button" class="btn btn-primary" id="btnUploadProof" style="visibility:hidden"><i class="fa fa-plus"></i>&nbsp; Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade myModal holidayModal in" id="deleteuploaded-Modal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none; padding-left: 8px;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" onclick="Hidedeleteuploaded()">×</button>
+                <h4 class="modal-title"><i class="fa fa-close"></i>    &nbsp;  Delete Proof      </h4>
+
+            </div>
+            <div class="modal-body" id="Div_DeleteProof">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default " onclick="Hidedeleteuploaded()">Close</button>
+                <button type="button" class="btn btn-primary" id="btn-DeleteUploadedProof"><i class="fa fa-plus"></i>&nbsp; Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#divLoader').modal('show');
+        $.get("/InvestmentDeclaration/GetTaxCalculator", {}, function (TaxCalculator) {
+            $("#TaxCalculator").html(TaxCalculator);
+            $('#divLoader').modal('hide');
+        });
+        debugger;
+        if ($("#hdnisWindowOpen").val() == 0) {
+            $('#modal-isWindowOpen').show();
+        }
+    });
+
+    var category = null;
+    $("input[name='Investment-field-radio']").click(function () {
+        category = this.value;
+        if (category == 1) {
+
+            $('#divLoader').modal('show');
+            $.get("/InvestmentDeclaration/InvestmentDeclaration", {}, function (InvestmentDeclaration) {
+                $("#InvestmentDeclaration").html(InvestmentDeclaration);
+                $('#divLoader').modal('hide');
+            });
+        }
+
+        else {
+
+            $('#divLoader').modal('show');
+            $.get("/InvestmentDeclaration/CalculateTDSByNewMethod", {}, function (InvestmentDeclaration) {
+                $("#InvestmentDeclaration").html(InvestmentDeclaration);
+                $('#divLoader').modal('hide');
+            });
+        }
+
+    });
+</script>
+<script>
+    $("#PanNumberFile").change(function (event) {
+
+        $currentUploader = $(this);
+        var fileName = $currentUploader.val();
+        var image = fileName.match(new RegExp("\\.(png|jpeg|jpg|gif|tiff|pdf)$", "i"));
+        if (!image) {
+            $('#spanImageError').css('display', 'block');
+            $('#spanImageError').text('Select png|jpeg|gif|tiff|pdf File');
+            $(this).val(null);
+            return false;
+        }
+        else {
+            $('#spanImageError').css('display', 'none');
+        }
+
+        $currentUploader.closest('.form-group').find("i").attr("class", "fa fa-spinner fa-spin");
+        var data = new FormData();
+        var files = event.target.files;
+        if (files.length > 0) {
+            data.append("ItemImage", files[0]);
+        }
+        $.ajax({
+            url: "/InvestmentDeclaration/UploadLandLordPANFile",
+            type: "POST",
+            processData: false,
+            contentType: false,
+            data: data,
+            success: function (response) {
+                $("#hdnPanNumberFile").val(response);
+            },
+            error: function (er) {
+                console.log(er);
+            }
+        });
+    });
+</script>
+<script>
+    function HideModalAggremment() {
+        $("#modal-Aggremment").hide();
+    }
+    function HideModalReason() {
+        $("#modal-Reason").hide();
+    }
+    function HideLargeModal() {
+        $("#large-Modal").hide();
+    }
+    function HideLandLordModal() {
+        $("#LandLord-Modal").hide();
+    }
+    function HideModalWarning() {
+        $("#modal-warning").hide();
+    }
+    function HideisWindowOpen() {
+        $("#modal-isWindowOpen").hide();
+    }
+    function HideModalLender() {
+        $("#Lender-Detail-Modal").hide();
+    }
+    function Hidedeleteuploaded() {
+        $("#deleteuploaded-Modal").hide();
+    }
+
+</script>

@@ -29,8 +29,9 @@ namespace HRMS.UI.Controllers
             APIURL = configuration.GetSection("APIURL").Value;
             _logger = logger;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            await PopulateViewBag();
             return View();
         }
         public async Task<IActionResult> EmployeePayslip()

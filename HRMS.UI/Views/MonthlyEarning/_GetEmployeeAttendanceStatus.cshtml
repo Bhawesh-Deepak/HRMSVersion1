@@ -8,31 +8,33 @@
     decimal ArrearPer = Convert.ToDecimal((Model.ArrearDays / totaldaysinmonth) * 100);
 
 }
-<div class="card">
-    <div class="card-header pb-0">
-        <h5>Attendance Status (@Model.MonthsName - @Model.DateYear )</h5>
-        <br />
-        <div class="row">
-            <div class="col-md-4">@Html.DropDownList("DateMonth", Enumerable.Range(1, 12).Select(x => new SelectListItem { Value = x.ToString(), Text = System.Globalization.CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(x) }), "-Month-", new { @class = "form-control input-sm" })</div>
-            <div class="col-md-4">@Html.DropDownList("DateYear", Enumerable.Range(DateTime.Now.Year - 3, 10).Select(x => new SelectListItem { Value = x.ToString(), Text = x.ToString() }), "-Year-", new { @class = "form-control input-sm" })</div>
-            <div class="col-md-4"><button class="btn btn-primary btn-sm" type="button" onclick="GetEmployeeAttendance()"> <i class="i-Download1"></i>  Get    </button></div>
+<h5>Attendance Status ( @Model.MonthsName - @Model.DateYear )</h5>
+<div class="row">
+    <div class="col-md-4">@Html.DropDownList("DateMonth", Enumerable.Range(1, 12).Select(x => new SelectListItem { Value = x.ToString(), Text = System.Globalization.CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(x) }), "-Month-", new { @class = "form-control input-sm" })</div>
+    <div class="col-md-4">@Html.DropDownList("DateYear", Enumerable.Range(DateTime.Now.Year - 3, 10).Select(x => new SelectListItem { Value = x.ToString(), Text = x.ToString() }), "-Year-", new { @class = "form-control input-sm" })</div>
+    <div class="col-md-4"><button class="btn btn-primary btn-sm" type="button" onclick="GetEmployeeAttendance()"> <i class="i-Download1"></i>  Get    </button></div>
+</div>
+<br />
+<div class="row" style="padding:10px">
+
+    <div class="progress progress-md">
+        <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="@presentperc" aria-valuemin="0" aria-valuemax="100" style="width: @presentperc%">
+            @presentperc %   ( Present )
         </div>
-
     </div>
-    <div class="card-body progress-showcase row">
-        <div class="col">
-            <div class="progress">
-                <div class="progress-bar-animated progress-bar-striped bg-success" role="progressbar" style="width: @presentperc%" aria-valuenow="@presentperc" aria-valuemin="0" aria-valuemax="100">Present : @Model.PresentDays</div>
-            </div>
-            <div class="progress">
-                <div class="progress-bar-animated bg-danger progress-bar-striped" role="progressbar" style="width: @AbsentPer%" aria-valuenow="@AbsentPer" aria-valuemin="0" aria-valuemax="100"> Absent Days : @Model.LOPDays</div>
-            </div>
-            <div class="progress">
-                <div class="progress-bar-animated progress-bar-striped bg-warning" role="progressbar" style="width: @ArrearPer%" aria-valuenow="@ArrearPer" aria-valuemin="0" aria-valuemax="100">Arrear :@Model.ArrearDays
-                </div>
-            </div>
 
-
+    <div class="progress progress-md">
+        <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="@AbsentPer" aria-valuemin="0" aria-valuemax="100" style="width: @AbsentPer% ">
+            @AbsentPer%   ( Absent )
+        </div>
+    </div>
+    <div class="progress progress-md ">
+        <div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="@ArrearPer" aria-valuemin="0" aria-valuemax="100" style="width: @ArrearPer%">
+            @ArrearPer %   ( Arrear )
         </div>
     </div>
 </div>
+
+
+
+ 

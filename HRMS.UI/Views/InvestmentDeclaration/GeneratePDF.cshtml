@@ -1,0 +1,351 @@
+﻿@model HRMS.Core.ReqRespVm.Response.Investment.ComputationOfTaxReportVM
+@{
+
+    Layout = null;
+}
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor;
+@using HRMS.UI.Helpers;
+@using HRMS.Core.Entities.Organisation;
+@using HRMS.Core.Entities.Payroll;
+@{
+    var companyDetails = HttpContextAccessor.HttpContext.Session.GetObjectFromJson<Company>("companyDetails");
+    var employeeDetails = HttpContextAccessor.HttpContext.Session.GetObjectFromJson<EmployeeDetail>("UserDetail");
+
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style>
+        table {
+            width: 100%;
+            margin: auto;
+            border-collapse: collapse;
+            border: 1px solid black;
+        }
+
+        .table-container {
+            /*margin: 15px;*/
+            font-family: Verdana;
+        }
+
+        .detail {
+            font-size: 14px;
+            padding: 2px 3px 2px 5px;
+            vertical-align: top;
+        }
+
+            .detail tr td:last-child {
+                padding-bottom: 20px;
+            }
+
+        .earded {
+            border: 1px solid black;
+            font-size: 12px;
+            padding: 2px 5px 2px 5px;
+        }
+
+            .earded strong {
+                font-size: 13px;
+            }
+
+        .logo {
+            position: absolute;
+            top: 0px;
+            width: 150px;
+        }
+
+            .logo img {
+                width: 100%;
+            }
+
+        .text-right {
+            text-align: right;
+            border-right: 1px solid black;
+        }
+
+        .earded tr td:nth-child(odd) {
+            font-size: 14px;
+            padding: 2px 5px 2px 5px;
+            text-align: left;
+        }
+
+        .earded tr td:nth-child(even) {
+            font-size: 14px;
+            padding: 2px 5px 2px 5px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="table-container">
+        <table>
+            <tbody>
+                <tr style="border-bottom:1px solid black;">
+                    <td class="earded" colspan="4" valign="top" style="text-align: center;  ">
+                        <p><strong style="font-size:17px"> @companyDetails.Name</strong></p>
+                        <div class="logo">
+                            <img src="@companyDetails.Logo" alt=" logo" style="margin-top:2px" />
+                        </div>
+                        <br />
+                        <br />
+
+                        <strong style="font-size:16px">TAX COMPUTATION FOR THE YEAR: 2021-2022</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="detail" width="25%"><strong>Employee Code:</strong></td>
+                    <td class="detail" width="25%">@employeeDetails.EmpCode</td>
+                    <td class="detail" width="25%"><strong>Employee Name:</strong></td>
+                    <td class="detail" width="25%">@employeeDetails.EmployeeName</td>
+                </tr>
+                <tr>
+                    <td class="detail" width="25%"><strong>Department:</strong></td>
+                    <td class="detail" width="25%">@employeeDetails.DepartmentName</td>
+                    <td class="detail" width="25%"><strong>PAN Number:</strong></td>
+                    <td class="detail" width="25%">@employeeDetails.PanCardNumber</td>
+                </tr>
+            </tbody>
+        </table>
+        <table style="border-top:none;">
+            <tbody>
+
+                <tr style="">
+
+                    <td colspan="2" style="border-left:1px solid black;border-right:1px solid; border-bottom:1px solid black;height:100%" valign="top">
+                        <table class="earded" style="border:none;">
+                            <tr>
+                                <td class="earded" colspan="2" style="font-size: 14px; font-weight: 600; border-top: none; text-align: center">Investment Details</td>
+                            </tr>
+                            <tr>
+                                <td class="earded" style="font-size:14px; font-weight:600;border-top:none;">Components</td>
+                                <td class="earded" style="font-size:14px; font-weight:600;border-top:none;text-align:right">Amount</td>
+                            </tr>
+
+                            @foreach (var inv in Model.Investments.GroupBy(x => x.Id))
+                            {
+
+                                <tr>
+                                    <td>@inv.FirstOrDefault().Name</td>
+                                    <td style="text-align:right">@string.Format("{0:0.00}", inv.Sum(x=>x.DeclaredAmount))</td>
+                                </tr>
+
+                            }
+                            <tr>
+                                <td class="earded" style="font-size:14px; font-weight:600;">Total </td>
+                                <td class="earded" style="font-size:14px; font-weight:600;text-align:right">@string.Format("{0:0.00}", Model.Investments.Sum(x => x.DeclaredAmount))</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td colspan="2" style="border-bottom:1px solid black;" valign="top">
+                        <table class="earded" style="border-right: 1px solid; border-left: none; border-bottom: none; border-top: none; ">
+                            <tr>
+                                <td class="earded" colspan="2" style="font-size: 14px; font-weight: 600; border-top: none; text-align: center">Tax Computation</td>
+                            </tr>
+                            <tr>
+                                <td class="earded" style="font-size:14px; font-weight:600; ">Components</td>
+                                <td class="earded" style="font-size:14px; font-weight:600; text-align:right">Amount</td>
+                            </tr>
+                            <tr>
+                                <td>Performance Incentive</td>
+                                <td class="text-right">    @Model.PerformanceIncentive</td>
+                            </tr>
+                            <tr>
+                                <td>Salary on Prorated basis </td>
+                                @{
+                                    decimal grossincome = Model.GrossSalary -Model.PerformanceIncentive;
+                                }
+                                <td class="text-right">    @grossincome</td>
+                            </tr>
+                            <tr>
+                                <td>Gross Total Income</td>
+                                <td class="text-right">    @Model.GrossSalary</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><b>Less:- Allowances exempt under Section 10 </b></td>
+                            </tr>
+                            <tr>
+                                <td>Section 10 (13A) - HRA Exemption</td>
+                                <td class="text-right">  @Model.HRAExamption</td>
+                            </tr>
+                            <tr>
+                                <td>Section 10 Allowances (other than HRA)</td>
+                                <td class="text-right">  @Model.Sec10</td>
+                            </tr>
+
+                            <tr>
+                                <td><b>Total amount of exemption claimed under section 10</b></td>
+                                <td class="text-right">
+
+                                    @{
+                                        decimal sec10 = Convert.ToDecimal(Model.Sec10) + Convert.ToDecimal(Model.HRAExamption);
+                                    }
+                                    <b> @sec10</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Total amount of salary received</b></td>
+                                <td class="text-right">
+
+                                    @{
+                                        decimal salaryreceived = Model.GrossSalary - sec10;
+                                    }
+                                    <b> @salaryreceived</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>(a) Standard Deduction - Section 16(ia)</td>
+                                <td class="text-right">  @Model.StanderedDeduction</td>
+                            </tr>
+                            <tr>
+                                <td>(b) Entertainment allowance under section 16(ii)</td>
+                                <td class="text-right"> 0.00</td>
+                            </tr>
+                            <tr>
+                                <td>(c) Professional Tax Section 16(iii)</td>
+                                <td class="text-right">  @Model.Sec16</td>
+                            </tr>
+                            <tr>
+                                <td><b>Total deductions under Section 16 </b></td>
+                                <td class="text-right">
+
+                                    @{
+                                        decimal deductionsunderSection16 = @Model.StanderedDeduction + @Model.Sec16;
+                                    }
+                                    <b>@deductionsunderSection16</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Income chargeable under the head "Salaries"</b></td>
+                                <td class="text-right">
+
+                                    @{
+                                        decimal Incomechargeable = salaryreceived - deductionsunderSection16;
+                                    }
+                                    <b>@Incomechargeable</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><b>Add:- Income or (admissible Loss) from house property</b></td>
+                            </tr>
+                            <tr>
+                                <td>Section 24 - Interest on Housing Loan</td>
+                                <td class="text-right">  @Model.Sec24</td>
+                            </tr>
+                            <tr>
+                                <td>Income under the head Other Sources offered for TDS</td>
+                                <td class="text-right">  0.00</td>
+                            </tr>
+                            <tr>
+                                <td><b>  Total Income Before Deduction Chapter VI A </b></td>
+                                <td class="text-right">
+                                    @{
+                                        decimal GrossTotalIncome = Incomechargeable - Model.Sec24;
+                                    }
+                                    <b>@GrossTotalIncome</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><b>Less:- Deductions under Chapter VI-A</b></td>
+                            </tr>
+
+                            <tr>
+                                <td>Section 80-C</td>
+                                <td class="text-right">  @Model.Sec80CExamption</td>
+                            </tr>
+                            <tr>
+                                <td>Section 80-CCD (1B)</td>
+                                <td class="text-right">  @Model.Sec80CCD1B</td>
+                            </tr>
+                            <tr>
+                                <td>Section 80-CCD (2)</td>
+                                <td class="text-right">  @Model.Sec80CCD2</td>
+                            </tr>
+                            <tr>
+                                <td>Section 80-D</td>
+                                <td class="text-right">  @Model.Sec80D</td>
+                            </tr>
+                            <tr>
+                                <td>Section 80-DD</td>
+                                <td class="text-right">  @Model.Sec80DD</td>
+                            </tr>
+                            <tr>
+                                <td>Section 80-E</td>
+                                <td class="text-right">  @Model.Sec80E</td>
+                            </tr>
+                            <tr>
+                                <td>Section 80-EE</td>
+                                <td class="text-right">  @Model.Sec80EE</td>
+                            </tr>
+                            <tr>
+                                <td>Section 80 EEB</td>
+                                <td class="text-right">  @Model.Sec80EEB</td>
+                            </tr>
+                            <tr>
+                                <td>Section 80-G</td>
+                                <td class="text-right">  @Model.Sec80G</td>
+                            </tr>
+                            <tr>
+                                <td>Section 80-GG</td>
+                                <td class="text-right">  @Model.Sec80GG</td>
+                            </tr>
+                            <tr>
+                                <td>Section 80-U</td>
+                                <td class="text-right">  @Model.Sec80U</td>
+                            </tr>
+                            <tr>
+                                <td><b>Aggregate of deductible amount under Chapter VI-A</b></td>
+                                <td class="text-right">
+
+                                    @{
+                                        decimal Aggregatedeductibleamount = @Model.Sec80U + @Model.Sec80GG + @Model.Sec80G + @Model.Sec80EEB + @Model.Sec80EE + @Model.Sec80E + @Model.Sec80DD + @Model.Sec80D + @Model.Sec80CCD2 + @Model.Sec80CCD1B + @Model.Sec80CExamption;
+                                    }
+                                    <b>@Aggregatedeductibleamount</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Total taxable income</b></td>
+                                <td class="text-right">
+
+                                    @{
+                                        decimal Totaltaxableincome = GrossTotalIncome - Aggregatedeductibleamount;
+                                    }
+                                    <b>@Totaltaxableincome</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Tax Payable</b></td>
+                                <td class="text-right">
+                                    <b>@Model.FinalTDSAmountYearly</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Tax Deducted from Salary</b></td>
+                                <td class="text-right">
+                                    <b>@Model.PaidTax</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Net Tax Payable</b></td>
+                                <td class="text-right">
+                                    <b>@Model.RemainingTax</b>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+
+            </tbody>
+        </table>
+
+    </div>
+
+</body>
+</html>
+
+

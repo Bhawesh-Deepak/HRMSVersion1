@@ -1,0 +1,145 @@
+﻿@model HRMS.Core.Entities.Leave.LeaveAllocation
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<link href="~/css/site.css" rel="stylesheet" />
+<style>
+   
+    .ui-autocomplete {
+        max-height: 300px;
+        overflow-y: auto;
+        overflow-x: auto;
+    }
+
+    html .ui-autocomplete {
+        max-height: 300px;
+    }
+</style>
+
+ <div class="row" style="margin-top:0;">
+    <div class="col-md-12 col-sm-12">
+        <div class="box box-success">
+            <div class="box-header with-border">
+                <div class="box-title">
+                    <i class="fa fa-plus text-primary"></i> &nbsp;  Leave Allocation
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12 ui-sortable">
+                        <form id="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="AjaxOnBegin"
+                              data-ajax-complete="AjaxComplete"
+                              asp-action="UpsertLeaveAllocation" enctype="multipart/form-data"
+                              asp-controller="LeaveAllocation" data-ajax-success="Success">
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail2">Employee Code :</label><em class="text-danger">*</em>
+                                        <input type="text" asp-for="EmpCode" class="form-control input-sm">
+                                        <span asp-validation-for="EmpCode" class="text-danger"></span>
+                                        <input type="hidden" asp-for="Id" />
+                                        <input type="hidden" asp-for="FinancialYear" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail2">Annual Leave:</label><em class="text-danger">*</em>
+                                        <input type="number" value="0" asp-for="AnnualLeave" class="form-control input-sm">
+                                        <span asp-validation-for="AnnualLeave" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail2">Mandatory Leave :</label><em class="text-danger">*</em>
+                                        <input type="number" value="0" asp-for="MandatoryLeave" class="form-control input-sm">
+                                        <span asp-validation-for="MandatoryLeave" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail2">Optional Leave:</label><em class="text-danger">*</em>
+                                        <input type="number" value="0" asp-for="OptionalLeave" class="form-control input-sm">
+                                        <span asp-validation-for="OptionalLeave" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail2">Sick Leaves :</label><em class="text-danger">*</em>
+                                        <input type="number" value="0" asp-for="SickLeaves" class="form-control input-sm">
+                                        <span asp-validation-for="SickLeaves" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail2">Maternity Leave:</label><em class="text-danger">*</em>
+                                        <input type="number" value="0" asp-for="MaternityLeave" class="form-control input-sm">
+                                        <span asp-validation-for="MaternityLeave" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail2">Paternity Leave :</label><em class="text-danger">*</em>
+                                        <input type="number" value="0" asp-for="PaternityLeave" class="form-control input-sm">
+                                        <span asp-validation-for="PaternityLeave" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail2">Bereavement Leave:</label><em class="text-danger">*</em>
+                                        <input type="number" value="0" asp-for="BereavementLeave" class="form-control input-sm">
+                                        <span asp-validation-for="BereavementLeave" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 pull-right">
+                                    <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#EmpCode").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/Common/getEmployeeAutoComplete',
+                    method: "POST",
+                    data: { "term": request.term },
+                    dataType: "json",
+                    success: function (data) {
+                        response($.map(data, function (item) {
+
+                            return {
+                                label: item.employeeName,
+                                value: item.empCode,
+                                employeeid: item.id
+                            };
+                        }))
+                    },
+                    error: function (xhr, textStatus, error) {
+                        alert(xhr.statusText);
+                    },
+                    failure: function (response) {
+                        alert("failure " + response.responseText);
+                    }
+                });
+            },
+            select: function (e, i) {
+                $("#EmpCode").text(i.item.value);
+            },
+            minLength: 3
+        });
+    });
+</script>

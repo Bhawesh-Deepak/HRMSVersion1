@@ -3,6 +3,13 @@
 }
 @using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor HttpContextAccessor;
+@using HRMS.UI.Helpers;
+@using HRMS.Core.Entities.Organisation;
+
+@{
+    var companyDetails = HttpContextAccessor.HttpContext.Session.GetObjectFromJson<Company>("companyDetails");
+
+}
 <script src="~/resources/plugins/high-chart/js/highcharts.js"></script>
 <script src="~/resources/plugins/high-chart/js/exporting.js"></script>
 <script src="~/resources/plugins/high-chart/js/export-data.js"></script>
@@ -10,77 +17,95 @@
 <link href="~/resources/plugins/high-chart/css/highchartcustom.css" rel="stylesheet" />
 <script src="~/resources/plugins/high-chart/js/data.js"></script>
 <script src="~/resources/plugins/high-chart/js/highcharts-3d.js"></script>
+<style>
+    a {
+        color: #2c2e2b;
+        text-decoration: none;
+    }
+    
+</style>
 
-
-
-<div class="page-body">
-    <div class="container-fluid">
-        <div class="page-header">
-            <div class="row">
-                <div class="col-sm-6">
-                    <h3>Dashboard</h3>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">DashBoard</a></li>
-
-                    </ol>
-                </div>
-                
-            </div>
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="header-icon">
+            <i class="pe-7s-home"></i>
         </div>
-    </div>
-    <!-- Container-fluid starts-->
-    <div class="container-fluid calendar-basic">
+        <div class="header-title">
+            <h1>Welcome To  - @companyDetails.Name </h1>
+            <small>Employee Dashboard</small>
+            <ol class="breadcrumb">
+                <li><a asp-action="Index" asp-controller="Home"><i class="pe-7s-home"></i> Home</a></li>
+                <li class="active">Dashboard</li>
+            </ol>
+        </div>
+    </section>
+    <section class="content">
         <div class="row">
-            <div class="col-7">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <button class="btn btn-success move-today btn-sm" type="button" onclick="GetHoliday();"><i class="fa fa-clock-o"> </i> Holiday</button>
-                            <div class="col-md-12">
+            <div class="col-sm-12 col-md-6">
+                <div class="panel panel-bd  ">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            <h4>
+                                <i class="fa fa-calendar"></i> Attendance
+                                <button class="btn btn-black btn-sm pull-right" type="button" onclick="GetHoliday();"><i class="fa fa-clock-o"> </i> Holiday</button>
+                            </h4>
 
-                                <div id="right">
-                                    <div id="calendar"></div>
-                                </div>
-                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-5">
-                <div class="card">
-                    <div class="card-body" id="div_Payslip">
-
-                    </div>
-                    <div class="card" id="div_Form16">
-
+                    <div class="panel-body" style="min-height:492px">
+                        <div id="calendar"></div>
                     </div>
                 </div>
-
             </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-
-                    <div class="card-body">
-                        <div class="row">
-
-                            <div class="col-md-12">
-                                <div id="right">
-                                    <div id="container"></div>
-                                </div>
-                            </div>
+            <div class="col-sm-6 col-md-6">
+                <div class="panel panel-bd lobidisable">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            <h4> <i class="fa fa-file-pdf-o"></i> Pay Slip</h4>
                         </div>
                     </div>
+                    <div class="panel-body" id="div_Payslip">
+
+                    </div>
+                    <div class="panel panel-bd lobidisable">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <h4> <i class="fa fa-download"></i> Download Form 16</h4>
+                            </div>
+                        </div>
+                        <div class="panel-body" id="div_Form16">
+
+                        </div>
+
+                    </div>
                 </div>
             </div>
 
         </div>
-    </div>
-    <!-- Container-fluid Ends-->
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <div class="panel panel-bd  ">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            <h4>
+                                <i class="fa fa-bar-chart"></i> This Year Gross Salary & Perfomance Incentive
+
+                                <select style="max-width: 122px;" class="form-control input-sm pull-right" id="FinancialYear" name="FinancialYear" asp-items="@(new SelectList(ViewBag.AssesmentYearList ,"Id","Name"))">
+                                    <option value="">--Select One--</option>
+                                </select>
+
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="panel-body" style="min-height:492px">
+                        <div id="container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 
- 
 <link href="~/calendar/main.css" rel="stylesheet" />
 <script src="~/calendar/main.js"></script>
 <script>
@@ -109,6 +134,7 @@
                     })
                 }
                 calendar.unselect()
+               
             },
             eventClick: function (arg) {
                 if (confirm('Are you sure you want to delete this event?')) {
@@ -116,6 +142,11 @@
                 }
             },
             editable: true,
+
+            //eventRender: function (event, element, view) {
+            //    var view = 'month';
+            //    if (event.start.getMonth() !== view.start.getMonth()) { return false; }
+            //},
             dayMaxEvents: true, // allow "more" link when too many events
             events: [
                 //{
@@ -183,6 +214,21 @@
 
 <script>
     $(document).ready(function () {
+
+        let companydetail = $("#hdnCompanyName").val();
+        "use strict";
+        setTimeout(function () {
+            toastr.options = {
+                closeButton: true,
+                progressBar: true,
+                showMethod: 'slideDown',
+                timeOut: 4000,
+                positionClass: "toast-bottom-right"
+            };
+            toastr.success('Employee Dashboard', 'Welcome to ' + companydetail);
+
+        }, 1300);
+
         $('#divLoader').modal('show');
         $.get("/Home/EmployeePayslip", {}, function (response) {
             $("#div_Payslip").html(response);
@@ -195,12 +241,16 @@
         getemployeeGrossANdPI(0);
 
     });
+    $("#FinancialYear").change(function () {
+        getemployeeGrossANdPI($("#FinancialYear").val());
+    });
+
     function GetHoliday() {
         $('#divLoader').modal('show');
         $.get("/Common/GetCompanyHoliday", {}, function (response) {
             $("#Div_HRMS_modal").html(response);
             $('#HeaderText').text('Holidays');
-            $('#exampleModalfat').modal('show');
+            $('#HRMSmodal').modal('show');
             $('#divLoader').modal('hide');
         });
 
@@ -209,12 +259,13 @@
 <script type="text/javascript">
 
     function getemployeeGrossANdPI(event) {
+        debugger;
         $('#divLoader').modal('show');
         var Months = [];
         var Gross = [];
         var PI = [];
         $.get("/Home/getEmployeeGrossAndPI", { FinancialYear: event }, function (response) {
-            debugger
+
             for (i = 0; i < response.length; i++) {
                 Months.push(response[i].monthsName);
                 Gross.push(response[i].grossSalary);
@@ -299,3 +350,4 @@
         });
     }
 </script>
+

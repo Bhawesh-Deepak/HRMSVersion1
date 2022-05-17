@@ -48,5 +48,9 @@ namespace HRMS.Services.Implementation.SqlConstant
         public const string GetNoOfEmployeeWhomSalaryPaid = @"[Reporting].[usp_GetNoOfEmployeeWhomSalaryPaid]";
         public const string GetNoOfEmployeeWhomIncentivePaid = @"[Reporting].[usp_GetNoOfEmployeeWhomIncentivePaid]";
         public const string GetSingleEmployeeDetailByEmpCode = @"[Payroll].[usp_GetSingleEmployeeDetailByEmpCode]";
+        public const string GetInvestmentDeclarationOldMethod = @"[Investment].[usp_GetInvestmentDeclaration]";
+        public const string CalculateTDS = @"[Investment].[usp_CalculateTDS]";
+        public const string ComputationOfTaxReport = @"[Investment].[usp_ComputationOfTaxReport]";
+        public const string EmployeeSalaryDetail = @"[Investment].[usp_EmployeeSalaryDetail]";
     }
 }

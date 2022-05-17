@@ -95,6 +95,7 @@ namespace HRMS.UI.Controllers.UserManagment
                         HttpContext.Session.SetString("financialYearId", responseData.AssesmentYearDetail.Id.ToString());
                         HttpContext.Session.SetString("financialYear", responseData.AssesmentYearDetail.Name.ToString());
                         HttpContext.Session.SetString("EmpCode", responseData.EmployeeDetail.FirstOrDefault().EmpCode.ToString());
+                       
 
                         if (!string.IsNullOrEmpty(returnurl))
                         {

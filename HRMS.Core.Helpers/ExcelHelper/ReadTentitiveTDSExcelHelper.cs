@@ -1,4 +1,5 @@
-﻿using HRMS.Core.Entities.Payroll;
+﻿using HRMS.Core.Entities.Investment;
+using HRMS.Core.Entities.Payroll;
 using HRMS.Core.Helpers.CommonHelper;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -39,7 +40,7 @@ namespace HRMS.Core.Helpers.ExcelHelper
                 TentitiveTDS.Sec24 = dataResult.dtResult.Rows[i][17].ToString().GetDefaultDBNull<decimal>();
                 TentitiveTDS.Sec10 = dataResult.dtResult.Rows[i][18].ToString().GetDefaultDBNull<decimal>();
                 TentitiveTDS.Sec16 = dataResult.dtResult.Rows[i][19].ToString().GetDefaultDBNull<decimal>();
-                TentitiveTDS.PreviousEmployerSalary = dataResult.dtResult.Rows[i][20].ToString().GetDefaultDBNull<decimal>();
+                TentitiveTDS.previousemployersal = dataResult.dtResult.Rows[i][20].ToString().GetDefaultDBNull<decimal>();
                 TentitiveTDS.Age = dataResult.dtResult.Rows[i][21].ToString().GetDefaultDBNull<int>();
                 TentitiveTDS.TotalExamptAmount = dataResult.dtResult.Rows[i][22].ToString().GetDefaultDBNull<decimal>();
                 TentitiveTDS.TaxableAmount = dataResult.dtResult.Rows[i][23].ToString().GetDefaultDBNull<decimal>();

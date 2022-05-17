@@ -6,42 +6,89 @@
 <script src="~/resources/plugins/high-chart/js/data.js"></script>
 <script src="~/resources/plugins/high-chart/js/highcharts-3d.js"></script>
 
-
-<div class="page-body dashboard-2-main">
-    <!-- Container-fluid starts-->
-    <div class="container-fluid">
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="header-icon">
+            <i class="pe-7s-info"></i>
+        </div>
+        <div class="header-title">
+            <h1>Monthly Earning </h1>
+            <small>Employee Dashboard</small>
+            <ol class="breadcrumb">
+                <li><a asp-action="Index" asp-controller="Home"><i class="pe-7s-home"></i> Home</a></li>
+                <li><a href="javascript:void(0)"><i class="pe-7s-info"></i> Compensation</a></li>
+                <li class="active">Monthly Earning</li>
+            </ol>
+        </div>
+    </section>
+    <section class="content">
         <div class="row">
-            <div class="col-xl-6 box-col-12 des-xl-100 invoice-sec">
-                <div class="card">
-                    <div class="card-body p-0">
+            <div class="col-sm-12 col-md-6">
+                <div class="panel panel-bd  ">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            <h4>
+                                <i class="fa fa-bar-chart"></i> Gross Vs Net ( Last 23 Month )
+                                
+                            </h4>
+
+                        </div>
+                    </div>
+                    <div class="panel-body">
                         <div id="container"></div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-6 box-col-12 des-xl-100 top-dealer-sec">
+            <div class="col-sm-6 col-md-6">
+                <div class="panel panel-bd lobidisable">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            <h4> <i class="fa fa-calendar"></i> Attendance Status</h4>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div id="DivAttendanceStatus"></div>
+                        <br />
+                        <div class="panel panel-bd lobidisable">
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    <h4> <i class="fa fa-download"></i> Download Form 16</h4>
+                                </div>
+                            </div>
+                            <div class="panel-body" id="div_Form16">
 
-                <div id="DivAttendanceStatus"></div>
-                <br />
-                <div class="card" id="div_Form16">
+                            </div>
+
+                        </div>
+                    </div>
+                     
                 </div>
             </div>
+
         </div>
-
         <div class="row">
-            <div class="col-6">
-                <div class="card">
-                    <div class="card-body" id="div_Payslip">
+            <div class="col-sm-12 col-md-6">
+                <div class="panel panel-bd  ">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            <h4>
+                                <i class="fa fa-file-pdf-o"></i> Pay Slip
 
+                            </h4>
+
+                        </div>
                     </div>
-                    
+                    <div class="panel-body" id="div_Payslip">
+                        
+                    </div>
                 </div>
-
             </div>
              
+
         </div>
-    </div>
-    <!-- Container-fluid Ends-->
+    </section>
 </div>
+ 
 <script type="text/javascript">
     $(document).ready(function () {
         $('#divLoader').modal('show');
@@ -58,7 +105,7 @@
 
     });
     function GetEmployeeAttendance() {
-        debugger;
+        
         var dateMonth = $("#DateMonth").val();
         var dateYear = $("#DateYear").val();
         getEmployeeAttendanceStatus(dateMonth, dateYear);

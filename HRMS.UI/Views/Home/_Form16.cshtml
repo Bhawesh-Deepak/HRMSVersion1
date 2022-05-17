@@ -1,22 +1,13 @@
-﻿<div class="card-header pb-0" style="padding:2px">
-    <h6>Download Form 16</h6>
+﻿
+<div class="form-group">
+    <label for="exampleSelect1">Financial Year</label>
+    <select class="form-control input-sm" for="FinancialYear" asp-items="@(new SelectList(ViewBag.AssesmentYearList ,"Id","Name"))">
+        <option value="">--Select One--</option>
+    </select>
+    <br />
+    <button class="btn btn-primary pull-right" type="submit">Submit</button>
 </div>
-<form class="form theme-form">
-    <div class="card-body" style="padding:2px">
-        <div class="row">
-            <div class="col">
-                <div class="mb-3">
-                    <label class="form-label" for="exampleFormControlInput1">Financial Year</label>
-                    <select class="form-control input-sm" for="FinancialYear" asp-items="@(new SelectList(ViewBag.AssesmentYearList ,"Id","Name"))">
-                        <option value="">--Select One--</option>
-                    </select>
-                    <br />
 
-                    <button class="btn btn-primary pull-right" type="submit">Submit</button>
-                </div>
-            </div>
-        </div>
 
-    </div>
 
-</form>
+ 

@@ -1,12 +1,22 @@
-﻿<footer class="footer">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-6 footer-copyright">
-                <p class="mb-0">Copyright @DateTime.Now.Year © Kudo Tech .</p>
-            </div>
-            <div class="col-md-6">
-                <p class="pull-right mb-0">Hand crafted & made with <i class="fa fa-heart font-secondary"></i></p>
-            </div>
-        </div>
-    </div>
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor;
+@using HRMS.UI.Helpers;
+@using HRMS.Core.Entities.Organisation;
+ 
+@{
+    var companyDetails = HttpContextAccessor.HttpContext.Session.GetObjectFromJson<Company>("companyDetails");
+    
+}
+
+
+
+
+
+
+
+
+
+<footer class="main-footer">
+    <div class="pull-right hidden-xs"> <b>Version</b> 1.0</div>
+    <strong>Copyright &copy; @DateTime.Now.Year <a href="@companyDetails.Url">@companyDetails.Name</a>.</strong> All rights reserved. <i class="fa fa-heart color-green"></i>
 </footer>

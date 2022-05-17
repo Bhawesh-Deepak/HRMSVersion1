@@ -1,0 +1,86 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <label>Browse File </label><em class="text-danger">*</em>
+        <input type="file" name="file" id="file" class="form-control" multiple placeholder="Prof" accept=".pdf">
+        <span id="spanImageError" style="color:red"></span>
+        <input type="hidden" id="hdnfile" name="hdnfile" />
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table" id="FilesList" style="visibility:hidden">
+            <tr>
+                <th>
+                    Attachment(s)
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+            <tfoot>
+                <tr>
+                    <td><span style="color:red">Note: Several file can be upload. After attaching file , please click on attach button , then press on Save changes.</span></td>
+                    <td><input type="button" id="btnupload" value="Attach" class="btn btn-success" /> <span id="span_msg" style="color:green"></span></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+</div>
+
+<script>
+    var formdata = new FormData();
+
+    $("#file").on("change", function () {
+        var fileInput = document.getElementById('file');
+        for (i = 0; i < fileInput.files.length; i++) {
+            var sfilename = fileInput.files[i].name;
+            let srandomid = Math.random().toString(36).substring(7);
+            formdata.append(sfilename, fileInput.files[i]);
+            var markup = "<tr id='" + srandomid + "'><td>" + sfilename + "</td><td><a title='Delete File click here' href='#' onclick='DeleteFile(\"" + srandomid + "\",\"" + sfilename +
+                "\")'><span class='fa fa-close text-danger'></span></a></td></tr>"; // Binding the file name
+            $("#FilesList tbody").append(markup);
+        }
+        chkatchtbl();
+        $('#file').val('');
+    });
+
+    function DeleteFile(Fileid, FileName) {
+        formdata.delete(FileName)
+        $("#" + Fileid).remove();
+        chkatchtbl();
+    }
+    function chkatchtbl() {
+        if ($('#FilesList tr').length > 2) {
+            $("#FilesList").css("visibility", "visible");
+        } else {
+            $("#FilesList").css("visibility", "hidden");
+        }
+    }
+    $("#btnupload").click(function () {
+
+        $.ajax({
+            url: '/investmentDeclaration/UploadPODataImage',
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: formdata,
+            async: false,
+            success: function (result) {
+                debugger;
+                if (result != "") {
+                    $("#hdnfile").val(result);
+                    $("#span_msg").text("File Attached Sucessfully !!!");
+                    $("#btnupload").hide();
+                    $("#btnUploadProof").css("visibility", "visible");
+                }
+            },
+            error: function (err) {
+                alert(err.statusText);
+            }
+        });
+    });
+
+</script>

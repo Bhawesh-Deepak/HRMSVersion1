@@ -1,0 +1,68 @@
+﻿@model IEnumerable<HRMS.Core.Entities.Investment.InvestmentDeclarationPDFDetails>
+
+
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="header-icon">
+            <i class="fa fa-handshake-o"></i>
+        </div>
+        <div class="header-title">
+            <h1>Tax Computation</h1>
+            <small>Employee Dashboard</small>
+            <ol class="breadcrumb">
+                <li><a asp-action="Index" asp-controller="Home"><i class="pe-7s-home"></i> Home</a></li>
+                <li class="active">Income Tax</li>
+                <li class="active">Tax Computation</li>
+            </ol>
+        </div>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <div class="panel panel-bd  ">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            <h4>
+                                <i class="fa fa-plus-circle"></i> Tax Computation
+
+                            </h4>
+
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table id="dataTableExample1" class="table table-bordered table-striped table-hover">
+                                <thead class="flip-content bordered-palegreen">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Employee Name</th>
+                                        <th>Assesment Year</th>
+                                        <th>Uploaded Date</th>
+                                        <th>Action</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Reverse().Select((x, i) => new { Data = x, Index = i + 1 }))
+                                    {
+                                        <tr>
+                                            <td>@item.Index</td>
+                                            <td>@item.Data.EmpCode</td>
+                                            <td>@item.Data.AssesmentYear</td>
+                                            <td>@string.Format("{0:dd/MM/yyyy h:mm tt}", item.Data.CreatedDate)</td>
+                                            <td>
+                                                <a class="btn btn-primary btn-xs" target="_blank" href="@item.Data.FilePath"><i class="fa fa-download"></i></a>
+                                            </td>
+                                        </tr>
+
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

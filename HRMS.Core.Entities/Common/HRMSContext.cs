@@ -11,6 +11,8 @@ using System;
 using HRMS.Core.Entities.Talent;
 using HRMS.Core.Entities.History;
 using HRMS.Core.Entities.Reimbursement;
+using HRMS.Core.Entities.Investment;
+using HRMS.Core.Entities.Leave;
 
 namespace HRMS.Core.Entities.Common
 {
@@ -105,6 +107,17 @@ namespace HRMS.Core.Entities.Common
         public virtual DbSet<EmployeeForm16Detail> EmployeeForm16Details { get; set; }
         public virtual DbSet<EmployeeUpdateHistory> EmployeeUpdateHistorys { get; set; }
         public virtual DbSet<ReimbursementCategory> ReimbursementCategorys { get; set; }
+        public virtual DbSet<AssementMonth> AssementMonths { get; set; }
+        public virtual DbSet<EmployeeInvestmentDecalaration> EmployeeInvestmentDecalarations { get; set; }
+        public virtual DbSet<InvestmentChildNode> InvestmentChildNodes { get; set; }
+        public virtual DbSet<InvestmentDeclarationPDFDetails> InvestmentDeclarationPDFDetailss { get; set; }
+        public virtual DbSet<InvestmentDeclarationType> InvestmentDeclarationTypes { get; set; }
+        public virtual DbSet<InvestmentDeclarationWindow> InvestmentDeclarationWindows { get; set; }
+        public virtual DbSet<InvestmentMaster> InvestmentMasters { get; set; }
+        public virtual DbSet<InvestmentParticular> InvestmentParticulars { get; set; }
+        public virtual DbSet<LandLordDetail> LandLordDetails { get; set; }
+        public virtual DbSet<InvestmentProofEntry> InvestmentProofEntrys { get; set; }
         #endregion
+
     }
 }

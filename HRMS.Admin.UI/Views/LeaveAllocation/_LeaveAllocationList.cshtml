@@ -1,0 +1,116 @@
+﻿@model IEnumerable<HRMS.Core.Entities.Leave.LeaveAllocation>
+
+<div class="content-wrapper" style="min-height: 870px;">
+    @Html.BuildBreadcrumbNavigation()
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row" style="margin-top:0;">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="box-title">
+                                    <i class="fa fa-list-alt text-primary"></i> &nbsp;  Leave Allocation List
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <div class="table-responsive">
+
+                                    <div class="dataTables_wrapper" role="grid">
+
+
+                                        <table class="table table-condensed table-striped table-hover table-bordered table-body-nowrap table-head-nowrap dataTable" cellspacing="0" rules="all" border="1" id="example" style="border-collapse:collapse;" aria-describedby="cp_MainContent_widgetExitEmployee_grdExitEmployees_info">
+                                            <thead>
+                                                <tr class="th-primary" role="row">
+                                                    <th>#</th>
+                                                    <th>Emp Code </th>
+                                                    <th>Annual Leave</th>
+                                                    <th>Mandatory Leave</th>
+                                                    <th>Optional Leave </th>
+                                                    <th>Sick Leaves</th>
+                                                    <th>Maternity Leave</th>
+                                                    <th>Paternity Leave </th>
+                                                    <th>Bereavement Leave</th>
+                                                    <th>Action</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody role="alert" aria-live="polite" aria-relevant="all">
+                                                @{
+                                                    int count = 1;
+                                                    string trclass = string.Empty;
+                                                }
+                                                @foreach (var data in Model.GroupBy(x => x.Id))
+                                                {
+                                                    if (count / 2 == 0)
+                                                    {
+                                                        trclass = "even";
+                                                    }
+                                                    else
+                                                    {
+                                                        trclass = "odd";
+                                                    }
+                                                    <tr class="@trclass">
+                                                        <td align="left" style="width:3%;" class="sorting_1">
+                                                            @count
+                                                        </td>
+                                                        <td align="left" style="width:8%;" class="sorting_1">
+                                                            @data.First().EmpCode
+                                                        </td>
+                                                        <td align="left" style="width:5%;" class="sorting_1">
+                                                            @data.First().AnnualLeave
+                                                        </td>
+                                                        <td align="left" style="width:5%;" class="sorting_1">
+                                                            @data.First().MandatoryLeave
+                                                        </td>
+                                                        <td align="left" style="width:5%;" class="sorting_1">
+                                                            @data.First().OptionalLeave
+                                                        </td>
+                                                        <td align="left" style="width:5%;" class="sorting_1">
+                                                            @data.First().SickLeaves
+                                                        </td>
+                                                        <td align="left" style="width:5%;" class="sorting_1">
+                                                            @data.First().MaternityLeave
+                                                        </td>
+                                                        <td align="left" style="width:5%;" class="sorting_1">
+                                                            @data.First().PaternityLeave
+                                                        </td>
+                                                        <td align="left" style="width:5%;" class="sorting_1">
+                                                            @data.First().BereavementLeave
+                                                        </td>
+                                                        <td align="center" style="width:7%;" class="sorting_1">
+                                                            <a title="Edit" class="btn btn-primary btn-xs" onclick="UpdateRecord(@data.First().Id, this)">
+                                                                <i class="fa fa-pencil "></i>
+                                                            </a>
+                                                            <a title="Delete" class="btn btn-xs btn-danger" onclick="Delete(@data.First().Id, this)"><i class="fa fa-ban"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                    count++;
+
+                                                }
+
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</div>
+
+
+
+<environment include="Development">
+    <script src="~/HRMSJs/LeaveAllocation.js"></script>
+</environment>
+<environment include="Production">
+    <script src="~/HRMSJs/LeaveAllocation.js"></script>
+</environment>

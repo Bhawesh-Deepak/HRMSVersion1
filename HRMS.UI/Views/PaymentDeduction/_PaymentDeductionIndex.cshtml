@@ -1,46 +1,62 @@
 ﻿@model IEnumerable<HRMS.Core.ReqRespVm.Response.Reporting.PaymentDeductionVM>
 
-<div class="page-body">
-    <div class="container-fluid dashboard-default-sec">
-        <div class="row">
-            <div class="col-xl-12 box-col-12 des-xl-100">
-                <div class="row">
-                    <div class="col-xl-12 col-md-6 box-col-6 des-xl-50">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5>Payment Deduction</h5>
-                                <div class="header-top">
 
-                                </div>
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="header-icon">
+                <i class="pe-7s-info"></i>
+            </div>
+            <div class="header-title">
+                <h1>Payment / Deduction </h1>
+                <small>Employee Dashboard</small>
+                <ol class="breadcrumb">
+                    <li><a asp-action="Index" asp-controller="Home"><i class="pe-7s-home"></i> Home</a></li>
+                    <li><a href="javascript:void(0)"><i class="pe-7s-info"></i> Compensation</a></li>
+                    <li class="active">Payment/Deduction</li>
+                </ol>
+            </div>
+        </section>
+        <section class="content">
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="panel panel-bd  ">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <h4>
+                                    <i class="fa fa-bar-chart"></i> Payment Deduction
+
+                                </h4>
+
                             </div>
-                            <div class="card-body text-center p-t-0">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                @foreach (var item in Model.GroupBy(x => x.DateMonth) )
-                                                {
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            @foreach (var item in Model.GroupBy(x => x.DateMonth))
+                                            {
                                                 <th scope="col"><a class="btn btn-primary btn-xs"><i class="fa fa-download"></i></a><br /> @item.First().MonthName</th>
-                                                }
-
-
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                            @{
-                                int[] Months = { 4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3 };
-                                int Serial = 0;
                                             }
-                                            @foreach (var ComponentGroup in Model.Where(x => x.DateMonth == Months[Serial]).GroupBy(x => x.ComponentType))
-                            {
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @{
+                                            int[] Months = { 4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3 };
+                                            int Serial = 0;
+                                        }
+                                        @foreach (var ComponentGroup in Model.Where(x => x.DateMonth == Months[Serial]).GroupBy(x => x.ComponentType))
+                                        {
                                             <tr>
 
                                                 <td colspan="14">
                                                     <div class="default-according style-1" id="accordionoc">
                                                         <div class="card">
-                                                            <div class="card-header bg-primary">
+                                                            <div class="card-header ">
                                                                 <h5 class="mb-0">
                                                                     <button class="btn btn-link text-white" data-bs-toggle="collapse" data-bs-target="@("#collapse-"+@ComponentGroup.First().ComponentType)" aria-expanded="true" aria-controls="collapse11"> <span> @ComponentGroup.First().ComponentCategory</span></button>
                                                                 </h5>
@@ -50,101 +66,101 @@
                                                                     <table class="table table-bordered">
                                                                         <tbody>
                                                                             @foreach (var item in ComponentGroup)
-                                                            {
-                                                                            <tr>
-                                                                                <td class="col-1 text-left">@item.ComponentName</td>
-                                                                                <td>
-                                                                                    @string.Format("{0:0.0}", item.SalaryAmount)
-                                                                                    <input type="hidden" id="hdnAmt" name="@("hdnAmt_4_" + item.ComponentType)" value="@item.SalaryAmount" />
-                                                                                </td>
-                                                                                @foreach (var SalVal in Model.Where(x => x.DateMonth == 5 && x.ComponentId == item.ComponentId))
-                                                                {
-                                                                                <td>
-                                                                                    @string.Format("{0:0.0}", SalVal.SalaryAmount)
-                                                                                    <input type="hidden" id="hdnAmt" name="@("hdnAmt_5_"   + item.ComponentType)" value="@SalVal.SalaryAmount" />
-                                                                                </td>
-                                                                }
-                                                                                @foreach (var SalVal in Model.Where(x => x.DateMonth == 6 && x.ComponentId == item.ComponentId))
-                                                                {
-                                                                                <td>
-                                                                                    @string.Format("{0:0.0}", SalVal.SalaryAmount)
-                                                                                    <input type="hidden" id="hdnAmt" name="@("hdnAmt_6_"  + item.ComponentType)" value="@SalVal.SalaryAmount" />
-                                                                                </td>
-                                                                }
-                                                                                @foreach (var SalVal in Model.Where(x => x.DateMonth == 7 && x.ComponentId == item.ComponentId))
-                                                                {
-                                                                                <td>
-                                                                                    @string.Format("{0:0.0}", SalVal.SalaryAmount)
-                                                                                    <input type="hidden" id="hdnAmt" name="@("hdnAmt_7_" + item.ComponentType)" value="@SalVal.SalaryAmount" />
-                                                                                </td>
-                                                                }
-                                                                                @foreach (var SalVal in Model.Where(x => x.DateMonth == 8 && x.ComponentId == item.ComponentId))
-                                                                {
-                                                                                <td>
-                                                                                    @string.Format("{0:0.0}", SalVal.SalaryAmount)
-                                                                                    <input type="hidden" id="hdnAmt" name="@("hdnAmt_8_"   + item.ComponentType)" value="@SalVal.SalaryAmount" />
-                                                                                </td>
-                                                                }
-                                                                                @foreach (var SalVal in Model.Where(x => x.DateMonth == 9 && x.ComponentId == item.ComponentId))
-                                                                {
-                                                                                <td>
-                                                                                    @string.Format("{0:0.0}", SalVal.SalaryAmount)
-                                                                                    <input type="hidden" id="hdnAmt" name="@("hdnAmt_9_"   + item.ComponentType)" value="@SalVal.SalaryAmount" />
-                                                                                </td>
-                                                                }
-                                                                                @foreach (var SalVal in Model.Where(x => x.DateMonth == 10 && x.ComponentId == item.ComponentId))
-                                                                {
-                                                                                <td>
-                                                                                    @string.Format("{0:0.0}", SalVal.SalaryAmount)
-                                                                                    <input type="hidden" id="hdnAmt" name="@("hdnAmt_10_"  + item.ComponentType)" value="@SalVal.SalaryAmount" />
-                                                                                </td>
-                                                                }
-                                                                                @foreach (var SalVal in Model.Where(x => x.DateMonth == 11 && x.ComponentId == item.ComponentId))
-                                                                {
-                                                                                <td>
-                                                                                    @string.Format("{0:0.0}", SalVal.SalaryAmount)
-                                                                                    <input type="hidden" id="hdnAmt" name="@("hdnAmt_11_"  + item.ComponentType)" value="@SalVal.SalaryAmount" />
-                                                                                </td>
-                                                                }
-                                                                                @foreach (var SalVal in Model.Where(x => x.DateMonth == 12 && x.ComponentId == item.ComponentId))
-                                                                {
-                                                                                <td>
-                                                                                    @string.Format("{0:0.0}", SalVal.SalaryAmount)
-                                                                                    <input type="hidden" id="hdnAmt" name="@("hdnAmt_12_"  + item.ComponentType)" value="@SalVal.SalaryAmount" />
-                                                                                </td>
-                                                                }
-                                                                                @foreach (var SalVal in Model.Where(x => x.DateMonth == 1 && x.ComponentId == item.ComponentId))
-                                                                {
-                                                                                <td>
-                                                                                    @string.Format("{0:0.0}", SalVal.SalaryAmount)
-                                                                                    <input type="hidden" id="hdnAmt" name="@("hdnAmt_1_"   + item.ComponentType)" value="@SalVal.SalaryAmount" />
-                                                                                </td>
-                                                                }
-                                                                                @foreach (var SalVal in Model.Where(x => x.DateMonth == 2 && x.ComponentId == item.ComponentId))
-                                                                {
-                                                                                <td>
-                                                                                    @string.Format("{0:0.0}", SalVal.SalaryAmount)
-                                                                                    <input type="hidden" id="hdnAmt" name="@("hdnAmt_2_"   + item.ComponentType)" value="@SalVal.SalaryAmount" />
-                                                                                </td>
-                                                                }
-                                                                                @foreach (var SalVal in Model.Where(x => x.DateMonth == 3 && x.ComponentId == item.ComponentId))
-                                                                {
-                                                                                <td>
-                                                                                    @string.Format("{0:0.0}", SalVal.SalaryAmount)
-                                                                                    <input type="hidden" id="hdnAmt" name="@("hdnAmt_3_"  + item.ComponentType)" value="@SalVal.SalaryAmount" />
-                                                                                </td>
-                                                                }
-
-                                                                                <td>
-                                                                                    @{
-                                                                decimal tval = Model.Where(x => x.ComponentId == item.ComponentId).Sum(x => x.SalaryAmount);
+                                                                            {
+                                                                                <tr>
+                                                                                    <td class="col-1 text-left">@item.ComponentName</td>
+                                                                                    <td>
+                                                                                        @string.Format("{0:0.0}", item.SalaryAmount)
+                                                                                        <input type="hidden" id="hdnAmt" name="@("hdnAmt_4_" + item.ComponentType)" value="@item.SalaryAmount" />
+                                                                                    </td>
+                                                                                    @foreach (var SalVal in Model.Where(x => x.DateMonth == 5 && x.ComponentId == item.ComponentId))
+                                                                                    {
+                                                                                        <td>
+                                                                                            @string.Format("{0:0.0}", SalVal.SalaryAmount)
+                                                                                            <input type="hidden" id="hdnAmt" name="@("hdnAmt_5_"   + item.ComponentType)" value="@SalVal.SalaryAmount" />
+                                                                                        </td>
+                                                                                    }
+                                                                                    @foreach (var SalVal in Model.Where(x => x.DateMonth == 6 && x.ComponentId == item.ComponentId))
+                                                                                    {
+                                                                                        <td>
+                                                                                            @string.Format("{0:0.0}", SalVal.SalaryAmount)
+                                                                                            <input type="hidden" id="hdnAmt" name="@("hdnAmt_6_"  + item.ComponentType)" value="@SalVal.SalaryAmount" />
+                                                                                        </td>
+                                                                                    }
+                                                                                    @foreach (var SalVal in Model.Where(x => x.DateMonth == 7 && x.ComponentId == item.ComponentId))
+                                                                                    {
+                                                                                        <td>
+                                                                                            @string.Format("{0:0.0}", SalVal.SalaryAmount)
+                                                                                            <input type="hidden" id="hdnAmt" name="@("hdnAmt_7_" + item.ComponentType)" value="@SalVal.SalaryAmount" />
+                                                                                        </td>
+                                                                                    }
+                                                                                    @foreach (var SalVal in Model.Where(x => x.DateMonth == 8 && x.ComponentId == item.ComponentId))
+                                                                                    {
+                                                                                        <td>
+                                                                                            @string.Format("{0:0.0}", SalVal.SalaryAmount)
+                                                                                            <input type="hidden" id="hdnAmt" name="@("hdnAmt_8_"   + item.ComponentType)" value="@SalVal.SalaryAmount" />
+                                                                                        </td>
+                                                                                    }
+                                                                                    @foreach (var SalVal in Model.Where(x => x.DateMonth == 9 && x.ComponentId == item.ComponentId))
+                                                                                    {
+                                                                                        <td>
+                                                                                            @string.Format("{0:0.0}", SalVal.SalaryAmount)
+                                                                                            <input type="hidden" id="hdnAmt" name="@("hdnAmt_9_"   + item.ComponentType)" value="@SalVal.SalaryAmount" />
+                                                                                        </td>
+                                                                                    }
+                                                                                    @foreach (var SalVal in Model.Where(x => x.DateMonth == 10 && x.ComponentId == item.ComponentId))
+                                                                                    {
+                                                                                        <td>
+                                                                                            @string.Format("{0:0.0}", SalVal.SalaryAmount)
+                                                                                            <input type="hidden" id="hdnAmt" name="@("hdnAmt_10_"  + item.ComponentType)" value="@SalVal.SalaryAmount" />
+                                                                                        </td>
+                                                                                    }
+                                                                                    @foreach (var SalVal in Model.Where(x => x.DateMonth == 11 && x.ComponentId == item.ComponentId))
+                                                                                    {
+                                                                                        <td>
+                                                                                            @string.Format("{0:0.0}", SalVal.SalaryAmount)
+                                                                                            <input type="hidden" id="hdnAmt" name="@("hdnAmt_11_"  + item.ComponentType)" value="@SalVal.SalaryAmount" />
+                                                                                        </td>
+                                                                                    }
+                                                                                    @foreach (var SalVal in Model.Where(x => x.DateMonth == 12 && x.ComponentId == item.ComponentId))
+                                                                                    {
+                                                                                        <td>
+                                                                                            @string.Format("{0:0.0}", SalVal.SalaryAmount)
+                                                                                            <input type="hidden" id="hdnAmt" name="@("hdnAmt_12_"  + item.ComponentType)" value="@SalVal.SalaryAmount" />
+                                                                                        </td>
+                                                                                    }
+                                                                                    @foreach (var SalVal in Model.Where(x => x.DateMonth == 1 && x.ComponentId == item.ComponentId))
+                                                                                    {
+                                                                                        <td>
+                                                                                            @string.Format("{0:0.0}", SalVal.SalaryAmount)
+                                                                                            <input type="hidden" id="hdnAmt" name="@("hdnAmt_1_"   + item.ComponentType)" value="@SalVal.SalaryAmount" />
+                                                                                        </td>
+                                                                                    }
+                                                                                    @foreach (var SalVal in Model.Where(x => x.DateMonth == 2 && x.ComponentId == item.ComponentId))
+                                                                                    {
+                                                                                        <td>
+                                                                                            @string.Format("{0:0.0}", SalVal.SalaryAmount)
+                                                                                            <input type="hidden" id="hdnAmt" name="@("hdnAmt_2_"   + item.ComponentType)" value="@SalVal.SalaryAmount" />
+                                                                                        </td>
+                                                                                    }
+                                                                                    @foreach (var SalVal in Model.Where(x => x.DateMonth == 3 && x.ComponentId == item.ComponentId))
+                                                                                    {
+                                                                                        <td>
+                                                                                            @string.Format("{0:0.0}", SalVal.SalaryAmount)
+                                                                                            <input type="hidden" id="hdnAmt" name="@("hdnAmt_3_"  + item.ComponentType)" value="@SalVal.SalaryAmount" />
+                                                                                        </td>
                                                                                     }
 
-                                                                                    <span>@tval</span>
-                                                                                    <input type="hidden" id="hdnAmt" name="@("hdnAmt"  + item.ComponentType)" value="@tval" />
-                                                                                </td>
-                                                                            </tr>
-                                                            }
+                                                                                    <td>
+                                                                                        @{
+                                                                                            decimal tval = Model.Where(x => x.ComponentId == item.ComponentId).Sum(x => x.SalaryAmount);
+                                                                                        }
+
+                                                                                        <span>@tval</span>
+                                                                                        <input type="hidden" id="hdnAmt" name="@("hdnAmt"  + item.ComponentType)" value="@tval" />
+                                                                                    </td>
+                                                                                </tr>
+                                                                            }
 
 
                                                                         </tbody>
@@ -156,24 +172,31 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                                }
-                                           
-                                        </tbody>
-                                    </table>
-                                </div>
+                                        }
 
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
+                 
+
             </div>
-        </div>
+             
+        </section>
     </div>
-</div>
 
 
 
 
+
+
+
+
+
+
+ 
 <script>
     function show_hide_row(row) {
 

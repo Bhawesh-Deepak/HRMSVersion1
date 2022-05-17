@@ -1,0 +1,41 @@
+﻿@model HRMS.Core.Entities.Investment.InvestmentProofEntry
+
+
+<style>
+    .table {
+        margin-top: 0px;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <input type="hidden" id="hdn_IDPPId" name="hdn_IDPPId" value="@Model.InvestmentChildNodeId" />
+        <input type="hidden" id="hdn_InvestmentProofEntryId" name="hdn_InvestmentProofEntryId" value="@Model.Id" />
+        <table class="table table-responsive table-hover" id="tblDeleteProof">
+            <thead>
+                <tr>
+                    <th>File</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.ProofUrl.Split(',').Count(); i++)
+                {
+                    <tr>
+                        <td>
+                            <a href="@Model.ProofUrl.Split(',')[i]" target="_blank"><i class="fa fa-eye text-blink"></i></a>
+                            <input type="hidden" id="proofURL" name="proofURL" class="proofURLclass" value="@Model.ProofUrl.Split(',')[i]" />
+
+                        </td>
+                        <td><a title='Delete File click here' href='#' class="btnDelete"><span class='fa fa-close text-danger'></span></a></td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    $("#tblDeleteProof").on('click', '.btnDelete', function () {
+        $(this).closest('tr').remove();
+    });
+</script>
